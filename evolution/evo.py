@@ -4,16 +4,12 @@ from typing import List, Dict, Tuple
 from functools import partial, reduce
 import os
 import pickle
-import warnings
-import sys
 
 import arff
 import pandas as pd
 import numpy as np
 from scipy.special import expit
 from sklearn.ensemble import RandomForestRegressor
-
-import multiprocessing
 
 from deap import creator, gp, tools, base, algorithms
 
@@ -88,7 +84,7 @@ def mass_evaluate(evaluate_fn, individuals, pset, metadataset: pd.DataFrame, sur
         def try_else_invalid(fn, input_):
             try:
                 values = fn(**dict(row))
-                if any([(isinstance(val, complex) or not np.isfinite(np.float32(val))) for val in values]):
+                if not all([np.isfinite(np.float32(val)) for val in values]):
                    raise ValueError("One or more values invalid for input as hyperparameter.")
                 return values
             except:
@@ -156,18 +152,6 @@ def evaluate(individual, pset, metadataset: pd.DataFrame, surrogates: Dict[str, 
     return np.mean(scores), loose_length
 
 
-def random_0_1():
-    return random.random()
-
-
-def random_1_10():
-    return float(random.randint(1, 10))
-
-
-def random_log():
-    return np.random.choice([2**i for i in range(-8, 9)])
-
-
 if __name__ == '__main__':
     import logging
 
@@ -197,19 +181,20 @@ if __name__ == '__main__':
         )
     )
     problem = optimization_problems['SVC']
-    # Load ARFF data
-    logging.info("Loading data.")
-    results = load_data(problem['filename'])
-
-    # Create surrogate model for each dataset.
-    # Keep categorical hyperparameters on default (ignoring imputation strategy):
-    #results = results[(results.adaboostclassifier__algorithm == 'SAMME.R')]
-    results = results[(results.svc__kernel == 'rbf')]
 
     if os.path.exists(problem['surrogates']):
         with open(problem['surrogates'], 'rb') as fh:
             surrogates = pickle.load(fh)
     else:
+        # Load ARFF data
+        logging.info("Loading data.")
+        results = load_data(problem['filename'])
+
+        # Create surrogate model for each dataset.
+        # Keep categorical hyperparameters on default (ignoring imputation strategy):
+        # results = results[(results.adaboostclassifier__algorithm == 'SAMME.R')]
+        results = results[(results.svc__kernel == 'rbf')]
+
         logging.info("Creating surrogate models.")
         surrogates = create_surrogates(
             results,
@@ -241,9 +226,9 @@ if __name__ == '__main__':
 
     pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), Tuple)
     pset.renameArguments(**{"ARG{}".format(i): var for i, var in enumerate(variable_names)})
-    pset.addEphemeralConstant("cs", random_0_1, ret_type=float)
-    pset.addEphemeralConstant("ci", random_1_10, ret_type=float)
-    pset.addEphemeralConstant("clog", random_log, ret_type=float)
+    pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
+    pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
+    pset.addEphemeralConstant("clog", lambda: np.random.choice([2**i for i in range(-8, 9)]), ret_type=float)
 
     binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow]
     unary_operators = [expit, operator.neg]
@@ -270,9 +255,6 @@ if __name__ == '__main__':
     toolbox.register("select", tools.selNSGA2)
     toolbox.register("mate", gp.cxOnePoint)
 
-    # Use all cores.
-    #pool = multiprocessing.Pool()
-
     def random_mutation(ind, pset):
         valid_mutations = [
             partial(gp.mutNodeReplacement, pset=pset),
@@ -287,16 +269,17 @@ if __name__ == '__main__':
 
     toolbox.register("mutate", random_mutation, pset=pset)
 
+    def no_evaluate():
+        raise NotImplementedError
+    toolbox.register("evaluate", function=no_evaluate)
+
     top_5s = {}
     # Leave one out for 100 and 1000 generations.
     for task in list(metadataset.index)[:1]:
         loo_metadataset = metadataset[metadataset.index != task]
         #toolbox.register("evaluate", evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
-        def no_evaluate():
-            raise NotImplementedError
-        toolbox.register("evaluate", function=no_evaluate)
+
         toolbox.register("map", partial(mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
-        #toolbox.register("mass_evaluate", mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
 
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
