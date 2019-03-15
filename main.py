@@ -36,6 +36,9 @@ def main():
     parser.add_argument('-c',
                         help="Configuration file.",
                         dest='config_file', type=str, default='problems.json')
+    parser.add_argument('-esn',
+                        help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
+                        dest='early_stopping_n', type=int, default=10)
     args = parser.parse_args()
 
     logging.basicConfig()
@@ -75,7 +78,10 @@ def main():
     metadataset = pd.read_csv(problem['experiment_meta'], index_col=0)
     top_5s = {}
 
-    for task in list(metadataset.index)[:1]:
+    last_best = (0, -10)
+    last_best_gen = 0
+
+    for task in list(metadataset.index):
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
@@ -89,22 +95,33 @@ def main():
         mstats.register("max", np.max)
         hof = tools.HallOfFame(10)
 
-        pop, logbook = algorithms.eaMuPlusLambda(
-            population=toolbox.population(n=args.lambda_),
-            toolbox=toolbox,
-            mu=args.mu,  # Number of Individuals to pass between generations
-            lambda_=args.lambda_,  # Number of offspring per generation
-            cxpb=0.5,
-            mutpb=0.5,
-            ngen=args.ngen,
-            verbose=True,
-            stats=mstats,
-            halloffame=hof
-        )
+        pop = toolbox.population(n=args.lambda_)
+        for i in range(args.ngen):
+            # Hacky way to integrate early stopping with DEAP.
+            pop, logbook = algorithms.eaMuPlusLambda(
+                population=pop,
+                toolbox=toolbox,
+                mu=args.mu,  # Number of Individuals to pass between generations
+                lambda_=args.lambda_,  # Number of offspring per generation
+                cxpb=0.5,
+                mutpb=0.5,
+                ngen=1,
+                verbose=True,
+                stats=mstats,
+                halloffame=hof
+            )
+            if hof[0].fitness.wvalues > last_best:
+                logging.info("New best: {} > {}".format(hof[0].fitness.wvalues, last_best))
+                last_best = hof[0].fitness.wvalues
+                last_best_gen = i
+            if i - last_best_gen > args.early_stopping_n:
+                logging.info("Stopping early, no new best in {} generations.".format(args.early_stopping_n))
+                break
+
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
-            print(str(ind))
+            logging.info(str(ind))
 
 
 if __name__ == '__main__':

@@ -38,6 +38,9 @@ def try_evaluate_function(fn, input_, invalid):
 def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object]):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values. """
+    if individuals == []:
+        return []
+
     fns = [gp.compile(individual, pset) for individual in individuals]
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
