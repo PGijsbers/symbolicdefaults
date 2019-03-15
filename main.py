@@ -5,19 +5,17 @@ import logging
 import operator
 import os
 import pickle
-import random
-import typing
 
 import arff
 import numpy as np
 import pandas as pd
-import scipy.special
 from sklearn.ensemble import RandomForestRegressor
 
-from deap import gp, creator, base, tools, algorithms
+from deap import tools, algorithms
 
 from surrogates import create_surrogates
-from evolution.operations import random_mutation, mass_evaluate, n_primitives_in
+from evolution import setup_toolbox
+from evolution.operations import mass_evaluate, n_primitives_in
 
 
 def load_data(file_path: str) -> pd.DataFrame:
@@ -99,60 +97,14 @@ def main():
     # Set up the evolutionary procedure with DEAP
     # ================================================
 
-    # Set variables of our genetic program:
-    variables = dict(
-        NumberOfClasses='m',
-        NumberOfFeatures='p',
-        NumberOfInstances='n',
-        MedianKernelDistance='mkd',
-        MajorityClassPercentage='mcp',
-        RatioSymbolicFeatures='rc'  # Number Symbolic / Number Features
-    )
-
-    variable_names = list(variables.values())
-
-    pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
-    pset.renameArguments(**{"ARG{}".format(i): var for i, var in enumerate(variable_names)})
-    pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
-    pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
-    pset.addEphemeralConstant("clog", lambda: np.random.choice([2**i for i in range(-8, 9)]), ret_type=float)
-
-    binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow]
-    unary_operators = [scipy.special.expit, operator.neg]
-    for binary_operator in binary_operators:
-        pset.addPrimitive(binary_operator, [float, float], float)
-    for unary_operator in unary_operators:
-        pset.addPrimitive(unary_operator, [float], float)
-
-    # Finally add a 'root-node' primitive (needed to find three functions at once)
-    def make_tuple(*args):
-        return tuple([*args])
-    pset.addPrimitive(make_tuple, [float] * len(problem['hyperparameters']), typing.Tuple)
-
-    # More DEAP boilerplate...
-    creator.create("FitnessMin", base.Fitness, weights=(1.0, -1.0))
-    creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
-
-    toolbox = base.Toolbox()
-    toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
-    toolbox.register("individual", tools.initIterate, creator.Individual,
-                     toolbox.expr)
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-
-    toolbox.register("select", tools.selNSGA2)
-    toolbox.register("mate", gp.cxOnePoint)
-    toolbox.register("mutate", random_mutation, pset=pset)
-
-    def no_evaluate():
-        raise NotImplementedError
-    toolbox.register("evaluate", function=no_evaluate)
+    toolbox, pset = setup_toolbox(problem)
 
     # ================================================
     # Start evolutionary optimization
     # ================================================
     metadataset = pd.read_csv(problem['experiment_meta'], index_col=0)
     top_5s = {}
-    # Leave one out for 100 and 1000 generations.
+
     for task in list(metadataset.index)[:1]:
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
@@ -179,7 +131,6 @@ def main():
             stats=mstats,
             halloffame=hof
         )
-        # [, stats, halloffame, verbose])
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
