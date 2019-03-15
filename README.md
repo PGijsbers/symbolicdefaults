@@ -4,11 +4,12 @@ Script to find symbolic expressions for default hyperparameter values.
 
 usage
 -
+Example: `python main.py adaboost -ngen 10`
+
 ```
 usage: python main.py [-h] [-m MU] [-l LAMBDA] [-ngen NGEN] [-c CONFIG_FILE] problem
 
-Uses evolutionary optimization to find symbolic expressions for default
-hyperparameter values.
+Uses evolutionary optimization to find symbolic expressions for default hyperparameter values.
 
 positional arguments:
   problem         Problem to optimize. Must match one of 'name' fields in the configuration file.
