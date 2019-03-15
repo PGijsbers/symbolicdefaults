@@ -24,7 +24,11 @@ def try_evaluate_function(fn, input_, invalid):
     """
     try:
         values = fn(**dict(input_))
-        if not all([np.isfinite(np.float32(val)) for val in values]):
+        # All float values need to be finite in range float32, i.e. abs() < 3.4028235e+38 (np.finfo(np.float32).max)
+        # However, `predict` internally also sums all values, and this may incur an overflow even if each individual
+        # value is finite. So, we constrict ourselves to the much smaller value of 2**100=1.2676506e+30 so that the
+        # summation should also never lead to an overflow value.
+        if not all([abs(val) < 1.2676506e+30 for val in values]):
             raise ValueError("One or more values invalid for input as hyperparameter.")
         return values
     except:
@@ -32,7 +36,8 @@ def try_evaluate_function(fn, input_, invalid):
 
 
 def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object]):
-    """ evaluate_fn is only for compatability with `map` signature. """
+    """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
+    :param evaluate: should turn (fn, row) into valid hyperparameter values. """
     fns = [gp.compile(individual, pset) for individual in individuals]
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
