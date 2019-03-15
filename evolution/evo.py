@@ -84,7 +84,7 @@ def mass_evaluate(evaluate_fn, individuals, pset, metadataset: pd.DataFrame, sur
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
 
-    for i, ((idx, row), surrogate) in enumerate(zip(metadataset.iterrows(), surrogates)):
+    for i, (idx, row) in enumerate(metadataset.iterrows()):
         def try_else_invalid(fn, input_):
             try:
                 values = fn(**dict(row))
@@ -95,6 +95,8 @@ def mass_evaluate(evaluate_fn, individuals, pset, metadataset: pd.DataFrame, sur
                 return (-1e6, -1e6)
 
         hyperparam_values = [try_else_invalid(fn, row) for fn in fns]
+
+        surrogate = surrogates[idx]
 
         scores = surrogate.predict(hyperparam_values)
 
@@ -191,7 +193,7 @@ if __name__ == '__main__':
                 'svc__C',
                 'svc__gamma'
             ],
-            surrogates='../data/svc_surrogates_1.pkl'
+            surrogates='../data/svc_surrogates.pkl'
         )
     )
     problem = optimization_problems['SVC']
@@ -212,8 +214,13 @@ if __name__ == '__main__':
         surrogates = create_surrogates(
             results,
             hyperparameters=problem['hyperparameters'],
-            metalearner=lambda: RandomForestRegressor(n_estimators=100, n_jobs=1)
+            metalearner=lambda: RandomForestRegressor(n_estimators=100, n_jobs=-1)
         )
+        for surrogate in surrogates.values():
+            # We want parallelization during training, but not during prediction
+            # as our prediction batches are too small to make the multiprocessing overhead worth it (tested).
+            surrogate.set_params(n_jobs=1)
+
         with open(problem['surrogates'], 'wb') as fh:
             pickle.dump(surrogates, fh)
 
@@ -288,8 +295,7 @@ if __name__ == '__main__':
         def no_evaluate():
             raise NotImplementedError
         toolbox.register("evaluate", function=no_evaluate)
-        task_surrogates = [surrogates[idx] for idx in loo_metadataset.index]
-        toolbox.register("map", partial(mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=task_surrogates))
+        toolbox.register("map", partial(mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
         #toolbox.register("mass_evaluate", mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
 
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
