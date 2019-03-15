@@ -1,9 +1,9 @@
 [
   {
     "name": "adaboost",
-    "experiments": "adaboost.arff",
+    "experiments": "data/adaboost.arff",
     "experiment_meta": "data/pp_metadata.csv",
-    "surrogates": "adaboost_surrogates.pkl",
+    "surrogates": "data/adaboost_surrogates.pkl",
     "hyperparameters": [
       "adaboostclassifier__learning_rate",
       "adaboostclassifier__n_estimators",
@@ -15,9 +15,9 @@
   },
   {
     "name": "svc",
-    "experiments": "svc.arff",
+    "experiments": "data/svc.arff",
     "experiment_meta": "data/pp_metadata.csv",
-    "surrogates": "svc_surrogates.pkl",
+    "surrogates": "data/svc_surrogates.pkl",
     "hyperparameters": [
       "svc__C",
       "svc__gamma"

@@ -14,3 +14,6 @@
  - mkd: median kernel distance as computed by kernlab::digest
  - rc: ratio of categorical features
  
+ **{classifier}_surrogates.pkl**: 
+ Pickle blob with a surrogate model for each task (`Dict[task: int, surrogate: object]`).
+ 
