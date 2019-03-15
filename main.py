@@ -39,7 +39,7 @@ def main():
                         help=("lambda for the mu+lambda algorithm. "
                               "Specifies the number of offspring created at each iteration."
                               "Also used to determine the size of starting population."),
-                        dest='lambda', type=int, default=100)
+                        dest='lambda_', type=int, default=100)
     parser.add_argument('-ngen',
                         help="Number of generations.",
                         dest='ngen', type=int, default=100)
@@ -168,13 +168,13 @@ def main():
         hof = tools.HallOfFame(10)
 
         pop, logbook = algorithms.eaMuPlusLambda(
-            population=toolbox.population(n=100),
+            population=toolbox.population(n=args.lambda_),
             toolbox=toolbox,
-            mu=20,  # Number of Individuals to pass between generations
-            lambda_=100,  # Number of offspring per generation
+            mu=args.mu,  # Number of Individuals to pass between generations
+            lambda_=args.lambda_,  # Number of offspring per generation
             cxpb=0.5,
             mutpb=0.5,
-            ngen=5,
+            ngen=args.ngen,
             verbose=True,
             stats=mstats,
             halloffame=hof
