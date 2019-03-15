@@ -2,6 +2,8 @@ import operator
 import random
 from typing import List, Dict, Tuple
 from functools import partial, reduce
+import os
+import pickle
 import warnings
 import sys
 
@@ -76,6 +78,32 @@ def n_primitives_in(individual):
     return len([e for e in individual if isinstance(e, gp.Primitive)])
 
 
+def mass_evaluate(evaluate_fn, individuals, pset, metadataset: pd.DataFrame, surrogates: Dict[str, object]):
+    """ evaluate_fn is only for compatability with `map` signature. """
+    fns = [gp.compile(individual, pset) for individual in individuals]
+    lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
+    scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
+
+    for i, ((idx, row), surrogate) in enumerate(zip(metadataset.iterrows(), surrogates)):
+        def try_else_invalid(fn, input_):
+            try:
+                values = fn(**dict(row))
+                if any([(isinstance(val, complex) or not np.isfinite(np.float32(val))) for val in values]):
+                   raise ValueError("One or more values invalid for input as hyperparameter.")
+                return values
+            except:
+                return (-1e6, -1e6)
+
+        hyperparam_values = [try_else_invalid(fn, row) for fn in fns]
+
+        scores = surrogate.predict(hyperparam_values)
+
+        scores_full[:, i] = scores
+
+    scores_mean = scores_full.mean(axis=1)  # row wise
+    return zip(scores_mean, lengths)
+
+
 def evaluate(individual, pset, metadataset: pd.DataFrame, surrogates: Dict[str, object]):
     """ Evaluate an individual by its projected score across datasets.
     :param individual:
@@ -96,13 +124,14 @@ def evaluate(individual, pset, metadataset: pd.DataFrame, surrogates: Dict[str, 
         try:
             hyperparam_values = fn(**dict(row))
             pred_score = surrogates[row.name].predict([[*hyperparam_values]])[0]
-
+            pred_score = random.random()
             #if (not any([isinstance(val, complex) for val in hyperparam_values])
             #        and not all([np.isfinite(np.float32(val)) for val in hyperparam_values])):
             #    raise ValueError("One or more values invalid for input as hyperparameter.")
         #except (ValueError, FloatingPointError, OverflowError) as e:
-        except Exception:
+        except Exception as e:
             # Error because of floating point underflow/overflow/div0 or not valid as input for model.
+            logging.warning(str(e))
             return -1, loose_length
 
 
@@ -148,19 +177,21 @@ if __name__ == '__main__':
 
     optimization_problems = dict(
         adaboost=dict(
-            filename='adaboost.arff',
+            filename='../data/adaboost.arff',
             hyperparameters=[
                 'adaboostclassifier__learning_rate',
                 'adaboostclassifier__n_estimators',
                 'adaboostclassifier__base_estimator__max_depth'],
+            surrogates='../data/adaboost_surrogates.pkl'
 
         ),
         SVC=dict(
-            filename='svc.arff',
+            filename='../data/svc.arff',
             hyperparameters=[
                 'svc__C',
                 'svc__gamma'
-            ]
+            ],
+            surrogates='../data/svc_surrogates_1.pkl'
         )
     )
     problem = optimization_problems['SVC']
@@ -172,15 +203,22 @@ if __name__ == '__main__':
     # Keep categorical hyperparameters on default (ignoring imputation strategy):
     #results = results[(results.adaboostclassifier__algorithm == 'SAMME.R')]
     results = results[(results.svc__kernel == 'rbf')]
-    logging.info("Creating surrogate models.")
-    surrogates = create_surrogates(
-        results,
-        hyperparameters=problem['hyperparameters'],
-        metalearner=lambda: RandomForestRegressor(n_estimators=100)
-    )
+
+    if os.path.exists(problem['surrogates']):
+        with open(problem['surrogates'], 'rb') as fh:
+            surrogates = pickle.load(fh)
+    else:
+        logging.info("Creating surrogate models.")
+        surrogates = create_surrogates(
+            results,
+            hyperparameters=problem['hyperparameters'],
+            metalearner=lambda: RandomForestRegressor(n_estimators=100, n_jobs=1)
+        )
+        with open(problem['surrogates'], 'wb') as fh:
+            pickle.dump(surrogates, fh)
 
     # Load metadataset
-    metadataset = pd.read_csv('pp_metadata.csv', index_col=0)
+    metadataset = pd.read_csv('../data/pp_metadata.csv', index_col=0)
 
     # Set variables of our genetic program:
     variables = dict(
@@ -227,7 +265,6 @@ if __name__ == '__main__':
 
     # Use all cores.
     #pool = multiprocessing.Pool()
-    #toolbox.register("map", pool.map)
 
     def random_mutation(ind, pset):
         valid_mutations = [
@@ -245,9 +282,15 @@ if __name__ == '__main__':
 
     top_5s = {}
     # Leave one out for 100 and 1000 generations.
-    for task in list(metadataset.index)[int(sys.argv[1]):int(sys.argv[2])]:
+    for task in list(metadataset.index)[:1]:
         loo_metadataset = metadataset[metadataset.index != task]
-        toolbox.register("evaluate", evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
+        #toolbox.register("evaluate", evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
+        def no_evaluate():
+            raise NotImplementedError
+        toolbox.register("evaluate", function=no_evaluate)
+        task_surrogates = [surrogates[idx] for idx in loo_metadataset.index]
+        toolbox.register("map", partial(mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=task_surrogates))
+        #toolbox.register("mass_evaluate", mass_evaluate, pset=pset, metadataset=loo_metadataset, surrogates=surrogates)
 
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
@@ -265,7 +308,7 @@ if __name__ == '__main__':
             lambda_=100,  # Number of offspring per generation
             cxpb=0.5,
             mutpb=0.5,
-            ngen=20,
+            ngen=5,
             verbose=True,
             stats=mstats,
             halloffame=hof
