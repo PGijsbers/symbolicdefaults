@@ -1,3 +1,4 @@
+import functools
 import operator
 import random
 import typing
@@ -7,7 +8,7 @@ import scipy.special
 
 from deap import gp, base, creator, tools
 
-from .operations import random_mutation
+from .operations import random_mutation, try_evaluate_function
 
 
 def setup_toolbox(problem):
@@ -56,9 +57,7 @@ def setup_toolbox(problem):
     toolbox.register("mate", gp.cxOnePoint)
     toolbox.register("mutate", random_mutation, pset=pset)
 
-    def no_evaluate():
-        raise NotImplementedError
-
-    toolbox.register("evaluate", function=no_evaluate)
+    toolbox.register("evaluate", functools.partial(try_evaluate_function,
+                                                   invalid=(1e-6,) * len(problem['hyperparameters'])))
 
     return toolbox, pset

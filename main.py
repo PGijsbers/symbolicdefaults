@@ -93,10 +93,7 @@ def main():
         with open(problem['surrogates'], 'wb') as fh:
             pickle.dump(surrogates, fh)
 
-    # ================================================
-    # Set up the evolutionary procedure with DEAP
-    # ================================================
-
+    # The 'toolbox' defines all operations, and the primitive set (`pset`) defines the grammar.
     toolbox, pset = setup_toolbox(problem)
 
     # ================================================
