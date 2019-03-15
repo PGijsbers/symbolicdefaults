@@ -1,0 +1,29 @@
+[
+  {
+    "name": "adaboost",
+    "experiments": "adaboost.arff",
+    "experiment_meta": "data/pp_metadata.csv",
+    "surrogates": "adaboost_surrogates.pkl",
+    "hyperparameters": [
+      "adaboostclassifier__learning_rate",
+      "adaboostclassifier__n_estimators",
+      "adaboostclassifier__base_estimator__max_depth"
+    ],
+    "defaults_filters": {
+      "adaboostclassifier__algorithm": "SAMME.R"
+    }
+  },
+  {
+    "name": "svc",
+    "experiments": "svc.arff",
+    "experiment_meta": "data/pp_metadata.csv",
+    "surrogates": "svc_surrogates.pkl",
+    "hyperparameters": [
+      "svc__C",
+      "svc__gamma"
+    ],
+    "defaults_filters": {
+      "svc__kernel": "rbf"
+    }
+  }
+]
