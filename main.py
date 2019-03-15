@@ -1,27 +1,19 @@
 import argparse
 import functools
-import json
 import logging
-import operator
 import os
 import pickle
 
-import arff
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 
 from deap import tools, algorithms
 
+import persistence
 from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in
-
-
-def load_data(file_path: str) -> pd.DataFrame:
-    with open(file_path, 'r') as fh:
-        data = arff.load(fh)
-    return pd.DataFrame(data['data'], columns=[att_name for att_name, att_vals in data['attributes']])
 
 
 def main():
@@ -55,16 +47,7 @@ def main():
     # ================================================
     # Load or create surrogate models for each problem
     # ================================================
-    with open(args.config_file, 'r') as fh:
-        problem_configurations = json.load(fh)
-    configuration = [problem for problem in problem_configurations if problem['name'] == args.problem]
-    if len(configuration) < 1:
-        raise ValueError("Specified problem '{}' does not exist in {}.".format(args.problem, args.config_file))
-    elif len(configuration) > 1:
-        raise ValueError("Specified problem '{}' does exists more than once in {}."
-                         .format(args.problem, args.config_file))
-    else:
-        problem = configuration[0]
+    problem = persistence.load_problem(args)
 
     if os.path.exists(problem['surrogates']):
         logging.info("Loading surrogates from file.")
@@ -72,11 +55,7 @@ def main():
             surrogates = pickle.load(fh)
     else:
         logging.info("Loading experiment results from file.")
-        experiments = load_data(problem['experiments'])
-        if len(problem['defaults_filters']) > 0:
-            filters = [experiments[hp] == default for (hp, default) in problem["defaults_filters"].items()]
-            combined_filter = functools.reduce(operator.iand, filters)
-            experiments = experiments[combined_filter]
+        experiments = persistence.load_results_for_problem(problem)
 
         logging.info("Creating surrogates.")
         surrogates = create_surrogates(
@@ -85,13 +64,7 @@ def main():
             metalearner=lambda: RandomForestRegressor(n_estimators=100, n_jobs=-1)
         )
 
-        for surrogate in surrogates.values():
-            # We want parallelization during training, but not during prediction
-            # as our prediction batches are too small to make the multiprocessing overhead worth it (tested).
-            surrogate.set_params(n_jobs=1)
-
-        with open(problem['surrogates'], 'wb') as fh:
-            pickle.dump(surrogates, fh)
+        persistence.save_surrogates(surrogates, problem)
 
     # The 'toolbox' defines all operations, and the primitive set (`pset`) defines the grammar.
     toolbox, pset = setup_toolbox(problem)
