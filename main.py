@@ -85,7 +85,9 @@ def main():
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
+        pop = toolbox.population(n=args.lambda_)
 
+        # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
         mstats = tools.MultiStatistics(fitness=stats_fit, size=stats_size)
@@ -95,10 +97,13 @@ def main():
         mstats.register("max", np.max)
         hof = tools.HallOfFame(10)
 
-        pop = toolbox.population(n=args.lambda_)
+        # Little hackery for logging with early stopping
+        logbook = tools.Logbook()
+        logbook.header = ['gen', 'nevals'] + mstats.fields
+
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
-            pop, logbook = algorithms.eaMuPlusLambda(
+            pop, _ = algorithms.eaMuPlusLambda(
                 population=pop,
                 toolbox=toolbox,
                 mu=args.mu,  # Number of Individuals to pass between generations
@@ -106,12 +111,19 @@ def main():
                 cxpb=0.5,
                 mutpb=0.5,
                 ngen=1,
-                verbose=True,
-                stats=mstats,
+                verbose=False,
                 halloffame=hof
             )
+
+            # Little hackery for logging with early stopping
+            record = mstats.compile(pop) if mstats is not None else {}
+            logbook.record(gen=i, nevals=100, **record)
+            logbook_output = logbook.stream
+            for line in logbook_output.split('\n'):
+                logging.info(line)
+
+            # Little hackery for logging early stopping
             if hof[0].fitness.wvalues > last_best:
-                logging.info("New best: {} > {}".format(hof[0].fitness.wvalues, last_best))
                 last_best = hof[0].fitness.wvalues
                 last_best_gen = i
             if i - last_best_gen > args.early_stopping_n:
