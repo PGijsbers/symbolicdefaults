@@ -29,7 +29,8 @@ def load_data(file_path: str) -> pd.DataFrame:
 def main():
     description = "Uses evolutionary optimization to find symbolic expressions for default hyperparameter values."
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument('problem', help="Problem to optimize.", type=str)
+    parser.add_argument('problem', type=str,
+                        help="Problem to optimize. Must match one of 'name' fields in the configuration file.")
     parser.add_argument('-m',
                         help=("mu for the mu+lambda algorithm. "
                               "Specifies the number of individuals that can create offspring."),
