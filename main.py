@@ -81,7 +81,10 @@ def main():
     last_best = (0, -10)
     last_best_gen = 0
 
+    print(metadataset.index)
+
     for task in list(metadataset.index):
+        logging.info("START_TASK:{}".format(task))
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
@@ -119,13 +122,22 @@ def main():
             record = mstats.compile(pop) if mstats is not None else {}
             logbook.record(gen=i, nevals=100, **record)
             logbook_output = logbook.stream
-            for line in logbook_output.split('\n'):
-                logging.info(line)
+            #for line in logbook_output.split('\n'):
+                #logging.info(line)
 
+            logging.info("GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}"
+                         .format(i,
+                                 record['fitness']['min'],
+                                 record['fitness']['avg'],
+                                 record['fitness']['max'],
+                                 record['size']['min'],
+                                 record['size']['avg'],
+                                 record['size']['max']))
             # Little hackery for logging early stopping
-            if hof[0].fitness.wvalues > last_best:
-                last_best = hof[0].fitness.wvalues
-                last_best_gen = i
+            for ind in hof:
+                if ind.fitness.wvalues > last_best:
+                    last_best = ind.fitness.wvalues
+                    last_best_gen = i
             if i - last_best_gen > args.early_stopping_n:
                 logging.info("Stopping early, no new best in {} generations.".format(args.early_stopping_n))
                 break

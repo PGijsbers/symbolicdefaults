@@ -28,7 +28,7 @@ def try_evaluate_function(fn, input_, invalid):
         # However, `predict` internally also sums all values, and this may incur an overflow even if each individual
         # value is finite. So, we constrict ourselves to the much smaller value of 2**100=1.2676506e+30 so that the
         # summation should also never lead to an overflow value.
-        if not all([abs(val) < 1.2676506e+30 for val in values]):
+        if not all([not isinstance(val, complex) and abs(val) < 1.2676506e+30 for val in values]):
             raise ValueError("One or more values invalid for input as hyperparameter.")
         return values
     except:
