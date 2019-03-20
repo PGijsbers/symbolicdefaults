@@ -19,7 +19,8 @@ def setup_toolbox(problem):
         NumberOfInstances='n',
         MedianKernelDistance='mkd',
         MajorityClassPercentage='mcp',
-        RatioSymbolicFeatures='rc'  # Number Symbolic / Number Features
+        RatioSymbolicFeatures='rc',  # Number Symbolic / Number Features
+        Variance='xvar'  # variance of all elements
     )
 
     variable_names = list(variables.values())
@@ -30,7 +31,7 @@ def setup_toolbox(problem):
     pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
     pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 9)]), ret_type=float)
 
-    binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow]
+    binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow, max, min]
     unary_operators = [scipy.special.expit, operator.neg]
     for binary_operator in binary_operators:
         pset.addPrimitive(binary_operator, [float, float], float)
