@@ -50,7 +50,7 @@ def main():
     # ================================================
     # Load or create surrogate models for each problem
     # ================================================
-    problem = persistence.load_problem(args)
+    problem = persistence.load_problem(args.config_file, args.problem)
 
     if os.path.exists(problem['surrogates']):
         logging.info("Loading surrogates from file.")
