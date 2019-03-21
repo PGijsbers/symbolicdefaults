@@ -65,4 +65,4 @@ def mkd(X):
     distances = [sum((x1 - x2)**2) for (x1, x2) in zip(row_subset1, row_subset2)]
 
     # pick the median
-    return 1 / statistics.median(distances)
+    return 1 / statistics.median([d for d in distances if d != 0])
