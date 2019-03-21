@@ -1,3 +1,4 @@
+import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -14,6 +15,11 @@ class SimpleImputerDuplicate(SimpleImputer):
 def simple_construct_pipeline_for_task(task, learner):
     cat_indices = task.get_dataset().get_features_by_type('nominal', [task.target_name])
     num_indices = task.get_dataset().get_features_by_type('numeric', [task.target_name])
+    n_cat, n_num = len(cat_indices), len(num_indices)
+
+    X, y = task.get_X_and_y()
+    unique_values_cat_features = [list(sorted([v for v in set(values) if not np.isnan(v)]))
+                                  for values in X[:, cat_indices].T]
 
     return Pipeline(steps=
                     [
@@ -26,8 +32,8 @@ def simple_construct_pipeline_for_task(task, learner):
                         )),
                         ("transform", ColumnTransformer(
                             transformers=[
-                                ("nominal", OneHotEncoder(categories='auto'), [*range(len(cat_indices))]),
-                                ("numeric", StandardScaler(), [*range(len(cat_indices), len(cat_indices) + len(num_indices))])
+                                ("nominal", OneHotEncoder(categories=unique_values_cat_features), [*range(n_cat)]),
+                                ("numeric", StandardScaler(), [*range(n_cat, n_cat + n_num)])
                             ],
                             remainder="passthrough"
                         )),
