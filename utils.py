@@ -5,11 +5,18 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.feature_selection import VarianceThreshold
 
+
+# === OpenML Hackery ===
+# One flow can not be a subflow twice, which is inconvenient since
+# we use two instantiations of SimpleImputer. Until we change this
+# on an OpenML level, we need to kind of work around this if we
+# want to use the convenient `run_model_on_task` function.
 __version__ = '0.0'
 
 
 class SimpleImputerDuplicate(SimpleImputer):
     pass
+# ==== end hackery ====
 
 
 def simple_construct_pipeline_for_task(task, learner):
