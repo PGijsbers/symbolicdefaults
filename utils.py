@@ -19,7 +19,7 @@ class SimpleImputerDuplicate(SimpleImputer):
 # ==== end hackery ====
 
 
-def simple_construct_pipeline_for_task(task, learner):
+def simple_construct_pipeline_for_task(task, learner=None):
     cat_indices = task.get_dataset().get_features_by_type('nominal', [task.target_name])
     num_indices = task.get_dataset().get_features_by_type('numeric', [task.target_name])
     n_cat, n_num = len(cat_indices), len(num_indices)
@@ -28,8 +28,7 @@ def simple_construct_pipeline_for_task(task, learner):
     unique_values_cat_features = [list(sorted([v for v in set(values) if not np.isnan(v)]))
                                   for values in X[:, cat_indices].T]
 
-    return Pipeline(steps=
-                    [
+    preprocessing_steps = [
                         ("impute", ColumnTransformer(
                             transformers=[
                                 ("nominal", SimpleImputer(strategy="most_frequent"), cat_indices),
@@ -44,6 +43,7 @@ def simple_construct_pipeline_for_task(task, learner):
                             ],
                             remainder="passthrough"
                         )),
-                        ("feature_selection", VarianceThreshold()),
-                        ("clasification", learner)
-                    ])
+                        ("feature_selection", VarianceThreshold())
+                    ]
+    learner_step = [('learner', learner)] if learner is not None else []
+    return Pipeline(steps=preprocessing_steps + learner_step)
