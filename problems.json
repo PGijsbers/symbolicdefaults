@@ -2,7 +2,7 @@
   {
     "name": "adaboost",
     "experiments": "data/adaboost.arff",
-    "experiment_meta": "data/pp_metadata.csv",
+    "experiment_meta": "data/ppp_metadata.csv",
     "surrogates": "data/adaboost_surrogates.pkl",
     "hyperparameters": [
       "adaboostclassifier__learning_rate",
@@ -14,9 +14,9 @@
     }
   },
   {
-    "name": "svc",
+    "name": "svc_rbg",
     "experiments": "data/svc.arff",
-    "experiment_meta": "data/pp_metadata.csv",
+    "experiment_meta": "data/ppp_metadata.csv",
     "surrogates": "data/svc_surrogates.pkl",
     "hyperparameters": [
       "svc__C",
@@ -24,6 +24,20 @@
     ],
     "defaults_filters": {
       "svc__kernel": "rbf"
+    }
+  },
+  {
+    "name": "svc_poly",
+    "experiments": "data/svc.arff",
+    "experiment_meta": "data/ppp_metadata.csv",
+    "surrogates": "data/svc_surrogates_poly.pkl",
+    "hyperparameters": [
+      "svc__C",
+      "svc__gamma",
+      "svc__degree"
+    ],
+    "defaults_filters": {
+      "svc__kernel": "poly"
     }
   }
 ]
