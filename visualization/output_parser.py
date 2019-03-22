@@ -1,4 +1,5 @@
 from collections import namedtuple
+import pandas as pd
 
 gen_info = namedtuple("GenerationInformation",
                       field_names=[
@@ -29,7 +30,7 @@ def parse_generation_line(line: str) -> 'GenerationInformation':
     return gen_info(gen, min_fit, avg_fit, max_fit, min_size, avg_size, max_size)
 
 
-def parse_console_output(file):
+def parse_eo_console_output(file):
     with open(file, 'r') as fh:
         lines = fh.readlines()
 
@@ -54,3 +55,20 @@ def parse_console_output(file):
             current_results['expressions'].append(line.split('(', 1)[1].rsplit(')', 1)[-2])
 
     return results
+
+
+def is_performance_line(line):
+    return line.count(' ') == 2
+
+
+def parse_performance_line(line):
+    task, avg, std = line[:-1].split(' ')
+    return int(task), float(avg), float(std)
+
+
+def get_performance_from_console_output(file):
+    with open(file, 'r') as fh:
+        lines = fh.readlines()
+    performance_lines = [parse_performance_line(line) for line in lines
+                         if is_performance_line(line)]
+    return pd.DataFrame(performance_lines, columns=['task', 'avg', 'std']).set_index('task')
