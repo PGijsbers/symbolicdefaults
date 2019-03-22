@@ -77,10 +77,6 @@ def main():
     # ================================================
     metadataset = pd.read_csv(problem['experiment_meta'], index_col=0)
     top_5s = {}
-
-    last_best = (0, -10)
-    last_best_gen = 0
-
     print(metadataset.index)
 
     for task in list(metadataset.index):
@@ -89,6 +85,8 @@ def main():
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
         pop = toolbox.population(n=args.lambda_)
+        last_best = (0, -10)
+        last_best_gen = 0
 
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
