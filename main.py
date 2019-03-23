@@ -76,6 +76,7 @@ def main():
     # Start evolutionary optimization
     # ================================================
     metadataset = pd.read_csv(problem['experiment_meta'], index_col=0)
+    metadataset = metadataset[metadataset.index.isin(surrogates)]
     top_5s = {}
     print(metadataset.index)
 
