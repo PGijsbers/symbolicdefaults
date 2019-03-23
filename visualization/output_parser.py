@@ -72,3 +72,9 @@ def get_performance_from_console_output(file):
     performance_lines = [parse_performance_line(line) for line in lines
                          if is_performance_line(line)]
     return pd.DataFrame(performance_lines, columns=['task', 'avg', 'std']).set_index('task')
+
+
+def get_performance_from_csv(file):
+    # 125921;0.72;0.78;0.7;0.72;0.8;0.66;0.68;0.68;0.6;0.74;0.708;0.05528109984434102
+    # task;fold 1;...fold 10;mean;std
+    return pd.read_csv(file, index_col=0, sep=';', names=['fold'+str(i) for i in range(10)] + ['avg', 'std'])
