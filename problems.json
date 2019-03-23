@@ -14,7 +14,7 @@
     }
   },
   {
-    "name": "svc_rbg",
+    "name": "svc_rbf",
     "experiments": "data/svc.arff",
     "experiment_meta": "data/ppp_metadata.csv",
     "surrogates": "data/svc_surrogates.pkl",
@@ -39,5 +39,15 @@
     "defaults_filters": {
       "svc__kernel": "poly"
     }
+  },
+  {
+    "name": "randomforest",
+    "experiments": "data/rf.arff",
+    "experiment_meta": "data/ppp_metadata.csv",
+    "surrogates": "data/rf_surrogates.pkl",
+    "hyperparameters": [
+      "randomforestclassifier__max_features"
+    ],
+    "defaults_filters": { }
   }
 ]
