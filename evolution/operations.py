@@ -58,11 +58,13 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
 def random_mutation(ind, pset):
     valid_mutations = [
         functools.partial(gp.mutNodeReplacement, pset=pset),
-        functools.partial(gp.mutInsert, pset=pset),
         functools.partial(gp.mutEphemeral, mode='all')
     ]
 
-    if n_primitives_in(ind) > 0:
+    if n_primitives_in(ind) > 1:  # The base primitive is unshrinkable.
         valid_mutations.append(gp.mutShrink)
+
+    if n_primitives_in(ind) < 4:
+        valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
 
     return np.random.choice(valid_mutations)(ind)
