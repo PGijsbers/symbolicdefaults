@@ -11,6 +11,13 @@ from deap import gp, base, creator, tools
 from .operations import random_mutation, try_evaluate_function
 
 
+def if_gt(float1, float2, float3, float4):
+    if float1 > float2:
+        return float3
+    else:
+        return float4
+
+
 def setup_toolbox(problem):
     # Set variables of our genetic program:
     variables = dict(
@@ -31,6 +38,7 @@ def setup_toolbox(problem):
     pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
     pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 9)]), ret_type=float)
 
+    pset.addPrimitive(if_gt, [float, float, float, float], float)
     binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow, max, min]
     unary_operators = [scipy.special.expit, operator.neg]
     for binary_operator in binary_operators:
