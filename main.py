@@ -15,6 +15,7 @@ from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in
 
+from deap import gp, creator
 
 def main():
     description = "Uses evolutionary optimization to find symbolic expressions for default hyperparameter values."
@@ -79,12 +80,13 @@ def main():
     metadataset = metadataset[metadataset.index.isin(surrogates)]
     top_5s = {}
     print(metadataset.index)
-
+    avgs = []
     for task in list(metadataset.index):
         logging.info("START_TASK:{}".format(task))
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
+
         pop = toolbox.population(n=args.lambda_)
         last_best = (0, -10)
         last_best_gen = 0
@@ -120,7 +122,7 @@ def main():
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
             logbook.record(gen=i, nevals=100, **record)
-            logbook_output = logbook.stream
+            #logbook_output = logbook.stream
             #for line in logbook_output.split('\n'):
                 #logging.info(line)
 
@@ -145,6 +147,15 @@ def main():
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
             logging.info(str(ind))
+        scale_result = list(toolbox.map(toolbox.evaluate, [
+            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(1., truediv(1., mul(p, xvar)))', pset))]))[0][0]
+        logging.info("auto-result:{}".format(scale_result))
+        c_result = list(toolbox.map(toolbox.evaluate, [
+            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(16., truediv(mkd, xvar))', pset))]))[0][0]
+        logging.info("custom-result:{}".format(c_result))
+        best_result = list(toolbox.map(toolbox.evaluate, [hof[0]]))[0][0]
+        logging.info("best-result:{}".format(best_result))
+    print(avgs, np.mean(avgs))
 
 
 if __name__ == '__main__':
