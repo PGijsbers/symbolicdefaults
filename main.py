@@ -14,6 +14,7 @@ import persistence
 from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in
+from evolution.algorithms import one_plus_lambda
 
 from deap import gp, creator
 
@@ -35,9 +36,9 @@ def main():
     parser.add_argument('-ngen',
                         help="Number of generations.",
                         dest='ngen', type=int, default=100)
-    #parser.add_argument('-a',
-    #                    help="Algorithm configuration file.",
-    #                   dest='alg_config_file', type=str, default='problems.json')
+    parser.add_argument('-a',
+                        help="Algorithm. {mupluslambda, onepluslambda}",
+                        dest='algorithm', type=str, default='mupluslambda')
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stopping_n', type=int, default=10)
@@ -97,6 +98,8 @@ def main():
                                                   pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
 
         pop = toolbox.population(n=args.lambda_)
+        P = pop[0]
+
         last_best = (0, -10)
         last_best_gen = 0
 
@@ -116,17 +119,25 @@ def main():
 
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
-            pop, _ = algorithms.eaMuPlusLambda(
-                population=pop,
-                toolbox=toolbox,
-                mu=args.mu,  # Number of Individuals to pass between generations
-                lambda_=args.lambda_,  # Number of offspring per generation
-                cxpb=0.5,
-                mutpb=0.5,
-                ngen=1,
-                verbose=False,
-                halloffame=hof
-            )
+            if args.algorithm == 'mupluslambda':
+                pop, _ = algorithms.eaMuPlusLambda(
+                    population=pop,
+                    toolbox=toolbox,
+                    mu=args.mu,  # Number of Individuals to pass between generations
+                    lambda_=args.lambda_,  # Number of offspring per generation
+                    cxpb=0.5,
+                    mutpb=0.5,
+                    ngen=1,
+                    verbose=False,
+                    halloffame=hof
+                )
+            if args.algorithm == 'onepluslambda':
+                P, pop = one_plus_lambda(
+                    P=P,
+                    toolbox=toolbox,
+                    ngen=1,
+                    halloffame=hof
+                )
 
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
