@@ -1,0 +1,14 @@
+"operators": {
+        "1": [
+            "neg",
+            "expit"
+        ],
+        "2": [
+            "min",
+            "max",
+            "add",
+            "sub",
+            "mul",
+            "div"
+        ]
+    }

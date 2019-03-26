@@ -17,6 +17,7 @@ from evolution.operations import mass_evaluate, n_primitives_in
 
 from deap import gp, creator
 
+
 def main():
     description = "Uses evolutionary optimization to find symbolic expressions for default hyperparameter values."
     parser = argparse.ArgumentParser(description=description)
@@ -34,9 +35,9 @@ def main():
     parser.add_argument('-ngen',
                         help="Number of generations.",
                         dest='ngen', type=int, default=100)
-    parser.add_argument('-c',
-                        help="Configuration file.",
-                        dest='config_file', type=str, default='problems.json')
+    #parser.add_argument('-a',
+    #                    help="Algorithm configuration file.",
+    #                   dest='alg_config_file', type=str, default='problems.json')
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stopping_n', type=int, default=10)
@@ -51,7 +52,7 @@ def main():
     # ================================================
     # Load or create surrogate models for each problem
     # ================================================
-    problem = persistence.load_problem(args.config_file, args.problem)
+    problem = persistence.load_problem(args.problem)
 
     if os.path.exists(problem['surrogates']):
         logging.info("Loading surrogates from file.")
@@ -76,7 +77,7 @@ def main():
     # ================================================
     # Start evolutionary optimization
     # ================================================
-    metadataset = pd.read_csv(problem['experiment_meta'], index_col=0)
+    metadataset = pd.read_csv(problem['metadata'], index_col=0)
     metadataset = metadataset[metadataset.index.isin(surrogates)]
     top_5s = {}
     print(metadataset.index)
@@ -147,14 +148,12 @@ def main():
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
             logging.info(str(ind))
-        scale_result = list(toolbox.map(toolbox.evaluate, [
-            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(1., truediv(1., mul(p, xvar)), 1.)', pset))]))[0][0]
-        logging.info("auto-result:{}".format(scale_result))
-        c_result = list(toolbox.map(toolbox.evaluate, [
-            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(6., 7., 1.)', pset))]))[0][0]
-        logging.info("custom-result:{}".format(c_result))
-        best_result = list(toolbox.map(toolbox.evaluate, [hof[0]]))[0][0]
-        logging.info("best-result:{}".format(best_result))
+
+        checks = problem.get('checks', [])
+        for check_name, check_individual in checks.items():
+            scale_result = list(toolbox.map(toolbox.evaluate, [
+                creator.Individual(gp.PrimitiveTree.from_string(check_individual, pset))]))[0][0]
+            logging.info("{}:{}".format(check_name, scale_result))
     print(avgs, np.mean(avgs))
 
 

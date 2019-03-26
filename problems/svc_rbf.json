@@ -1,0 +1,18 @@
+{
+    "name": "svc_rbf",
+    "rs_data": "data/svc_big.arff",
+    "metadata": "data/ppp_metadata.csv",
+    "surrogates": "data/svc_surrogates_rbf_big.pkl",
+    "hyperparameters": [
+      "svc__C",
+      "svc__gamma"
+    ],
+    "defaults_filters": {
+      "svc__kernel": "rbf"
+    },
+    "operators": "default",
+    "checks": {
+      "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
+      "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
+    }
+}

@@ -14,24 +14,15 @@ def load_data(file_path: str) -> pd.DataFrame:
     return pd.DataFrame(data['data'], columns=[att_name for att_name, att_vals in data['attributes']])
 
 
-def load_problem(config_file, problem_name):
+def load_problem(problem_name):
     """ Load the problem configuration specified by `args`. """
-    with open(config_file, 'r') as fh:
-        problem_configurations = json.load(fh)
-    configuration = [problem for problem in problem_configurations if problem['name'] == problem_name]
-
-    if len(configuration) < 1:
-        raise ValueError("Specified problem '{}' does not exist in {}.".format(problem_name, config_file))
-    elif len(configuration) > 1:
-        raise ValueError("Specified problem '{}' does exists more than once in {}."
-                         .format(problem_name, config_file))
-
-    return configuration[0]
+    with open('problems/{}.json'.format(problem_name), 'r') as fh:
+        return json.load(fh)
 
 
 def load_results_for_problem(problem):
     """ Load the 'experiments' file and filter out those rows that use non-default values. """
-    experiments = load_data(problem['experiments'])
+    experiments = load_data(problem['rs_data'])
     if len(problem['defaults_filters']) > 0:
         filters = [experiments[hp] == default for (hp, default) in problem["defaults_filters"].items()]
         combined_filter = functools.reduce(operator.iand, filters)
