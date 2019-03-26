@@ -18,7 +18,7 @@ def if_gt(float1, float2, float3, float4):
         return float4
 
 
-def setup_toolbox(problem):
+def setup_toolbox(problem, args):
     # Set variables of our genetic program:
     variables = dict(
         NumberOfClasses='m',
@@ -64,7 +64,7 @@ def setup_toolbox(problem):
 
     toolbox.register("select", tools.selNSGA2)
     toolbox.register("mate", gp.cxOnePoint)
-    toolbox.register("mutate", random_mutation, pset=pset)
+    toolbox.register("mutate", random_mutation, pset=pset, max_depth=args.max_number_operators)
 
     toolbox.register("evaluate", functools.partial(try_evaluate_function,
                                                    invalid=(1e-6,) * len(problem['hyperparameters'])))

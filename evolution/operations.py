@@ -1,5 +1,6 @@
 import functools
 import typing
+import random
 
 import numpy as np
 import pandas as pd
@@ -35,7 +36,7 @@ def try_evaluate_function(fn, input_, invalid):
         return invalid
 
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object]):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], subset=1.0):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values. """
     if individuals == []:
@@ -46,16 +47,17 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
 
     for i, (idx, row) in enumerate(metadataset.iterrows()):
-        hyperparam_values = [evaluate(fn, row) for fn in fns]
-        surrogate = surrogates[idx]
-        scores = surrogate.predict(hyperparam_values)
-        scores_full[:, i] = scores
+        if random.random() < subset:
+            hyperparam_values = [evaluate(fn, row) for fn in fns]
+            surrogate = surrogates[idx]
+            scores = surrogate.predict(hyperparam_values)
+            scores_full[:, i] = scores
 
     scores_mean = scores_full.mean(axis=1)  # row wise
     return zip(scores_mean, lengths)
 
 
-def random_mutation(ind, pset):
+def random_mutation(ind, pset, max_depth=None):
     valid_mutations = [
         functools.partial(gp.mutNodeReplacement, pset=pset),
         functools.partial(gp.mutEphemeral, mode='all')
@@ -64,7 +66,9 @@ def random_mutation(ind, pset):
     if n_primitives_in(ind) > 1:  # The base primitive is unshrinkable.
         valid_mutations.append(gp.mutShrink)
 
-    if n_primitives_in(ind) < 4:
+    if max_depth is None:
+        valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
+    elif n_primitives_in(ind) < max_depth:
         valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
 
     return np.random.choice(valid_mutations)(ind)

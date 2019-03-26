@@ -39,12 +39,18 @@ def main():
     parser.add_argument('-a',
                         help="Algorithm. {mupluslambda, onepluslambda}",
                         dest='algorithm', type=str, default='mupluslambda')
+    parser.add_argument('-s',
+                        help="Evaluate individuals on a random [S]ubset of size [0, 1].",
+                        dest='subset', type=float, default=1.)
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stopping_n', type=int, default=10)
     parser.add_argument('-o',
                         help="Output file. Also write log output to this file.",
                         dest='output_file', type=str, default=None)
+    parser.add_argument('-mno',
+                        help="[M]ax [N]umber of [O]perators",
+                        dest='max_number_operators', type=int, default=None)
     args = parser.parse_args()
 
     logging.basicConfig()
@@ -81,7 +87,7 @@ def main():
         persistence.save_surrogates(surrogates, problem)
 
     # The 'toolbox' defines all operations, and the primitive set (`pset`) defines the grammar.
-    toolbox, pset = setup_toolbox(problem)
+    toolbox, pset = setup_toolbox(problem, args)
 
     # ================================================
     # Start evolutionary optimization
@@ -95,7 +101,8 @@ def main():
         logging.info("START_TASK:{}".format(task))
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
-                                                  pset=pset, metadataset=loo_metadataset, surrogates=surrogates))
+                                                  pset=pset, metadataset=loo_metadataset,
+                                                  surrogates=surrogates, subset=args.subset))
 
         pop = toolbox.population(n=args.lambda_)
         P = pop[0]
@@ -170,7 +177,6 @@ def main():
             scale_result = list(toolbox.map(toolbox.evaluate, [
                 creator.Individual(gp.PrimitiveTree.from_string(check_individual, pset))]))[0][0]
             logging.info("{}:{}".format(check_name, scale_result))
-    print(avgs, np.mean(avgs))
 
 
 if __name__ == '__main__':
