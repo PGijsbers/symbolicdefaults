@@ -148,10 +148,10 @@ def main():
         for ind in hof[:5]:
             logging.info(str(ind))
         scale_result = list(toolbox.map(toolbox.evaluate, [
-            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(1., truediv(1., mul(p, xvar)))', pset))]))[0][0]
+            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(1., truediv(1., mul(p, xvar)), 1.)', pset))]))[0][0]
         logging.info("auto-result:{}".format(scale_result))
         c_result = list(toolbox.map(toolbox.evaluate, [
-            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(16., truediv(mkd, xvar))', pset))]))[0][0]
+            creator.Individual(gp.PrimitiveTree.from_string('make_tuple(6., 7., 1.)', pset))]))[0][0]
         logging.info("custom-result:{}".format(c_result))
         best_result = list(toolbox.map(toolbox.evaluate, [hof[0]]))[0][0]
         logging.info("best-result:{}".format(best_result))
