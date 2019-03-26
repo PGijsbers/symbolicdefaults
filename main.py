@@ -41,10 +41,18 @@ def main():
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stopping_n', type=int, default=10)
+    parser.add_argument('-o',
+                        help="Output file. Also write log output to this file.",
+                        dest='output_file', type=str, default=None)
     args = parser.parse_args()
 
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
+
+    if args.output_file is not None:
+        log_file_handle = logging.FileHandler(args.output_file)
+        log_file_handle.setLevel(logging.DEBUG)
+        logging.getLogger().addHandler(log_file_handle)
 
     # Configure numpy to report raise all warnings (otherwise overflows may go undetected).
     np.seterr(all='raise')
@@ -127,14 +135,11 @@ def main():
             #for line in logbook_output.split('\n'):
                 #logging.info(line)
 
-            logging.info("GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}"
-                         .format(i,
-                                 record['fitness']['min'],
-                                 record['fitness']['avg'],
-                                 record['fitness']['max'],
-                                 record['size']['min'],
-                                 record['size']['avg'],
-                                 record['size']['max']))
+            generation_info_string = "GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}".format(i,
+                                 record['fitness']['min'], record['fitness']['avg'], record['fitness']['max'],
+                                 record['size']['min'], record['size']['avg'], record['size']['max'])
+
+            logging.info(generation_info_string)
             # Little hackery for logging early stopping
             for ind in hof:
                 if ind.fitness.wvalues > last_best:
