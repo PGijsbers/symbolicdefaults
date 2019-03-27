@@ -53,7 +53,7 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
             scores = surrogate.predict(hyperparam_values)
             scores_full[:, i] = scores
 
-    scores_mean = scores_full.mean(axis=1)  # row wise
+    scores_mean = scores_full[: scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
 
 
