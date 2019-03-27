@@ -8,13 +8,13 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 
-from deap import tools, algorithms
+from deap import tools
 
 import persistence
 from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in
-from evolution.algorithms import one_plus_lambda
+from evolution.algorithms import one_plus_lambda, eaMuPlusLambda
 
 from deap import gp, creator
 
@@ -127,7 +127,7 @@ def main():
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
             if args.algorithm == 'mupluslambda':
-                pop, _ = algorithms.eaMuPlusLambda(
+                pop, _ = eaMuPlusLambda(
                     population=pop,
                     toolbox=toolbox,
                     mu=args.mu,  # Number of Individuals to pass between generations
@@ -136,7 +136,8 @@ def main():
                     mutpb=0.5,
                     ngen=1,
                     verbose=False,
-                    halloffame=hof
+                    halloffame=hof,
+                    no_cache=(args.subset < 1.0)
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(
