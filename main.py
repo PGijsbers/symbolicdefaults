@@ -49,8 +49,11 @@ def main():
                         help="Output file. Also write log output to this file.",
                         dest='output_file', type=str, default=None)
     parser.add_argument('-mno',
-                        help="[M]ax [N]umber of [O]perators",
+                        help="Max Number of Operators",
                         dest='max_number_operators', type=int, default=None)
+    parser.add_argument('-pp',
+                        help="Phenotypic Plasticity",
+                        dest='phenotypic_plasticity', type=bool, default=False)
     args = parser.parse_args()
 
     logging.basicConfig()
@@ -102,7 +105,8 @@ def main():
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset,
-                                                  surrogates=surrogates, subset=args.subset))
+                                                  surrogates=surrogates, subset=args.subset,
+                                                  toolbox=toolbox))
 
         pop = toolbox.population(n=args.lambda_)
         P = pop[0]
@@ -137,7 +141,7 @@ def main():
                     ngen=1,
                     verbose=False,
                     halloffame=hof,
-                    no_cache=(args.subset < 1.0)
+                    no_cache=((args.subset < 1.0) or args.phenotypic_plasticity)
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(
@@ -171,7 +175,7 @@ def main():
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
-            logging.info(str(ind))
+            logging.info(str(ind)+str(ind.plasticity))
 
         checks = problem.get('checks', [])
         for check_name, check_individual in checks.items():
