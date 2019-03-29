@@ -1,5 +1,10 @@
+import sys
+sys.path.append('../')
+from persistence import load_results_for_problem, load_problem
+
 from collections import namedtuple
 import pandas as pd
+import numpy as np
 
 gen_info = namedtuple("GenerationInformation",
                       field_names=[
@@ -37,7 +42,7 @@ def parse_eo_console_output(file):
     results = []
     current_results = dict(task=-1, generations=[], expressions=[])
     for line in lines:
-        if line.startswith('INFO:root:START_TASK'):
+        if line.startswith('START_TASK'):
             if current_results['task'] != -1:
                 results.append(optimization_result(
                     task=current_results['task'],
@@ -49,9 +54,9 @@ def parse_eo_console_output(file):
 
             current_results = dict(task=-1, generations=[], expressions=[])
             current_results['task'] = line.split(':')[-1][:-1]
-        if line.startswith('INFO:root:GEN'):
+        if line.startswith('GEN'):
             current_results['generations'].append(parse_generation_line(line))
-        if line.startswith('INFO:root:make_tuple'):
+        if line.startswith('make_tuple'):
             current_results['expressions'].append(line.split('(', 1)[1].rsplit(')', 1)[-2])
 
     return results
@@ -77,4 +82,42 @@ def get_performance_from_console_output(file):
 def get_performance_from_csv(file):
     # 125921;0.72;0.78;0.7;0.72;0.8;0.66;0.68;0.68;0.6;0.74;0.708;0.05528109984434102
     # task;fold 1;...fold 10;mean;std
-    return pd.read_csv(file, index_col=0, sep=';', names=['fold'+str(i) for i in range(10)] + ['avg', 'std'])
+    return pd.read_csv(file, index_col=0, sep=';')
+
+
+def load_random_search_results(problem_name):
+    p = load_problem(problem_name)
+    return load_results_for_problem(p)
+
+
+def generate_comparisons(problem, files, names):
+    # The grid search result from Jan.
+    svc_results = load_random_search_results(problem)
+
+    # results currently still stored in log. should be aggregated to single file..
+    performances = {name: None for name in names}
+    for name, file in zip(names, files):
+        performances[name] = get_performance_from_csv(file)
+
+    df = pd.DataFrame(np.zeros(shape=(len(names), len(names) + 2)), columns=names + ['loss', 'N'])
+    df.index = names
+
+    # Calculate 'wins'
+    for (method, performance) in performances.items():
+        for (method2, performance2) in performances.items():
+            one_over_two = (performance.avg - performance2.avg) > 0
+            df.loc[method][method2] = sum(one_over_two)
+
+    # Calculate loss
+    for method, performance in performances.items():
+        loss_sum = 0
+        for i, row in performance.iterrows():
+            best_score = svc_results[svc_results.task_id == row.name].predictive_accuracy.max()
+            loss = best_score - row.avg
+            if loss < 0:
+                print('{} outperformed best on task {} by {}'.format(method, row.name, loss))
+            loss_sum += loss
+        df.loc[method]['loss'] = loss_sum
+        df.loc[method]['N'] = len(performance)
+
+    return df
