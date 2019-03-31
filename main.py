@@ -44,7 +44,7 @@ def main():
                         dest='subset', type=float, default=1.)
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
-                        dest='early_stopping_n', type=int, default=10)
+                        dest='early_stopping_n', type=int, default=20)
     parser.add_argument('-o',
                         help="Output file. Also write log output to this file.",
                         dest='output_file', type=str, default=None)
@@ -175,7 +175,10 @@ def main():
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
-            logging.info(str(ind)+str(ind.plasticity))
+            if args.phenotypic_plasticity:
+                logging.info(str(ind)+str(ind.plasticity))
+            else:
+                logging.info(str(ind))
 
         checks = problem.get('checks', [])
         for check_name, check_individual in checks.items():
