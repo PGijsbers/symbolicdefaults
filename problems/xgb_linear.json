@@ -1,0 +1,26 @@
+{
+    "name": "xgb_linear",
+    "rs_data": "data/xgboost.arff",
+    "metadata": "data/ppp_metadata.csv",
+    "surrogates": "data/xgb_linear_surrogates.pkl",
+    "hyperparameters": [
+      "alpha",
+      "eta",
+      "lambda",
+      "nrounds",
+      "subsample"
+    ],
+    "defaults_filters": {
+      "booster": "gblinear"
+    },
+    "operators": "default",
+    "ignore": [
+      "colsample_bylevel",
+      "colsample_bytree",
+      "max_depth",
+      "min_child_weight",
+      "brier",
+      "auc"
+    ],
+    "checks": { }
+}
