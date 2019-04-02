@@ -22,5 +22,8 @@
       "brier",
       "auc"
     ],
-    "checks": { }
+    "checks": { },
+    "constants": {
+      "nrounds": 1000
+    }
 }
