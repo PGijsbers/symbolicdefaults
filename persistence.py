@@ -27,7 +27,7 @@ def load_results_for_problem(problem):
         filters = [experiments[hp] == default for (hp, default) in problem["defaults_filters"].items()]
         combined_filter = functools.reduce(operator.iand, filters)
         experiments = experiments[combined_filter]
-    if len(problem['ignore']) > 0:
+    if problem.get('ignore') is not None and len(problem['ignore']) > 0:
         experiments = experiments.drop(problem['ignore'], axis=1)
     return experiments
 

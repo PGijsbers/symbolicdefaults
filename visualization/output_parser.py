@@ -112,11 +112,12 @@ def generate_comparisons(problem, files, names):
     for method, performance in performances.items():
         loss_sum = 0
         for i, row in performance.iterrows():
-            best_score = svc_results[svc_results.task_id == row.name].predictive_accuracy.max()
-            loss = best_score - row.avg
-            if loss < 0:
-                print('{} outperformed best on task {} by {}'.format(method, row.name, loss))
-            loss_sum += loss
+            if row.name in svc_results.task_id.unique():
+                best_score = svc_results[svc_results.task_id == row.name].predictive_accuracy.max()
+                loss = best_score - row.avg
+                if loss < 0:
+                    print('{} outperformed best on task {} by {}'.format(method, row.name, loss))
+                loss_sum += loss
         df.loc[method]['loss'] = loss_sum
         df.loc[method]['N'] = len(performance)
 

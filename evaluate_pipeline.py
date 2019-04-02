@@ -47,7 +47,7 @@ def main():
     with open(output_file, 'a') as fh:
         fh.write('task;f0;f1;f2;f3;f4;f5;f6;f7;f8;f9;avg;std\n')
 
-    metadata = pd.read_csv('../data/ppp_metadata.csv', index_col=0)
+    metadata = pd.read_csv('data/ppp_metadata.csv', index_col=0)
     runs = []
     for i, task_id in enumerate(metadata.sort_values(by='n').index):
         print('[{:2d}/100] starting task {}'.format(i, task_id))
