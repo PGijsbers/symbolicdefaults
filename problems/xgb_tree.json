@@ -1,0 +1,28 @@
+{
+    "name": "xgb_tree",
+    "rs_data": "data/xgboost.arff",
+    "metadata": "data/ppp_metadata.csv",
+    "surrogates": "data/xgb_tree_surrogates.pkl",
+    // Selection using criteria from Probst et al., 2018 Tunability: Importance_of_Hyperparameters_of_Machine_Learning_Algorithms
+    // I.e. choosing hyperpars where tuning has a higher effect.
+    "hyperparameters": [
+      // "nrounds", // Maybe set to const. 1000 / 500?
+      // "alpha",
+      "eta",
+      // "lambda",
+      "subsample",
+      "colsample_bylevel",
+      "colsample_bytree",
+      // "max_depth",
+      "min_child_weight",
+    ],
+    "defaults_filters": {
+      "booster": "gbtree"
+    },
+    "operators": "default",
+    "ignore": [
+      "brier",
+      "auc"
+    ],
+    "checks": { }
+}
