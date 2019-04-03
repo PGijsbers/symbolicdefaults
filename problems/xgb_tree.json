@@ -8,7 +8,7 @@
       "subsample",
       "colsample_bylevel",
       "colsample_bytree",
-      "min_child_weight",
+      "min_child_weight"
     ],
     "defaults_filters": {
       "booster": "gbtree"
