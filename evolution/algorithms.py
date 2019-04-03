@@ -124,3 +124,14 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
             print(logbook.stream)
 
     return population, logbook
+
+
+def random_search(toolbox, popsize, halloffame=None):
+    random_population = toolbox.population(popsize)
+    fitnesses = toolbox.map(toolbox.evaluate, random_population)
+    for ind, fit in zip(random_population, fitnesses):
+        ind.fitness.values = fit
+    # Update the hall of fame with the generated individuals
+    if halloffame is not None:
+        halloffame.update(random_population)
+    return random_population
