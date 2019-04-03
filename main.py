@@ -14,7 +14,7 @@ import persistence
 from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in
-from evolution.algorithms import one_plus_lambda, eaMuPlusLambda
+from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
 
@@ -150,6 +150,8 @@ def main():
                     ngen=1,
                     halloffame=hof
                 )
+            if args.algorithm == 'random_search':
+                pop = random_search(toolbox, popsize=args.lambda_, halloffame=hof)
 
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
