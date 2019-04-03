@@ -1,7 +1,7 @@
 {
     "name": "adaboost",
     "rs_data": "data/adaboost.arff",
-    "metadata": "data/ppp_metadata.csv",
+    "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/adaboost_surrogates.pkl",
     "hyperparameters": [
       "adaboostclassifier__learning_rate",
