@@ -10,7 +10,7 @@
     "rs_data": "data/svc_big.arff",
 
     "COMMENT": "Contains metafeatures of the tasks in `rs_data`.",
-    "metadata": "data/ppp_metadata.csv",
+    "metadata": "data/after_pipeline_metafeatures.csv",
 
     "COMMENT": "Specify where to load/store the surrogate models.",
     "surrogates": "data/svc_surrogates_rbf_big.pkl",

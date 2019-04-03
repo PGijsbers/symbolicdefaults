@@ -1,7 +1,7 @@
 {
     "name": "xgb_linear",
     "rs_data": "data/xgboost.arff",
-    "metadata": "data/ppp_metadata.csv",
+    "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/xgb_linear_surrogates.pkl",
     "hyperparameters": [
       "alpha",

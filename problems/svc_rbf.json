@@ -1,7 +1,7 @@
 {
     "name": "svc_rbf",
     "rs_data": "data/svc_big.arff",
-    "metadata": "data/ppp_metadata.csv",
+    "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/svc_surrogates_rbf_big.pkl",
     "hyperparameters": [
       "svc__C",

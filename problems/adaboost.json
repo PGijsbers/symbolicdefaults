@@ -1,0 +1,18 @@
+{
+    "name": "adaboost",
+    "rs_data": "data/adaboost.arff",
+    "metadata": "data/after_pipeline_metafeatures.csv",
+    "surrogates": "data/adaboost_surrogates.pkl",
+    "hyperparameters": [
+      "adaboostclassifier__learning_rate",
+      "adaboostclassifier__base_estimator__max_depth",
+      "adaboostclassifier__n_estimators"
+    ],
+    "defaults_filters": {
+      "adaboostclassifier__algorithm": "SAMME.R"
+    },
+    "operators": "default",
+    "checks": {
+      "sklearn":"make_tuple(1., 1., 50.)"
+    }
+}
