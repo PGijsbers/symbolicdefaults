@@ -13,7 +13,7 @@ from deap import tools
 import persistence
 from surrogates import create_surrogates
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, n_primitives_in
+from evolution.operations import mass_evaluate, n_primitives_in, mut_all_constants
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -54,7 +54,14 @@ def main():
     parser.add_argument('-pp',
                         help="Phenotypic Plasticity",
                         dest='phenotypic_plasticity', type=bool, default=False)
+    parser.add_argument('-oc',
+                        help=("Optimize Constants. Instead of evaluating an individual with specific constants"
+                              "evaluate based it on 50 random instantiation of constants instead."),
+                        dest='optimize_constants', type=bool, default=False)
     args = parser.parse_args()
+
+    if args.optimize_constants and args.phenotypic_plasticity:
+        raise ValueError("Phenotypic Plasticity together with Optimize Constants currently not supported.")
 
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
@@ -106,7 +113,9 @@ def main():
         toolbox.register("map", functools.partial(mass_evaluate,
                                                   pset=pset, metadataset=loo_metadataset,
                                                   surrogates=surrogates, subset=args.subset,
-                                                  toolbox=toolbox))
+                                                  toolbox=toolbox,
+                                                  optimize_constants=args.optimize_constants,
+                                                  phenotypic_plasticity=args.phenotypic_plasticity))
 
         pop = toolbox.population(n=args.lambda_)
         P = pop[0]
@@ -179,6 +188,13 @@ def main():
         for ind in hof[:5]:
             if args.phenotypic_plasticity:
                 logging.info(str(ind)+str(ind.plasticity))
+            elif args.optimize_constants:
+                variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(50)]
+                fitnesses = mass_evaluate(toolbox.evaluate, variations, pset=pset, metadataset=loo_metadataset,
+                                          surrogates=surrogates, subset=args.subset, toolbox=toolbox)
+                variations = list(zip(fitnesses, [str(v) for v in variations]))
+                best = max(variations)
+                logging.info(str(best[1]))
             else:
                 logging.info(str(ind))
 
