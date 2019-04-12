@@ -33,6 +33,7 @@ import numpy as np
 import stopit
 
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_val_score
 from utils import simple_construct_pipeline_for_task
 
 
@@ -47,12 +48,19 @@ def main():
     with open(output_file, 'a') as fh:
         fh.write('task;f0;f1;f2;f3;f4;f5;f6;f7;f8;f9;avg;std\n')
 
-    metadata = pd.read_csv('data/ppp_metadata.csv', index_col=0)
+    if len(sys.argv) > 4:
+        my_task = int(sys.argv[4])
+    else:
+        my_task = None
+
+    metadata = pd.read_csv('data/after_pipeline_metafeatures.csv', index_col=0)
     runs = []
     for i, task_id in enumerate(metadata.sort_values(by='n').index):
+        if my_task is not None and my_task != int(task_id):
+            continue
         print('[{:2d}/100] starting task {}'.format(i, task_id))
         try:
-            with stopit.ThreadingTimeout(seconds=3600) as cm:
+            with stopit.ThreadingTimeout(seconds=90) as cm:
                 task = openml.tasks.get_task(task_id)
 
                 param_dict = {metafeature: metadata.loc[task_id][metafeature] for metafeature in call_parameters}
@@ -62,14 +70,22 @@ def main():
                 )
                 learner = eval(instantiate_call)
 
-                pipeline = simple_construct_pipeline_for_task(task, learner)
-                run = openml.runs.run_model_on_task(pipeline, task, upload_flow=False, avoid_duplicate_runs=False)
-                scores = run.get_metric_fn(accuracy_score)
+                if import_module == 'xgboost':
+                    X, y = task.get_X_and_y()
+                    scores = cross_val_score(learner, X, y, cv=10)
+                else:
+                    pipeline = simple_construct_pipeline_for_task(task, learner)
+                    run = openml.runs.run_model_on_task(pipeline, task, upload_flow=False, avoid_duplicate_runs=False)
+                    scores = run.get_metric_fn(accuracy_score)
+
+                if my_task is not None:
+                    print(scores,  np.mean(scores))
+                    return
 
                 with open(output_file, 'a') as fh:
                     scores_str = ';'.join([str(score) for score in scores])
                     fh.write('{};{};{};{}\n'.format(task_id, scores_str, np.mean(scores), np.std(scores)))
-                runs.append(run)
+                #runs.append(run)
         except Exception as e:
             print(str(e))
 
