@@ -37,7 +37,7 @@ def try_evaluate_function(fn, input_, invalid):
         return invalid
 
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, phenotypic_plasticity=False):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values. """
     if individuals == []:
@@ -45,8 +45,13 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
 
     fns = []
     for ind in individuals:
-        if hasattr(individuals[0], 'plasticity'):
+        if phenotypic_plasticity:
             variations = [vary(toolbox.clone(ind), pset, toolbox.expr) for _ in range(5)]
+            fns += [gp.compile(variation, pset) for variation in variations]
+        elif optimize_constants:
+            # For now ignore the fact that we also duplicate individuals with no constants.
+            # It should not affect results even though it will increase compute cost.
+            variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(5)]
             fns += [gp.compile(variation, pset) for variation in variations]
         else:
             fns.append(gp.compile(ind, pset))
@@ -122,3 +127,18 @@ def random_mutation(ind, pset, max_depth=None):
         valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
 
     return np.random.choice(valid_mutations)(ind)
+
+
+def mut_all_constants(individual, pset):
+    # Ephemerals have a non-string name...
+    ephemerals = [el for el in pset.terminals[float] if not isinstance(el.name, str)]
+
+    ephemerals_idx = [index
+                      for index, node in enumerate(individual)
+                      if isinstance(node, gp.Ephemeral)]
+
+    if len(ephemerals_idx) > 0:
+        for i in ephemerals_idx:
+            individual[i] = random.choice(ephemerals)()
+
+    return individual
