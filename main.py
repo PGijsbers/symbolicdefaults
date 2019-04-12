@@ -105,8 +105,7 @@ def main():
     metadataset = pd.read_csv(problem['metadata'], index_col=0)
     metadataset = metadataset[metadataset.index.isin(surrogates)]
     top_5s = {}
-    print(metadataset.index)
-    avgs = []
+
     for task in list(metadataset.index):
         logging.info("START_TASK:{}".format(task))
         loo_metadataset = metadataset[metadataset.index != task]
@@ -165,9 +164,6 @@ def main():
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
             logbook.record(gen=i, nevals=100, **record)
-            #logbook_output = logbook.stream
-            #for line in logbook_output.split('\n'):
-                #logging.info(line)
 
             generation_info_string = "GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}".format(i,
                                  record['fitness']['min'], record['fitness']['avg'], record['fitness']['max'],
@@ -189,6 +185,7 @@ def main():
             if args.phenotypic_plasticity:
                 logging.info(str(ind)+str(ind.plasticity))
             elif args.optimize_constants:
+                # since 'optimization' of constants is not saved, reoptimize constants before printing.
                 variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(50)]
                 fitnesses = mass_evaluate(toolbox.evaluate, variations, pset=pset, metadataset=loo_metadataset,
                                           surrogates=surrogates, subset=args.subset, toolbox=toolbox)
