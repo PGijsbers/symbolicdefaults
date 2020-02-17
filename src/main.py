@@ -1,26 +1,23 @@
 import argparse
 import functools
 import logging
-import os
-import pickle
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
 
 from deap import tools
 
-import persistence
-from surrogates import create_surrogates
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, n_primitives_in, mut_all_constants
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
 
+from problem import Problem
 
-def main():
-    description = "Uses evolutionary optimization to find symbolic expressions for default hyperparameter values."
+
+def cli_parser():
+    description = "Use Symbolic Regression to find symbolic hyperparameter defaults."
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('problem', type=str,
                         help="Problem to optimize. Must match one of 'name' fields in the configuration file.")
@@ -52,73 +49,65 @@ def main():
                         help="Max Number of Operators",
                         dest='max_number_operators', type=int, default=None)
     parser.add_argument('-oc',
-                        help=("Optimize Constants. Instead of evaluating an individual with specific constants"
-                              "evaluate based it on 50 random instantiation of constants instead."),
+                        help=(
+                            "Optimize Constants. Instead of evaluating an individual with specific constants"
+                            "evaluate based it on 50 random instantiation of constants instead."),
                         dest='optimize_constants', type=bool, default=False)
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
-    args = parser.parse_args()
+    return parser.parse_args()
 
+
+def configure_logging(output_file: str = None):
+    """ Configure INFO logging to console and optionally DEBUG to an output file. """
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    if args.output_file is not None:
-        log_file_handle = logging.FileHandler(args.output_file)
+    if output_file is not None:
+        log_file_handle = logging.FileHandler(output_file)
         log_file_handle.setLevel(logging.DEBUG)
         logging.getLogger().addHandler(log_file_handle)
 
-    # Configure numpy to report raise all warnings (otherwise overflows may go undetected).
+
+def main():
+    # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
 
-    # ================================================
-    # Load or create surrogate models for each problem
-    # ================================================
-    problem = persistence.load_problem(args.problem)
+    args = cli_parser()
+    configure_logging(args.output_file)
 
-    if os.path.exists(problem['surrogates']):
-        logging.info("Loading surrogates from file.")
-        with open(problem['surrogates'], 'rb') as fh:
-            surrogates = pickle.load(fh)
-    else:
-        logging.info("Loading experiment results from file.")
-        experiments = persistence.load_results_for_problem(problem)
+    problem = Problem(args.problem)
 
-        logging.info("Creating surrogates.")
-        surrogates = create_surrogates(
-            experiments,
-            hyperparameters=problem['hyperparameters'],
-            metalearner=lambda: RandomForestRegressor(n_estimators=100, n_jobs=-1)
-        )
-
-        persistence.save_surrogates(surrogates, problem)
-
-    # The 'toolbox' defines all operations, and the primitive set (`pset`) defines the grammar.
+    # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
 
     # ================================================
     # Start evolutionary optimization
     # ================================================
-    metadataset = pd.read_csv(problem['metadata'], index_col=0)
-    metadataset = metadataset[metadataset.index.isin(surrogates)]
     top_5s = {}
 
-    for task in list(metadataset.index):
+    for task in list(problem.metadata.index):
         if args.task is not None and args.task != task:
             continue
-        logging.info("START_TASK:{}".format(task))
-        loo_metadataset = metadataset[metadataset.index != task]
-        toolbox.register("map", functools.partial(mass_evaluate,
-                                                  pset=pset, metadataset=loo_metadataset,
-                                                  surrogates=surrogates, subset=args.subset,
-                                                  toolbox=toolbox,
-                                                  optimize_constants=args.optimize_constants))
+        logging.info(f"START_TASK: {task}")
+        # 'task' experiment data is used as validation set, so we must not use
+        # it during our symbolic regression search.
+        loo_metadataset = problem.metadata[problem.metadata.index != task]
+
+        # 'map' will be called within the optimization algorithm for batch evaluation.
+        # All evaluation variables are fixed, except for the individuals themselves.
+        toolbox.register(
+            "map",
+            functools.partial(
+                mass_evaluate, pset=pset, metadataset=loo_metadataset,
+                surrogates=problem.surrogates, subset=args.subset,
+                toolbox=toolbox, optimize_constants=args.optimize_constants
+            )
+        )
 
         pop = toolbox.population(n=args.lambda_)
         P = pop[0]
-
-        last_best = (0, -10)
-        last_best_gen = 0
 
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
@@ -129,6 +118,8 @@ def main():
         mstats.register("min", np.min)
         mstats.register("max", np.max)
         hof = tools.HallOfFame(10)
+        last_best = (0, -10)
+        last_best_gen = 0
 
         # Little hackery for logging with early stopping
         logbook = tools.Logbook()
@@ -191,8 +182,7 @@ def main():
             else:
                 logging.info(str(ind))
 
-        checks = problem.get('checks', [])
-        for check_name, check_individual in checks.items():
+        for check_name, check_individual in problem.checks.items():
             scale_result = list(toolbox.map(toolbox.evaluate, [
                 creator.Individual(gp.PrimitiveTree.from_string(check_individual, pset))]))[0][0]
             logging.info("{}:{}".format(check_name, scale_result))

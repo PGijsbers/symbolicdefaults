@@ -104,11 +104,15 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
 
+        # ====================== MODIFICATION ========================
         # re-evaluate old population here (after creating offspring)
+        # this is used when evaluations are performed on only a subset of tasks,
+        # as otherwise an 'easy' subset of tasks may lead to a permanent high score.
         if no_cache:
             fitnesses = toolbox.map(toolbox.evaluate, population)
             for ind, fit in zip(population, fitnesses):
                 ind.fitness.values = fit
+        # ============================================================
 
         # Update the hall of fame with the generated individuals
         if halloffame is not None:

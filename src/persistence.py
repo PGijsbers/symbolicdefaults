@@ -1,7 +1,6 @@
 import functools
 import json
 import operator
-import pickle
 
 import arff
 import pandas as pd
@@ -30,14 +29,3 @@ def load_results_for_problem(problem):
     if problem.get('ignore') is not None and len(problem['ignore']) > 0:
         experiments = experiments.drop(problem['ignore'], axis=1)
     return experiments
-
-
-def save_surrogates(surrogates, problem):
-    """ Save surrogates to a pickle blob. """
-    for surrogate in surrogates.values():
-        # We want parallelization during training, but not during prediction
-        # as our prediction batches are too small to make the multiprocessing overhead worth it (tested).
-        surrogate.set_params(n_jobs=1)
-
-    with open(problem['surrogates'], 'wb') as fh:
-        pickle.dump(surrogates, fh)
