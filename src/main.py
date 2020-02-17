@@ -41,7 +41,7 @@ def cli_parser():
                         dest='subset', type=float, default=1.)
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
-                        dest='early_stopping_n', type=int, default=20)
+                        dest='early_stop_n', type=int, default=20)
     parser.add_argument('-o',
                         help="Output file. Also write log output to this file.",
                         dest='output_file', type=str, default=None)
@@ -154,9 +154,13 @@ def main():
             record = mstats.compile(pop) if mstats is not None else {}
             logbook.record(gen=i, nevals=100, **record)
 
-            generation_info_string = "GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}".format(i,
-                                 record['fitness']['min'], record['fitness']['avg'], record['fitness']['max'],
-                                 record['size']['min'], record['size']['avg'], record['size']['max'])
+            generation_info_string = (
+                "GEN_{}_FIT_{}_{}_{}_SIZE_{}_{}_{}".format(
+                    i, record['fitness']['min'], record['fitness']['avg'],
+                    record['fitness']['max'], record['size']['min'],
+                    record['size']['avg'], record['size']['max']
+                )
+            )
 
             logging.info(generation_info_string)
             # Little hackery for logging early stopping
@@ -164,18 +168,23 @@ def main():
                 if ind.fitness.wvalues > last_best:
                     last_best = ind.fitness.wvalues
                     last_best_gen = i
-            if i - last_best_gen > args.early_stopping_n:
-                logging.info("Stopping early, no new best in {} generations.".format(args.early_stopping_n))
+            if i - last_best_gen > args.early_stop_n:
+                logging.info(f"Stop early, no improvement in {args.early_stop_n} gens.")
                 break
 
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
             if args.optimize_constants:
-                # since 'optimization' of constants is not saved, reoptimize constants before printing.
-                variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(50)]
-                fitnesses = mass_evaluate(toolbox.evaluate, variations, pset=pset, metadataset=loo_metadataset,
-                                          surrogates=surrogates, subset=args.subset, toolbox=toolbox)
+                # since 'optimization' of constants is not saved,
+                # reoptimize constants before printing.
+                variations = [mut_all_constants(toolbox.clone(ind), pset)
+                              for _ in range(50)]
+                fitnesses = mass_evaluate(
+                    toolbox.evaluate, variations, pset=pset,
+                    metadataset=loo_metadataset, surrogates=problem.surrogates,
+                    subset=args.subset, toolbox=toolbox
+                )
                 variations = list(zip(fitnesses, [str(v) for v in variations]))
                 best = max(variations)
                 logging.info(str(best[1]))
@@ -183,8 +192,9 @@ def main():
                 logging.info(str(ind))
 
         for check_name, check_individual in problem.benchmarks.items():
-            scale_result = list(toolbox.map(toolbox.evaluate, [
-                creator.Individual(gp.PrimitiveTree.from_string(check_individual, pset))]))[0][0]
+            expression = gp.PrimitiveTree.from_string(check_individual, pset)
+            individual = creator.Individual(expression)
+            scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
             logging.info("{}:{}".format(check_name, scale_result))
 
 

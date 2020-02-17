@@ -11,18 +11,13 @@ from deap import gp, base, creator, tools
 from .operations import random_mutation, try_evaluate_function
 
 
-def if_gt(float1, float2, float3, float4):
-    if float1 > float2:
-        return float3
-    else:
-        return float4
+def if_gt(a, b, x, y):
+    return x if a > b else y
 
 
-def poly_gt(float1, float2):
-    if float1 > float2:
-        return 1.
-    else:
-        return 3.
+def poly_gt(a, b):
+    # Introduced specifically for polynomial kernel degree hyperparameter.
+    return 1. if a > b else 3.
 
 
 def setup_toolbox(problem, args):
@@ -33,7 +28,7 @@ def setup_toolbox(problem, args):
         NumberOfInstances='n',
         MedianKernelDistance='mkd',
         MajorityClassPercentage='mcp',
-        RatioSymbolicFeatures='rc',  # Number Symbolic / Number Features
+        RatioSymbolicFeatures='rc',  # 'ratio categorical' := #Symbolic / #Features
         Variance='xvar'  # variance of all elements
     )
 
@@ -75,6 +70,10 @@ def setup_toolbox(problem, args):
     toolbox.register("mate", gp.cxOnePoint)
     toolbox.register("mutate", random_mutation, pset=pset, max_depth=args.max_number_operators)
 
+    # We abuse 'map/evaluate'.
+    # Here 'evaluate' computes the hyperparameter values based on the symbolic
+    # expression and meta-feature values. Then 'map' will evaluate all these
+    # configurations in one batch with the use of surrogate models.
     toolbox.register("evaluate", functools.partial(try_evaluate_function,
                                                    invalid=(1e-6,) * n_hyperparams))
 
