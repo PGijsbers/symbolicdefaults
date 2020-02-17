@@ -58,6 +58,9 @@ def main():
                         help=("Optimize Constants. Instead of evaluating an individual with specific constants"
                               "evaluate based it on 50 random instantiation of constants instead."),
                         dest='optimize_constants', type=bool, default=False)
+    parser.add_argument('-t',
+                        help="Perform search and evaluation for this task only.",
+                        dest='task', type=int, default=None)
     args = parser.parse_args()
 
     if args.optimize_constants and args.phenotypic_plasticity:
@@ -107,6 +110,8 @@ def main():
     top_5s = {}
 
     for task in list(metadataset.index):
+        if args.task is not None and args.task != task:
+            continue
         logging.info("START_TASK:{}".format(task))
         loo_metadataset = metadataset[metadataset.index != task]
         toolbox.register("map", functools.partial(mass_evaluate,
