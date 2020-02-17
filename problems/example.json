@@ -5,9 +5,9 @@
     "COMMENT": "Name should be a unique name for the problem.",
     "name": "svc_rbf",
 
-    "COMMENT": "rs_data points to the file that stores the data of the random search experiments",
+    "COMMENT": "experiment_data points to the file that stores the data of the random search experiments",
     "COMMENT": "on which to build surrogate models.",
-    "rs_data": "data/svc_big.arff",
+    "experiment_data": "data/svc_big.arff",
 
     "COMMENT": "Contains metafeatures of the tasks in `rs_data`.",
     "metadata": "data/after_pipeline_metafeatures.csv",
@@ -24,15 +24,12 @@
 
     "COMMENT": "Specify which experiments of `rs_data` to use.",
     "COMMENT": "Here specify to only use results where 'svc__kernel'=='rbf'",
-    "defaults_filters": {
+    "filters": {
       "svc__kernel": "rbf"
     },
 
-    "COMMENT": "Specify which operators to use. Currently not used.",
-    "operators": "default",
-
     "COMMENT": "Strings of individuals which will also be evaluated to give reference performance.",
-    "checks": {
+    "benchmark": {
       "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
       "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
     }

@@ -1,6 +1,6 @@
 {
     "name": "xgb_linear",
-    "rs_data": "data/xgboost.arff",
+    "experiment_data": "data/xgboost.arff",
     "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/xgb_linear_surrogates.pkl",
     "hyperparameters": [
@@ -10,10 +10,9 @@
       "nrounds",
       "subsample"
     ],
-    "defaults_filters": {
+    "filters": {
       "booster": "gblinear"
     },
-    "operators": "default",
     "ignore": [
       "colsample_bylevel",
       "colsample_bytree",
@@ -21,6 +20,5 @@
       "min_child_weight",
       "brier",
       "auc"
-    ],
-    "checks": { }
+    ]
 }

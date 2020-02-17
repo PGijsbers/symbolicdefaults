@@ -26,21 +26,21 @@ class Problem:
         return self._json['hyperparameters']
 
     @property
-    def checks(self) -> Dict[str, str]:
-        return self._json.get('checks', {})
+    def benchmarks(self) -> Dict[str, str]:
+        return self._json.get('benchmark', {})
 
     @property
     def data(self) -> pd.DataFrame:
         """ Experiment data with task, hyperparameter configuration and score. """
         if self._data is None:
-            with open(self._json['rs_data'], 'r') as fh:
+            with open(self._json['experiment_data'], 'r') as fh:
                 data = arff.load(fh)
             unfiltered_data = pd.DataFrame(
                 data['data'], columns=[name for name, type_ in data['attributes']]
             )
 
             # The problem may specify filters on hyperparameter values
-            if len(self._json['defaults_filters']) > 0:
+            if len(self._json.get('filters', [])) > 0:
                 filters = [unfiltered_data[hp] == default
                            for (hp, default) in self._json['defaults_filters'].items()]
                 combined_filter = functools.reduce(operator.iand, filters)
@@ -48,7 +48,7 @@ class Problem:
             else:
                 experiments = unfiltered_data
 
-            if self._json.get('ignore') is not None and len(self._json['ignore']) > 0:
+            if len(self._json.get('ignore', [])) > 0:
                 experiments = experiments.drop(self._json['ignore'], axis=1)
 
             self._data = experiments

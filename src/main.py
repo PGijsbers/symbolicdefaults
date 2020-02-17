@@ -182,7 +182,7 @@ def main():
             else:
                 logging.info(str(ind))
 
-        for check_name, check_individual in problem.checks.items():
+        for check_name, check_individual in problem.benchmarks.items():
             scale_result = list(toolbox.map(toolbox.evaluate, [
                 creator.Individual(gp.PrimitiveTree.from_string(check_individual, pset))]))[0][0]
             logging.info("{}:{}".format(check_name, scale_result))
