@@ -51,9 +51,6 @@ def main():
     parser.add_argument('-mno',
                         help="Max Number of Operators",
                         dest='max_number_operators', type=int, default=None)
-    parser.add_argument('-pp',
-                        help="Phenotypic Plasticity",
-                        dest='phenotypic_plasticity', type=bool, default=False)
     parser.add_argument('-oc',
                         help=("Optimize Constants. Instead of evaluating an individual with specific constants"
                               "evaluate based it on 50 random instantiation of constants instead."),
@@ -62,9 +59,6 @@ def main():
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
     args = parser.parse_args()
-
-    if args.optimize_constants and args.phenotypic_plasticity:
-        raise ValueError("Phenotypic Plasticity together with Optimize Constants currently not supported.")
 
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
@@ -118,8 +112,7 @@ def main():
                                                   pset=pset, metadataset=loo_metadataset,
                                                   surrogates=surrogates, subset=args.subset,
                                                   toolbox=toolbox,
-                                                  optimize_constants=args.optimize_constants,
-                                                  phenotypic_plasticity=args.phenotypic_plasticity))
+                                                  optimize_constants=args.optimize_constants))
 
         pop = toolbox.population(n=args.lambda_)
         P = pop[0]
@@ -154,7 +147,7 @@ def main():
                     ngen=1,
                     verbose=False,
                     halloffame=hof,
-                    no_cache=((args.subset < 1.0) or args.phenotypic_plasticity)
+                    no_cache=(args.subset < 1.0)
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(
@@ -187,9 +180,7 @@ def main():
         top_5s[task] = hof[:5]
         logging.info("Top 5 for task {}:".format(task))
         for ind in hof[:5]:
-            if args.phenotypic_plasticity:
-                logging.info(str(ind)+str(ind.plasticity))
-            elif args.optimize_constants:
+            if args.optimize_constants:
                 # since 'optimization' of constants is not saved, reoptimize constants before printing.
                 variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(50)]
                 fitnesses = mass_evaluate(toolbox.evaluate, variations, pset=pset, metadataset=loo_metadataset,

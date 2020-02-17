@@ -40,7 +40,7 @@ def setup_toolbox(problem, args):
     variable_names = list(variables.values())
 
     pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
-    pset.renameArguments(**{"ARG{}".format(i): var for i, var in enumerate(variable_names)})
+    pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
     pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
     pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
     pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 9)]), ret_type=float)
@@ -63,11 +63,7 @@ def setup_toolbox(problem, args):
 
     # More DEAP boilerplate...
     creator.create("FitnessMin", base.Fitness, weights=(1.0, -1.0))
-
-    if args.phenotypic_plasticity:
-        creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin, plasticity=(True,) * n_hyperparams)
-    else:
-        creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
+    creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
 
     toolbox = base.Toolbox()
     toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
