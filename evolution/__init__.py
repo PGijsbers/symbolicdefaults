@@ -23,13 +23,13 @@ def poly_gt(a, b):
 def setup_toolbox(problem, args):
     # Set variables of our genetic program:
     variables = dict(
-        NumberOfClasses='m',
-        NumberOfFeatures='p',
-        NumberOfInstances='n',
-        MedianKernelDistance='mkd',
-        MajorityClassPercentage='mcp',
-        RatioSymbolicFeatures='rc',  # 'ratio categorical' := #Symbolic / #Features
-        Variance='xvar'  # variance of all elements
+        NumberOfClasses='m',           #  [2;50]
+        NumberOfFeatures='p',          #  [1;Inf]
+        NumberOfInstances='n',         #  [1;Inf]
+        MedianKernelDistance='mkd',    #  [0;Inf]
+        MajorityClassPercentage='mcp', #  [0;1]
+        RatioSymbolicFeatures='rc',    #  [0;1]   'ratio categorical' := #Symbolic / #Features
+        Variance='xvar'                #  [0;Inf] variance of all elements
     )
 
     variable_names = list(variables.values())
@@ -38,7 +38,7 @@ def setup_toolbox(problem, args):
     pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
     pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
     pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
-    pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 9)]), ret_type=float)
+    pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     pset.addPrimitive(poly_gt, [float, float], float)
@@ -62,8 +62,7 @@ def setup_toolbox(problem, args):
 
     toolbox = base.Toolbox()
     toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
-    toolbox.register("individual", tools.initIterate, creator.Individual,
-                     toolbox.expr)
+    toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("select", tools.selNSGA2)
@@ -76,5 +75,8 @@ def setup_toolbox(problem, args):
     # configurations in one batch with the use of surrogate models.
     toolbox.register("evaluate", functools.partial(try_evaluate_function,
                                                    invalid=(1e-6,) * n_hyperparams))
+
+    toolbox.decorate("mate",   gp.staticLimit(key=operator.attrgetter("height"), max_value=6))
+    toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=6))
 
     return toolbox, pset

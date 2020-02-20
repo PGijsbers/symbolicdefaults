@@ -21,9 +21,10 @@ def load_problem(problem_name):
 
 def load_results_for_problem(problem):
     """ Load the 'experiments' file and filter out those rows that use non-default values. """
-    experiments = load_data(problem['rs_data'])
-    if len(problem['defaults_filters']) > 0:
-        filters = [experiments[hp] == default for (hp, default) in problem["defaults_filters"].items()]
+    experiments = load_data(problem['experiment_data'])
+
+    if len(problem['filters']) > 0:
+        filters = [experiments[hp] == default for (hp, default) in problem["filters"].items()]
         combined_filter = functools.reduce(operator.iand, filters)
         experiments = experiments[combined_filter]
     if problem.get('ignore') is not None and len(problem['ignore']) > 0:
