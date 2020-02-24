@@ -15,7 +15,7 @@
       "colsample_bytree",
       "colsample_bylevel"
     ],
-    "filters": {"booster" : "3.0"},
+    "filters": {"booster" : "gbtree"},
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [
