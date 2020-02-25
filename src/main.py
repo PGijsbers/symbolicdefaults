@@ -32,7 +32,7 @@ def cli_parser():
                         dest='lambda_', type=int, default=100)
     parser.add_argument('-ngen',
                         help="Number of generations.",
-                        dest='ngen', type=int, default=100)
+                        dest='ngen', type=int, default=200)
     parser.add_argument('-a',
                         help="Algorithm. {mupluslambda, onepluslambda}",
                         dest='algorithm', type=str, default='mupluslambda')
@@ -86,6 +86,7 @@ def main():
     # Start evolutionary optimization
     # ================================================
     top_5s = {}
+    in_sample_mean = {}
 
     for task in list(problem.metadata.index):
         if args.task is not None and args.task != task:
@@ -191,11 +192,23 @@ def main():
             else:
                 logging.info(str(ind))
 
+        logging.info("Evaluating in sample:")
+
+        in_sample_mean[task] = {}
         for check_name, check_individual in problem.benchmarks.items():
             expression = gp.PrimitiveTree.from_string(check_individual, pset)
             individual = creator.Individual(expression)
             scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
             logging.info("{}:{}".format(check_name, scale_result))
+            in_sample_mean[task][check_name] = scale_result
+
+
+
+    for check_name, check_individual in problem.benchmarks.items():
+        avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
+        logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
+
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,24 @@
+{
+    "name": "xgboost_linear",
+    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.xgboost.arff",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/xgboost_gblinear_surrogates.pkl",
+    "hyperparameters": [
+      "nrounds",
+      "lambda",
+      "alpha"
+    ],
+    "filters": {"booster":"gblinear"},
+    "operators": "default",
+    "performance_column": "perf.mmce",
+    "ignore": [
+      "perf.logloss",
+      "learner",
+      "traintime",
+      "predicttime",
+      "dataset"
+    ],
+    "benchmark": {
+      "sklearn_default":      "make_tuple(100.0, 1.0, 0.0)"
+    }
+}

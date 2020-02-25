@@ -26,6 +26,10 @@ class Problem:
         return self._json['hyperparameters']
 
     @property
+    def performance_column(self):
+        return self._json['performance_column']
+
+    @property
     def benchmarks(self) -> Dict[str, str]:
         return self._json.get('benchmark', {})
 
@@ -42,7 +46,7 @@ class Problem:
             # The problem may specify filters on hyperparameter values
             if len(self._json.get('filters', [])) > 0:
                 filters = [unfiltered_data[hp] == default
-                           for (hp, default) in self._json['defaults_filters'].items()]
+                           for (hp, default) in self._json['filters'].items()]
                 combined_filter = functools.reduce(operator.iand, filters)
                 experiments = unfiltered_data[combined_filter]
             else:
