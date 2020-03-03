@@ -208,6 +208,23 @@ def main():
             logging.info("{}:{}".format(check_name, scale_result))
             in_sample_mean[task][check_name] = scale_result
 
+        logging.info("Evaluating out-of-sample:")
+        for i, ind in enumerate(hof[:5]):
+            fn_ = gp.compile(ind, pset)
+            mf_values = problem.metadata.loc[task]
+            hp_values = toolbox.evaluate(fn_, mf_values)
+            score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+            print(f"{i}: {score[0]:.4f} {ind}")
+
+        for check_name, check_individual in problem.benchmarks.items():
+            expression = gp.PrimitiveTree.from_string(check_individual, pset)
+            ind = creator.Individual(expression)
+            fn_ = gp.compile(ind, pset)
+            mf_values = problem.metadata.loc[task]
+            hp_values = toolbox.evaluate(fn_, mf_values)
+            score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+            print(f"{check_name}: {score[0]:.4f} {check_individual}")
+
 
 
     for check_name, check_individual in problem.benchmarks.items():
