@@ -8,7 +8,7 @@ import pandas as pd
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, n_primitives_in, mut_all_constants
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -101,7 +101,7 @@ def main():
         toolbox.register(
             "map",
             functools.partial(
-                mass_evaluate, pset=pset, metadataset=loo_metadataset,
+                mass_evaluate_2, pset=pset, metadataset=loo_metadataset,
                 surrogates=problem.surrogates, subset=args.subset,
                 toolbox=toolbox, optimize_constants=args.optimize_constants
             )

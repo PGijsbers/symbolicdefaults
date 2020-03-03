@@ -40,6 +40,10 @@ def setup_toolbox(problem, args):
     pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
     pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
 
+    symc = 1.0
+    pset.addTerminal(symc, float, "Symc")
+    pset.constants = ["Symc"]
+
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     pset.addPrimitive(poly_gt, [float, float], float)
     binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow, max, min]

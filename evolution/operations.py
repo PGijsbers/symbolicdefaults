@@ -5,7 +5,8 @@ import random
 import numpy as np
 import pandas as pd
 from deap import gp
-
+from glyph.assessment import const_opt
+from glyph.utils import Memoize
 
 def n_primitives_in(individual):
     """ Return the number of primitives in the individual. """
@@ -40,6 +41,39 @@ def try_evaluate_function(fn, input_, invalid):
         return values
     except:
         return invalid
+
+class classproperty(object):
+    def __init__(self, fget):
+        self.fget = fget
+    def __get__(self, owner_self, owner_cls):
+        return self.fget(owner_cls)
+
+@Memoize
+def error(ind, *args, **f_kwargs):
+    fn = gp.compile(ind, f_kwargs["pset"])
+    hyperparam_values = f_kwargs["evaluate"](fn, f_kwargs["row"])
+    prd = f_kwargs["surr"].predict(np.array(hyperparam_values).reshape(1,-1))
+    return prd
+
+def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False):
+    """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
+    :param evaluate: should turn (fn, row) into valid hyperparameter values. """
+    if individuals == []:
+        return []
+
+    lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
+    scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
+
+    for i, ind in enumerate(individuals):
+        ind.terminals = [p for p in ind if p.arity == 0] # hackery to make glyph happy
+        for j, (idx, row) in enumerate(metadataset.iterrows()):
+            if random.random() < subset:
+                ind.pset = pset # hackery to make glyph happy
+                opt, sc = const_opt(error, ind, f_kwargs = {"row":row, "pset":pset,"surr":surrogates[idx],"evaluate":evaluate}, maxiter=30)
+                scores_full[i, j] = sc
+
+    scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
+    return zip(scores_mean, lengths)
 
 
 def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False):
