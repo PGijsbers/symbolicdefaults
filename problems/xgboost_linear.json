@@ -10,7 +10,8 @@
     ],
     "filters": {"booster":"gblinear"},
     "operators": "default",
-    "performance_column": "perf.mmce",
+    "metric": "perf.mmce",
+    "how": "minimize",
     "ignore": [
       "perf.logloss",
       "learner",

@@ -1,3 +1,6 @@
+import logging
+import os
+import pickle
 from typing import Dict
 
 import arff
@@ -6,7 +9,7 @@ import operator
 import json
 import pandas as pd
 
-from surrogates import load_or_train_surrogates
+from surrogates import train_save_surrogates
 
 
 class Problem:
@@ -26,10 +29,6 @@ class Problem:
         return self._json['hyperparameters']
 
     @property
-    def performance_column(self):
-        return self._json['performance_column']
-
-    @property
     def benchmarks(self) -> Dict[str, str]:
         return self._json.get('benchmark', {})
 
@@ -37,6 +36,7 @@ class Problem:
     def data(self) -> pd.DataFrame:
         """ Experiment data with task, hyperparameter configuration and score. """
         if self._data is None:
+            logging.info("Loading experiment data.")
             with open(self._json['experiment_data'], 'r') as fh:
                 data = arff.load(fh)
             unfiltered_data = pd.DataFrame(
@@ -55,6 +55,9 @@ class Problem:
             if len(self._json.get('ignore', [])) > 0:
                 experiments = experiments.drop(self._json['ignore'], axis=1)
 
+            experiments = experiments.rename(columns={self._json['metric']: 'target'})
+            if self._json.get("how") == "minimize":
+                experiments.target = -experiments.target
             self._data = experiments
 
         return self._data
@@ -71,5 +74,13 @@ class Problem:
     def surrogates(self) -> Dict[int, object]:
         """ Surrogate models for each task with experiment data. """
         if self._surrogates is None:
-            self._surrogates = load_or_train_surrogates(self._json)
+            surrogate_file = self._json["surrogates"]
+            if os.path.exists(surrogate_file):
+                logging.info("Loading surrogates from file.")
+                with open(surrogate_file, 'rb') as fh:
+                    self._surrogates = pickle.load(fh)
+            else:
+                self._surrogates = train_save_surrogates(
+                    self.data, self.hyperparameters, surrogate_file
+                )
         return self._surrogates

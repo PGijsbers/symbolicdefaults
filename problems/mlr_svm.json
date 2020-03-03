@@ -1,0 +1,19 @@
+{
+    "name": "mlr_svm",
+    "experiment_data": "data/rbv2_mlr_classif.svm.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures.csv",
+    "surrogates": "data/mlr_svm_surrogates.pkl",
+    "hyperparameters": [
+      "cost",
+      "gamma"
+    ],
+    "filters": {
+      "kernel": "radial"
+    },
+    "benchmark": {
+      "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
+      "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
+    }
+}

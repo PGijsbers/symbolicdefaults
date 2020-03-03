@@ -88,9 +88,15 @@ def main():
     top_5s = {}
     in_sample_mean = {}
 
-    for task in list(problem.metadata.index):
-        if args.task is not None and args.task != task:
-            continue
+    tasks = list(problem.metadata.index)
+    if args.task is not None:
+        if args.task not in tasks:
+            logging.error("Requested task not in metadata.")
+            quit(-1)
+        else:
+            tasks = [args.task]
+
+    for task in tasks:
         logging.info(f"START_TASK: {task}")
         # 'task' experiment data is used as validation set, so we must not use
         # it during our symbolic regression search.
