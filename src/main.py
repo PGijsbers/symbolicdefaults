@@ -92,8 +92,6 @@ def main():
     top_5s = {}
     in_sample_mean = {}
 
-
-
     tasks = list(problem.metadata.index)
     if args.task is not None:
         if args.task not in tasks:
