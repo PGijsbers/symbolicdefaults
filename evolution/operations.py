@@ -42,17 +42,11 @@ def try_evaluate_function(fn, input_, invalid):
     except:
         return invalid
 
-class classproperty(object):
-    def __init__(self, fget):
-        self.fget = fget
-    def __get__(self, owner_self, owner_cls):
-        return self.fget(owner_cls)
-
 @Memoize
 def error(ind, *args, **f_kwargs):
     fn = gp.compile(ind, f_kwargs["pset"])
     hyperparam_values = f_kwargs["evaluate"](fn, f_kwargs["row"])
-    prd = f_kwargs["surr"].predict(np.array(hyperparam_values).reshape(1,-1))
+    prd = - f_kwargs["surr"].predict(np.array(hyperparam_values).reshape(1,-1))
     return prd
 
 def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False):
@@ -69,8 +63,8 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
         for j, (idx, row) in enumerate(metadataset.iterrows()):
             if random.random() < subset:
                 ind.pset = pset # hackery to make glyph happy
-                opt, sc = const_opt(error, ind, f_kwargs = {"row":row, "pset":pset,"surr":surrogates[idx],"evaluate":evaluate}, maxiter=30)
-                scores_full[i, j] = sc
+                opt, sc = const_opt(error, ind, f_kwargs = {"row":row, "pset":pset,"surr":surrogates[idx],"evaluate":evaluate}, options={"maxiter":60})
+                scores_full[i, j] = -sc
 
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
