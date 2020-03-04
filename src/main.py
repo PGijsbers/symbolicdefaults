@@ -76,8 +76,12 @@ def main():
 
     args = cli_parser()
     configure_logging(args.output_file)
-
     problem = Problem(args.problem)
+
+    if (args.optimize_constants):
+        mass_eval_fun = mass_evaluate_2
+    else:
+        mass_eval_fun = mass_evaluate
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
@@ -87,6 +91,8 @@ def main():
     # ================================================
     top_5s = {}
     in_sample_mean = {}
+
+
 
     tasks = list(problem.metadata.index)
     if args.task is not None:
@@ -107,7 +113,7 @@ def main():
         toolbox.register(
             "map",
             functools.partial(
-                mass_evaluate_2, pset=pset, metadataset=loo_metadataset,
+                mass_eval_fun, pset=pset, metadataset=loo_metadataset,
                 surrogates=problem.surrogates, subset=args.subset,
                 toolbox=toolbox, optimize_constants=args.optimize_constants
             )
