@@ -36,13 +36,16 @@ def setup_toolbox(problem, args):
 
     pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
     pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
-    pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
-    pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
-    pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
 
-    symc = 1.0
-    pset.addTerminal(symc, float, "Symc")
-    pset.constants = ["Symc"]
+    if args.optimize_constants:
+        symc = 1.0
+        pset.addTerminal(symc, float, "Symc")
+        pset.constants = ["Symc"]
+    else:
+        pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
+        pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
+        pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
+
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     pset.addPrimitive(poly_gt, [float, float], float)
