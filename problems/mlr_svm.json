@@ -15,7 +15,8 @@
     "benchmark": {
       "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
       "symbolic_best":"make_tuple(16., truediv(mkd, xvar))",
-      "symbolic_v2":"make_tuple(m, add(mkd, mkd)))"
+      "symbolic_v2":"make_tuple(m, add(mkd, mkd)))",
+      "const": "make_tuple(812.267350, 0.001361)"
     }
 }
 
