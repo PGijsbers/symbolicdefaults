@@ -8,7 +8,7 @@ import pandas as pd
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, n_primitives_in, mut_all_constants
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -76,8 +76,12 @@ def main():
 
     args = cli_parser()
     configure_logging(args.output_file)
-
     problem = Problem(args.problem)
+
+    if (args.optimize_constants):
+        mass_eval_fun = mass_evaluate_2
+    else:
+        mass_eval_fun = mass_evaluate
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
@@ -107,7 +111,7 @@ def main():
         toolbox.register(
             "map",
             functools.partial(
-                mass_evaluate, pset=pset, metadataset=loo_metadataset,
+                mass_eval_fun, pset=pset, metadataset=loo_metadataset,
                 surrogates=problem.surrogates, subset=args.subset,
                 toolbox=toolbox, optimize_constants=args.optimize_constants
             )
