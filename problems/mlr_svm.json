@@ -3,7 +3,7 @@
     "experiment_data": "data/rbv2_mlr_classif.svm.arff",
     "metric": "perf.mmce",
     "how": "minimize",
-    "metadata": "data/after_pipeline_metafeatures.csv",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/mlr_svm_surrogates.pkl",
     "hyperparameters": [
       "cost",
