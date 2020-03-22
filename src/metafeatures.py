@@ -6,9 +6,11 @@ from sklearn.preprocessing import scale
 import numpy as np
 import pandas as pd
 import openml
+import joblib
 
 from utils import simple_construct_pipeline_for_task
 
+memory = joblib.Memory("data/cache", verbose = 0)
 
 def create_metadataset(task_ids, after_preprocessing=True):
     metafeatures = {}
@@ -26,28 +28,42 @@ def create_metadataset(task_ids, after_preprocessing=True):
     return pd.DataFrame.from_dict(metafeatures, orient='index')
 
 
+@memory.cache()
 def calculate_metafeatures(task, preprocessing=None):
     X, y = task.get_X_and_y()
+    
     if preprocessing is not None:
         X = preprocessing.fit_transform(X)
 
+    n = X.shape[0]    
+    p = X.shape[1]
+
     if isinstance(X, scipy.sparse.csr_matrix):
+        if (n > 1e4): # Random 1e4 rows
+            # Sub-sample to avoid running OOM (this is only used for estimating mkd)
+            idx = np.random.choice(range(int(n)), size = int(1e4), replace = False)
+            X = X[idx,:]
+        if (p > 1e4): # First 1e4 cols
+            idp = range(int(1e4))
+            X = X[:,idp]
         # quick hack for now as code below assumes operations that cant be done on csr matrix (most notably mkd code)
         X = X.todense().A
+
+
 
     classes, counts = np.unique(y, return_counts=True)
     if preprocessing is not None:
         # For now assume preprocessing always include one-hot encoding and does not introduce additional columns
         # for numeric transformations. Might be off if constant features are removed.
-        n_categorical = X.shape[1] - len(task.get_dataset().get_features_by_type('numeric', [task.target_name]))
+        n_categorical = p - len(task.get_dataset().get_features_by_type('numeric', [task.target_name]))
     else:
         n_categorical = len(task.get_dataset().get_features_by_type('nominal', [task.target_name]))
 
     return dict(
         m=len(set(y)),
-        n=X.shape[0],
-        p=X.shape[1],
-        rc=n_categorical / X.shape[1],
+        n=n,
+        p=p,
+        rc=n_categorical / p,
         mcp=max(counts) / len(y),
         mkd=mkd(X),
         xvar=X.var()
