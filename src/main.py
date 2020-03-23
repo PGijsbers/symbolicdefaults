@@ -117,7 +117,8 @@ def main():
             )
         )
 
-        pop = toolbox.population(n=args.lambda_)
+        # Seed population with configurations from problem.benchmarks 
+        pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
         P = pop[0]
 
         # Set up things to track on the optimization process
