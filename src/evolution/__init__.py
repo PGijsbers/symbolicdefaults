@@ -67,9 +67,13 @@ def setup_toolbox(problem, args):
     creator.create("FitnessMin", base.Fitness, weights=(1.0, -1.0))
     creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
 
+    def initBenchmarkPopulation(pcls, ind_init, pset, problem):
+        return pcls(ind_init(gp.PrimitiveTree.from_string(c, pset)) for c in problem.benchmarks.values())
+
     toolbox = base.Toolbox()
     toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
+    toolbox.register("population_benchmark", initBenchmarkPopulation, list, creator.Individual, pset)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("select", tools.selNSGA2)
