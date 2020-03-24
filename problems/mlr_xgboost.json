@@ -1,6 +1,8 @@
 {
-    "name": "xgboost",
+    "name": "mlr_xgboost",
     "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.xgboost.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/xgboost_surrogates.pkl",
     "hyperparameters": [

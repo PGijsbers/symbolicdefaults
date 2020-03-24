@@ -1,6 +1,7 @@
 {
     "name": "adaboost",
     "experiment_data": "data/adaboost.arff",
+    "metric": "predictive_accuracy",
     "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/adaboost_surrogates.pkl",
     "hyperparameters": [
