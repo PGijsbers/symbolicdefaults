@@ -242,8 +242,8 @@ def main():
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{check_name}|{score[0]:.4f}]")
 
-        for check_name, check_individual in problem.benchmarks.items():
-            logging.info(f"{check_name} := {check_individual}")
+    for check_name, check_individual in problem.benchmarks.items():
+        logging.info(f"{check_name} := {check_individual}")
 
     for check_name, check_individual in problem.benchmarks.items():
         avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
