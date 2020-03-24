@@ -56,6 +56,11 @@ def cli_parser():
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
+    parser.add_argument('-warm',
+                        help=(
+                            "Warm-start optimization by including the 'benchmark' solutions in the "
+                            "initial population."),
+                        dest='warm_start', type=bool, default=False)
     return parser.parse_args()
 
 
@@ -117,8 +122,12 @@ def main():
             )
         )
 
-        # Seed population with configurations from problem.benchmarks 
-        pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
+        # Seed population with configurations from problem.benchmarks
+        if args.warm_start:
+            pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
+        else:
+            pop = toolbox.population(n=args.lambda_)
+
         P = pop[0]
 
         # Set up things to track on the optimization process
