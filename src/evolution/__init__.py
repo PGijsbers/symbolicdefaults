@@ -60,7 +60,7 @@ def setup_toolbox(problem, args):
     def make_tuple(*args):
         return tuple([*args])
 
-    n_hyperparams = len(problem.hyperparameters)
+    n_hyperparams = len(problem.hyperparameters) - len(problem.fixed)
     pset.addPrimitive(make_tuple, [float] * n_hyperparams, typing.Tuple)
 
     # More DEAP boilerplate...

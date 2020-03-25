@@ -6,11 +6,14 @@
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/ranger_surrogates.pkl",
     "hyperparameters": [
-    "num.trees",
-    "sample.fraction",
-    "mtry.power",
-    "min.node.size"
+      "num.trees",
+      "sample.fraction",
+      "mtry.power",
+      "min.node.size"
     ],
+    "fixed": {
+      "num.trees": 500.0
+    },
     "filters": {
       "splitrule": "gini"
     },

@@ -17,6 +17,7 @@
       "colsample_bytree",
       "colsample_bylevel"
     ],
+    "fixed": {"nrounds": 500.0},
     "filters": {"booster" : "gbtree"},
     "operators": "default",
     "performance_column": "perf.mmce",
