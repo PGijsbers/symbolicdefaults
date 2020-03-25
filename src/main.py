@@ -56,6 +56,11 @@ def cli_parser():
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
+    parser.add_argument('-warm',
+                        help=(
+                            "Warm-start optimization by including the 'benchmark' solutions in the "
+                            "initial population."),
+                        dest='warm_start', type=bool, default=False)
     return parser.parse_args()
 
 
@@ -118,8 +123,12 @@ def main():
             )
         )
 
-        # Seed population with configurations from problem.benchmarks 
-        pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
+        # Seed population with configurations from problem.benchmarks
+        if args.warm_start:
+            pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
+        else:
+            pop = toolbox.population(n=args.lambda_)
+
         P = pop[0]
 
         # Set up things to track on the optimization process
@@ -130,7 +139,7 @@ def main():
         mstats.register("std", np.std)
         mstats.register("min", np.min)
         mstats.register("max", np.max)
-        hof = tools.HallOfFame(10)
+        hof = tools.ParetoFront()
         last_best = (0, -10)
         last_best_gen = 0
 
@@ -186,41 +195,44 @@ def main():
                 break
 
         top_5s[task] = hof[:5]
-        logging.info("Top 5 for task {}:".format(task))
-        for ind in hof[:5]:
-            if args.optimize_constants:
-                # since 'optimization' of constants is not saved,
-                # reoptimize constants before printing.
-                variations = [mut_all_constants(toolbox.clone(ind), pset)
-                              for _ in range(50)]
-                fitnesses = mass_evaluate(
-                    toolbox.evaluate, variations, pset=pset,
-                    metadataset=loo_metadataset, surrogates=problem.surrogates,
-                    subset=args.subset, toolbox=toolbox
-                )
-                variations = list(zip(fitnesses, [str(v) for v in variations]))
-                best = max(variations)
-                logging.info(str(best[1]))
-            else:
-                logging.info(str(ind))
+        # logging.info(f"Top 5 for task {task}:")
+        # for ind in sorted(hof[:5], key=n_primitives_in):
+        #     if args.optimize_constants:
+        #         # since 'optimization' of constants is not saved,
+        #         # reoptimize constants before printing.
+        #         variations = [mut_all_constants(toolbox.clone(ind), pset)
+        #                       for _ in range(50)]
+        #         fitnesses = mass_evaluate(
+        #             toolbox.evaluate, variations, pset=pset,
+        #             metadataset=loo_metadataset, surrogates=problem.surrogates,
+        #             subset=args.subset, toolbox=toolbox
+        #         )
+        #         variations = list(zip(fitnesses, [str(v) for v in variations]))
+        #         best = max(variations)
+        #         logging.info(str(best[1]))
+        #     else:
+        #         logging.info(str(ind))
 
         logging.info("Evaluating in sample:")
+        for ind in sorted(hof[:5], key=n_primitives_in):
+            scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
+            logging.info(f"[{ind}|{scale_result:.4f}]")
 
         in_sample_mean[task] = {}
         for check_name, check_individual in problem.benchmarks.items():
             expression = gp.PrimitiveTree.from_string(check_individual, pset)
             individual = creator.Individual(expression)
             scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
-            logging.info("{}:{}".format(check_name, scale_result))
+            logging.info(f"[{check_name}|{scale_result:.4f}]")
             in_sample_mean[task][check_name] = scale_result
 
         logging.info("Evaluating out-of-sample:")
-        for i, ind in enumerate(hof[:5]):
+        for ind in sorted(hof[:5], key=n_primitives_in):
             fn_ = gp.compile(ind, pset)
             mf_values = problem.metadata.loc[task]
             hp_values = toolbox.evaluate(fn_, mf_values)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            print(f"{i}: {score[0]:.4f} {ind}")
+            logging.info(f"[{ind}|{score[0]:.4f}]")
 
         for check_name, check_individual in problem.benchmarks.items():
             expression = gp.PrimitiveTree.from_string(check_individual, pset)
@@ -229,9 +241,10 @@ def main():
             mf_values = problem.metadata.loc[task]
             hp_values = toolbox.evaluate(fn_, mf_values)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            print(f"{check_name}: {score[0]:.4f} {check_individual}")
+            logging.info(f"[{check_name}|{score[0]:.4f}]")
 
-
+    for check_name, check_individual in problem.benchmarks.items():
+        logging.info(f"{check_name} := {check_individual}")
 
     for check_name, check_individual in problem.benchmarks.items():
         avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
