@@ -85,7 +85,8 @@ def setup_toolbox(problem, args):
     # expression and meta-feature values. Then 'map' will evaluate all these
     # configurations in one batch with the use of surrogate models.
     toolbox.register("evaluate", functools.partial(try_evaluate_function,
-                                                   invalid=(1e-6,) * n_hyperparams))
+                                                   invalid=(1e-6,) * n_hyperparams,
+                                                   problem=problem))
 
     toolbox.decorate("mate",   gp.staticLimit(key=operator.attrgetter("height"), max_value=6))
     toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=6))

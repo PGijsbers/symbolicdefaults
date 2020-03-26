@@ -12,8 +12,18 @@ def n_primitives_in(individual):
     """ Return the number of primitives in the individual. """
     return len([e for e in individual if isinstance(e, gp.Primitive)])
 
+def insert_fixed(hyperparam_values, problem):
+    """
+    insert problem.fixed (a dict of fixed hyperparameter values, e.g. nrounds: 500) into the 
+    hyperparameter values according to its position in problem.hyperparameters.
+    """ 
+    hp = hyperparam_values
+    for key, val in problem.fixed.items():
+        n = problem.hyperparameters.index(key)
+        hp = hp[:n] + (val,) + hp[n:]
+    return hp
 
-def try_evaluate_function(fn, input_, invalid):
+def try_evaluate_function(fn, input_, invalid, problem=None):
     """ Return fn(input_) if output is sequence of finite float32, else return `invalid`
 
     This function is used to evaluate the symbolic expressions for a particular dataset.
@@ -38,9 +48,9 @@ def try_evaluate_function(fn, input_, invalid):
         if not all([not isinstance(val, complex) and abs(val) < 1.2676506e+30
                     for val in values]):
             raise ValueError("One or more values invalid for input as hyperparameter.")
-        return values
+        return insert_fixed(values, problem)
     except:
-        return invalid
+        return insert_fixed(invalid, problem)
 
 @Memoize
 def error(ind, *args, **f_kwargs):
@@ -69,20 +79,6 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
 
-def insert_fixed(hyperparam_values, problem):
-    """
-    insert problem.fixed (a dict of fixed hyperparameter values, e.g. nrounds: 500) into the 
-    hyperparameter values according to its position in problem.hyperparameters.
-    """
-    if not len(problem.fixed):
-        return hyperparam_values
-    hpvals = []
-    for hp in hyperparam_values:
-        for key, val in problem.fixed.items():
-            n = problem.hyperparameters.index(key)
-            hpvals.append(hp[:n] + (val,) + hp[n:])
-    return hpvals
-
 def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values. """
@@ -105,7 +101,6 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     for i, (idx, row) in enumerate(metadataset.iterrows()):
         if random.random() < subset:
             hyperparam_values = [evaluate(fn, row) for fn in fns]
-            hyperparam_values = insert_fixed(hyperparam_values, problem)
             surrogate = surrogates[idx]
             scores = surrogate.predict(hyperparam_values)
             evaluations_per_individual = len(scores) / len(individuals)
