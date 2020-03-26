@@ -119,7 +119,7 @@ def main():
                 mass_eval_fun, pset=pset, metadataset=loo_metadataset,
                 surrogates=problem.surrogates, subset=args.subset,
                 toolbox=toolbox, optimize_constants=args.optimize_constants,
-                warm_start=args.warm_start, problem=problem
+                problem=problem
             )
         )
 

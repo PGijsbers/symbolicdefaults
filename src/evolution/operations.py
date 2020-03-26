@@ -83,7 +83,7 @@ def insert_fixed(hyperparam_values, problem):
             hpvals.append(hp[:n] + (val,) + hp[n:])
     return hpvals
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, warm_start=False, problem=None):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values. """
     if individuals == []:
@@ -105,8 +105,7 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     for i, (idx, row) in enumerate(metadataset.iterrows()):
         if random.random() < subset:
             hyperparam_values = [evaluate(fn, row) for fn in fns]
-            if warm_start:
-                hyperparam_values = insert_fixed(hyperparam_values, problem)
+            hyperparam_values = insert_fixed(hyperparam_values, problem)
             surrogate = surrogates[idx]
             scores = surrogate.predict(hyperparam_values)
             evaluations_per_individual = len(scores) / len(individuals)
