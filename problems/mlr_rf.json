@@ -27,6 +27,6 @@
       "dataset"
     ],
     "benchmark": {
-      "mlr_default": "make_tuple(100., 0.1, 0.5, 2.)"
+      "mlr_default": "make_tuple(100., 1., 0.5, 1.)"
     }
 }
