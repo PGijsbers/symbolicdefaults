@@ -244,7 +244,7 @@ def main():
             mf_values = problem.metadata.loc[task]
             hp_values = toolbox.evaluate(fn_, mf_values)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            logging.info(f"[{check_name}: {individual}|{score[0]:.4f}]")
+            logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
 
     for check_name, check_individual in problem.benchmarks.items():
         logging.info(f"{check_name} := {check_individual}")
