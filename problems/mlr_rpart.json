@@ -1,0 +1,26 @@
+{
+    "name": "mlr_rpart",
+    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.rpart.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/rpart_surrogates.pkl",
+    "hyperparameters": [
+      "cp",
+      "maxdepth",
+      "minbucket",
+      "minsplit"
+    ],
+    "operators": "default",
+    "performance_column": "perf.mmce",
+    "ignore": [
+      "perf.logloss",
+      "learner",
+      "traintime",
+      "predicttime",
+      "dataset"
+    ],
+    "benchmark": {
+      "mlr_default": "make_tuple(0.01, 30., 1., 20.)"
+    }
+}
