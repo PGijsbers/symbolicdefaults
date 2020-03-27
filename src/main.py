@@ -104,7 +104,10 @@ def main():
             quit(-1)
         else:
             tasks = [args.task]
-
+    
+    if len(problem.fixed):
+        logging.info(f"With fixed hyperparameters: {problem.fixed}:")
+        logging.info(f"And hyperparameters: {problem.hyperparameters}:")
     for task in tasks:
         logging.info(f"START_TASK: {task}")
         # 'task' experiment data is used as validation set, so we must not use
@@ -213,10 +216,6 @@ def main():
         #     else:
         #         logging.info(str(ind))
 
-        if len(problem.fixed):
-            logging.info(f"With fixed hyperparameters: {problem.fixed}:")
-            logging.info(f"And hyperparameters: {problem.hyperparameters}:")
-
         logging.info("Evaluating in sample:")
         for ind in sorted(hof[:5], key=n_primitives_in):
             scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
@@ -227,7 +226,7 @@ def main():
             expression = gp.PrimitiveTree.from_string(check_individual, pset)
             individual = creator.Individual(expression)
             scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
-            logging.info(f"[{check_name}|{scale_result:.4f}]")
+            logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
             in_sample_mean[task][check_name] = scale_result
 
         logging.info("Evaluating out-of-sample:")
@@ -245,7 +244,7 @@ def main():
             mf_values = problem.metadata.loc[task]
             hp_values = toolbox.evaluate(fn_, mf_values)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            logging.info(f"[{check_name}|{score[0]:.4f}]")
+            logging.info(f"[{check_name}: {individual}|{score[0]:.4f}]")
 
     for check_name, check_individual in problem.benchmarks.items():
         logging.info(f"{check_name} := {check_individual}")
