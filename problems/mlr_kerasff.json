@@ -1,0 +1,26 @@
+{
+    "name": "mlr_kerasff.json",
+    "experiment_data": "data/rbv2_mlr_classif.kerasff.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/mlr_kerasff_surrogates.pkl",
+    "hyperparameters": [
+      "epochs",
+      "lr",
+      "decay",
+      "layers",
+      "units_layer1",
+      "units_layer2",
+      "units_layer3",
+      "units_layer4",
+      "l1_reg_layer",
+      "l2_reg_layer"
+    ],
+    "filters": {
+      "optimizer": "adam"
+    },
+    "benchmark": {
+      "initial_values":"make_tuple(30., 0.003, 0.01, 2., 256., 256., 0., 0., 0., 0.)"
+    }
+}

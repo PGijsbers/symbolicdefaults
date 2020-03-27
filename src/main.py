@@ -8,7 +8,7 @@ import pandas as pd
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -118,7 +118,8 @@ def main():
             functools.partial(
                 mass_eval_fun, pset=pset, metadataset=loo_metadataset,
                 surrogates=problem.surrogates, subset=args.subset,
-                toolbox=toolbox, optimize_constants=args.optimize_constants
+                toolbox=toolbox, optimize_constants=args.optimize_constants,
+                problem=problem
             )
         )
 
@@ -211,6 +212,10 @@ def main():
         #         logging.info(str(best[1]))
         #     else:
         #         logging.info(str(ind))
+
+        if len(problem.fixed):
+            logging.info(f"With fixed hyperparameters: {problem.fixed}:")
+            logging.info(f"And hyperparameters: {problem.hyperparameters}:")
 
         logging.info("Evaluating in sample:")
         for ind in sorted(hof[:5], key=n_primitives_in):

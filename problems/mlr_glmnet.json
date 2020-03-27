@@ -1,0 +1,25 @@
+{
+    "name": "mlr_glmnet",
+    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.glmnet.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/glmnet_surrogates.pkl",
+    "hyperparameters": [
+      "alpha",
+      "s"
+    ],
+    "operators": "default",
+    "performance_column": "perf.mmce",
+    "ignore": [
+      "perf.logloss",
+      "learner",
+      "traintime",
+      "predicttime",
+      "dataset"
+    ],
+    "benchmark": {
+      "mlr_default": "make_tuple(1., 0.01)",
+      "sklearn_default": "make_tuple(1., 1.)"
+    }
+}

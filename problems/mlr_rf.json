@@ -1,0 +1,32 @@
+{
+    "name": "mlr_rf",
+    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.ranger.pow.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/ranger_surrogates.pkl",
+    "hyperparameters": [
+      "num.trees",
+      "sample.fraction",
+      "mtry.power",
+      "min.node.size"
+    ],
+    "fixed": {
+      "num.trees": 500.0
+    },
+    "filters": {
+      "splitrule": "gini"
+    },
+    "operators": "default",
+    "performance_column": "perf.mmce",
+    "ignore": [
+      "perf.logloss",
+      "learner",
+      "traintime",
+      "predicttime",
+      "dataset"
+    ],
+    "benchmark": {
+      "mlr_default": "make_tuple(100., 1., 0.5, 1.)"
+    }
+}

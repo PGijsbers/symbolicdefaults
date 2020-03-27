@@ -84,3 +84,8 @@ class Problem:
                     self.data, self.hyperparameters, surrogate_file
                 )
         return self._surrogates
+
+    @property
+    def fixed(self) -> Dict[str, float]:
+        return self._json.get('fixed', {})
+

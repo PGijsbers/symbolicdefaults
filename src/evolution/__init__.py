@@ -60,7 +60,7 @@ def setup_toolbox(problem, args):
     def make_tuple(*args):
         return tuple([*args])
 
-    n_hyperparams = len(problem.hyperparameters)
+    n_hyperparams = len(problem.hyperparameters) - len(problem.fixed)
     pset.addPrimitive(make_tuple, [float] * n_hyperparams, typing.Tuple)
 
     # More DEAP boilerplate...
@@ -85,7 +85,8 @@ def setup_toolbox(problem, args):
     # expression and meta-feature values. Then 'map' will evaluate all these
     # configurations in one batch with the use of surrogate models.
     toolbox.register("evaluate", functools.partial(try_evaluate_function,
-                                                   invalid=(1e-6,) * n_hyperparams))
+                                                   invalid=(1e-6,) * n_hyperparams,
+                                                   problem=problem))
 
     toolbox.decorate("mate",   gp.staticLimit(key=operator.attrgetter("height"), max_value=6))
     toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=6))
