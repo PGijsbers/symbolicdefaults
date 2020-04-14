@@ -1,6 +1,7 @@
 import argparse
 import functools
 import logging
+import sys
 
 import numpy as np
 import pandas as pd
@@ -194,7 +195,6 @@ def main():
                 logging.info(f"Stop early, no improvement in {args.early_stop_n} gens.")
                 break
 
-        top_5s[task] = hof[:5]
         # logging.info(f"Top 5 for task {task}:")
         # for ind in sorted(hof[:5], key=n_primitives_in):
         #     if args.optimize_constants:
@@ -218,7 +218,7 @@ def main():
             logging.info(f"And hyperparameters: {problem.hyperparameters}:")
 
         logging.info("Evaluating in sample:")
-        for ind in sorted(hof[:5], key=n_primitives_in):
+        for ind in sorted(hof, key=n_primitives_in):
             scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
             logging.info(f"[{ind}|{scale_result:.4f}]")
 
@@ -231,7 +231,7 @@ def main():
             in_sample_mean[task][check_name] = scale_result
 
         logging.info("Evaluating out-of-sample:")
-        for ind in sorted(hof[:5], key=n_primitives_in):
+        for ind in sorted(hof, key=n_primitives_in):
             fn_ = gp.compile(ind, pset)
             mf_values = problem.metadata.loc[task]
             hp_values = toolbox.evaluate(fn_, mf_values)
