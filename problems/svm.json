@@ -1,0 +1,19 @@
+{
+    "name": "svm",
+    "experiment_data": "data/rbv2_mlr_classif.svm.arff",
+    "metric": "perf.mmce",
+    "how": "minimize",
+    "metadata": "data/after_pipeline_metafeatures_v2.csv",
+    "surrogates": "data/svm_surrogates.pkl",
+    "hyperparameters": {
+      "cost" : "float",
+      "gamma" :"float",
+      "kernel": "int"
+    },
+    "benchmark": {
+      "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
+      "symbolic_best":"make_tuple(16., truediv(mkd, xvar))",
+      "symbolic_v2":"make_tuple(m, add(mkd, mkd)))",
+      "const": "make_tuple(812.267350, 0.001361)"
+    }
+}

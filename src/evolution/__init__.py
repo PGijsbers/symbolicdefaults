@@ -43,12 +43,14 @@ def setup_toolbox(problem, args):
         pset.constants = ["Symc"]
     else:
         pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
-        pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
+        pset.addEphemeralConstant("cf", lambda: float(random.randint(1, 10)), ret_type=float)
+        pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 3)), ret_type=int)
         pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
 
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     pset.addPrimitive(poly_gt, [float, float], float)
+    pset.addPrimitive(round, [float], int)
     binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow, max, min]
     unary_operators = [scipy.special.expit, operator.neg]
     for binary_operator in binary_operators:
@@ -61,7 +63,8 @@ def setup_toolbox(problem, args):
         return tuple([*args])
 
     n_hyperparams = len(problem.hyperparameters) - len(problem.fixed)
-    pset.addPrimitive(make_tuple, [float] * n_hyperparams, typing.Tuple)
+
+    pset.addPrimitive(make_tuple, problem.hyperparameter_types, typing.Tuple)
 
     # More DEAP boilerplate...
     creator.create("FitnessMin", base.Fitness, weights=(1.0, -1.0))

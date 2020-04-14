@@ -1,2 +1,7 @@
 *__pycache__*
 .idea
+
+*.arff
+*.pkl
+data/cache/*
+.ipynb_checkpoints/*

@@ -82,7 +82,7 @@ def main():
     args = cli_parser()
     configure_logging(args.output_file)
     problem = Problem(args.problem)
-
+    
     if (args.optimize_constants):
         mass_eval_fun = mass_evaluate_2
     else:

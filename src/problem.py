@@ -1,7 +1,7 @@
 import logging
 import os
 import pickle
-from typing import Dict
+from typing import Dict, List
 
 import arff
 import functools
@@ -26,7 +26,7 @@ class Problem:
 
     @property
     def hyperparameters(self):
-        return self._json['hyperparameters']
+        return list(self._json['hyperparameters'].keys())
 
     @property
     def benchmarks(self) -> Dict[str, str]:
@@ -84,6 +84,11 @@ class Problem:
                     self.data, self.hyperparameters, surrogate_file
                 )
         return self._surrogates
+
+    @property 
+    def hyperparameter_types(self) -> List[type]:
+        return [int if x == "int" else float for x in self._json['hyperparameters'].values()]
+
 
     @property
     def fixed(self) -> Dict[str, float]:

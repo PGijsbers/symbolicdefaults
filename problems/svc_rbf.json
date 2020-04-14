@@ -2,7 +2,7 @@
     "name": "svc_rbf",
     "experiment_data": "data/svc_big.arff",
     "metadata": "data/after_pipeline_metafeatures.csv",
-    "surrogates": "data/svc_surrogates_rbf_big.pkl",
+    "surrogates": "data/svmc_rbf.pkl",
     "hyperparameters": [
       "svc__C",
       "svc__gamma"
