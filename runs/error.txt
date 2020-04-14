@@ -1,0 +1,22 @@
+RuntimeError: I/O operations still in flight while destroying Overlapped object, the process may crash
+Traceback (most recent call last):
+  File "quickrun.py", line 8, in <module>
+    g.fit(x, y)
+  File "D:\repositories\GAMA\gama\GamaClassifier.py", line 134, in fit
+    super().fit(x, y, *args, **kwargs)
+  File "D:\repositories\GAMA\gama\gama.py", line 430, in fit
+    self._search_phase(warm_start, timeout=fit_time)
+  File "D:\repositories\GAMA\gama\gama.py", line 481, in _search_phase
+    self._search_method.search(self._operator_set, start_candidates=pop)
+  File "D:\repositories\GAMA\gama\search_methods\async_ea.py", line 53, in search
+    operations, self.output, start_candidates, **self.hyperparameters
+  File "D:\repositories\GAMA\gama\search_methods\async_ea.py", line 125, in async_ea
+    async_.submit(evaluate_log, new_individual)
+  File "D:\repositories\GAMA\gama\utilities\generic\async_evaluator.py", line 126, in submit
+    self._input_queue.put(future)
+  File "<string>", line 2, in put
+  File "O:\Anaconda\envs\gamadev\lib\multiprocessing\managers.py", line 756, in _callmethod
+    conn.send((self._id, methodname, args, kwds))
+  File "O:\Anaconda\envs\gamadev\lib\multiprocessing\connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+SystemError: PyEval_EvalFrameEx returned NULL without setting an error
