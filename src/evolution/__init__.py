@@ -38,6 +38,7 @@ def setup_toolbox(problem, args):
     pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
 
     if args.optimize_constants:
+        pset.args = pset.arguments
         symc = 1.0
         pset.addTerminal(symc, float, "Symc")
         pset.constants = ["Symc"]
@@ -70,9 +71,14 @@ def setup_toolbox(problem, args):
     def initBenchmarkPopulation(pcls, ind_init, pset, problem):
         return pcls(ind_init(gp.PrimitiveTree.from_string(c, pset)) for c in problem.benchmarks.values())
 
+    def initSymcPopulation(pcls, ind_init, pset, problem):
+        c = f'make_tuple({",".join(["Symc"]*n_hyperparams)})'
+        return pcls([ind_init(gp.PrimitiveTree.from_string(c, pset))])
+
     toolbox = base.Toolbox()
     toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
+    toolbox.register("population_symc", initSymcPopulation, list, creator.Individual, pset)
     toolbox.register("population_benchmark", initBenchmarkPopulation, list, creator.Individual, pset)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 

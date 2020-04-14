@@ -5,6 +5,7 @@ import random
 import numpy as np
 import pandas as pd
 from deap import gp
+from glyph.gp import numpy_phenotype
 from glyph.assessment import const_opt
 from glyph.utils import Memoize
 
@@ -53,11 +54,33 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
         return insert_fixed(invalid, problem)
 
 @Memoize
-def error(ind, *args, **f_kwargs):
-    fn = gp.compile(ind, f_kwargs["pset"])
-    hyperparam_values = f_kwargs["evaluate"](fn, f_kwargs["row"])
-    prd = - f_kwargs["surr"].predict(np.array(hyperparam_values).reshape(1,-1))
-    return prd
+def avg_per_individual_error(ind, *args, **f_kwargs):  
+    fn = numpy_phenotype(ind)
+    metadataset = f_kwargs["metadataset"]
+    scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
+    for j, (idx, row) in enumerate(metadataset.iterrows()):
+        if random.random() < f_kwargs["subset"]:
+            metadata = row.to_dict()
+            for k,v in enumerate(args):
+                metadata.update({f'c_{k}': v})    
+            hyperparam_values = f_kwargs["evaluate"](fn, metadata)
+            scores_full[j] = f_kwargs["surrogates"][idx].predict(np.array(hyperparam_values).reshape(1,-1))
+
+    return - scores_full[scores_full != 0].mean()
+
+def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
+    fn = numpy_phenotype(ind)
+    scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
+    opt, sc = const_opt(avg_per_individual_error, ind, f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset}, method="Nelder-Mead")
+
+    for j, (idx, row) in enumerate(metadataset.iterrows()):
+        metadata = row.to_dict()
+        for k,v in enumerate(opt):
+            metadata.update({f'c_{k}': v})    
+        hyperparam_values = evaluate(fn, metadata)
+        scores_full[j] = surrogates[idx].predict(np.array(hyperparam_values).reshape(1,-1))
+
+    return scores_full
 
 def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
@@ -70,11 +93,8 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
 
     for i, ind in enumerate(individuals):
         ind.terminals = [p for p in ind if p.arity == 0] # hackery to make glyph happy
-        for j, (idx, row) in enumerate(metadataset.iterrows()):
-            if random.random() < subset:
-                ind.pset = pset # hackery to make glyph happy
-                opt, sc = const_opt(error, ind, f_kwargs = {"row":row, "pset":pset,"surr":surrogates[idx],"evaluate":evaluate}, options={"maxiter":60})
-                scores_full[i, j] = -sc
+        ind.pset = pset # hackery to make glyph happy
+        scores_full[i, :] = per_individual_evals(evaluate, ind, metadataset, surrogates, toolbox, subset, optimize_constants, problem)
 
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)

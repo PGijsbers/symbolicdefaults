@@ -67,7 +67,7 @@ def cli_parser():
 def configure_logging(output_file: str = None):
     """ Configure INFO logging to console and optionally DEBUG to an output file. """
     logging.basicConfig()
-    logging.getLogger().setLevel(logging.INFO)
+    logging.getLogger().setLevel(logging.DEBUG)
 
     if output_file is not None:
         log_file_handle = logging.FileHandler(output_file)
@@ -126,11 +126,13 @@ def main():
             )
         )
 
-        # Seed population with configurations from problem.benchmarks
+        # Seed population with configurations from problem.benchmark
+        pop = []
+        if args.optimize_constants:
+            pop = [*pop, *toolbox.population_symc(problem)]
         if args.warm_start:
-            pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
-        else:
-            pop = toolbox.population(n=args.lambda_)
+            pop = [*pop, *toolbox.population_benchmark(problem)]
+        pop = [*pop, *toolbox.population(n=max(0, args.lambda_ - len(pop)))]
 
         P = pop[0]
 
