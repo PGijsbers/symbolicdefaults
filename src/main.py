@@ -126,7 +126,7 @@ def main():
             )
         )
 
-        # Seed population with configurations from problem.benchmark
+        # Seed population with configurations from problem.benchmark // fully "Symc" config
         pop = []
         if args.optimize_constants:
             pop = [*pop, *toolbox.population_symc(problem)]

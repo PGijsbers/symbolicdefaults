@@ -53,8 +53,13 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
     except:
         return insert_fixed(invalid, problem)
 
+
 @Memoize
 def avg_per_individual_error(ind, *args, **f_kwargs):  
+    """
+    Compute the fitness of a individual as the average over datasets
+
+    """
     fn = numpy_phenotype(ind)
     metadataset = f_kwargs["metadataset"]
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
@@ -71,7 +76,9 @@ def avg_per_individual_error(ind, *args, **f_kwargs):
 def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     fn = numpy_phenotype(ind)
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
-    opt, sc = const_opt(avg_per_individual_error, ind, f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset}, method="Nelder-Mead")
+    opt, sc = const_opt(avg_per_individual_error, ind, 
+        f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
+        method="Nelder-Mead", options={'maxiter':200, 'xatol':1e-3, 'fatol':1e-3})
 
     for j, (idx, row) in enumerate(metadataset.iterrows()):
         metadata = row.to_dict()
