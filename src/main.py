@@ -68,7 +68,7 @@ def cli_parser():
 def configure_logging(output_file: str = None):
     """ Configure INFO logging to console and optionally DEBUG to an output file. """
     logging.basicConfig()
-    logging.getLogger().setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.INFO)
 
     if output_file is not None:
         log_file_handle = logging.FileHandler(output_file)
