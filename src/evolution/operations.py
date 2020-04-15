@@ -78,7 +78,7 @@ def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: t
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
     opt, sc = const_opt(avg_per_individual_error, ind, 
         f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
-        method="Nelder-Mead", options={'maxiter':200, 'xatol':1e-3, 'fatol':1e-3})
+        method="Nelder-Mead", options={'maxiter':200, 'xatol':1e-2, 'fatol':1e-2})
 
     for j, (idx, row) in enumerate(metadataset.iterrows()):
         metadata = row.to_dict()
