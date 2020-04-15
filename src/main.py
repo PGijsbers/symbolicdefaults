@@ -84,6 +84,9 @@ def main():
     configure_logging(args.output_file)
     problem = Problem(args.problem)
 
+    for parameter, value in args._get_kwargs():
+        logging.info(f"param:{parameter}:{value}")
+
     if (args.optimize_constants):
         mass_eval_fun = mass_evaluate_2
     else:
