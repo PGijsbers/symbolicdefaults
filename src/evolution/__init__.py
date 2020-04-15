@@ -21,22 +21,25 @@ def poly_gt(a, b):
 
 
 def setup_toolbox(problem, args):
-    # Set variables of our genetic program:
-    variables = dict(
-        NumberOfClasses='m',           #  [2;50]
-        NumberOfFeatures='p',          #  [1;Inf]
-        NumberOfInstances='n',         #  [1;Inf]
-        MedianKernelDistance='mkd',    #  [0;Inf]
-        MajorityClassPercentage='mcp', #  [0;1]
-        RatioSymbolicFeatures='rc',    #  [0;1]   'ratio categorical' := #Symbolic / #Features
-        Variance='xvar'                #  [0;Inf] variance of all elements
-    )
 
-    variable_names = list(variables.values())
+    if not args.constants_only:
+        # Set variables of our genetic program:
+        variables = dict(
+            NumberOfClasses='m',           #  [2;50]
+            NumberOfFeatures='p',          #  [1;Inf]
+            NumberOfInstances='n',         #  [1;Inf]
+            MedianKernelDistance='mkd',    #  [0;Inf]
+            MajorityClassPercentage='mcp', #  [0;1]
+            RatioSymbolicFeatures='rc',    #  [0;1]   'ratio categorical' := #Symbolic / #Features
+            Variance='xvar'                #  [0;Inf] variance of all elements
+        )
 
-    pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
-    pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
-
+        variable_names = list(variables.values())
+        pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
+        pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
+    else:
+        pset = gp.PrimitiveSetTyped("ConstantExpression", [], typing.Tuple)
+    
     if args.optimize_constants:
         pset.args = pset.arguments
         symc = 1.0
@@ -46,7 +49,6 @@ def setup_toolbox(problem, args):
         pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
         pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
         pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
-
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     pset.addPrimitive(poly_gt, [float, float], float)

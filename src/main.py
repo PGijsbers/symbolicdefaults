@@ -62,6 +62,9 @@ def cli_parser():
                             "Warm-start optimization by including the 'benchmark' solutions in the "
                             "initial population."),
                         dest='warm_start', type=bool, default=False)
+    parser.add_argument('-cst',
+                    help=("Search only constant formulas?"),
+                    dest='constants_only', type=bool, default=False)
     return parser.parse_args()
 
 
@@ -136,7 +139,7 @@ def main():
         pop = [*pop, *toolbox.population(n=max(0, args.lambda_ - len(pop)))]
 
         P = pop[0]
-
+        
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
@@ -223,13 +226,16 @@ def main():
             scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
             logging.info(f"[{ind}|{scale_result:.4f}]")
 
-        in_sample_mean[task] = {}
-        for check_name, check_individual in problem.benchmarks.items():
-            expression = gp.PrimitiveTree.from_string(check_individual, pset)
-            individual = creator.Individual(expression)
-            scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
-            logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
-            in_sample_mean[task][check_name] = scale_result
+
+        
+        if not constant_only:
+            in_sample_mean[task] = {}
+            for check_name, check_individual in problem.benchmarks.items():
+                expression = gp.PrimitiveTree.from_string(check_individual, pset)
+                individual = creator.Individual(expression)
+                scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
+                logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
+                in_sample_mean[task][check_name] = scale_result
 
         logging.info("Evaluating out-of-sample:")
         for ind in sorted(hof, key=n_primitives_in):
@@ -239,24 +245,23 @@ def main():
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{ind}|{score[0]:.4f}]")
 
+        if not constant_only:  
+            for check_name, check_individual in problem.benchmarks.items():
+                expression = gp.PrimitiveTree.from_string(check_individual, pset)
+                ind = creator.Individual(expression)
+                fn_ = gp.compile(ind, pset)
+                mf_values = problem.metadata.loc[task]
+                hp_values = toolbox.evaluate(fn_, mf_values)
+                score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+                logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
+
+    if not constant_only:
         for check_name, check_individual in problem.benchmarks.items():
-            expression = gp.PrimitiveTree.from_string(check_individual, pset)
-            ind = creator.Individual(expression)
-            fn_ = gp.compile(ind, pset)
-            mf_values = problem.metadata.loc[task]
-            hp_values = toolbox.evaluate(fn_, mf_values)
-            score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
+            logging.info(f"{check_name} := {check_individual}")
 
-    for check_name, check_individual in problem.benchmarks.items():
-        logging.info(f"{check_name} := {check_individual}")
-
-    for check_name, check_individual in problem.benchmarks.items():
-        avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
-        logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
-
-
-
-
+        for check_name, check_individual in problem.benchmarks.items():
+            avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
+            logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
+            
 if __name__ == '__main__':
     main()
