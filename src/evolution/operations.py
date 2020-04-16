@@ -38,7 +38,7 @@ def try_compile_individual(ind, pset, problem, invalid=1e-6):
                 raise ValueError("One or more values invalid for input as hyperparameter.")
         return insert_fixed(fn, problem)
     except:
-        return insert_fixed((invalid, )*len(problem.hyperparameters), problem)
+        return insert_fixed((invalid, )*(len(problem.hyperparameters)-len(problem.fixed)), problem)
 
 def try_evaluate_function(fn, input_, invalid, problem=None):
     """ Return fn(input_) if output is sequence of finite float32, else return `invalid`
@@ -149,8 +149,6 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
         if random.random() < subset:
             hyperparam_values = [evaluate(fn, row) for fn in fns]
             surrogate = surrogates[idx]
-            # import pdb; pdb.set_trace()
-            
             scores = surrogate.predict(hyperparam_values)
             evaluations_per_individual = len(scores) / len(individuals)
             if evaluations_per_individual > 1:
