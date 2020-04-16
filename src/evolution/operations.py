@@ -24,6 +24,22 @@ def insert_fixed(hyperparam_values, problem):
         hp = hp[:n] + (val,) + hp[n:]
     return hp
 
+def try_compile_individual(ind, pset, problem, invalid=1e-6):
+    """
+       For constant optimization gp.compile already returns a tuple
+       This tuple can be invalid / raise erros, therefore we have to catch here.
+    """
+    try:
+        fn = gp.compile(ind, pset)
+        if callable(fn):
+            return fn
+        else:
+            if not all([not isinstance(val, complex) and abs(val) < 1.2676506e+30 for val in fn]):
+                raise ValueError("One or more values invalid for input as hyperparameter.")
+        return insert_fixed(fn, problem)
+    except:
+        return insert_fixed((invalid, )*len(problem.hyperparameters), problem)
+
 def try_evaluate_function(fn, input_, invalid, problem=None):
     """ Return fn(input_) if output is sequence of finite float32, else return `invalid`
 
@@ -86,7 +102,7 @@ def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: t
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
     opt, sc = const_opt(avg_per_individual_error, ind, 
         f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
-        method="Nelder-Mead", options={'maxiter':2, 'xatol':1e-2, 'fatol':1e-2})
+        method="Nelder-Mead", options={'maxiter':2, 'xatol':1e-4, 'fatol':1e-4})
 
     for j, (idx, row) in enumerate(metadataset.iterrows()):
         metadata = row.to_dict()
@@ -124,11 +140,7 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
 
     fns = []
     for ind in individuals:
-        try:
-            fn = gp.compile(ind, pset)
-        except:
-            fn = insert_fixed((1e-6, )*len(problem.hyperparameters), problem)
-        fns.append(fn)
+        fns.append(try_compile_individual(ind, pset, problem))
 
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
@@ -137,6 +149,8 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
         if random.random() < subset:
             hyperparam_values = [evaluate(fn, row) for fn in fns]
             surrogate = surrogates[idx]
+            # import pdb; pdb.set_trace()
+            
             scores = surrogate.predict(hyperparam_values)
             evaluations_per_individual = len(scores) / len(individuals)
             if evaluations_per_individual > 1:

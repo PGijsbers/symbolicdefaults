@@ -33,7 +33,6 @@ def setup_toolbox(problem, args):
             RatioSymbolicFeatures='rc',    #  [0;1]   'ratio categorical' := #Symbolic / #Features
             Variance='xvar'                #  [0;Inf] variance of all elements
         )
-
         variable_names = list(variables.values())
         pset = gp.PrimitiveSetTyped("SymbolicExpression", [float] * len(variables), typing.Tuple)
         pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
@@ -48,10 +47,11 @@ def setup_toolbox(problem, args):
     else:
         pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
         pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=float)
-        pset.addEphemeralConstant("clog", lambda: np.random.choice([2 ** i for i in range(-8, 11)]), ret_type=float)
+        pset.addEphemeralConstant("cloggt1", lambda: np.random.choice([2 ** i for i in range(4, 11)]+[10 ** i for i in range(1, 4)]), ret_type=float)
+        pset.addEphemeralConstant("cloglt1", lambda: np.random.choice([2 ** i for i in range(-8, -1)]+[10 ** i for i in range(-4, -1)]), ret_type=float)
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
-    pset.addPrimitive(poly_gt, [float, float], float)
+    # pset.addPrimitive(poly_gt, [float, float], float)
     binary_operators = [operator.add, operator.mul, operator.sub, operator.truediv, operator.pow, max, min]
     unary_operators = [scipy.special.expit, operator.neg]
     for binary_operator in binary_operators:
