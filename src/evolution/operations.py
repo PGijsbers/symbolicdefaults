@@ -5,6 +5,7 @@ import random
 import numpy as np
 import pandas as pd
 from deap import gp
+from glyph.gp import numpy_phenotype
 from glyph.assessment import const_opt
 from glyph.utils import Memoize
 
@@ -23,6 +24,22 @@ def insert_fixed(hyperparam_values, problem):
         hp = hp[:n] + (val,) + hp[n:]
     return hp
 
+def try_compile_individual(ind, pset, problem, invalid=1e-6):
+    """
+       For constant optimization gp.compile already returns a tuple
+       This tuple can be invalid / raise erros, therefore we have to catch here.
+    """
+    try:
+        fn = gp.compile(ind, pset)
+        if callable(fn):
+            return fn
+        else:
+            if not all([not isinstance(val, complex) and abs(val) < 1.2676506e+30 for val in fn]):
+                raise ValueError("One or more values invalid for input as hyperparameter.")
+        return insert_fixed(fn, problem)
+    except:
+        return insert_fixed((invalid, )*(len(problem.hyperparameters)-len(problem.fixed)), problem)
+
 def try_evaluate_function(fn, input_, invalid, problem=None):
     """ Return fn(input_) if output is sequence of finite float32, else return `invalid`
 
@@ -37,6 +54,9 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
     :return:
         fn(input_) if its output is a sequence of finite float32 values, else `invalid`
     """
+    if not callable(fn):
+        return(fn)
+
     try:
         values = fn(**dict(input_))
         # All float values need to be finite in range float32,
@@ -52,12 +72,46 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
     except:
         return insert_fixed(invalid, problem)
 
+
+
 @Memoize
-def error(ind, *args, **f_kwargs):
-    fn = gp.compile(ind, f_kwargs["pset"])
-    hyperparam_values = f_kwargs["evaluate"](fn, f_kwargs["row"])
-    prd = - f_kwargs["surr"].predict(np.array(hyperparam_values).reshape(1,-1))
-    return prd
+def avg_per_individual_error(ind, *args, **f_kwargs):  
+    """
+    Compute the fitness of a individual as the average over datasets
+    :param *args:
+         Numeric args passed on from scikit.optimize.minimize
+    :param **f_kwarrgs :
+        Further arguments required for evaluation
+    """
+    fn = numpy_phenotype(ind)
+    metadataset = f_kwargs["metadataset"]
+    scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
+    for j, (idx, row) in enumerate(metadataset.iterrows()):
+        if random.random() < f_kwargs["subset"]:
+            # Add metadata and scipy.optimize *args to the dict for evaluation
+            metadata = row.to_dict()
+            for k,v in enumerate(args):
+                metadata.update({f'c_{k}': v})
+            hyperparam_values = f_kwargs["evaluate"](fn, metadata)
+            scores_full[j] = f_kwargs["surrogates"][idx].predict(np.array(hyperparam_values).reshape(1,-1))
+
+    return - scores_full[scores_full != 0].mean()
+
+def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
+    fn = numpy_phenotype(ind)
+    scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
+    opt, sc = const_opt(avg_per_individual_error, ind, 
+        f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
+        method="Nelder-Mead", options={'maxiter':2, 'xatol':1e-4, 'fatol':1e-4})
+
+    for j, (idx, row) in enumerate(metadataset.iterrows()):
+        metadata = row.to_dict()
+        for k,v in enumerate(opt):
+            metadata.update({f'c_{k}': v})    
+        hyperparam_values = evaluate(fn, metadata)
+        scores_full[j] = surrogates[idx].predict(np.array(hyperparam_values).reshape(1,-1))
+
+    return scores_full
 
 def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
@@ -70,30 +124,23 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
 
     for i, ind in enumerate(individuals):
         ind.terminals = [p for p in ind if p.arity == 0] # hackery to make glyph happy
-        for j, (idx, row) in enumerate(metadataset.iterrows()):
-            if random.random() < subset:
-                ind.pset = pset # hackery to make glyph happy
-                opt, sc = const_opt(error, ind, f_kwargs = {"row":row, "pset":pset,"surr":surrogates[idx],"evaluate":evaluate}, options={"maxiter":60})
-                scores_full[i, j] = -sc
+        ind.pset = pset # hackery to make glyph happy
+        scores_full[i, :] = per_individual_evals(evaluate, ind, metadataset, surrogates, toolbox, subset, optimize_constants, problem)
 
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
 
 def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
-    """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
-    :param evaluate: should turn (fn, row) into valid hyperparameter values. """
+    """
+        Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
+        :param evaluate: should turn (fn, row) into valid hyperparameter values. 
+    """
     if individuals == []:
         return []
 
     fns = []
     for ind in individuals:
-        if optimize_constants:
-            # For now ignore the fact that we also duplicate individuals with no constants.
-            # It should not affect results even though it will increase compute cost.
-            variations = [mut_all_constants(toolbox.clone(ind), pset) for _ in range(5)]
-            fns += [gp.compile(variation, pset) for variation in variations]
-        else:
-            fns.append(gp.compile(ind, pset))
+        fns.append(try_compile_individual(ind, pset, problem))
 
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)

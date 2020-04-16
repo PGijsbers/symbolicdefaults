@@ -13,6 +13,7 @@ from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
+from operator import attrgetter
 
 from problem import Problem
 
@@ -62,6 +63,13 @@ def cli_parser():
                             "Warm-start optimization by including the 'benchmark' solutions in the "
                             "initial population."),
                         dest='warm_start', type=bool, default=False)
+    parser.add_argument('-cst',
+                    help=("Search only constant formulas?"),
+                    dest='constants_only', type=bool, default=False)
+    parser.add_argument('-age',
+                help=("Regularize age by killing of older population members every nth generation."
+                      "Defaults to a 1e5 (every 1e5 generations)."),
+                dest='age_regularization', type=float, default=1e5)
     return parser.parse_args()
 
 
@@ -130,14 +138,16 @@ def main():
             )
         )
 
-        # Seed population with configurations from problem.benchmarks
+        # Seed population with configurations from problem.benchmark // fully "Symc" config
+        pop = []
+        if args.optimize_constants:
+            pop = [*pop, *toolbox.population_symc(problem)]
         if args.warm_start:
-            pop = [*toolbox.population(n=args.lambda_ - len(problem.benchmarks)), *toolbox.population_benchmark(problem)]
-        else:
-            pop = toolbox.population(n=args.lambda_)
+            pop = [*pop, *toolbox.population_benchmark(problem)]
+        pop = [*pop, *toolbox.population(n=max(0, args.lambda_ - len(pop)))]
 
         P = pop[0]
-
+        
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
@@ -178,6 +188,19 @@ def main():
                 )
             if args.algorithm == 'random_search':
                 pop = random_search(toolbox, popsize=args.lambda_, halloffame=hof)
+
+            # ====================== MODIFICATION ========================
+            # Kill off the oldest in the population
+            if i > 1:
+                # set current gen as birthyear for all newly initialized
+                # individuals
+                invalid_birthyear = [ind for ind in pop if not ind.birthyear]
+                for ind in invalid_birthyear:
+                    ind.birthyear = i
+                if not i % args.age_regularization:
+                    # delete the oldest (sort by birthyear) individual
+                    pop = sorted(pop, key=attrgetter("birthyear"))[1:]
+            # ============================================================
 
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
@@ -224,40 +247,42 @@ def main():
             scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
             logging.info(f"[{ind}|{scale_result:.4f}]")
 
-        in_sample_mean[task] = {}
-        for check_name, check_individual in problem.benchmarks.items():
-            expression = gp.PrimitiveTree.from_string(check_individual, pset)
-            individual = creator.Individual(expression)
-            scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
-            logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
-            in_sample_mean[task][check_name] = scale_result
+
+        
+        if not args.constants_only:
+            in_sample_mean[task] = {}
+            for check_name, check_individual in problem.benchmarks.items():
+                expression = gp.PrimitiveTree.from_string(check_individual, pset)
+                individual = creator.Individual(expression)
+                scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
+                logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
+                in_sample_mean[task][check_name] = scale_result
 
         logging.info("Evaluating out-of-sample:")
         for ind in sorted(hof, key=n_primitives_in):
             fn_ = gp.compile(ind, pset)
             mf_values = problem.metadata.loc[task]
-            hp_values = toolbox.evaluate(fn_, mf_values)
+            hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{ind}|{score[0]:.4f}]")
 
+        if not args.constants_only:  
+            for check_name, check_individual in problem.benchmarks.items():
+                expression = gp.PrimitiveTree.from_string(check_individual, pset)
+                ind = creator.Individual(expression)
+                fn_ = gp.compile(ind, pset)
+                mf_values = problem.metadata.loc[task]
+                hp_values = toolbox.evaluate(fn_, mf_values)
+                score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+                logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
+
+    if not args.constants_only:
         for check_name, check_individual in problem.benchmarks.items():
-            expression = gp.PrimitiveTree.from_string(check_individual, pset)
-            ind = creator.Individual(expression)
-            fn_ = gp.compile(ind, pset)
-            mf_values = problem.metadata.loc[task]
-            hp_values = toolbox.evaluate(fn_, mf_values)
-            score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
+            logging.info(f"{check_name} := {check_individual}")
 
-    for check_name, check_individual in problem.benchmarks.items():
-        logging.info(f"{check_name} := {check_individual}")
-
-    for check_name, check_individual in problem.benchmarks.items():
-        avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
-        logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
-
-
-
+        for check_name, check_individual in problem.benchmarks.items():
+            avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
+            logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
 
 if __name__ == '__main__':
     main()
