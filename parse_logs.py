@@ -10,6 +10,7 @@ class Trace:
         self.baseline = set(benchmarks) if benchmarks else set()
         self.scores, self.expressions, generations_by_task = parse_log(filename, baseline=self.baseline)
         self.comparison, self.d_scores = comparisons(self.scores)
+        self.in_comparison, self.in_d_scores = comparisons(self.scores, sample="in-sample")
         self.generations_by_task = pd.Series(generations_by_task, name="generations")
 
     @property
@@ -48,6 +49,8 @@ def parse_log(file, with_prefix=False, baseline=None):
         """
         start, pipe, end = line.find('['), line.find('|'), line.find(']')
         expression = line[start + 1: pipe]
+        if ':' in expression:  # For the baseline expressions, record them by name
+            expression = expression[:expression.find(':')]
         expression_length = expression.count('(')
         return expression, expression_length, float(line[pipe + 1: end])
 
@@ -80,7 +83,8 @@ def parse_log(file, with_prefix=False, baseline=None):
         for in_sample_evaluation in lines[in_start + 1: out_start]:
             expr, length, score = parse_evaluation_line(in_sample_evaluation)
             # Pareto fronts may contain literal duplicates, so we filter those out manually.
-            if expr not in expr_in_task:
+            # We also do not want to include the baseline solutions (they have ':' in their line)
+            if expr not in expr_in_task: # and ':' not in expr:
                 expressions_by_length[length].append(expr)
                 expr_in_task.add(expr)
 
@@ -123,8 +127,8 @@ def parse_log(file, with_prefix=False, baseline=None):
     return df, expressions_by_length, generations_by_task
 
 
-def comparisons(df):
-    out_sample = df.index.map(lambda idx: idx[1] == "out-sample")
+def comparisons(df, sample="out-sample"):
+    out_sample = df.index.map(lambda idx: idx[1] == sample)
 
     alone = {k: 0 for k in df.iloc[0].index.values}
     shared = {k: 0 for k in df.iloc[0].index.values}
