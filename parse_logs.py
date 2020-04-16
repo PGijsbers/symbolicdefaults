@@ -27,12 +27,11 @@ def parse_log(file, with_prefix=False, baseline=None):
 
     p = 'INFO:root:' if with_prefix else ''
 
-    definitions = [i for i, line in enumerate(lines) if ':=' in line]
-    first_definition = definitions[0] if definitions else -1
+    definitions = [line for line in lines if ':=' in line]
     baseline = baseline if baseline else set()
 
     print("The predefined defaults are:")
-    for line in lines[first_definition:]:
+    for line in definitions:
         if ':=' in line:
             print(f" * {line[len(p):-1]}")
             baseline.add(line[len(p):].split(' :=')[0])
@@ -63,8 +62,7 @@ def parse_log(file, with_prefix=False, baseline=None):
 
     for task_start, in_start, out_start, next_task in zip(task_starts, in_sample_starts,
                                                           out_sample_starts,
-                                                          task_starts[1:] + [
-                                                              first_definition]):
+                                                          task_starts[1:] + [-len(baseline)*2]):
         # start line looks like: INFO:root:START_TASK: 29\n
         task = int(lines[task_start][:-1].split(": ")[-1])
 
