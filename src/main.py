@@ -194,7 +194,7 @@ def main():
                 invalid_birthyear = [ind for ind in pop if not ind.birthyear]
                 for ind in invalid_birthyear:
                     ind.birthyear = i
-                if not i % args.age_regularization
+                if not i % args.age_regularization:
                     # delete the oldest (sort by birthyear) individual
                     pop = sorted(pop, key=attrgetter("birthyear"))[1:]
             # ============================================================
