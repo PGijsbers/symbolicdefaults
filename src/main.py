@@ -13,6 +13,7 @@ from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
+from operator import attrgetter
 
 from problem import Problem
 
@@ -65,6 +66,10 @@ def cli_parser():
     parser.add_argument('-cst',
                     help=("Search only constant formulas?"),
                     dest='constants_only', type=bool, default=False)
+    parser.add_argument('-age',
+                help=("Regularize age by killing of older population members every nth generation."
+                      "Defaults to a 1e5 (every 1e5 generations)."),
+                dest='age_regularization', type=float, default=1e5)
     return parser.parse_args()
 
 
@@ -180,6 +185,15 @@ def main():
                 )
             if args.algorithm == 'random_search':
                 pop = random_search(toolbox, popsize=args.lambda_, halloffame=hof)
+
+            # ====================== MODIFICATION ========================
+            # Kill off the oldest in the population
+            if i > 1 and i % args.age_regularization:
+                invalid_age = [ind for ind in pop if not ind.age]
+                for ind in invalid_age:
+                    ind.age = i
+                pop = sorted(pop, key=attrgetter("age"))[1:]
+            # ============================================================
 
             # Little hackery for logging with early stopping
             record = mstats.compile(pop) if mstats is not None else {}
