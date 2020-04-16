@@ -189,10 +189,13 @@ def main():
             # ====================== MODIFICATION ========================
             # Kill off the oldest in the population
             if i > 1 and i % args.age_regularization:
-                invalid_age = [ind for ind in pop if not ind.age]
-                for ind in invalid_age:
-                    ind.age = i
-                pop = sorted(pop, key=attrgetter("age"))[1:]
+                # set current gen as birthyear for all newly initialized
+                # individuals
+                invalid_birthyear = [ind for ind in pop if not ind.birthyear]
+                for ind in invalid_birthyear:
+                    ind.birthyear = i
+                # delete the oldest (sort by birthyear) individual
+                pop = sorted(pop, key=attrgetter("birthyear"))[1:]
             # ============================================================
 
             # Little hackery for logging with early stopping
