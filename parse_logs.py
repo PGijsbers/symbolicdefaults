@@ -4,7 +4,23 @@ import numpy as np
 import pandas as pd
 
 
-def parse_log(file, with_prefix=False, benchmarks=None):
+class Trace:
+
+    def __init__(self, filename: str, benchmarks=None):
+        self.baseline = set(benchmarks) if benchmarks else set()
+        self.scores, self.expressions, generations_by_task = parse_log(filename, baseline=self.baseline)
+        self.comparison, self.d_scores = comparisons(self.scores)
+        self.generations_by_task = pd.Series(generations_by_task, name="generations")
+
+    @property
+    def most_frequent_solutions_by_length(self):
+        for length, expressions in sorted(self.expressions.items()):
+            m = max(set(expressions), key=expressions.count)
+            yield m, expressions.count(m)
+            # print(f" Found {len(expressions):3d} expressions of length {length}. Most frequent: {m} ({expressions.count(m)} times)")
+
+
+def parse_log(file, with_prefix=False, baseline=None):
     with open(file) as fh:
         lines = fh.readlines()
 
@@ -12,13 +28,13 @@ def parse_log(file, with_prefix=False, benchmarks=None):
 
     definitions = [i for i, line in enumerate(lines) if ':=' in line]
     first_definition = definitions[0] if definitions else -1
-    benchmarks = benchmarks if benchmarks else set()
+    baseline = baseline if baseline else set()
 
     print("The predefined defaults are:")
     for line in lines[first_definition:]:
         if ':=' in line:
             print(f" * {line[len(p):-1]}")
-            benchmarks.add(line[len(p):].split(' :=')[0])
+            baseline.add(line[len(p):].split(' :=')[0])
 
     task_starts = [i for i, line in enumerate(lines) if "START_TASK:" in line]
     in_sample_starts = [i for i, line in enumerate(lines) if "Evaluating in sample:" in line]
@@ -37,7 +53,7 @@ def parse_log(file, with_prefix=False, benchmarks=None):
 
     tasks = [int(line[:-1].split(": ")[-1]) for line in lines if "START_TASK:" in line]
     idx = pd.MultiIndex.from_product([tasks, ["in-sample", "out-sample"]], names=['task', 'sample-type'])
-    df = pd.DataFrame(index=idx, columns=["score-1","score-2", "score-3", "score-best", *benchmarks], dtype=float)
+    df = pd.DataFrame(index=idx, columns=["length-1", "length-2", "length-3", "final", *baseline], dtype=float)
 
     expressions_by_length = defaultdict(list)
     generations_by_task = {}
@@ -71,11 +87,11 @@ def parse_log(file, with_prefix=False, benchmarks=None):
             if length != 0:
                 if length < 4:
                     # Only report one out-of-sample solution for each length (and all benchmarks), so overwrite is OK.
-                    df.loc[task, "in-sample"][f"score-{length}"] = score
+                    df.loc[task, "in-sample"][f"length-{length}"] = score
 
                 # Update best so far score and maximum length
-                df.loc[task, "in-sample"][f"score-best"] = np.nanmax(
-                    [score, df.loc[task, "in-sample"][f"score-best"]])
+                df.loc[task, "in-sample"][f"final"] = np.nanmax(
+                    [score, df.loc[task, "in-sample"][f"final"]])
                 max_length = max(max_length, length)
             else:
                 df.loc[task, "in-sample"][expr] = score
@@ -98,9 +114,9 @@ def parse_log(file, with_prefix=False, benchmarks=None):
 
         for length, scores in scores_by_length.items():
             if length < 4:
-                df.loc[task, "out-sample"][f"score-{length}"] = np.mean(scores)
+                df.loc[task, "out-sample"][f"length-{length}"] = np.mean(scores)
             if length == max_length:
-                df.loc[task, "out-sample"][f"score-best"] = np.mean(scores)
+                df.loc[task, "out-sample"][f"final"] = np.mean(scores)
             if np.mean(scores) == float("nan"):
                 print('hi')
 
@@ -138,13 +154,3 @@ def comparisons(df):
     df.loc[in_sample].idxmax(axis=1).value_counts()
     df.loc[in_sample][reversed(df.columns)].idxmax(axis=1).value_counts()
     return comparison, df_out
-
-
-if __name__ == '__main__':
-    quit()
-    # for length, expressions in sorted(expressions_by_length.items()):
-    #     m = max(set(expressions), key=expressions.count)
-    #     print(
-    #         f" Found {len(expressions):3d} expressions of length {length}. Most frequent: {m} ({expressions.count(m)} times)")
-    # pd.Series(generations_by_task, name="generations").hist(bins=20)
-    # pd.Series(generations_by_task, name="generations").median()
