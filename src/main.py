@@ -95,6 +95,10 @@ def main():
     for parameter, value in args._get_kwargs():
         logging.info(f"param:{parameter}:{value}")
 
+    if not args.constants_only:
+        for check_name, check_individual in problem.benchmarks.items():
+            logging.info(f"{check_name} := {check_individual}")
+
     if (args.optimize_constants):
         mass_eval_fun = mass_evaluate_2
     else:
