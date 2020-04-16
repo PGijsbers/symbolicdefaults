@@ -56,6 +56,12 @@ class Problem:
                 experiments = experiments.drop(self._json['ignore'], axis=1)
 
             experiments = experiments.rename(columns={self._json['metric']: 'target'})
+
+            # Drop tasks with constant performance
+            counts = experiments.groupby("task_id")['target'].nunique()
+            if len(counts[counts==1]):
+                experiments.drop(experiments[experiments.task_id == counts[counts==1].index.values[0]].index, axis=0, inplace=True)
+                
             if self._json.get("how") == "minimize":
                 experiments.target = -experiments.target
             self._data = experiments
