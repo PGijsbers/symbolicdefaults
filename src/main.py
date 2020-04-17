@@ -2,6 +2,7 @@ import argparse
 import functools
 import logging
 import sys
+import time
 
 import numpy as np
 import pandas as pd
@@ -87,9 +88,10 @@ def configure_logging(output_file: str = None):
 def main():
     # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
-
     args = cli_parser()
     configure_logging(args.output_file)
+    time_start = time.time()
+
     problem = Problem(args.problem)
 
     for parameter, value in args._get_kwargs():
@@ -287,6 +289,10 @@ def main():
         for check_name, check_individual in problem.benchmarks.items():
             avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
             logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
+
+
+    time_end = time.time()
+    logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
 
 if __name__ == '__main__':
     main()
