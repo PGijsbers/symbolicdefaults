@@ -268,7 +268,7 @@ def main():
         for ind in sorted(hof, key=n_primitives_in):
             fn_ = gp.compile(ind, pset)
             mf_values = problem.metadata.loc[task]
-            hp_values = toolbox.evaluate(fn_, mf_values)
+            hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{ind}|{score[0]:.4f}]")
 
