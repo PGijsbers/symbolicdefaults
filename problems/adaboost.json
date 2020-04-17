@@ -13,6 +13,6 @@
       "adaboostclassifier__algorithm": "SAMME.R"
     },
     "benchmark": {
-      "sklearn":"make_tuple(1., 1., 50.)"
+      "sklearn_default":"make_tuple(1., 1., 50.)"
     }
 }

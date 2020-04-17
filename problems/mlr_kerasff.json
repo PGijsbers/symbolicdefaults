@@ -21,6 +21,6 @@
       "optimizer": "adam"
     },
     "benchmark": {
-      "initial_values":"make_tuple(30., 0.003, 0.01, 2., 256., 256., 0., 0., 0., 0.)"
+      "mlr_default":"make_tuple(30., 0.003, 0.01, 2., 256., 256., 0., 0., 0., 0.)"
     }
 }
