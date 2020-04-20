@@ -12,7 +12,7 @@
       "svc__kernel": "rbf"
     },
     "benchmark": {
-      "sklearn_scale":"make_tuple(1., truediv(1., mul(p, xvar)))",
+      "sklearn_default":"make_tuple(1., truediv(1., mul(p, xvar)))",
       "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
     }
 }

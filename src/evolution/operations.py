@@ -18,11 +18,14 @@ def insert_fixed(hyperparam_values, problem):
     insert problem.fixed (a dict of fixed hyperparameter values, e.g. nrounds: 500) into the 
     hyperparameter values according to its position in problem.hyperparameters.
     """ 
-    hp = hyperparam_values
-    for key, val in problem.fixed.items():
-        n = problem.hyperparameters.index(key)
-        hp = hp[:n] + (val,) + hp[n:]
-    return hp
+    if len(hyperparam_values) == len(problem.hyperparameters):
+        return hyperparam_values
+    else:
+        hp = hyperparam_values
+        for key, val in problem.fixed.items():
+            n = problem.hyperparameters.index(key)
+            hp = hp[:n] + (val,) + hp[n:]
+        return hp
 
 def try_compile_individual(ind, pset, problem, invalid=1e-6):
     """
