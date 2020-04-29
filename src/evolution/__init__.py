@@ -100,7 +100,7 @@ def setup_toolbox(problem, args):
 
     toolbox.register("select", tools.selNSGA2)
     toolbox.register("mate", gp.cxOnePoint)
-    toolbox.register("mutate", random_mutation, pset=pset, max_depth=args.max_number_operators, toolbox=toolbox)
+    toolbox.register("mutate", random_mutation, pset=pset, max_depth=args.max_number_operators, toolbox=toolbox, eph_mutation=args.emut)
 
     # We abuse 'map/evaluate'.
     # Here 'evaluate' computes the hyperparameter values based on the symbolic

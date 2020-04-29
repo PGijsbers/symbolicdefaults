@@ -71,6 +71,9 @@ def cli_parser():
                 help=("Regularize age by killing of older population members every nth generation."
                       "Defaults to a 1e5 (every 1e5 generations)."),
                 dest='age_regularization', type=float, default=1e5)
+    parser.add_argument('-emut',
+                        help=("ephemeral mutation type,  'gaussian', 'one', 'improve', 'local'"),
+                        dest='emut', type=str, default='gaussian')
     return parser.parse_args()
 
 

@@ -171,7 +171,7 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     return zip(scores_mean, lengths)
 
 
-def random_mutation(ind, pset, max_depth=None, toolbox=None):
+def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
     valid_mutations = [
         functools.partial(gp.mutNodeReplacement, pset=pset),
     ]
@@ -184,10 +184,17 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None):
     elif n_primitives_in(ind) < max_depth:
         valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
 
-    if get_ephemerals(ind):
-        #valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
-        # valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
+    if get_ephemerals(ind) and eph_mutation == "gaussian":
+        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
+
+    if get_ephemerals(ind) and eph_mutation == "one":
+        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
+
+    if get_ephemerals(ind) and eph_mutation == "improve":
         valid_mutations.append(functools.partial(mut_small_ephemeral_improve, pset=pset, toolbox=toolbox))
+
+    if get_ephemerals(ind) and eph_mutation == "local":
+        valid_mutations.append(functools.partial(mut_small_ephemeral_change, pset=pset))
 
     return np.random.choice(valid_mutations)(ind)
 
