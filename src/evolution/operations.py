@@ -5,6 +5,7 @@ import random
 import numpy as np
 import pandas as pd
 from deap import gp
+from deap.gp import mutEphemeral
 from glyph.gp import numpy_phenotype
 from glyph.assessment import const_opt
 from glyph.utils import Memoize
@@ -161,10 +162,9 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     return zip(scores_mean, lengths)
 
 
-def random_mutation(ind, pset, max_depth=None):
+def random_mutation(ind, pset, max_depth=None, toolbox=None):
     valid_mutations = [
         functools.partial(gp.mutNodeReplacement, pset=pset),
-        functools.partial(gp.mutEphemeral, mode='all')
     ]
 
     if n_primitives_in(ind) > 1:  # The base primitive is unshrinkable.
@@ -175,7 +175,86 @@ def random_mutation(ind, pset, max_depth=None):
     elif n_primitives_in(ind) < max_depth:
         valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
 
+    if get_ephemerals(ind):
+        #valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
+        # valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
+        valid_mutations.append(functools.partial(mut_small_ephemeral_improve, pset=pset, toolbox=toolbox))
+
     return np.random.choice(valid_mutations)(ind)
+
+
+def get_ephemerals(individual):
+    return [(index, node) for index, node in enumerate(individual)
+            if isinstance(node, gp.Ephemeral)]
+
+
+def mut_ephemeral_gaussian(individual, pset, s=0.1):
+    ephemerals_idx = [(index, node) for index, node in enumerate(individual)
+                      if isinstance(node, gp.Ephemeral)]
+    if len(ephemerals_idx) > 0:
+        index, ephemeral = random.choice(ephemerals_idx)
+        value = ephemeral.value + random.gauss(0, abs(ephemeral.value) * s)
+        eph = type(ephemeral)()
+        eph.value = value
+        individual[index] = eph
+    return individual,
+
+
+def mut_small_ephemeral_change(individual, pset):
+    ephemerals_idx = [(index, node) for index, node in enumerate(individual)
+                      if isinstance(node, gp.Ephemeral)]
+    if len(ephemerals_idx) > 0:
+        index, ephemeral = random.choice(ephemerals_idx)
+        if ephemeral.__class__.__name__ == 'cs':
+            # continuous
+            value = ephemeral.value + random.gauss(0, 0.1)
+        elif ephemeral.value == ephemeral.values[0]:
+            value = ephemeral.values[1]
+        elif ephemeral.value == ephemeral.values[-1]:
+            value = ephemeral.values[-2]
+        else:
+            value_index = ephemeral.values.index(ephemeral.value)
+            lower, higher = ephemeral.values[value_index - 1], ephemeral.values[value_index + 1]
+            value = random.choice([lower, higher])
+        # Assign the value in a new ephemeral object, so as not to change the old one.
+        eph = type(ephemeral)()
+        eph.value = value
+        individual[index] = eph
+    return individual,
+
+
+# If it is not at edge, look up ephemeral next and compare both
+# If it is at edge, look up difeferent eph types that are close and look up their neighbors.
+
+def mut_small_ephemeral_improve(individual, pset, toolbox):
+    ephemerals_idx = [(index, node) for index, node in enumerate(individual)
+                      if isinstance(node, gp.Ephemeral)]
+    if len(ephemerals_idx) == 0:
+        return
+
+    index, ephemeral = random.choice(ephemerals_idx)
+    if ephemeral.__class__.__name__ == 'cs':
+        v1 = max(ephemeral.value - 0.1, 0)
+        v2 = min(ephemeral.value + 0.1, 1.0)
+    elif ephemeral.value == ephemeral.values[0]:
+        v1 = ephemeral.values[1]
+        v2 = ephemeral.values[2]
+    elif ephemeral.value == ephemeral.values[-1]:
+        v1 = ephemeral.values[-2]
+        v2 = ephemeral.values[-3]
+    else:
+        value_index = ephemeral.values.index(ephemeral.value)
+        v1, v2 = ephemeral.values[value_index - 1], ephemeral.values[value_index + 1]
+
+    # Create two new individual objects with the distinct ephemerals
+    ind_1, ind_2 = toolbox.clone(individual), toolbox.clone(individual)
+    eph1, eph2 = type(ephemeral)(), type(ephemeral)()
+    eph1.value, eph2.value = v1, v2
+    ind_1[index], ind_2[index] = eph1, eph2
+
+    fitnesses = toolbox.map(toolbox.evaluate, [ind_1, ind_2])
+    best = np.argmax(fitnesses)
+    return [ind_1, ind_2][best],
 
 
 def mut_all_constants(individual, pset):
