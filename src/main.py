@@ -2,6 +2,7 @@ import argparse
 import functools
 import logging
 import sys
+import time
 
 import numpy as np
 import pandas as pd
@@ -87,9 +88,10 @@ def configure_logging(output_file: str = None):
 def main():
     # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
-
     args = cli_parser()
     configure_logging(args.output_file)
+    time_start = time.time()
+
     problem = Problem(args.problem)
 
     for parameter, value in args._get_kwargs():
@@ -107,6 +109,7 @@ def main():
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
 
+
     # ================================================
     # Start evolutionary optimization
     # ================================================
@@ -120,7 +123,7 @@ def main():
             quit(-1)
         else:
             tasks = [args.task]
-    
+
     if len(problem.fixed):
         logging.info(f"With fixed hyperparameters: {problem.fixed}:")
         logging.info(f"And hyperparameters: {problem.hyperparameters}:")
@@ -151,7 +154,7 @@ def main():
         pop = [*pop, *toolbox.population(n=max(0, args.lambda_ - len(pop)))]
 
         P = pop[0]
-        
+
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
@@ -228,23 +231,6 @@ def main():
                 logging.info(f"Stop early, no improvement in {args.early_stop_n} gens.")
                 break
 
-        # logging.info(f"Top 5 for task {task}:")
-        # for ind in sorted(hof[:5], key=n_primitives_in):
-        #     if args.optimize_constants:
-        #         # since 'optimization' of constants is not saved,
-        #         # reoptimize constants before printing.
-        #         variations = [mut_all_constants(toolbox.clone(ind), pset)
-        #                       for _ in range(50)]
-        #         fitnesses = mass_evaluate(
-        #             toolbox.evaluate, variations, pset=pset,
-        #             metadataset=loo_metadataset, surrogates=problem.surrogates,
-        #             subset=args.subset, toolbox=toolbox
-        #         )
-        #         variations = list(zip(fitnesses, [str(v) for v in variations]))
-        #         best = max(variations)
-        #         logging.info(str(best[1]))
-        #     else:
-        #         logging.info(str(ind))
 
         logging.info("Evaluating in sample:")
         for ind in sorted(hof, key=n_primitives_in):
@@ -252,7 +238,7 @@ def main():
             logging.info(f"[{ind}|{scale_result:.4f}]")
 
 
-        
+
         if not args.constants_only:
             in_sample_mean[task] = {}
             for check_name, check_individual in problem.benchmarks.items():
@@ -266,11 +252,11 @@ def main():
         for ind in sorted(hof, key=n_primitives_in):
             fn_ = gp.compile(ind, pset)
             mf_values = problem.metadata.loc[task]
-            hp_values = toolbox.evaluate(fn_, mf_values)
+            hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{ind}|{score[0]:.4f}]")
 
-        if not args.constants_only:  
+        if not args.constants_only:
             for check_name, check_individual in problem.benchmarks.items():
                 expression = gp.PrimitiveTree.from_string(check_individual, pset)
                 ind = creator.Individual(expression)
@@ -287,6 +273,10 @@ def main():
         for check_name, check_individual in problem.benchmarks.items():
             avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
             logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
+
+
+    time_end = time.time()
+    logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
 
 if __name__ == '__main__':
     main()
