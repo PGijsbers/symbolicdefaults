@@ -1,6 +1,6 @@
 {
     "name": "mlr_rf",
-    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.ranger.pow.arff",
+    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.ranger.arff",
     "metric": "perf.mmce",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
@@ -8,7 +8,7 @@
     "hyperparameters": [
       "num.trees",
       "sample.fraction",
-      "mtry.power",
+      "mtry",
       "min.node.size"
     ],
     "fixed": {
@@ -27,6 +27,6 @@
       "dataset"
     ],
     "benchmark": {
-      "mlr_default": "make_tuple(100., 1., 0.5, 1.)"
+      "mlr_default": "make_tuple(100., 1., 10, 1.)"
     }
 }
