@@ -108,7 +108,6 @@ def main():
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
-    import pdb; pdb.set_trace()
 
 
     # ================================================
