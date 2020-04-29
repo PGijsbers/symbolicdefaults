@@ -31,11 +31,14 @@ def create_metadataset(task_ids, after_preprocessing=True):
 @memory.cache()
 def calculate_metafeatures(task, preprocessing=None):
     X, y = task.get_X_and_y()
-    
+
+    # number of features before preprocessing
+    no = X.shape[0]
+
     if preprocessing is not None:
         X = preprocessing.fit_transform(X)
 
-    n = X.shape[0]    
+    n = X.shape[0]
     p = X.shape[1]
 
     if isinstance(X, scipy.sparse.csr_matrix):
@@ -62,6 +65,7 @@ def calculate_metafeatures(task, preprocessing=None):
     return dict(
         m=len(set(y)),
         n=n,
+        no=no,
         p=p,
         rc=n_categorical / p,
         mcp=max(counts) / len(y),

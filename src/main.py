@@ -108,6 +108,8 @@ def main():
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
+    import pdb; pdb.set_trace()
+
 
     # ================================================
     # Start evolutionary optimization
@@ -122,7 +124,7 @@ def main():
             quit(-1)
         else:
             tasks = [args.task]
-    
+
     if len(problem.fixed):
         logging.info(f"With fixed hyperparameters: {problem.fixed}:")
         logging.info(f"And hyperparameters: {problem.hyperparameters}:")
@@ -153,7 +155,7 @@ def main():
         pop = [*pop, *toolbox.population(n=max(0, args.lambda_ - len(pop)))]
 
         P = pop[0]
-        
+
         # Set up things to track on the optimization process
         stats_fit = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_size = tools.Statistics(n_primitives_in)
@@ -230,23 +232,6 @@ def main():
                 logging.info(f"Stop early, no improvement in {args.early_stop_n} gens.")
                 break
 
-        # logging.info(f"Top 5 for task {task}:")
-        # for ind in sorted(hof[:5], key=n_primitives_in):
-        #     if args.optimize_constants:
-        #         # since 'optimization' of constants is not saved,
-        #         # reoptimize constants before printing.
-        #         variations = [mut_all_constants(toolbox.clone(ind), pset)
-        #                       for _ in range(50)]
-        #         fitnesses = mass_evaluate(
-        #             toolbox.evaluate, variations, pset=pset,
-        #             metadataset=loo_metadataset, surrogates=problem.surrogates,
-        #             subset=args.subset, toolbox=toolbox
-        #         )
-        #         variations = list(zip(fitnesses, [str(v) for v in variations]))
-        #         best = max(variations)
-        #         logging.info(str(best[1]))
-        #     else:
-        #         logging.info(str(ind))
 
         logging.info("Evaluating in sample:")
         for ind in sorted(hof, key=n_primitives_in):
@@ -254,7 +239,7 @@ def main():
             logging.info(f"[{ind}|{scale_result:.4f}]")
 
 
-        
+
         if not args.constants_only:
             in_sample_mean[task] = {}
             for check_name, check_individual in problem.benchmarks.items():
@@ -272,7 +257,7 @@ def main():
             score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
             logging.info(f"[{ind}|{score[0]:.4f}]")
 
-        if not args.constants_only:  
+        if not args.constants_only:
             for check_name, check_individual in problem.benchmarks.items():
                 expression = gp.PrimitiveTree.from_string(check_individual, pset)
                 ind = creator.Individual(expression)

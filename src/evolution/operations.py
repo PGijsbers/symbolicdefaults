@@ -57,6 +57,7 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
     :return:
         fn(input_) if its output is a sequence of finite float32 values, else `invalid`
     """
+    # If individual has only constants, fn is not afunction but already has the results.
     if not callable(fn):
         return(fn)
 
@@ -83,6 +84,7 @@ def avg_per_individual_error(ind, *args, **f_kwargs):
     Compute the fitness of a individual as the average over datasets
     :param *args:
          Numeric args passed on from scikit.optimize.minimize
+         (This is what optimize_constants optimizes)
     :param **f_kwarrgs :
         Further arguments required for evaluation
     """
@@ -103,10 +105,12 @@ def avg_per_individual_error(ind, *args, **f_kwargs):
 def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
     fn = numpy_phenotype(ind)
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
+    # First optimize the mean error across datasets
     opt, sc = const_opt(avg_per_individual_error, ind, 
         f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
         method="Nelder-Mead", options={'maxiter':2, 'xatol':1e-4, 'fatol':1e-4})
 
+    # Get results for each dataset
     for j, (idx, row) in enumerate(metadataset.iterrows()):
         metadata = row.to_dict()
         for k,v in enumerate(opt):
@@ -117,8 +121,10 @@ def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: t
     return scores_full
 
 def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
-    """ Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
-    :param evaluate: should turn (fn, row) into valid hyperparameter values. """
+    """ 
+    Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
+    :param evaluate: should turn (fn, row) into valid hyperparameter values.
+    """
     if individuals == []:
         return []
 
