@@ -15,7 +15,8 @@
       "num.trees": 500.0
     },
     "filters": {
-      "splitrule": "gini"
+      "splitrule": "gini",
+      "replace": "TRUE"
     },
     "operators": "default",
     "performance_column": "perf.mmce",
@@ -27,6 +28,6 @@
       "dataset"
     ],
     "benchmark": {
-      "mlr_default": "make_tuple(500., 1., 1., pow(po, 0.5))"
+      "mlr_default":"make_tuple(1., 1., pow(po, 0.5))"
     }
 }

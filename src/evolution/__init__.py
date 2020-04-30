@@ -27,7 +27,7 @@ def setup_toolbox(problem, args):
         variables = dict(
             NumberOfClasses='m',           #  [2;50]
             NumberOfFeatures='p',          #  [1;Inf]
-            NumberOfFeaturesBefore='po',
+            NumberOfFeaturesBefore='po',   #  [1:Inf]
             NumberOfInstances='n',         #  [1;Inf]
             MedianKernelDistance='mkd',    #  [0;Inf]
             MajorityClassPercentage='mcp', #  [0;1]
