@@ -8,8 +8,8 @@
     "hyperparameters": [
       "num.trees",
       "sample.fraction",
-      "mtry",
-      "min.node.size"
+      "min.node.size",
+      "mtry"
     ],
     "fixed": {
       "num.trees": 500.0
@@ -27,6 +27,6 @@
       "dataset"
     ],
     "benchmark": {
-      "mlr_default": "make_tuple(100., 1., pow(po, 0.5), 1.)"
+      "mlr_default": "make_tuple(500., 1., 1., pow(po, 0.5))"
     }
 }

@@ -27,6 +27,7 @@ def setup_toolbox(problem, args):
         variables = dict(
             NumberOfClasses='m',           #  [2;50]
             NumberOfFeatures='p',          #  [1;Inf]
+            NumberOfFeaturesBefore='po',
             NumberOfInstances='n',         #  [1;Inf]
             MedianKernelDistance='mkd',    #  [0;Inf]
             MajorityClassPercentage='mcp', #  [0;1]
@@ -38,7 +39,7 @@ def setup_toolbox(problem, args):
         pset.renameArguments(**{f"ARG{i}": var for i, var in enumerate(variable_names)})
     else:
         pset = gp.PrimitiveSetTyped("ConstantExpression", [], typing.Tuple)
-    
+
     if args.optimize_constants:
         pset.args = pset.arguments
         symc = 1.0
