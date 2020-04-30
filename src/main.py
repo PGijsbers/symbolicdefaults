@@ -10,7 +10,7 @@ import pandas as pd
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed, approx_eq
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -166,7 +166,7 @@ def main():
         mstats.register("std", np.std)
         mstats.register("min", np.min)
         mstats.register("max", np.max)
-        hof = tools.ParetoFront()
+        hof = tools.ParetoFront(similar = approx_eq)
         last_best = (0, -10)
         last_best_gen = 0
 

@@ -287,3 +287,11 @@ def mut_all_constants(individual, pset):
             individual[i] = random.choice(ephemerals)()
 
     return individual
+
+def approx_eq(a, b, eps = 1e-3):
+    a, asz = a.fitness.values
+    b, bsz = b.fitness.values
+    if abs(a - b) / abs(b) < eps and asz == bsz:
+        return True
+    else:
+        return False
