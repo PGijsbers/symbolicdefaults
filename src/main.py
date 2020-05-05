@@ -37,7 +37,7 @@ def cli_parser():
                         help="Number of generations.",
                         dest='ngen', type=int, default=200)
     parser.add_argument('-a',
-                        help="Algorithm. {mupluslambda, onepluslambda}",
+                        help="Algorithm. {mupluslambda, onepluslambda, random_search}",
                         dest='algorithm', type=str, default='mupluslambda')
     parser.add_argument('-s',
                         help="Evaluate individuals on a random [S]ubset of size [0, 1].",
