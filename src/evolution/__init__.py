@@ -45,7 +45,7 @@ def setup_toolbox(problem, args):
         symc = 1.0
         pset.addTerminal(symc, float, "Symc")
         pset.constants = ["Symc"]
-    else:
+    elif args.ephs == "many":
         cloggt1 = [2 ** i for i in range(4, 11)]+[10 ** i for i in range(1, 4)]
         cloglt1 = [2 ** i for i in range(-8, -1)]+[10 ** i for i in range(-4, -1)]
         pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=float)
@@ -64,6 +64,10 @@ def setup_toolbox(problem, args):
         ephemerals = [t for t in pset.terminals[float] if hasattr(t, '__name__')]
         for e in ephemerals:
             e.values = ranges[e.__name__]
+    else:
+        def random_base_2():
+            return np.random.choice(np.logspace(start=-10, stop=10, num=21, base=2))
+        pset.addEphemeralConstant("cs", random_base_2, ret_type=float)
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     # pset.addPrimitive(poly_gt, [float, float], float)
