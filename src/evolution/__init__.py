@@ -65,9 +65,9 @@ def setup_toolbox(problem, args):
         for e in ephemerals:
             e.values = ranges[e.__name__]
     else:
-        def random_base_2():
-            return np.random.choice(np.logspace(start=-10, stop=10, num=21, base=2))
-        pset.addEphemeralConstant("cs", random_base_2, ret_type=float)
+        def loguniform():
+            return 2 ** random.uniform(-10, 10)
+        pset.addEphemeralConstant("cs", loguniform, ret_type=float)
 
     pset.addPrimitive(if_gt, [float, float, float, float], float)
     # pset.addPrimitive(poly_gt, [float, float], float)
