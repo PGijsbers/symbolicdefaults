@@ -1,8 +1,6 @@
 import argparse
-import functools
 import logging
 import sys
-import time
 import numpy as np
 import pandas as pd
 
@@ -11,11 +9,11 @@ from main import configure_logging
 
 
 def cli_parser():
-    description = "Compute baselines for a given problem"
-    parser = argparse.ArgumentParser(description=description)
+    parser = argparse.ArgumentParser(description="Compute baselines for a given problem")
     parser.add_argument('problem', type=str,
                         help="Problem to optimize. Must match one of 'name' fields in the configuration file.")
-    parser.add_argument('-normalize', type=bool, help="Normalize scores?", default=True, dest="normalize")
+    parser.add_argument('-normalize', type=bool, help="Normalize scores?",
+                        dest="normalize", default=True)
     return parser.parse_args()
 
 def get_oracle_performance(problem_data):
@@ -26,7 +24,6 @@ def get_oracle_performance(problem_data):
     df = pd.DataFrame(df).transpose()
     df.index.name = 'search_type'
     return df.rename(index={'target':'oracle'})
-
 
 def rep_random_search(problem_data, nrs, replications=20):
     """
@@ -47,13 +44,20 @@ def rep_random_search(problem_data, nrs, replications=20):
     return odf
 
 def get_regret(df, odf):
+    """
+    Compute regret: absolute deviation from oracle score
+    """
     return np.abs(df - odf.loc['oracle',:])
 
 def normalize_scores(ys):
+    """
+    Scale target to [0,1] where 1 is best, 0 is worst.
+    """
     y = ys.values
     if (max(y) - min(y)) == 0:
         return pd.Series(np.zeros(shape = len(y)), index = ys.index)
     return pd.Series((y - min(y)) / (max(y) - min(y)), index = ys.index)
+
 
 def main():
     # Numpy must raise all warnings, otherwise overflows may go undetected.
@@ -67,8 +71,9 @@ def main():
     problem = Problem(args.problem)
     prob_df = problem.data
 
-    # Normalize scores to [0,1]
+
     if args.normalize:
+        # Normalize scores to [0,1]
         logging.info(f"Scaling to [0,1] (1: best)")
         prob_df['target'] = prob_df.groupby('task_id')['target'].apply(normalize_scores)
     else:
