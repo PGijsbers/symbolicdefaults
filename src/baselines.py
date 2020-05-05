@@ -15,6 +15,7 @@ def cli_parser():
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('problem', type=str,
                         help="Problem to optimize. Must match one of 'name' fields in the configuration file.")
+    parser.add_argument('-normalize', type=bool, help="Normalize scores?", default=True, dest="normalize")
     return parser.parse_args()
 
 def get_oracle_performance(problem_data):
@@ -27,7 +28,7 @@ def get_oracle_performance(problem_data):
     return df.rename(index={'target':'oracle'})
 
 
-def rep_random_search(problem_data, nrs, replications = 5):
+def rep_random_search(problem_data, nrs, replications=20):
     """
     Simulates repeated random search for 'nrs' iterations, replicating 'replications' times.
     Random search is simulated by sampling from the data.
@@ -67,8 +68,11 @@ def main():
     prob_df = problem.data
 
     # Normalize scores to [0,1]
-    logging.info(f"Scaling to [0,1] (1: best)")
-    prob_df['target'] = prob_df.groupby('task_id')['target'].apply(normalize_scores)
+    if args.normalize:
+        logging.info(f"Scaling to [0,1] (1: best)")
+        prob_df['target'] = prob_df.groupby('task_id')['target'].apply(normalize_scores)
+    else:
+        prob_df['target'] = - prob_df['target']
 
     odf = get_oracle_performance(problem.data)
     logging.info(f"Avg. Performance for Oracle: {odf.aggregate('mean', axis=1).values[0]:.5f}")
@@ -76,10 +80,12 @@ def main():
     for nrs in [2, 4, 8, 16, 32, 64, 128]:
         rsdf = rep_random_search(problem.data, nrs=nrs)
         df = rsdf.query('aggregation == "mean"')
+        sd = rsdf.query('aggregation == "std"').aggregate('mean', axis=1).values[0]
         df.index = df.index.droplevel('aggregation')
-        logging.info(f"Avg. Performance for {nrs} iter random search: {df.aggregate('mean', axis=1).values[0]:.5f}")
-        # logging.info(f"Avg. Regret for {nrs} iter random search: {get_regret(df, odf).aggregate('mean', axis=1).values[0]:.5f}")
+        logging.info(f"Avg. Performance for {nrs} iter random search: {df.aggregate('mean', axis=1).values[0]:.5f}(SD: {sd:.3f})")
         odf = odf.append(df)
+
+    odf.to_csv("data/"+problem.name+"_baselines.csv")
 
 if __name__ == '__main__':
     main()
