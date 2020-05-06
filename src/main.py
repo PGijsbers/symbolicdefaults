@@ -18,6 +18,8 @@ from operator import attrgetter
 
 from problem import Problem
 
+from src.evolution.operations import cxDepthOne
+
 
 def cli_parser():
     description = "Use Symbolic Regression to find symbolic hyperparameter defaults."
@@ -77,6 +79,9 @@ def cli_parser():
     parser.add_argument('-ephs',
                         help=("Define constants as one or many ephemerals: 'one' or 'many'"),
                         dest='ephs', type=str, default='one')
+    parser.add_argument('-cx',
+                        help=("Use random crossover (default) or by hyperparameter (d1)"),
+                        dest='cx', type=str, default='default')
     return parser.parse_args()
 
 
@@ -114,7 +119,6 @@ def main():
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
-
 
     # ================================================
     # Start evolutionary optimization
