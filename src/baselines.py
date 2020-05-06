@@ -25,7 +25,7 @@ def get_oracle_performance(problem_data):
     df.index.name = 'search_type'
     return df.rename(index={'target':'oracle'})
 
-def rep_random_search(problem_data, nrs, replications=20):
+def rep_random_search(problem_data, nrs, replications=30):
     """
     Simulates repeated random search for 'nrs' iterations, replicating 'replications' times.
     Random search is simulated by sampling from the data.
