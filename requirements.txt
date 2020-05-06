@@ -2,6 +2,7 @@ deap
 liac-arff
 numpy
 pandas
+seaborn
 sklearn
 pyglyph
 openml
