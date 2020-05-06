@@ -295,3 +295,30 @@ def approx_eq(a, b, eps = 1e-3):
         return True
     else:
         return False
+
+
+def _find_depth_one_subtrees(ind):
+    slices = [ind.searchSubtree(1)]
+    while slices[-1].stop != len(ind):
+        slices.append(ind.searchSubtree(slices[-1].stop))
+    return slices
+
+
+def cxDepthOne(ind1, ind2, n=None):
+    """ Randomly select a depth-one subtree to swap with the same subtree of the other.
+
+    :param ind1: First tree participating in the crossover.
+    :param ind2: Second tree participating in the crossover.
+    :param n: the number of subtrees to crossover. If None, select a random number.
+    :returns: A tuple of two trees.
+    """
+    slices1 = _find_depth_one_subtrees(ind1)
+    slices2 = _find_depth_one_subtrees(ind2)
+
+    if n is None:
+        n = random.randint(1, len(slices1) - 1)
+
+    cx_subtrees = random.sample(range(len(slices1)), n)
+    for i in reversed(sorted(cx_subtrees)):
+        ind1[slices1[i]], ind2[slices2[i]] = ind2[slices2[i]], ind1[slices1[i]]
+    return ind1, ind2
