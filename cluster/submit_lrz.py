@@ -13,7 +13,7 @@ mkdir_p(job_directory)
 
 
 cluster="serial"
-partition="serial_mpp2"
+partition="serial_std"
 mem = 12000
 hrs = 12
 
@@ -31,9 +31,10 @@ for job in jobs:
         fh.writelines(f"#SBATCH --time={hrs}-00:00\n")
         fh.writelines(f"#SBATCH --mem={mem}\n")
         fh.writelines(f"#SBATCH --clusters={cluster}\n")
-        fh.writelines(f"#SBATCH --mem_per_cpu={mem}\n")
-        fh.writelines(f"#SBATCH --clusters={cluster}\n")
         fh.writelines(f"#SBATCH --partition={partition}\n")
+        fh.writelines("module load slurm_setup\n")
+        fh.writelines("module load spack\n")
+        fh.writelines("module load python/3.6_intel\n")
         fh.writelines(f"python3 src/main.py {job} -o=runs/{job}_{suffix}.log\n")
 
     os.system("sbatch %s" %job_file)
