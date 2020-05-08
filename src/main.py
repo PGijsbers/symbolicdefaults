@@ -243,6 +243,7 @@ def main():
                 early_stop_iter = min(i, early_stop_iter)
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
 
+
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
             if ((i > 1 and i % 20 == 0) or i == early_stop_iter):
