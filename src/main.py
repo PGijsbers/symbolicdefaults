@@ -10,15 +10,13 @@ import pandas as pd
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed, approx_eq
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed, approx_eq, cxDepthOne
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
 from operator import attrgetter
 
 from problem import Problem
-
-from src.evolution.operations import cxDepthOne
 
 
 def cli_parser():
@@ -105,9 +103,11 @@ def main():
 
     problem = Problem(args.problem)
 
+    logging.info(f"Starting problem: {args.problem}")
     for parameter, value in args._get_kwargs():
         logging.info(f"param:{parameter}:{value}")
 
+    logging.info(f"Benchmark problems: {args.problem}")
     if not args.constants_only:
         for check_name, check_individual in problem.benchmarks.items():
             logging.info(f"{check_name} := {check_individual}")
@@ -180,6 +180,7 @@ def main():
         # Little hackery for logging with early stopping
         logbook = tools.Logbook()
         logbook.header = ['gen', 'nevals'] + mstats.fields
+        early_stop_iter = args.ngen
 
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
@@ -232,24 +233,37 @@ def main():
             )
 
             logging.info(generation_info_string)
+
             # Little hackery for logging early stopping
             for ind in hof:
                 if ind.fitness.wvalues > last_best:
                     last_best = ind.fitness.wvalues
                     last_best_gen = i
             if i - last_best_gen > args.early_stop_n:
-                logging.info(f"Stop early, no improvement in {args.early_stop_n} gens.")
-                break
+                early_stop_iter = min(i, early_stop_iter)
+                logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
 
 
-        logging.info("Evaluating in sample:")
-        for ind in sorted(hof, key=n_primitives_in):
-            scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
-            logging.info(f"[{ind}|{scale_result:.4f}]")
+            # Evaluate in-sample and out-of-sample every N iterations OR
+            # in the early stopping iteration
+            if ((i > 1 and i % 20 == 0) or i == early_stop_iter):
+                logging.info("Evaluating in sample:")
+                for ind in sorted(hof, key=n_primitives_in):
+                    scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
+                    logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
 
+                logging.info("Evaluating out-of-sample:")
+                for ind in sorted(hof, key=n_primitives_in):
+                    fn_ = gp.compile(ind, pset)
+                    mf_values = problem.metadata.loc[task]
+                    hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
+                    score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+                    logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
 
 
         if not args.constants_only:
+
+            logging.info("BENCHMARK: Evaluating in-sample:")
             in_sample_mean[task] = {}
             for check_name, check_individual in problem.benchmarks.items():
                 expression = gp.PrimitiveTree.from_string(check_individual, pset)
@@ -258,15 +272,7 @@ def main():
                 logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
                 in_sample_mean[task][check_name] = scale_result
 
-        logging.info("Evaluating out-of-sample:")
-        for ind in sorted(hof, key=n_primitives_in):
-            fn_ = gp.compile(ind, pset)
-            mf_values = problem.metadata.loc[task]
-            hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
-            score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-            logging.info(f"[{ind}|{score[0]:.4f}]")
-
-        if not args.constants_only:
+            logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
                 expression = gp.PrimitiveTree.from_string(check_individual, pset)
                 ind = creator.Individual(expression)
@@ -274,16 +280,14 @@ def main():
                 mf_values = problem.metadata.loc[task]
                 hp_values = toolbox.evaluate(fn_, mf_values)
                 score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-                logging.info(f"[{check_name}: {ind}|{score[0]:.4f}]")
+                logging.info(f"[GEN_{i}|{check_name}: {ind}|{score[0]:.4f}]")
 
-    if not args.constants_only:
+        # Get benchmark scores across all tasks
         for check_name, check_individual in problem.benchmarks.items():
             logging.info(f"{check_name} := {check_individual}")
-
         for check_name, check_individual in problem.benchmarks.items():
             avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
             logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
-
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
