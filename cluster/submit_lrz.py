@@ -19,7 +19,7 @@ hrs = 12
 
 suffix = "_lrz"
 
-jobs=["mlr_svm", "mlr_glmnet"]
+jobs=["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost", "svc_rbf", "adaboost"]
 
 for job in jobs:
     job_file = os.path.join(job_directory, f"{job}.job")
@@ -28,7 +28,7 @@ for job in jobs:
         fh.writelines(f"#SBATCH --job-name={job}.job\n")
         fh.writelines(f"#SBATCH --output=.out/{job}.out\n")
         fh.writelines(f"#SBATCH --error=.out/{job}.err\n")
-        fh.writelines(f"#SBATCH --time={hrs}-00:00\n")
+        fh.writelines(f"#SBATCH --time={hrs}:00:00\n")
         fh.writelines(f"#SBATCH --mem={mem}\n")
         fh.writelines(f"#SBATCH --clusters={cluster}\n")
         fh.writelines(f"#SBATCH --partition={partition}\n")
