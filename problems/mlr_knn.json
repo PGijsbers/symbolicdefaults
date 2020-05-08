@@ -1,16 +1,16 @@
 {
     "name": "mlr_knn",
-    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.RcppHNSW.arff",
+    "experiment_data": "data/rbv2_mlr_classif.RcppHNSW.arff",
     "metric": "perf.mmce",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/hnsw_surrogates.pkl",
-    "hyperparameters": [
-    "k",
-    "M",
-    "ef",
-    "ef_construction"
-    ],
+    "hyperparameters": {
+      "k": "int",
+      "M": "int",
+      "ef": "int",
+      "ef_construction": "int"
+    },
     "filters": {
       "distance": "l2"
     },

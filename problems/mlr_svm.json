@@ -5,10 +5,10 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/mlr_svm_surrogates.pkl",
-    "hyperparameters": [
-      "cost",
-      "gamma"
-    ],
+    "hyperparameters": {
+      "cost": "float",
+      "gamma": "float"
+    },
     "filters": {
       "kernel": "radial"
     },

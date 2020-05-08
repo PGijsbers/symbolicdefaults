@@ -1,14 +1,14 @@
 {
     "name": "mlr_glmnet",
-    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.glmnet.arff",
+    "experiment_data": "data/rbv2_mlr_classif.glmnet.arff",
     "metric": "perf.mmce",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/glmnet_surrogates.pkl",
-    "hyperparameters": [
-      "alpha",
-      "s"
-    ],
+    "hyperparameters": {
+      "alpha": "float",
+      "s": "float"
+    },
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [
