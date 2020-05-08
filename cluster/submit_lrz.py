@@ -43,7 +43,7 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
 
     os.system("sbatch %s" %job_file)
 
-jobs=["mlr_svm", "mlr_glmnet", "mlr_xgboost", "mlr_rpart", "mlr_rf", "mlr_knn"]
+jobs=["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost", "svc_rbf", "adaboost"]
 search_method=["random_search", "mupluslambda"]
 
 runjob("mlr_svm", "mupluslambda", moreargs="-age=3")
