@@ -1,6 +1,7 @@
 import functools
 import typing
 import random
+from abc import ABC
 
 import numpy as np
 import pandas as pd
@@ -9,6 +10,17 @@ from deap.gp import mutEphemeral
 from glyph.gp import numpy_phenotype
 from glyph.assessment import const_opt
 from glyph.utils import Memoize
+
+
+class Float(ABC):
+    @classmethod
+    def __subclasshook__(cls, C):
+        return True
+
+
+class Int(Float):
+    pass
+
 
 def n_primitives_in(individual):
     """ Return the number of primitives in the individual. """
@@ -211,6 +223,13 @@ def mut_ephemeral_gaussian(individual, pset, s=0.1):
     if len(ephemerals_idx) > 0:
         index, ephemeral = random.choice(ephemerals_idx)
         value = ephemeral.value + random.gauss(0, abs(ephemeral.value) * s)
+        if ephemeral.ret == Int:
+            # Require a change of at least 1 for integers.
+            change = value - ephemeral.value
+            if abs(change) < 1:
+                value = ephemeral.value + change/abs(change)
+            value = int(value)
+
         eph = type(ephemeral)()
         eph.value = value
         individual[index] = eph

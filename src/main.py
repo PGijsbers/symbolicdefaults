@@ -119,7 +119,7 @@ def main():
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
-
+    # return toolbox, pset
     # ================================================
     # Start evolutionary optimization
     # ================================================
@@ -242,6 +242,7 @@ def main():
             if i - last_best_gen > args.early_stop_n:
                 early_stop_iter = min(i, early_stop_iter)
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
+                break
 
 
             # Evaluate in-sample and out-of-sample every N iterations OR
@@ -293,4 +294,4 @@ def main():
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
 
 if __name__ == '__main__':
-    main()
+    t, p = main()

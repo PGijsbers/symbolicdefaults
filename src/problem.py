@@ -26,6 +26,10 @@ class Problem:
 
     @property
     def hyperparameters(self):
+        return list(self._json['hyperparameters'].keys())
+
+    @property
+    def hyperparameter_types(self):
         return self._json['hyperparameters']
 
     @property
