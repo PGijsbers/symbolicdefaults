@@ -287,7 +287,7 @@ def main():
             logging.info(f"{check_name} := {check_individual}")
         for check_name, check_individual in problem.benchmarks.items():
             avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
-            logging.info("GEN_{i}|Average in_sample mean for {}: {}".format(check_name, avg_val))
+            logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
