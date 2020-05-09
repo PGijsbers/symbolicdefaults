@@ -294,4 +294,4 @@ def main():
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
 
 if __name__ == '__main__':
-    t, p = main()
+    main()

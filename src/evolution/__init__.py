@@ -106,7 +106,7 @@ def setup_toolbox(problem, args):
         return pcls([ind_init(gp.PrimitiveTree.from_string(c, pset))])
 
     toolbox = base.Toolbox()
-    toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=2)
+    toolbox.register("expr", gp.genFull, pset=pset, min_=1, max_=3)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
     toolbox.register("population_symc", initSymcPopulation, list, creator.Individual, pset)
     toolbox.register("population_benchmark", initBenchmarkPopulation, list, creator.Individual, pset)
