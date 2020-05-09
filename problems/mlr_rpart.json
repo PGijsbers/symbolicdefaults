@@ -1,6 +1,6 @@
 {
     "name": "mlr_rpart",
-    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.rpart.arff",
+    "experiment_data": "data/rbv2_mlr_classif.rpart.arff",
     "metric": "perf.mmce",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",

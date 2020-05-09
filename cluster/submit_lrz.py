@@ -11,8 +11,8 @@ def mkdir_p(dir):
 job_directory = f"{os.getcwd()}/.job"
 mkdir_p(job_directory)
 
-def mkoutstring(job, search_method, suffix, constans_only, moreargs):
- if (constants_only):
+def mkoutstring(job, search_method, suffix, constants_only, moreargs):
+ if constants_only:
      moreargs = moreargs+"_cst"
  return(f"runs/{job}_{search_method}_{moreargs}_{suffix}.log")
 
@@ -25,7 +25,7 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
     mem = 12000                # 12 GB Memory limit
     hrs = 12                   # 12 hours walltime
 
-    outfile = mkoutstring(job, search_metthod, constants_only, moreargs)
+    outfile = mkoutstring(job, search_method, suffix, constants_only, moreargs)
     job_file = os.path.join(job_directory, f"{job}.job")
     with open(job_file, 'w+') as fh:
         fh.writelines("#!/bin/bash\n")
@@ -46,4 +46,5 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
 jobs=["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost", "svc_rbf", "adaboost"]
 search_method=["random_search", "mupluslambda"]
 
-runjob("mlr_svm", "mupluslambda", moreargs="-age=3")
+for job in jobs[1:2]:
+    runjob(job, "mupluslambda", moreargs="-age=3")

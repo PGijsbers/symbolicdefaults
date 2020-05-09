@@ -1,6 +1,6 @@
 {
     "name": "mlr_knn",
-    "experiment_data": "../surrogates_data/data/rbv2_mlr_classif.RcppHNSW.arff",
+    "experiment_data": "data/rbv2_mlr_classif.RcppHNSW.arff",
     "metric": "perf.mmce",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
