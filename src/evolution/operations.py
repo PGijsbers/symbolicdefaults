@@ -528,5 +528,7 @@ def mutTerminalReplacement(individual, pset):
     if random.random() > 0.5:
         individual[idx] = [t for t in pset.terminals[ind.ret] if isinstance(t, type)][0]()
     else:
-        individual[idx] = random.sample([t for t in pset.terminals[ind.ret] if isinstance(t, gp.Terminal)], 1)[0]
+        valid = [t for t in pset.terminals[ind.ret] if isinstance(t, gp.Terminal)]
+        if len(valid) > 0:
+            individual[idx] = random.sample(valid, 1)[0]
     return individual,
