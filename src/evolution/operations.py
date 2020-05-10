@@ -209,6 +209,12 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gauss
     if get_ephemerals(ind) and eph_mutation == "local":
         valid_mutations.append(functools.partial(mut_small_ephemeral_change, pset=pset))
 
+    if get_ephemerals(ind) and eph_mutation == "many":
+        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
+        valid_mutations.append(functools.partial(mutEphemeral, mode="all"))
+        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="one"))
+        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="all"))
+
     return np.random.choice(valid_mutations)(ind)
 
 
@@ -217,22 +223,27 @@ def get_ephemerals(individual):
             if isinstance(node, gp.Ephemeral)]
 
 
-def mut_ephemeral_gaussian(individual, pset, s=0.1):
+def mut_ephemeral_gaussian(individual, pset, mode="one", s=0.1):
     ephemerals_idx = [(index, node) for index, node in enumerate(individual)
                       if isinstance(node, gp.Ephemeral)]
     if len(ephemerals_idx) > 0:
-        index, ephemeral = random.choice(ephemerals_idx)
-        value = ephemeral.value + random.gauss(0, abs(ephemeral.value) * s)
-        if ephemeral.ret == Int:
-            # Require a change of at least 1 for integers.
-            change = value - ephemeral.value
-            if abs(change) < 1:
-                value = ephemeral.value + change/abs(change)
-            value = int(value)
+        if mode == "one":
+            index, ephemeral = random.choice(ephemerals_idx)
+            ephemerals_idx = [(index, ephemeral)]
+        for (index, ephemeral) in ephemerals_idx:
+            value = ephemeral.value + random.gauss(0, abs(ephemeral.value) * s)
+            if ephemeral.ret == Int:
+                # Require a change of at least 1 for integers.
+                change = value - ephemeral.value
+                if change == 0:
+                    change = random.choice([-1, 1])
+                if abs(change) < 1:
+                    value = ephemeral.value + change/abs(change)
+                value = int(value)
 
-        eph = type(ephemeral)()
-        eph.value = value
-        individual[index] = eph
+            eph = type(ephemeral)()
+            eph.value = value
+            individual[index] = eph
     return individual,
 
 
