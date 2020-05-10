@@ -213,6 +213,7 @@ def shrinkable_primitives(individual):
 def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
     valid_mutations = [
         functools.partial(mutNodeReplacement, pset=pset),
+        functools.partial(mutTerminalReplacement, pset=pset),
     ]
 
     if shrinkable_primitives(ind):
@@ -509,4 +510,24 @@ def mutShrink(individual):
         subtree = individual[replacement]
         individual[prim_subtree] = subtree
 
+    return individual,
+
+def mutTerminalReplacement(individual, pset):
+    """Replaces a randomly chosen primitive from *individual* by a randomly
+    chosen primitive with the same number of arguments from the :attr:`pset`
+    attribute of the individual.
+
+    :param individual: The normal or typed tree to be mutated.
+    :returns: A tuple of one tree.
+    """
+    if len(individual) < 2:
+        return individual,
+
+    idxs = [(idx,ind) for idx, ind in enumerate(individual) if isinstance(ind, gp.Terminal)]
+    # Sample a Terminal to be replaced
+    idx, ind = random.sample(idxs, 1)[0]
+    if random.random() > 0.5:
+        individual[idx] = [t for t in pset.terminals[ind.ret] if isinstance(t, type)][0]()
+    else:
+        individual[idx] = random.sample([t for t in pset.terminals[ind.ret] if isinstance(t, gp.Terminal)], 1)[0]
     return individual,
