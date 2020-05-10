@@ -4,11 +4,11 @@
     "metric": "predictive_accuracy",
     "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/adaboost_surrogates.pkl",
-    "hyperparameters": [
-      "adaboostclassifier__learning_rate",
-      "adaboostclassifier__base_estimator__max_depth",
-      "adaboostclassifier__n_estimators"
-    ],
+    "hyperparameters": {
+      "adaboostclassifier__learning_rate" : "float",
+      "adaboostclassifier__base_estimator__max_depth" : "int",
+      "adaboostclassifier__n_estimators" : "int"
+    },
     "filters": {
       "adaboostclassifier__algorithm": "SAMME.R"
     },
