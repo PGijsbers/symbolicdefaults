@@ -185,12 +185,37 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     return zip(scores_mean, lengths)
 
 
+def shrinkable_primitives(individual):
+    # All primitives are shrinkable, except:
+    # - root node
+    # - level-one nodes with only float input for int hyperparameter
+    # So it is easier to find which primitives can not be shrunk:
+    subtrees = _find_depth_one_subtrees(individual)
+    shrinkable = {
+        i: Float  # we overwrite the expected type if necessary
+        for i, node in enumerate(individual[1:], 1)
+        if isinstance(node, gp.Primitive)
+    }
+
+    for subtree, outtype in zip(subtrees, individual[0].args):
+        sub = individual[subtree]
+        if isinstance(sub[0], gp.Primitive):
+            # Correct the expected output type
+            shrinkable[subtree.start] = outtype
+            if all([child.ret == Float for child in sub[1:]]) and outtype == Int:
+                # Primitive only has Float inputs but requires Int output
+                # This primitive can not be shrunk.
+                del shrinkable[subtree.start]
+
+    return shrinkable
+
+
 def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
     valid_mutations = [
         functools.partial(mutNodeReplacement, pset=pset),
     ]
 
-    if n_primitives_in(ind) > 1:  # The base primitive is unshrinkable.
+    if shrinkable_primitives(ind):
         valid_mutations.append(mutShrink)
 
     if max_depth is None:
@@ -322,6 +347,7 @@ def mut_all_constants(individual, pset):
             individual[i] = random.choice(ephemerals)()
 
     return individual
+
 
 def approx_eq(a, b, eps = 1e-3):
     a, asz = a.fitness.values
@@ -462,21 +488,25 @@ def mutShrink(individual):
     if len(individual) < 3 or individual.height <= 1:
         return individual,
 
+    candidates = shrinkable_primitives(individual)
     iprims = []
-    for i, node in enumerate(individual[1:], 1):
-        if isinstance(node, Primitive) and node.ret in node.args:
-            iprims.append((i, node))
+    for i, outtype in candidates.items():
+        iprims.append((i, individual[i], outtype))
 
     if len(iprims) != 0:
-        index, prim = random.choice(iprims)
-        arg_idx = random.choice([i for i, type_ in enumerate(prim.args) if type_ == prim.ret])
-        rindex = index + 1
-        for _ in range(arg_idx + 1):
-            rslice = individual.searchSubtree(rindex)
-            subtree = individual[rslice]
-            rindex += len(subtree)
+        index, prim, outtype = random.choice(iprims)
+        prim_subtree = individual.searchSubtree(index)
+        # print(str(individual), index, str(prim))
+        # Find subtrees of this primitive
+        slices = [individual.searchSubtree(index+1)]
+        while slices[-1].stop != prim_subtree.stop:
+            slices.append(individual.searchSubtree(slices[-1].stop))
+        # Filter to only subtrees that provide Int if needed:
+        if outtype == Int:
+            slices = [s for s in slices if individual[s.start].ret == Int]
 
-        slice_ = individual.searchSubtree(index)
-        individual[slice_] = subtree
+        replacement = random.choice(slices)
+        subtree = individual[replacement]
+        individual[prim_subtree] = subtree
 
     return individual,
