@@ -39,14 +39,17 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
         fh.writelines("module load slurm_setup\n")
         fh.writelines("module load spack\n")
         fh.writelines("module load python/3.6_intel\n")
-        fh.writelines(f"python3 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={outfile}\n")
+        fh.writelines(f"python3 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={outfile} -emut gaussian -ephs one -cx d1\n")
 
     os.system("sbatch %s" %job_file)
 
-jobs=["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost", "svc_rbf", "adaboost"]
-search_methods=["random_search", "mupluslambda"]
+# Sumit a job for all combinations of job/search_method/cst
+jobs=            ["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost"] #, "svc_rbf", "adaboost"]
+search_methods=  ["mupluslambda"] #["random_search", "mupluslambda"]
+csts=            [False] #[True, False]
 
 for job in jobs:
     for sm in search_methods:
-        for cst in [True, False]:
-            runjob(job, sm, constants_only=cst)
+        for cst in csts:
+            for rep in range(3):
+                runjob(job, sm, constants_only=cst, suffix=f"lrz_{rep}")
