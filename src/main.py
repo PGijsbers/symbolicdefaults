@@ -241,8 +241,9 @@ def main():
                     last_best_gen = i
             if i - last_best_gen > args.early_stop_n:
                 early_stop_iter = min(i, early_stop_iter)
-                logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
-                break
+                if i == early_stop_iter:
+                    logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
+                    break
 
 
             # Evaluate in-sample and out-of-sample every N iterations OR
@@ -283,12 +284,12 @@ def main():
                 score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
                 logging.info(f"[GEN_{i}|{check_name}: {ind}|{score[0]:.4f}]")
 
-        # Get benchmark scores across all tasks
-        for check_name, check_individual in problem.benchmarks.items():
-            logging.info(f"{check_name} := {check_individual}")
-        for check_name, check_individual in problem.benchmarks.items():
-            avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
-            logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
+    # # Get benchmark scores across all tasks
+    # for check_name, check_individual in problem.benchmarks.items():
+    # logging.info(f"{check_name} := {check_individual}")
+    # for check_name, check_individual in problem.benchmarks.items():
+    # avg_val=np.mean([v[check_name] for k, v in in_sample_mean.items()])
+    # logging.info("Average in_sample mean for {}: {}".format(check_name, avg_val))
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
