@@ -513,9 +513,8 @@ def mutShrink(individual):
     return individual,
 
 def mutTerminalReplacement(individual, pset):
-    """Replaces a randomly chosen primitive from *individual* by a randomly
-    chosen primitive with the same number of arguments from the :attr:`pset`
-    attribute of the individual.
+    """Replaces a randomly chosen Terminal from *individual* by a randomly
+    chosen Terminal of the same type.
 
     :param individual: The normal or typed tree to be mutated.
     :returns: A tuple of one tree.
