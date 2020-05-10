@@ -11,8 +11,8 @@ def mkdir_p(dir):
 job_directory = f"{os.getcwd()}/.job"
 mkdir_p(job_directory)
 
-def mkoutstring(job, search_method, suffix, constans_only, moreargs):
- if (constants_only):
+def mkoutstring(job, search_method, suffix, constants_only, moreargs):
+ if constants_only:
      moreargs = moreargs+"_cst"
  return(f"runs/{job}_{search_method}_{moreargs}_{suffix}.log")
 
@@ -22,10 +22,10 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
     # Cluster configs; hardcoded for now as this will most likely be constant across partitions
     cluster="serial"           # Submit to serial cluster
     partition="serial_std"     # Submit to standard partition
-    mem = 12000                # 12 GB Memory limit
+    mem = 11000                # 22 GB Memory limit
     hrs = 12                   # 12 hours walltime
 
-    outfile = mkoutstring(job, search_metthod, constants_only, moreargs)
+    outfile = mkoutstring(job, search_method, suffix, constants_only, moreargs)
     job_file = os.path.join(job_directory, f"{job}.job")
     with open(job_file, 'w+') as fh:
         fh.writelines("#!/bin/bash\n")
@@ -33,7 +33,7 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
         fh.writelines(f"#SBATCH --output=.out/{job}.out\n")
         fh.writelines(f"#SBATCH --error=.out/{job}.err\n")
         fh.writelines(f"#SBATCH --time={hrs}:00:00\n")
-        fh.writelines(f"#SBATCH --mem={mem}\n")
+        fh.writelines(f"#SBATCH --mem={mem}mb\n")
         fh.writelines(f"#SBATCH --clusters={cluster}\n")
         fh.writelines(f"#SBATCH --partition={partition}\n")
         fh.writelines("module load slurm_setup\n")
@@ -44,6 +44,9 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
     os.system("sbatch %s" %job_file)
 
 jobs=["mlr_svm", "mlr_glmnet", "mlr_knn", "mlr_rf", "mlr_rpart", "mlr_xgboost", "svc_rbf", "adaboost"]
-search_method=["random_search", "mupluslambda"]
+search_methods=["random_search", "mupluslambda"]
 
-runjob("mlr_svm", "mupluslambda", moreargs="-age=3")
+for job in jobs:
+    for sm in search_methods:
+        for cst in [True, False]:
+            runjob(job, sm, constants_only=cst)
