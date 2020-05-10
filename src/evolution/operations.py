@@ -2,11 +2,12 @@ import functools
 import typing
 import random
 from abc import ABC
+from inspect import isclass
 
 import numpy as np
 import pandas as pd
 from deap import gp
-from deap.gp import mutEphemeral
+from deap.gp import mutEphemeral, Primitive
 from glyph.gp import numpy_phenotype
 from glyph.assessment import const_opt
 from glyph.utils import Memoize
@@ -15,7 +16,7 @@ from glyph.utils import Memoize
 class Float(ABC):
     @classmethod
     def __subclasshook__(cls, C):
-        return True
+        return C in [cls, Int, float]
 
 
 class Int(Float):
@@ -186,16 +187,16 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
 
 def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
     valid_mutations = [
-        functools.partial(gp.mutNodeReplacement, pset=pset),
+        functools.partial(mutNodeReplacement, pset=pset),
     ]
 
     if n_primitives_in(ind) > 1:  # The base primitive is unshrinkable.
-        valid_mutations.append(gp.mutShrink)
+        valid_mutations.append(mutShrink)
 
     if max_depth is None:
-        valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
+        valid_mutations.append(functools.partial(mutInsert, pset=pset))
     elif n_primitives_in(ind) < max_depth:
-        valid_mutations.append(functools.partial(gp.mutInsert, pset=pset))
+        valid_mutations.append(functools.partial(mutInsert, pset=pset))
 
     if get_ephemerals(ind) and eph_mutation == "gaussian":
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
@@ -214,8 +215,12 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gauss
         valid_mutations.append(functools.partial(mutEphemeral, mode="all"))
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="one"))
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="all"))
-
-    return np.random.choice(valid_mutations)(ind)
+    mut = np.random.choice(valid_mutations)
+    # if hasattr(mut, '__name__'):
+    #     print(mut.__name__)
+    # else:
+    #     print(mut.func.__name__)
+    return mut(ind)
 
 
 def get_ephemerals(individual):
@@ -352,3 +357,126 @@ def cxDepthOne(ind1, ind2, n=None):
     for i in reversed(sorted(cx_subtrees)):
         ind1[slices1[i]], ind2[slices2[i]] = ind2[slices2[i]], ind1[slices1[i]]
     return ind1, ind2
+
+
+def mutNodeReplacement(individual, pset):
+    """Replaces a randomly chosen primitive from *individual* by a randomly
+    chosen primitive with the same number of arguments from the :attr:`pset`
+    attribute of the individual.
+
+    :param individual: The normal or typed tree to be mutated.
+    :returns: A tuple of one tree.
+    """
+    if len(individual) < 2:
+        return individual,
+
+    while True:
+        index = random.randrange(1, len(individual))
+        node = individual[index]
+        if node.arity == 0:  # Terminal
+            # Don't replace a terminal by the same terminal, except for Ephemerals, since
+            # for those a new value is sampled anyway.
+            terms = [t for t in pset.terminals[node.ret]
+                     if t != node or isinstance(t, gp.Ephemeral)]
+            # There is always a valid option to pick from
+            term = random.choice(terms)
+            if isclass(term):
+                term = term()
+            individual[index] = term
+            break
+        else:  # Primitive
+            # This replacement works out of the box, as all primitives (except make_tuple)
+            # have the same signature (ignoring input arity).
+            prims = [
+                p
+                for p in pset.primitives[node.ret]
+                if p != node and p.args == node.args
+            ]
+            if prims:
+                individual[index] = random.choice(prims)
+                break
+            # Some primitives don't have alternatives, just try mutation again
+
+    return individual,
+
+
+def mutInsert(individual, pset):
+    """Inserts a new branch at a random position in *individual*. The subtree
+    at the chosen position is used as child node of the created subtree, in
+    that way, it is really an insertion rather than a replacement. Note that
+    the original subtree will become one of the children of the new primitive
+    inserted, but not perforce the first (its position is randomly selected if
+    the new primitive has more than one child).
+
+    :param individual: The normal or typed tree to be mutated.
+    :returns: A tuple of one tree.
+    """
+    indices = [
+        i for i, node in enumerate(individual)
+        if len(pset.primitives[node.ret]) > 1
+    ]
+    index = random.choice(indices)
+    node = individual[index]
+    slice_ = individual.searchSubtree(index)
+    choice = random.choice
+
+    # As we want to keep the current node as children of the new one,
+    # it must accept the return value of the current node
+    # If the primitive only as Float input, this should still be valid as
+    # Int is a subclass of Float.
+    primitives = [
+        p
+        for p in pset.primitives[node.ret]
+        if any([issubclass(node.ret, a) for a in p.args])
+    ]
+
+    if len(primitives) == 0:
+        return individual,
+
+    new_node = choice(primitives)
+    new_subtree = [None] * len(new_node.args)
+    # again allow for subclass
+    position = choice([i for i, a in enumerate(new_node.args) if issubclass(node.ret, a)])
+
+    for i, arg_type in enumerate(new_node.args):
+        if i != position:
+            term = choice(pset.terminals[arg_type])
+            if isclass(term):
+                term = term()
+            new_subtree[i] = term
+
+    new_subtree[position:position + 1] = individual[slice_]
+    new_subtree.insert(0, new_node)
+    individual[slice_] = new_subtree
+    return individual,
+
+
+def mutShrink(individual):
+    """This operator shrinks the *individual* by choosing randomly a branch and
+    replacing it with one of the branch's arguments (also randomly chosen).
+
+    :param individual: The tree to be shrinked.
+    :returns: A tuple of one tree.
+    """
+    # We don't want to "shrink" the root
+    if len(individual) < 3 or individual.height <= 1:
+        return individual,
+
+    iprims = []
+    for i, node in enumerate(individual[1:], 1):
+        if isinstance(node, Primitive) and node.ret in node.args:
+            iprims.append((i, node))
+
+    if len(iprims) != 0:
+        index, prim = random.choice(iprims)
+        arg_idx = random.choice([i for i, type_ in enumerate(prim.args) if type_ == prim.ret])
+        rindex = index + 1
+        for _ in range(arg_idx + 1):
+            rslice = individual.searchSubtree(rindex)
+            subtree = individual[rslice]
+            rindex += len(subtree)
+
+        slice_ = individual.searchSubtree(index)
+        individual[slice_] = subtree
+
+    return individual,

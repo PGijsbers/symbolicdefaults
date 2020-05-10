@@ -118,6 +118,9 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
         if halloffame is not None:
             halloffame.update(offspring)
 
+        # for ind in offspring:
+        #     print(f"[{str(ind)}|{ind.fitness}]")
+
         # Select the next generation population
         population[:] = toolbox.select(population + offspring, mu)
 
