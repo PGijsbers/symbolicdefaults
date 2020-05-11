@@ -17,6 +17,7 @@ from deap import gp, creator
 from operator import attrgetter
 
 from problem import Problem
+from utils import str2bool
 
 
 def cli_parser():
@@ -63,10 +64,10 @@ def cli_parser():
                         help=(
                             "Warm-start optimization by including the 'benchmark' solutions in the "
                             "initial population."),
-                        dest='warm_start', type=bool, default=False)
+                        dest='warm_start', type=str2bool, default=False)
     parser.add_argument('-cst',
                     help=("Search only constant formulas?"),
-                    dest='constants_only', type=bool, default=False)
+                    dest='constants_only', type=str2bool, default=False)
     parser.add_argument('-age',
                 help=("Regularize age by killing of older population members every nth generation."
                       "Defaults to a 1e5 (every 1e5 generations)."),
