@@ -14,7 +14,7 @@ mkdir_p(job_directory)
 def mkoutstring(job, search_method, suffix, constants_only, moreargs):
  if constants_only:
      moreargs = moreargs+"_cst"
- return(f"runs/{job}_{search_method}_{moreargs}_{suffix}.log")
+ return(f"{job}_{search_method}_{moreargs}_{suffix}")
 
 def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
     '''Define a slurm job for searching symbolic defaults'''
@@ -31,11 +31,13 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
 
     outfile = mkoutstring(job, search_method, suffix, constants_only, moreargs)
     job_file = os.path.join(job_directory, f"{job}.job")
+    logfile = f"runs/{outfile}.log"
+
     with open(job_file, 'w+') as fh:
         fh.writelines("#!/bin/bash\n")
         fh.writelines(f"#SBATCH --job-name={job}.job\n")
-        fh.writelines(f"#SBATCH --output=.out/{job}.out\n")
-        fh.writelines(f"#SBATCH --error=.out/{job}.err\n")
+        fh.writelines(f"#SBATCH --output=.out/{outfile}.out\n")
+        fh.writelines(f"#SBATCH --error=.out/{outfile}.err\n")
         fh.writelines(f"#SBATCH --time={hrs}:00:00\n")
         fh.writelines(f"#SBATCH --mem={mem}mb\n")
         fh.writelines(f"#SBATCH --clusters={cluster}\n")
@@ -43,7 +45,7 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
         fh.writelines("module load slurm_setup\n")
         fh.writelines("module load spack\n")
         fh.writelines("module load python/3.6_intel\n")
-        fh.writelines(f"python3.6 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={outfile} -emut gaussian -ephs one -cx d1\n")
+        fh.writelines(f"python3.6 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={logfile} -emut gaussian -ephs one -cx d1\n")
 
     os.system("sbatch %s" %job_file)
 
