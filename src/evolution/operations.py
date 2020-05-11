@@ -512,14 +512,15 @@ def mutTerminalReplacement(individual, pset):
     idxs = [(idx, step) for idx, step in enumerate(individual) if isinstance(step, gp.Terminal)]
     # Sample a Terminal to be replaced
     idx, term = random.choice(idxs)
+    same_type = [t for t in pset.terminals[term.ret] if term.ret == t.ret]
 
     if random.random() > 0.5:
         # Replace a Terminal with same type Ephemeral
         # Ephemerals contain the class constructor, not thhe class, are therefore of type 'type'
-        individual[idx] = [t for t in pset.terminals[term.ret] if isinstance(t, type)][0]()
+        individual[idx] = [t for t in same_type if isinstance(t, type)][0]()
     else:
         # Replace a Terminal with same type Symbolic
-        valid = [t for t in pset.terminals[term.ret] if isinstance(t, gp.Terminal) and t != term]
+        valid = [t for t in same_type if isinstance(t, gp.Terminal) and t != term]
         if len(valid) > 0:
             individual[idx] = random.choice(valid)
     return individual,
