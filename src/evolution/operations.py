@@ -210,7 +210,7 @@ def shrinkable_primitives(individual):
     return shrinkable
 
 
-def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
+def random_mutation(ind, pset, max_depth=None, toolbox=None):
     valid_mutations = [
         functools.partial(mutNodeReplacement, pset=pset),
         functools.partial(mutTerminalReplacement, pset=pset),
@@ -224,23 +224,9 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gauss
     elif n_primitives_in(ind) < max_depth:
         valid_mutations.append(functools.partial(mutInsert, pset=pset))
 
-    if get_ephemerals(ind) and eph_mutation == "gaussian":
+    if get_ephemerals(ind):
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
 
-    if get_ephemerals(ind) and eph_mutation == "one":
-        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
-
-    if get_ephemerals(ind) and eph_mutation == "improve":
-        valid_mutations.append(functools.partial(mut_small_ephemeral_improve, pset=pset, toolbox=toolbox))
-
-    if get_ephemerals(ind) and eph_mutation == "local":
-        valid_mutations.append(functools.partial(mut_small_ephemeral_change, pset=pset))
-
-    if get_ephemerals(ind) and eph_mutation == "many":
-        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
-        valid_mutations.append(functools.partial(mutEphemeral, mode="all"))
-        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="one"))
-        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="all"))
     mut = np.random.choice(valid_mutations)
     # if hasattr(mut, '__name__'):
     #     print(mut.__name__)
@@ -512,6 +498,7 @@ def mutShrink(individual):
 
     return individual,
 
+
 def mutTerminalReplacement(individual, pset):
     """Replaces a randomly chosen Terminal from *individual* by a randomly
     chosen Terminal of the same type.
@@ -522,17 +509,17 @@ def mutTerminalReplacement(individual, pset):
     if len(individual) < 2:
         return individual,
 
-    idxs = [(idx,ind) for idx, ind in enumerate(individual) if isinstance(ind, gp.Terminal)]
+    idxs = [(idx, step) for idx, step in enumerate(individual) if isinstance(step, gp.Terminal)]
     # Sample a Terminal to be replaced
-    idx, ind = random.sample(idxs, 1)[0]
+    idx, term = random.choice(idxs)
 
     if random.random() > 0.5:
         # Replace a Terminal with same type Ephemeral
         # Ephemerals contain the class constructor, not thhe class, are therefore of type 'type'
-        individual[idx] = [t for t in pset.terminals[ind.ret] if isinstance(t, type)][0]()
+        individual[idx] = [t for t in pset.terminals[term.ret] if isinstance(t, type)][0]()
     else:
         # Replace a Terminal with same type Symbolic
-        valid = [t for t in pset.terminals[ind.ret] if isinstance(t, gp.Terminal)]
+        valid = [t for t in pset.terminals[term.ret] if isinstance(t, gp.Terminal) and t != term]
         if len(valid) > 0:
-            individual[idx] = random.sample(valid, 1)[0]
+            individual[idx] = random.choice(valid)
     return individual,
