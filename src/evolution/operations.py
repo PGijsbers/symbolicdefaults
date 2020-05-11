@@ -227,7 +227,12 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None):
     if get_ephemerals(ind):
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
 
-    return np.random.choice(valid_mutations)(ind)
+    mut = np.random.choice(valid_mutations)
+    # if hasattr(mut, '__name__'):
+    #     print(mut.__name__)
+    # else:
+    #     print(mut.func.__name__)
+    return mut(ind)
 
 
 def get_ephemerals(individual):
@@ -492,6 +497,7 @@ def mutShrink(individual):
         individual[prim_subtree] = subtree
 
     return individual,
+
 
 def mutTerminalReplacement(individual, pset):
     """Replaces a randomly chosen Terminal from *individual* by a randomly
