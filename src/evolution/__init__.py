@@ -46,25 +46,6 @@ def setup_toolbox(problem, args):
         symc = 1.0
         pset.addTerminal(symc, Float, "Symc")
         pset.constants = ["Symc"]
-    elif args.ephs == "many":
-        cloggt1 = [2 ** i for i in range(4, 11)]+[10 ** i for i in range(1, 4)]
-        cloglt1 = [2 ** i for i in range(-8, -1)]+[10 ** i for i in range(-4, -1)]
-        pset.addEphemeralConstant("cs", lambda: random.random(), ret_type=Float)
-        pset.addEphemeralConstant("ci", lambda: float(random.randint(1, 10)), ret_type=Float)
-        pset.addEphemeralConstant("cloggt1", lambda: np.random.choice(cloggt1), ret_type=Float)
-        pset.addEphemeralConstant("cloglt1", lambda: np.random.choice(cloglt1), ret_type=Float)
-
-        # Ephemerals don't have data about their ranges out of the box.
-        # We add these so that we can later perform small changes
-        ranges = dict(
-            cs=[i / 10 for i in range(1, 11)],
-            ci=[i for i in range(1, 11)],
-            cloggt1=list(sorted(cloggt1)),
-            cloglt1=list(sorted(cloglt1)),
-        )
-        ephemerals = [t for t in pset.terminals[Float] if hasattr(t, '__name__')]
-        for e in ephemerals:
-            e.values = ranges[e.__name__]
     else:
         def loguniform_float():
             return 2 ** random.uniform(-10, 0)

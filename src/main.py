@@ -75,9 +75,6 @@ def cli_parser():
     parser.add_argument('-emut',
                         help=("ephemeral mutation type,  'gaussian', 'one', 'improve', 'local'"),
                         dest='emut', type=str, default='gaussian')
-    parser.add_argument('-ephs',
-                        help=("Define constants as one or many ephemerals: 'one' or 'many'"),
-                        dest='ephs', type=str, default='one')
     return parser.parse_args()
 
 
