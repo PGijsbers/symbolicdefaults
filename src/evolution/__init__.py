@@ -113,10 +113,7 @@ def setup_toolbox(problem, args):
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("select", tools.selNSGA2)
-    if args.cx == "d1":
-        toolbox.register("mate", cxDepthOne)
-    else:
-        toolbox.register("mate", gp.cxOnePoint)
+    toolbox.register("mate", cxDepthOne)
     toolbox.register("mutate", random_mutation, pset=pset, max_depth=args.max_number_operators, toolbox=toolbox, eph_mutation=args.emut)
 
     # We abuse 'map/evaluate'.

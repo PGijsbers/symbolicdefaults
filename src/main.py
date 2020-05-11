@@ -78,9 +78,6 @@ def cli_parser():
     parser.add_argument('-ephs',
                         help=("Define constants as one or many ephemerals: 'one' or 'many'"),
                         dest='ephs', type=str, default='one')
-    parser.add_argument('-cx',
-                        help=("Use random crossover (default) or by hyperparameter (d1)"),
-                        dest='cx', type=str, default='default')
     return parser.parse_args()
 
 
