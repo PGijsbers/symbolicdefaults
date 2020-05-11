@@ -25,6 +25,10 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
     mem = 11000                # 22 GB Memory limit
     hrs = 12                   # 12 hours walltime
 
+    # xgboost needs more memory
+    if job == "mlr_xgboost":
+        mem=22000
+
     outfile = mkoutstring(job, search_method, suffix, constants_only, moreargs)
     job_file = os.path.join(job_directory, f"{job}.job")
     with open(job_file, 'w+') as fh:
@@ -39,7 +43,7 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
         fh.writelines("module load slurm_setup\n")
         fh.writelines("module load spack\n")
         fh.writelines("module load python/3.6_intel\n")
-        fh.writelines(f"python3 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={outfile} -emut gaussian -ephs one -cx d1\n")
+        fh.writelines(f"python3.6 src/main.py {job} -a={search_method} -cst={constants_only} {moreargs} -o={outfile} -emut gaussian -ephs one -cx d1\n")
 
     os.system("sbatch %s" %job_file)
 
