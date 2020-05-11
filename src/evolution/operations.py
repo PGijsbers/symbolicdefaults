@@ -210,7 +210,7 @@ def shrinkable_primitives(individual):
     return shrinkable
 
 
-def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gaussian"):
+def random_mutation(ind, pset, max_depth=None, toolbox=None):
     valid_mutations = [
         functools.partial(mutNodeReplacement, pset=pset),
         functools.partial(mutTerminalReplacement, pset=pset),
@@ -224,29 +224,10 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None, eph_mutation="gauss
     elif n_primitives_in(ind) < max_depth:
         valid_mutations.append(functools.partial(mutInsert, pset=pset))
 
-    if get_ephemerals(ind) and eph_mutation == "gaussian":
+    if get_ephemerals(ind):
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
 
-    if get_ephemerals(ind) and eph_mutation == "one":
-        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
-
-    if get_ephemerals(ind) and eph_mutation == "improve":
-        valid_mutations.append(functools.partial(mut_small_ephemeral_improve, pset=pset, toolbox=toolbox))
-
-    if get_ephemerals(ind) and eph_mutation == "local":
-        valid_mutations.append(functools.partial(mut_small_ephemeral_change, pset=pset))
-
-    if get_ephemerals(ind) and eph_mutation == "many":
-        valid_mutations.append(functools.partial(mutEphemeral, mode="one"))
-        valid_mutations.append(functools.partial(mutEphemeral, mode="all"))
-        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="one"))
-        valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset, mode="all"))
-    mut = np.random.choice(valid_mutations)
-    # if hasattr(mut, '__name__'):
-    #     print(mut.__name__)
-    # else:
-    #     print(mut.func.__name__)
-    return mut(ind)
+    return np.random.choice(valid_mutations)(ind)
 
 
 def get_ephemerals(individual):
