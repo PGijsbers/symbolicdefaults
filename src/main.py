@@ -80,7 +80,7 @@ def cli_parser():
                 help=("Set the Max Start Size: the maximum depth per subtree for each"
                       "hyperparameter. (default=3). Note: for random search, "
                       "all candidates are constrained this way."),
-                dest='max_start_size', type=int, default=3)
+                dest='max_start_size', type=int, default=2)
     return parser.parse_args()
 
 
