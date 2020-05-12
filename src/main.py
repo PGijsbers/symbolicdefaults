@@ -35,8 +35,8 @@ def cli_parser():
                               "Also used to determine the size of starting population."),
                         dest='lambda_', type=int, default=100)
     parser.add_argument('-ngen',
-                        help="Number of generations.",
-                        dest='ngen', type=int, default=200)
+                        help="Maximum number of generations (default=300)",
+                        dest='ngen', type=int, default=300)
     parser.add_argument('-a',
                         help="Algorithm. {mupluslambda, onepluslambda, random_search}",
                         dest='algorithm', type=str, default='mupluslambda')
