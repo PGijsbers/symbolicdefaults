@@ -20,6 +20,6 @@
     ],
     "benchmark": {
       "mlr_default": "make_tuple(1., 0.01)",
-      "sklearn_default": "make_tuple(1., 1.)"
+      "sklearn_default": "make_tuple(0.5, 1.)"
     }
 }

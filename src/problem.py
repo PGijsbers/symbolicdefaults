@@ -9,7 +9,7 @@ import operator
 import json
 import pandas as pd
 
-from surrogates import train_save_surrogates
+from src.surrogates import train_save_surrogates
 
 
 class Problem:
@@ -65,7 +65,7 @@ class Problem:
             counts = experiments.groupby("task_id")['target'].nunique()
             if len(counts[counts==1]):
                 experiments.drop(experiments[experiments.task_id == counts[counts==1].index.values[0]].index, axis=0, inplace=True)
-                
+
             if self._json.get("how") == "minimize":
                 experiments.target = -experiments.target
             self._data = experiments
@@ -98,4 +98,9 @@ class Problem:
     @property
     def fixed(self) -> Dict[str, float]:
         return self._json.get('fixed', {})
+
+    @property
+    def valid_tasks(self):
+        return self.data.task_id.unique()
+
 

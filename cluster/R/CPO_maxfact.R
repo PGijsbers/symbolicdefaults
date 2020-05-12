@@ -31,7 +31,7 @@ cpoMaxFact <- makeCPO("max.fact",
   })
 
 # Make the learner pipeline
-make_preproc_pipeline = function(algo, hpars) {
+make_preproc_pipeline = function(algo) {
   algo = sanitize_algo(algo)
   pipe = cpoFixFactors() %>>%
     cpoCbind(
@@ -49,10 +49,12 @@ make_preproc_pipeline = function(algo, hpars) {
     if (algo %in% c("classif.knn", "classif.xgboost"))
       pipe = pipe %>>% cpoDummyEncode(reference.cat = TRUE, infixdot = TRUE)
 
-    if (algo != "classif.knn") mlr_algo_name = algo
-    else mlr_algo_name = "classif.RcppHNSW"
+    if (algo != "classif.knn") {
+      mlr_algo_name = algo
+    } else {
+      mlr_algo_name = "classif.RcppHNSW"
+    }
 
     lrn = makeLearner(mlr_algo_name, predict.type = "prob")
-
     pipe %>>% lrn
 }

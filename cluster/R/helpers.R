@@ -60,3 +60,7 @@ sanitize_algo = function(algo) {
     gsub("mlr_", "classif.", algo, fixed = TRUE)
 }
 
+get_task_ids = function(problem) {
+  p = import_from_path("src.problem")
+  p$Problem(problem)$valid_tasks
+}
