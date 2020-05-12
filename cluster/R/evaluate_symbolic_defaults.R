@@ -47,15 +47,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
 
 jobs = c("mlr_svm", "mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
 
-job = "mlr_glmnet"
-benchmarks = get_problem_json(job)$benchmark
-tasks = get_task_ids(job)
-
-
-grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
-
 # Submit Jobs
-
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
     file.dir = REG_DIR,
@@ -66,7 +58,12 @@ if (!file.exists(REG_DIR)) {
   )
   addProblem("package_defaults")
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
-  addExperiments(algo.designs = list(run_algo = grd))
+  for (job in jobs) {
+    benchmarks = get_problem_json(job)$benchmark
+    tasks = get_task_ids(job)
+    grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
+    addExperiments(algo.designs = list(run_algo = grd))
+  }
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
