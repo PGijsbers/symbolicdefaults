@@ -46,7 +46,7 @@ eval_tuple = function(problem, task, str) {
   opts = get_deap_operations()
   lst = eval(parse_tuple(str), envir = as.environment(c(symb, opts)))
   # Get names and append filters / fixed
-  hpnames = setdiff(names(prob$hyperparameters), names(prob$fixed))
+  hpnames = setdiff(names(prob$hyperparameters), c(names(prob$fixed), names(prob$filter)))
   if (length(lst) != length(hpnames)) stop("Hyperparameter names not equal to symbol length")
   names(lst) = hpnames
   c(lst, prob$filters, prob$fixed)
@@ -76,19 +76,23 @@ run_algo = function(problem, task, str, parallel = 10L) {
 		      parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
     on.exit(parallelMap::parallelStop())
 
-      lgr = get_logger("eval_logger")$set_threshold("info")
-      lgr$add_appender(lgr::AppenderFile$new("runs/mlr_evaluation_log.log"))
-        lgr$info(sprintf("Evaluating %s|%s|%s", problem, task, str))
-        lrn = make_preproc_pipeline(problem)
+    lgr = get_logger("eval_logger")$set_threshold("info")
+    lgr$add_appender(lgr::AppenderFile$new("runs/mlr_evaluation_log.log"))
+    lgr$info(sprintf("Evaluating %s|%s|%s", problem, task, str))
+
+    lrn = make_preproc_pipeline(problem)
 	  hpars = eval_tuple(problem, task, str)
+    # Repair hyperparams according to paramset before predicting
+    ps = filterParams(getParamSet(lrn), names(hpars))
+    hpars = repairPoint(ps, hpars[names(ps$pars)])
 	  setHyperPars(lrn, par.vals = parse_lgl(hpars))
-	    bmr = try({
-		        omltsk = getOMLTask(task)
-			    z = convertOMLTaskToMlr(omltsk, measures = mmce)
-			    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
-			      })
-	    aggr = bmr$results[[1]][[1]]$aggr
-	      measure = "mmce.test.mean"
-	      lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
-	        bmr$results[[1]][[1]]
+    bmr = try({
+	        omltsk = getOMLTask(task)
+		    z = convertOMLTaskToMlr(omltsk, measures = mmce)
+		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
+		})
+    aggr = bmr$results[[1]][[1]]$aggr
+    measure = "mmce.test.mean"
+    lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
+    bmr$results[[1]][[1]]
 }

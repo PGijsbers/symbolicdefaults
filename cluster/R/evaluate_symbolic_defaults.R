@@ -15,37 +15,11 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr")
 
-
-
-# Run an algorithm
-# @param algo :: algorithm name, e.g. classif.svm
-# @param task :: task_id, e.g. 3
-# @param str  :: tuple string, e.g. "make_tuple(1,1)"
-# @example
-# run_algo("mlr_svm", 3, "make_tuple(1,1)")
-run_algo = function(problem, task, str, parallel = 10L) {
-  if (parallel)
-    parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
-    on.exit(parallelMap::parallelStop())
-
-  lgr = get_logger("eval_logger")$set_threshold("info")
-  lgr$add_appender(lgr::AppenderFile$new("runs/mlr_evaluation_log.log"))
-  lgr$info(sprintf("Evaluating %s|%s|%s", problem, task, str))
-  lrn = make_preproc_pipeline(problem)
-  hpars = eval_tuple(problem, task, str)
-  setHyperPars(lrn, par.vals = parse_lgl(hpars))
-  bmr = try({
-    omltsk = getOMLTask(task)
-    z = convertOMLTaskToMlr(omltsk, measures = mmce)
-    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
-  })
-  aggr = bmr$results[[1]][[1]]$aggr
-  measure = "mmce.test.mean"
-  lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
-  bmr$results[[1]][[1]]
-}
-
-jobs = c("mlr_svm", "mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
+jobs = c("mlr_svm", "mlr_rparwhile (TRUE) {
+  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)[1:10]
+  try({submitJobs(jobs)})
+  Sys.sleep(3)
+}t", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
 
 # Submit Jobs
 if (!file.exists(REG_DIR)) {
@@ -68,4 +42,12 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-submitJobs(1)
+reg$cluster.functions = makeClusterFunctionsInteractive()# makeClusterFunctionsSocket(6)
+
+while (TRUE) {
+  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)[1:10]
+  try({submitJobs(jobs)})
+  Sys.sleep(3)
+}
+
+testJob(1000)
