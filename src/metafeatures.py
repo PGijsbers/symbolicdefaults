@@ -8,7 +8,7 @@ import pandas as pd
 import openml
 import joblib
 
-from utils import simple_construct_pipeline_for_task
+from src.utils import simple_construct_pipeline_for_task
 
 memory = joblib.Memory("data/cache", verbose = 0)
 
@@ -52,8 +52,6 @@ def calculate_metafeatures(task, preprocessing=None):
         # quick hack for now as code below assumes operations that cant be done on csr matrix (most notably mkd code)
         X = X.todense().A
 
-
-
     classes, counts = np.unique(y, return_counts=True)
     if preprocessing is not None:
         # For now assume preprocessing always include one-hot encoding and does not introduce additional columns
@@ -67,7 +65,7 @@ def calculate_metafeatures(task, preprocessing=None):
         n=n,
         po=po,
         p=p,
-        rc=n_categorical / p,
+        rc=max(0.0, n_categorical / p),
         mcp=max(counts) / len(y),
         mkd=mkd(X),
         xvar=X.var()
@@ -95,3 +93,7 @@ def mkd(X):
 
     # pick the median
     return 1 / statistics.median([d for d in distances if d != 0])
+
+
+if __name__ == '__main__':
+    create_metadataset([167121.])
