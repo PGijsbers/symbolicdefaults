@@ -15,18 +15,14 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr")
 
-jobs = c("mlr_svm", "mlr_rparwhile (TRUE) {
-  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)[1:10]
-  try({submitJobs(jobs)})
-  Sys.sleep(3)
-}t", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
 
-# Submit Jobs
+jobs = c("mlr_svm", "mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
+
+# Create Job Registry
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
     file.dir = REG_DIR,
     seed = 1,
-    conf.file = "cluster/R/batchtools.conf.R",
     packages = source_packages,
     source = source_files
   )
@@ -42,7 +38,7 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsInteractive()# makeClusterFunctionsSocket(6)
+reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 while (TRUE) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)[1:10]
@@ -50,4 +46,4 @@ while (TRUE) {
   Sys.sleep(3)
 }
 
-testJob(1000)
+sapply(source_packages, install.packages)

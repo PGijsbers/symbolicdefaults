@@ -1,1 +1,0 @@
-default.resources = list("pcpus" = 10)
