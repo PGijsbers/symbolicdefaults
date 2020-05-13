@@ -128,7 +128,7 @@ def main():
     if args.algorithm == 'random_search':
         # iterations don't make much sense in random search,
         # so we modify the values to make better use of batch predictions.
-        args.ngens = args.ngens / 100
+        args.ngen = args.ngen // 100
         args.lambda_ = args.lambda_ * 100
 
     tasks = list(problem.metadata.index)
