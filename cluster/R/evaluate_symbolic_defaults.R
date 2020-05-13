@@ -41,7 +41,7 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(6)
+reg$cluster.functions = makeClusterFunctionsSocket(3)
 
 
 jobs = findNotDone()$job.id
@@ -49,7 +49,7 @@ while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
   jt = getJobTable(jobs)
   jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-  jobs = intersect(jobs, jt[problem_name == "mlr_rpart", ]$job.id)
+  jobs = intersect(jobs, jt[problem_name %in% c("mlr_rpart","mlr_svm", "mlr_glmnet"), ]$job.id)
   try({submitJobs(jobs)})
   Sys.sleep(3)
 }
