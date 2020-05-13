@@ -30,7 +30,7 @@ if (!file.exists(REG_DIR)) {
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
   for (job in jobs) {
     benchmarks = get_problem_json(job)$benchmark
-    tasks = get_task_ids(job)
+    tasks = 3 # tasks = get_task_ids(job)
     grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
     addExperiments(algo.designs = list(run_algo = grd))
   }
@@ -45,5 +45,3 @@ while (TRUE) {
   try({submitJobs(jobs)})
   Sys.sleep(3)
 }
-
-sapply(source_packages, install.packages)
