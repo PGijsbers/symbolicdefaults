@@ -20,23 +20,25 @@ wait
 """
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    continue_number = sys.argv[1]
+    if len(sys.argv) > 2:
         problems = [sys.argv[1]]
     else:
-        problems = ['knn', 'svm', 'glmnet', 'rf', 'rpart', 'xgboost']
-    if len(sys.argv) > 2:
+        problems = ['knn', 'svm', 'glmnet', 'rf', 'rpart']  # , 'xgboost']
+    if len(sys.argv) > 3:
         algorithms = [sys.argv[2]]  # random_search or mupluslambda
     else:
-        algorithms = ["random_search", "mupluslambda"]
+        algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
 
-    start_command = "python src/main.py mlr_{problem} -o {log} -a {alg}"
+    start_command = "python src/main.py mlr_{problem} -o {log} {alg}"
     for problem, algorithm in itertools.product(problems, algorithms):
-        job_name = f"jobs/{problem}_{algorithm}.job"
+        alg_short = algorithm.split(' ')[-1]
+        job_name = f"jobs/{problem}_{alg_short}_{continue_number}.job"
         with open(job_name, 'a') as fh:
             fh.write(job_header)
 
-        for i in range(10):
-            logfile = f"~/symbolicdefaults/runs/mlr_{problem}_{algorithm}_{i}.log"
+        for i in range(continue_number, continue_number + 5):
+            logfile = f"~/symbolicdefaults/runs/mlr_{problem}_{alg_short}_{i}.log"
             cmd = start_command.format(problem=problem, log=logfile, alg=algorithm)
             if algorithm == "random_search":
                 cmd += ' -mss 3'
