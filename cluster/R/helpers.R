@@ -94,7 +94,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
 	      omltsk = getOMLTask(task)
         # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
-		    if (task %in% c(146212, 168329, 168330, 168330, 168339)) omltsk$input$evaluation.measures = ""
+		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
