@@ -87,17 +87,20 @@ run_algo = function(problem, task, str, parallel = 10L) {
     hpars = repairPoint(ps, hpars[names(ps$pars)])
 	  setHyperPars(lrn, par.vals = parse_lgl(hpars))
     bmr = try({
+        # Some task have gotten different ids
+        if (task == 168759) task = 167211  # Satellite
+        if (task == 168761) task = 167211 # sylvine
+        if (task == 168770) task = 168909 # Dilbert
+
+            168759 = 167211,
+            168761 = 168912,
+            168770 = 168909
+          )
+        }
 	      omltsk = getOMLTask(task)
         # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
 		    if (task %in% c(146212, 168329, 168330, 168330, 168339)) omltsk$input$evaluation.measures = ""
-        if (task %in% c(168759, 168761, 168770)) {
-          task = switch(task,
-            168759 = 167211,  # Satellite
-            168761 = 168912,  # sylvine
-            168770 = 168909   # Dilbert
-          )
-        }
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
