@@ -89,7 +89,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
     bmr = try({
         # Some task have gotten different ids
         if (task == 168759) task = 167211 # Satellite
-        if (task == 168761) task = 167211 # sylvine
+        if (task == 168761) task = 168912 # sylvine
         if (task == 168770) task = 168909 # Dilbert
 	      omltsk = getOMLTask(task)
         # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
