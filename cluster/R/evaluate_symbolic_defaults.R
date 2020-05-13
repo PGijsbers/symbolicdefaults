@@ -10,6 +10,8 @@ library(parallelMap)
 library(reticulate)
 library(BBmisc)
 library(batchtools)
+library(mlr3misc)
+
 
 source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw.R", "cluster/R/helpers.R", "cluster/R/config.R")
 sapply(source_files, source)
@@ -17,8 +19,11 @@ source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parall
 
 
 jobs = c("mlr_svm", "mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
+jobs = "mlr_rpart"
 
 # Create Job Registry
+REG_DIR = NA
+
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
     file.dir = REG_DIR,
@@ -30,7 +35,7 @@ if (!file.exists(REG_DIR)) {
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
   for (job in jobs) {
     benchmarks = get_problem_json(job)$benchmark
-    tasks = 3 # tasks = get_task_ids(job)
+    tasks = 146212 # tasks = get_task_ids(job)
     grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
     addExperiments(algo.designs = list(run_algo = grd))
   }
@@ -38,10 +43,19 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
+testJob(1)
 reg$cluster.functions = makeClusterFunctionsSocket(6)
 
-while (TRUE) {
-  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)[1:10]
+
+jobs = findNotDone()$job.id
+while (length(jobs)) {
+  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
+  jt = getJobTable(jobs)
+  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+  jobs = intersect(jobs, jt[problem_name == "mlr_rpart", ]$job.id)
   try({submitJobs(jobs)})
   Sys.sleep(3)
 }
+
+
+
