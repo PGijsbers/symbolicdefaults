@@ -6,7 +6,6 @@ import numpy as np
 
 from deap import tools
 import pandas as pd
-from pympler import muppy, summary
 
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, insert_fixed, approx_eq
@@ -261,16 +260,6 @@ def main():
                     hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
                     score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
                     logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
-
-                all_objects = muppy.get_objects()
-                # Prints out a summary of the large objects
-                sum1 = summary.summarize(all_objects)
-                # Get references to certain types of objects such as dataframe
-                summary.print_(sum1)
-                # dataframes = [ao for ao in all_objects if isinstance(ao, pd.DataFrame)]
-                # for d in dataframes:
-                #     print(d.columns.values)
-                #     len(d)
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
                 break
