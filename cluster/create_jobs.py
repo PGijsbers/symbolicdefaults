@@ -45,20 +45,21 @@ if __name__ == '__main__':
     if len(sys.argv) > 3:
         algorithms = [sys.argv[3]]  # random_search or mupluslambda
     else:
-        algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
+        algorithms = ["-a random_search", "-a mupluslambda", "-cst True"]
 
     start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} {alg} -t {task}"
     for problem, algorithm, task in itertools.product(problems, algorithms, tasks):
         alg_short = algorithm.split(' ')[-1]
         job_name = f"jobs/{problem}_{alg_short}_{task}.job"
+        outdir = f"results/{problem}_{alg_short}/"
         with open(job_name, 'a') as fh:
             fh.write(job_header)
 
         for i in range(10):
-            search = start_command.format(problem=problem, outdir='results', alg=algorithm, task=task)
+            search = start_command.format(problem=problem, outdir=outdir, alg=algorithm, task=task)
             if algorithm == "random_search":
                 search += ' -mss 3'
-            move = "cp -r $TMPDIR/{outdir} ~/{outdir}"
+            move = f"cp -r $TMPDIR/{outdir} ~/{outdir}"
             with open(job_name, 'a') as fh:
                 fh.write(f"({search}; {move}) &\n")
 
