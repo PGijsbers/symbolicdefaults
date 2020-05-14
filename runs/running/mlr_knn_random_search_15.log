@@ -1,0 +1,71 @@
+Starting problem: mlr_knn
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_knn_random_search_15.log
+param:problem:mlr_knn
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_knn
+mlr_default := make_tuple(10., 16., 10., 200.)
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.33506650933379384_0.5100701357079986_0.7674412018605772_SIZE_1_6.267_19
+Evaluating in sample:
+[GEN_0|make_tuple(9, n, p, n)|0.7674]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(9, n, p, n)|0.8953]
+GEN_1_FIT_0.3531913795983049_0.510281070489843_0.7654686705142886_SIZE_1_6.3276_19
+Evaluating in sample:
+[GEN_1|make_tuple(9, n, p, n)|0.7674]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(9, n, p, n)|0.8953]
+GEN_2_FIT_0.3703286898698692_0.5101953045153346_0.7674412018605772_SIZE_1_6.3482_21
+Evaluating in sample:
+[GEN_2|make_tuple(9, n, p, n)|0.7674]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(9, n, p, n)|0.8953]
+BENCHMARK: Evaluating in-sample:
+[mlr_default: make_tuple(10.0, 16.0, 10.0, 200.0)|0.7089]
+BENCHMARK:  Evaluating out-of-sample:
+[GEN_2|mlr_default: make_tuple(10.0, 16.0, 10.0, 200.0)|0.8316]
+START_TASK: 6
+GEN_0_FIT_0.3458636754531542_0.5067439366632678_0.7677495741553186_SIZE_1_6.39_19
+Evaluating in sample:
+[GEN_0|make_tuple(9, n, p, 616)|0.7677]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(9, n, p, 616)|0.8248]
+GEN_1_FIT_0.31845651123778873_0.5069659664548539_0.7697545841085317_SIZE_1_6.443_19
+Evaluating in sample:
+[GEN_1|make_tuple(9, n, n, n)|0.7698]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(9, n, n, n)|0.8278]
+GEN_2_FIT_0.3672508934914937_0.507470418382819_0.7685783544141386_SIZE_1_6.3702_19
+Evaluating in sample:
+[GEN_2|make_tuple(9, n, n, n)|0.7698]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(9, n, n, n)|0.8278]
+BENCHMARK: Evaluating in-sample:
+[mlr_default: make_tuple(10.0, 16.0, 10.0, 200.0)|0.7098]
+BENCHMARK:  Evaluating out-of-sample:
+[GEN_2|mlr_default: make_tuple(10.0, 16.0, 10.0, 200.0)|0.7258]
+START_TASK: 11
+GEN_0_FIT_0.38856257302281105_0.5095960360170244_0.7676658201674533_SIZE_1_6.3061_19
+Evaluating in sample:
+[GEN_0|make_tuple(9, n, p, n)|0.7677]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(9, n, p, n)|0.8695]
+GEN_1_FIT_0.3214679722410393_0.5085462630163653_0.7589003756746024_SIZE_1_6.3517_19
+Evaluating in sample:
+[GEN_1|make_tuple(9, n, p, n)|0.7677]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(9, n, p, n)|0.8695]

@@ -1,0 +1,32 @@
+Starting problem: mlr_rf
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_rf_random_search_6.log
+param:problem:mlr_rf
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_rf
+mlr_default := make_tuple(1., 1., pow(po, 0.5))
+Loading surrogates from file.
+With fixed hyperparameters: {'num.trees': 500.0}:
+And hyperparameters: ['num.trees', 'sample.fraction', 'min.node.size', 'mtry']:
+START_TASK: 3
+GEN_0_FIT_0.19938450965512203_0.6448050387328108_0.9120626522081184_SIZE_1_5.0899_16
+Evaluating in sample:
+[GEN_0|make_tuple(0.5579304395103705, p, m)|0.8858]
+[GEN_0|make_tuple(truediv(0.703371906381373, xvar), expit(xvar), if_gt(mkd, po, 10, rc))|0.9090]
+[GEN_0|make_tuple(expit(pow(xvar, xvar)), expit(max(xvar, 0.010134063545104948)), expit(add(po, n)))|0.9121]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.5579304395103705, p, m)|0.9978]
+[GEN_0|make_tuple(truediv(0.703371906381373, xvar), expit(xvar), if_gt(mkd, po, 10, rc))|0.9843]
+[GEN_0|make_tuple(expit(pow(xvar, xvar)), expit(max(xvar, 0.010134063545104948)), expit(add(po, n)))|0.9813]

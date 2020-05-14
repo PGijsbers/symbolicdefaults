@@ -1,0 +1,50 @@
+Starting problem: mlr_svm
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_svm_random_search_7.log
+param:problem:mlr_svm
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_svm
+sklearn_default := make_tuple(1., truediv(1., mul(p, xvar)))
+mlr_default := make_tuple(1, truediv(po, 1))
+symbolic_best := make_tuple(16., truediv(mkd, xvar))
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.24299080325280706_0.4934460817706231_0.8969469769591105_SIZE_1_3.7067_11
+Evaluating in sample:
+[GEN_0|make_tuple(p, mkd)|0.8899]
+[GEN_0|make_tuple(add(rc, 4), truediv(xvar, po))|0.8938]
+[GEN_0|make_tuple(sub(add(po, mcp), neg(m)), min(truediv(0.4853930289219578, po), if_gt(mkd, mkd, n, po)))|0.8969]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(p, mkd)|0.9641]
+[GEN_0|make_tuple(add(rc, 4), truediv(xvar, po))|0.8752]
+[GEN_0|make_tuple(sub(add(po, mcp), neg(m)), min(truediv(0.4853930289219578, po), if_gt(mkd, mkd, n, po)))|0.9568]
+GEN_1_FIT_0.24297098672373732_0.49723022442254033_0.8964254649696307_SIZE_1_3.6745_11
+Evaluating in sample:
+[GEN_1|make_tuple(p, mkd)|0.8899]
+[GEN_1|make_tuple(add(rc, 4), truediv(xvar, po))|0.8938]
+[GEN_1|make_tuple(sub(add(po, mcp), neg(m)), min(truediv(0.4853930289219578, po), if_gt(mkd, mkd, n, po)))|0.8969]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(p, mkd)|0.9641]
+[GEN_1|make_tuple(add(rc, 4), truediv(xvar, po))|0.8752]
+[GEN_1|make_tuple(sub(add(po, mcp), neg(m)), min(truediv(0.4853930289219578, po), if_gt(mkd, mkd, n, po)))|0.9568]
+GEN_2_FIT_0.24291609620545504_0.49407095700732423_0.901670704165086_SIZE_1_3.6128_11
+Evaluating in sample:
+[GEN_2|make_tuple(p, mkd)|0.8899]
+[GEN_2|make_tuple(if_gt(0.006842451963128719, p, p, m), truediv(mkd, xvar))|0.9017]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(p, mkd)|0.9641]
+[GEN_2|make_tuple(if_gt(0.006842451963128719, p, p, m), truediv(mkd, xvar))|0.9132]
+BENCHMARK: Evaluating in-sample:
+[sklearn_default: make_tuple(1.0, truediv(1.0, mul(p, xvar)))|0.8870]

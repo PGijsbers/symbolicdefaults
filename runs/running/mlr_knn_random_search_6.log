@@ -1,0 +1,26 @@
+Starting problem: mlr_knn
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_knn_random_search_6.log
+param:problem:mlr_knn
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_knn
+mlr_default := make_tuple(10., 16., 10., 200.)
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.32035504362729206_0.509755581291832_0.7672380960510079_SIZE_1_6.3132_21
+Evaluating in sample:
+[GEN_0|make_tuple(9, n, po, 314)|0.7672]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(9, n, po, 314)|0.9011]
