@@ -66,4 +66,4 @@ if __name__ == '__main__':
             fh.write(job_footer)
 
         with open("start_jobs.sh", newline='\n', mode='a') as fh:
-            fh.write(f"sbatch {job_name}")
+            fh.write(f"sbatch {job_name}\n")
