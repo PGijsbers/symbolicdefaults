@@ -30,7 +30,7 @@ if __name__ == '__main__':
     else:
         algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
 
-    start_command = "python src/main.py mlr_{problem} -o {outdir} {alg} -t {task}"
+    start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} {alg} -t {task}"
     for problem, algorithm in itertools.product(problems, algorithms):
         alg_short = algorithm.split(' ')[-1]
         job_name = f"jobs/{problem}_{alg_short}_{task}.job"
@@ -38,11 +38,12 @@ if __name__ == '__main__':
             fh.write(job_header)
 
         for i in range(10):
-            cmd = start_command.format(problem=problem, outdir='results', alg=algorithm, task=task)
+            search = start_command.format(problem=problem, outdir='results', alg=algorithm, task=task)
             if algorithm == "random_search":
-                cmd += ' -mss 3'
+                search += ' -mss 3'
+            move = "cp -r $TMPDIR/{outdir} ~/{outdir}"
             with open(job_name, 'a') as fh:
-                fh.write(cmd + ' &\n')
+                fh.write(f"({search}; {move}) &\n")
 
         with open(job_name, 'a') as fh:
             fh.write(job_footer)
