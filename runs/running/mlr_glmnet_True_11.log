@@ -1,0 +1,22 @@
+Starting problem: mlr_glmnet
+param:age_regularization:100000.0
+param:algorithm:mupluslambda
+param:constants_only:True
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_glmnet_True_11.log
+param:problem:mlr_glmnet
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_glmnet
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.8517602260608215_0.8834778152191423_0.8943457216152513_SIZE_1_3.9_7
+GEN_1_FIT_0.8563589149413852_0.883149880440189_0.8962995347432614_SIZE_1_2.45_6

@@ -1,0 +1,112 @@
+Starting problem: mlr_rpart
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_rpart_random_search_3.log
+param:problem:mlr_rpart
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_rpart
+mlr_default := make_tuple(0.01, 30., 1., 20.)
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.1083524803431737_0.28367531518376776_0.8539629971021339_SIZE_1_6.3776_21
+Evaluating in sample:
+[GEN_0|make_tuple(0.002251338619533924, 290, 1, m)|0.8481]
+[GEN_0|make_tuple(mul(rc, 0.003773337678044442), add(rc, 28), add(mcp, xvar), expit(470))|0.8524]
+[GEN_0|make_tuple(if_gt(mul(p, po), min(n, m), mul(0.0026046229947669867, mcp), truediv(n, mcp)), max(expit(n), max(9, rc)), max(neg(xvar), min(m, po)), if_gt(min(p, rc), add(n, p), add(mcp, mkd), neg(rc)))|0.8531]
+[GEN_0|make_tuple(if_gt(pow(847, 0.010686502846790681), mul(mkd, mkd), pow(mkd, m), mul(2, mcp)), mul(expit(n), sub(po, mkd)), if_gt(max(0.008975035869104298, 12), neg(po), pow(mcp, mcp), sub(rc, p)), if_gt(expit(n), if_gt(9, 0.07720779088481995, p, 32), truediv(mcp, m), sub(mcp, p)))|0.8540]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.002251338619533924, 290, 1, m)|0.9674]
+[GEN_0|make_tuple(mul(rc, 0.003773337678044442), add(rc, 28), add(mcp, xvar), expit(470))|0.9621]
+[GEN_0|make_tuple(if_gt(mul(p, po), min(n, m), mul(0.0026046229947669867, mcp), truediv(n, mcp)), max(expit(n), max(9, rc)), max(neg(xvar), min(m, po)), if_gt(min(p, rc), add(n, p), add(mcp, mkd), neg(rc)))|0.9798]
+[GEN_0|make_tuple(if_gt(pow(847, 0.010686502846790681), mul(mkd, mkd), pow(mkd, m), mul(2, mcp)), mul(expit(n), sub(po, mkd)), if_gt(max(0.008975035869104298, 12), neg(po), pow(mcp, mcp), sub(rc, p)), if_gt(expit(n), if_gt(9, 0.07720779088481995, p, 32), truediv(mcp, m), sub(mcp, p)))|0.9909]
+GEN_1_FIT_0.10815922770966048_0.2855121729794168_0.8608319560260416_SIZE_1_6.3564_19
+Evaluating in sample:
+[GEN_1|make_tuple(0.0016776194443917005, p, 13, p)|0.8527]
+[GEN_1|make_tuple(mul(mcp, 0.0014896284544557614), add(po, m), truediv(mcp, po), neg(mcp))|0.8608]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(0.0016776194443917005, p, 13, p)|0.9586]
+[GEN_1|make_tuple(mul(mcp, 0.0014896284544557614), add(po, m), truediv(mcp, po), neg(mcp))|0.9889]
+GEN_2_FIT_0.10739869844799697_0.2866186207809048_0.8690722455943072_SIZE_1_6.3421_19
+Evaluating in sample:
+[GEN_2|make_tuple(0.0016197634698734246, n, 5, 1)|0.8552]
+[GEN_2|make_tuple(mul(mcp, 0.0032408423195156356), max(p, m), min(xvar, mkd), sub(m, rc))|0.8691]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(0.0016197634698734246, n, 5, 1)|0.9716]
+[GEN_2|make_tuple(mul(mcp, 0.0032408423195156356), max(p, m), min(xvar, mkd), sub(m, rc))|0.9706]
+BENCHMARK: Evaluating in-sample:
+[mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.7878]
+BENCHMARK:  Evaluating out-of-sample:
+[GEN_2|mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.9605]
+START_TASK: 6
+GEN_0_FIT_0.1074913763016559_0.28867707170168766_0.8572152201320281_SIZE_1_6.2857_21
+Evaluating in sample:
+[GEN_0|make_tuple(0.001710465791156816, p, 2, m)|0.8551]
+[GEN_0|make_tuple(mul(0.010040186656792613, mcp), add(0.17919384382809417, 226), truediv(rc, po), truediv(mkd, mkd))|0.8567]
+[GEN_0|make_tuple(if_gt(expit(p), expit(n), add(po, rc), neg(p)), truediv(truediv(9, xvar), max(0.012558999262180504, 0.5592799901208164)), add(sub(rc, 0.14572585484591621), add(14, 0.002373244778945234)), if_gt(expit(xvar), min(m, po), add(n, p), min(mkd, po)))|0.8572]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.001710465791156816, p, 2, m)|0.8074]
+[GEN_0|make_tuple(mul(0.010040186656792613, mcp), add(0.17919384382809417, 226), truediv(rc, po), truediv(mkd, mkd))|0.9508]
+[GEN_0|make_tuple(if_gt(expit(p), expit(n), add(po, rc), neg(p)), truediv(truediv(9, xvar), max(0.012558999262180504, 0.5592799901208164)), add(sub(rc, 0.14572585484591621), add(14, 0.002373244778945234)), if_gt(expit(xvar), min(m, po), add(n, p), min(mkd, po)))|0.8678]
+GEN_1_FIT_0.10838390414128135_0.286886885452111_0.8625041131501752_SIZE_1_6.2858_19
+Evaluating in sample:
+[GEN_1|make_tuple(0.001615423626560726, p, 11, m)|0.8625]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(0.001615423626560726, p, 11, m)|0.8082]
+GEN_2_FIT_0.10843490452839093_0.2849526490750447_0.8689336391625122_SIZE_1_6.3118_19
+Evaluating in sample:
+[GEN_2|make_tuple(0.001615423626560726, p, 11, m)|0.8625]
+[GEN_2|make_tuple(neg(n), add(6, m), mul(mcp, 15), neg(m))|0.8689]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(0.001615423626560726, p, 11, m)|0.8082]
+[GEN_2|make_tuple(neg(n), add(6, m), mul(mcp, 15), neg(m))|0.9494]
+BENCHMARK: Evaluating in-sample:
+[mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.7914]
+BENCHMARK:  Evaluating out-of-sample:
+[GEN_2|mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.5562]
+START_TASK: 11
+GEN_0_FIT_0.10717249147877295_0.28563233329369_0.8573624058458784_SIZE_1_6.4112_21
+Evaluating in sample:
+[GEN_0|make_tuple(0.0020012695947496362, p, m, m)|0.8408]
+[GEN_0|make_tuple(pow(mcp, 22), add(m, p), expit(n), max(0.0025736527354116886, mcp))|0.8727]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.0020012695947496362, p, m, m)|0.9753]
+[GEN_0|make_tuple(pow(mcp, 22), add(m, p), expit(n), max(0.0025736527354116886, mcp))|0.9210]
+GEN_1_FIT_0.10760656655084287_0.2832061701155431_0.8692379719561121_SIZE_1_6.378_19
+Evaluating in sample:
+[GEN_1|make_tuple(0.0015225314042222199, p, 11, 28)|0.8654]
+[GEN_1|make_tuple(pow(0.12169297188051348, m), max(p, m), neg(mcp), sub(mcp, n))|0.8692]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(0.0015225314042222199, p, 11, 28)|0.9103]
+[GEN_1|make_tuple(pow(0.12169297188051348, m), max(p, m), neg(mcp), sub(mcp, n))|0.9722]
+GEN_2_FIT_0.10558588189656333_0.2847419755339508_0.8568371729626331_SIZE_1_6.3183_21
+Evaluating in sample:
+[GEN_2|make_tuple(0.0015225314042222199, p, 11, 28)|0.8654]
+[GEN_2|make_tuple(pow(0.12169297188051348, m), max(p, m), neg(mcp), sub(mcp, n))|0.8692]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(0.0015225314042222199, p, 11, 28)|0.9103]
+[GEN_2|make_tuple(pow(0.12169297188051348, m), max(p, m), neg(mcp), sub(mcp, n))|0.9722]
+BENCHMARK: Evaluating in-sample:
+[mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.7879]
+BENCHMARK:  Evaluating out-of-sample:
+[GEN_2|mlr_default: make_tuple(0.01, 30.0, 1.0, 20.0)|0.9564]
+START_TASK: 12
+GEN_0_FIT_0.10809898089701693_0.28774441000001927_0.8616919452414623_SIZE_1_6.3478_19
+Evaluating in sample:
+[GEN_0|make_tuple(0.001061043178896582, n, 2, m)|0.8464]
+[GEN_0|make_tuple(pow(mkd, m), max(m, p), pow(0.004474762213981842, 249), mul(rc, rc))|0.8553]
+[GEN_0|make_tuple(min(neg(mcp), if_gt(n, mcp, po, po)), max(pow(m, 4), min(0.0013662938185531274, 0.001073793329945917)), truediv(add(p, p), add(po, 0.400353747628126)), sub(if_gt(m, mcp, 0.016670397916539115, p), truediv(0.26407991428923644, p)))|0.8617]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.001061043178896582, n, 2, m)|0.9915]
+[GEN_0|make_tuple(pow(mkd, m), max(m, p), pow(0.004474762213981842, 249), mul(rc, rc))|0.9908]
+[GEN_0|make_tuple(min(neg(mcp), if_gt(n, mcp, po, po)), max(pow(m, 4), min(0.0013662938185531274, 0.001073793329945917)), truediv(add(p, p), add(po, 0.400353747628126)), sub(if_gt(m, mcp, 0.016670397916539115, p), truediv(0.26407991428923644, p)))|0.9912]

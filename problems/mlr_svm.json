@@ -14,7 +14,7 @@
     },
     "benchmark": {
       "sklearn_default":"make_tuple(1., truediv(1., mul(p, xvar)))",
-      "mlr_default":"make_tuple(1, truediv(po, 1))",
+      "mlr_default":"make_tuple(1., truediv(po, 1.))",
       "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
     }
 }
