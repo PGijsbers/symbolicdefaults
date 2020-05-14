@@ -106,6 +106,10 @@ def main():
         os.mkdir(run_dir)
         log_file = os.path.join(run_dir, 'output.log')
         configure_logging(log_file)
+        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+            fh.write(f"run,task,gen,inout,score,length,endresult,expression\n")
+        with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
+            fh.write(f"run,task,generation,score_min,score_avg,score_max\n")
     else:
         configure_logging()
 
