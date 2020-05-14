@@ -4,6 +4,7 @@ import logging
 import os
 import time
 import uuid
+import pathlib
 
 import numpy as np
 
@@ -101,7 +102,7 @@ def main():
     args = cli_parser()
     if args.output:
         if not os.path.exists(args.output):
-            os.mkdir(args.output)
+            pathlib.Path(args.output).mkdir(parents=True, exist_ok=True)
         run_dir = os.path.join(args.output, run_id)
         os.mkdir(run_dir)
         log_file = os.path.join(run_dir, 'output.log')
