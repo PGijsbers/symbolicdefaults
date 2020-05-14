@@ -223,10 +223,10 @@ def random_mutation(ind, pset, max_depth=None, toolbox=None):
         valid_mutations.append(functools.partial(mut_ephemeral_gaussian, pset=pset))
 
     mut = np.random.choice(valid_mutations)
-    if hasattr(mut, '__name__'):
-        print(mut.__name__)
-    else:
-        print(mut.func.__name__)
+    # if hasattr(mut, '__name__'):
+    #     print(mut.__name__)
+    # else:
+    #     print(mut.func.__name__)
     return mut(ind)
 
 
