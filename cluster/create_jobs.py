@@ -22,11 +22,11 @@ wait
 if __name__ == '__main__':
     task = sys.argv[1]
     if len(sys.argv) > 2:
-        problems = [sys.argv[1]]
+        problems = [sys.argv[2]]
     else:
         problems = ['knn', 'svm', 'glmnet', 'rf', 'rpart']  # , 'xgboost']
     if len(sys.argv) > 3:
-        algorithms = [sys.argv[2]]  # random_search or mupluslambda
+        algorithms = [sys.argv[3]]  # random_search or mupluslambda
     else:
         algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
 
