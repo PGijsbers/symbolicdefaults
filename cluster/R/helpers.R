@@ -84,8 +84,9 @@ run_algo = function(problem, task, str, parallel = 10L) {
 	  hpars = eval_tuple(problem, task, str)
     # Repair hyperparams according to paramset before predicting
     ps = filterParams(getParamSet(lrn), names(hpars))
+    hpars = parse_lgl(hpars)
     hpars = repairPoint(ps, hpars[names(ps$pars)])
-	  setHyperPars(lrn, par.vals = parse_lgl(hpars))
+	  setHyperPars(lrn, par.vals = hpars)
     bmr = try({
         # Some task have gotten different ids
         if (task == 168759) task = 167211 # Satellite
