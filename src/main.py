@@ -37,9 +37,6 @@ def cli_parser():
     parser.add_argument('-a',
                         help="Algorithm. {mupluslambda, onepluslambda, random_search}",
                         dest='algorithm', type=str, default='mupluslambda')
-    parser.add_argument('-s',
-                        help="Evaluate individuals on a random [S]ubset of size [0, 1].",
-                        dest='subset', type=float, default=1.)
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stop_n', type=int, default=20)
@@ -118,11 +115,7 @@ def main():
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
     # return toolbox, pset
-    # ================================================
-    # Start evolutionary optimization
-    # ================================================
-    top_5s = {}
-    in_sample_mean = {}
+
     if args.algorithm == 'random_search':
         # iterations don't make much sense in random search,
         # so we modify the values to make better use of batch predictions.
@@ -140,6 +133,11 @@ def main():
     if len(problem.fixed):
         logging.info(f"With fixed hyperparameters: {problem.fixed}:")
         logging.info(f"And hyperparameters: {problem.hyperparameters}:")
+
+    # ================================================
+    # Start evolutionary optimization
+    # ================================================
+    in_sample_mean = {}
     for task in tasks:
         logging.info(f"START_TASK: {task}")
         # 'task' experiment data is used as validation set, so we must not use
@@ -152,7 +150,7 @@ def main():
             "map",
             functools.partial(
                 mass_eval_fun, pset=pset, metadataset=loo_metadataset,
-                surrogates=problem.surrogates, subset=args.subset,
+                surrogates=problem.surrogates,
                 toolbox=toolbox, optimize_constants=args.optimize_constants,
                 problem=problem
             )
@@ -197,8 +195,7 @@ def main():
                     mutpb=1-args.cxpb,
                     ngen=1,
                     verbose=False,
-                    halloffame=hof,
-                    no_cache=(args.subset < 1.0)
+                    halloffame=hof
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(

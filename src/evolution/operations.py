@@ -105,23 +105,22 @@ def avg_per_individual_error(ind, *args, **f_kwargs):
     metadataset = f_kwargs["metadataset"]
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
     for j, (idx, row) in enumerate(metadataset.iterrows()):
-        if random.random() < f_kwargs["subset"]:
-            # Add metadata and scipy.optimize *args to the dict for evaluation
-            metadata = row.to_dict()
-            for k,v in enumerate(args):
-                metadata.update({f'c_{k}': v})
-            hyperparam_values = f_kwargs["evaluate"](fn, metadata)
-            scores_full[j] = f_kwargs["surrogates"][idx].predict(np.array(hyperparam_values).reshape(1,-1))
+        # Add metadata and scipy.optimize *args to the dict for evaluation
+        metadata = row.to_dict()
+        for k,v in enumerate(args):
+            metadata.update({f'c_{k}': v})
+        hyperparam_values = f_kwargs["evaluate"](fn, metadata)
+        scores_full[j] = f_kwargs["surrogates"][idx].predict(np.array(hyperparam_values).reshape(1,-1))
 
     return - scores_full[scores_full != 0].mean()
 
 
-def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
+def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None):
     fn = numpy_phenotype(ind)
     scores_full = np.zeros(shape=(len(metadataset)), dtype=float)
     # First optimize the mean error across datasets
     opt, sc = const_opt(avg_per_individual_error, ind,
-        f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates, "subset":subset},
+        f_kwargs={"evaluate":evaluate, "metadataset": metadataset, "surrogates":surrogates},
         method="Nelder-Mead", options={'maxiter':2, 'xatol':1e-4, 'fatol':1e-4})
 
     # Get results for each dataset
@@ -135,7 +134,7 @@ def per_individual_evals(evaluate, ind, metadataset: pd.DataFrame, surrogates: t
     return scores_full
 
 
-def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
+def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None):
     """
     Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
     :param evaluate: should turn (fn, row) into valid hyperparameter values.
@@ -149,13 +148,13 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
     for i, ind in enumerate(individuals):
         ind.terminals = [p for p in ind if p.arity == 0] # hackery to make glyph happy
         ind.pset = pset # hackery to make glyph happy
-        scores_full[i, :] = per_individual_evals(evaluate, ind, metadataset, surrogates, toolbox, subset, optimize_constants, problem)
+        scores_full[i, :] = per_individual_evals(evaluate, ind, metadataset, surrogates, toolbox, optimize_constants, problem)
 
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
 
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, subset=1.0, optimize_constants=False, problem=None):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None):
     """
         Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
         :param evaluate: should turn (fn, row) into valid hyperparameter values.
@@ -171,17 +170,16 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
 
     for i, (idx, row) in enumerate(metadataset.iterrows()):
-        if random.random() < subset:
-            hyperparam_values = [evaluate(fn, row) for fn in fns]
-            surrogate = surrogates[idx]
+        hyperparam_values = [evaluate(fn, row) for fn in fns]
+        surrogate = surrogates[idx]
 
-            scores = surrogate.predict(hyperparam_values)
-            evaluations_per_individual = len(scores) / len(individuals)
-            if evaluations_per_individual > 1:
-                scores = [max(scores[int(i * evaluations_per_individual):
-                                     int(i * evaluations_per_individual + evaluations_per_individual)])
-                          for i in range(len(individuals))]
-            scores_full[:, i] = scores
+        scores = surrogate.predict(hyperparam_values)
+        evaluations_per_individual = len(scores) / len(individuals)
+        if evaluations_per_individual > 1:
+            scores = [max(scores[int(i * evaluations_per_individual):
+                                 int(i * evaluations_per_individual + evaluations_per_individual)])
+                      for i in range(len(individuals))]
+        scores_full[:, i] = scores
 
     scores_mean = scores_full[:, scores_full.sum(axis=0) > 0].mean(axis=1)  # row wise, non-zero columns
     return zip(scores_mean, lengths)
