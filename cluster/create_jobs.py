@@ -1,5 +1,18 @@
+"""
+Script for generating jobs.
+
+Expects positional arguments:
+1: either a task id or a csv file with a column of tasks
+2: a problem to generate jobs for ['knn', 'svm', 'glmnet', 'rf', 'rpart']
+   if no problem is specified, jobs are created for all problems.
+3: an algorithm to find the default with ["-a random_search", "-a mupluslambda", "-cst"]
+   if no algorithm is specified, jobs are created for all algorithms.
+"""
+
+import os
 import sys
 import itertools
+import pandas as pd
 
 job_header = """\
 #!/bin/bash
@@ -20,7 +33,11 @@ wait
 """
 
 if __name__ == '__main__':
-    task = sys.argv[1]
+    if os.path.exists(sys.argv[1]):
+        df = pd.read_csv(sys.argv[1], index_col=0)
+        tasks = df.index.values
+    else:
+        tasks = sys.argv[1]
     if len(sys.argv) > 2:
         problems = [sys.argv[2]]
     else:
@@ -31,7 +48,7 @@ if __name__ == '__main__':
         algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
 
     start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} {alg} -t {task}"
-    for problem, algorithm in itertools.product(problems, algorithms):
+    for problem, algorithm, task in itertools.product(problems, algorithms, tasks):
         alg_short = algorithm.split(' ')[-1]
         job_name = f"jobs/{problem}_{alg_short}_{task}.job"
         with open(job_name, 'a') as fh:
@@ -47,3 +64,6 @@ if __name__ == '__main__':
 
         with open(job_name, 'a') as fh:
             fh.write(job_footer)
+
+        with open("start_jobs.sh", newline='\n', mode='a') as fh:
+            fh.write(f"sbatch {job_name}")
