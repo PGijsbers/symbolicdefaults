@@ -53,6 +53,3 @@ while (length(jobs)) {
   try({submitJobs(jobs)})
   Sys.sleep(3)
 }
-
-
-
