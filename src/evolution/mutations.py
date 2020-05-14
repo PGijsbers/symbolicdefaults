@@ -5,8 +5,8 @@ from inspect import isclass
 import numpy as np
 from deap import gp
 
-from src.evolution import Int, Float
-from src.evolution.operations import n_primitives_in
+from evolution import Int, Float
+from evolution.operations import n_primitives_in
 
 
 def _find_depth_one_subtrees(ind):

@@ -9,7 +9,7 @@ import operator
 import json
 import pandas as pd
 
-from src.surrogates import train_save_surrogates
+from surrogates import train_save_surrogates
 
 
 class Problem:

@@ -9,7 +9,7 @@ import scipy.special
 from deap import gp, base, creator, tools
 
 from .operations import try_evaluate_function, Int, Float
-from src.evolution.mutations import cxDepthOne, random_mutation
+from evolution.mutations import cxDepthOne, random_mutation
 
 
 def if_gt(a, b, x, y):
