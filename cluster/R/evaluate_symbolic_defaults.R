@@ -53,3 +53,18 @@ while (length(jobs)) {
   try({submitJobs(jobs)})
   Sys.sleep(3)
 }
+
+testJob(283)
+# > findErrors(jobs)
+#     job.id
+#  1:    278 # memory
+#  2:    283
+#  3:    284
+#  4:    285
+#  5:    286
+#  6:    287
+#  7:    288
+#  8:    289
+#  9:    290
+# 10:    291
+# 11:    870

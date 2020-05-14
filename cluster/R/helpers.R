@@ -1,4 +1,3 @@
-
 # Parse a tupel into a expression
 # @param str [character]: tuple to parse
 # @example
@@ -36,13 +35,20 @@ read_expdata = function(problem) {
   farff::readARFF(get_problem_json(problem)$experiment_data)
 }
 
+fix_task = function(task) {
+  if (task == 168759) task = 167211 # Satellite
+  if (task == 168761) task = 168912 # sylvine
+  if (task == 168770) task = 168909 # Dilbert
+  return(task)
+}
+
 # Test:
 # eval_tuple(str = "make_tuple(mcp, add(4,p))", "mlr_svm", 3)
 # eval_tuple(str = "make_tuple(mcp, add(4,p),  3)", "mlr_rf", 3)
 eval_tuple = function(problem, task, str) {
   prob = get_problem_json(problem)
   # Parse formula
-  symb = as.list(read_metadata(problem)[task_id == task,])
+  symb = as.list(read_metadata(problem)[task_id == fix_task(task),])
   opts = get_deap_operations()
   lst = eval(parse_tuple(str), envir = as.environment(c(symb, opts)))
   # Get names and append filters / fixed
@@ -89,9 +95,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
 	  setHyperPars(lrn, par.vals = hpars)
     bmr = try({
         # Some task have gotten different ids
-        if (task == 168759) task = 167211 # Satellite
-        if (task == 168761) task = 168912 # sylvine
-        if (task == 168770) task = 168909 # Dilbert
+        task = fix_task(task)
 	      omltsk = getOMLTask(task)
         # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
