@@ -3,7 +3,6 @@ import functools
 import logging
 import sys
 import time
-
 import numpy as np
 import pandas as pd
 
@@ -126,6 +125,11 @@ def main():
     # ================================================
     top_5s = {}
     in_sample_mean = {}
+    if args.algorithm == 'random_search':
+        # iterations don't make much sense in random search,
+        # so we modify the values to make better use of batch predictions.
+        args.ngen = args.ngen // 100
+        args.lambda_ = args.lambda_ * 100
 
     tasks = list(problem.metadata.index)
     if args.task is not None:
@@ -182,7 +186,7 @@ def main():
         logbook = tools.Logbook()
         logbook.header = ['gen', 'nevals'] + mstats.fields
         early_stop_iter = args.ngen
-
+        stop = False
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
             if args.algorithm == 'mupluslambda':
@@ -242,14 +246,12 @@ def main():
                     last_best_gen = i
             if i - last_best_gen > args.early_stop_n:
                 early_stop_iter = min(i, early_stop_iter)
-                if i == early_stop_iter:
-                    logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
-                    break
-
+                if i == early_stop_iter and args.algorithm != "random_search":
+                    stop = True
 
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
-            if ((i > 1 and i % 20 == 0) or i == early_stop_iter):
+            if ((i > 1 and i % 20 == 0) or stop or args.algorithm == "random_search"):
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
                     scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
@@ -262,10 +264,11 @@ def main():
                     hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
                     score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
                     logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
-
+            if stop:
+                logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
+                break
 
         if not args.constants_only:
-
             logging.info("BENCHMARK: Evaluating in-sample:")
             in_sample_mean[task] = {}
             for check_name, check_individual in problem.benchmarks.items():
@@ -294,6 +297,7 @@ def main():
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
+
 
 if __name__ == '__main__':
     main()
