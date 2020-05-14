@@ -71,6 +71,12 @@ get_task_ids = function(problem) {
   p$Problem(problem)$valid_tasks
 }
 
+set_parallel_by_task = function(parallel, task) {
+ 	if (task %in% NO_PARALLEL_TASKS) parallel = 0
+	return(parallel)
+}
+
+
 # Run an algorithm
 # @param algo :: algorithm name, e.g. classif.svm
 # @param task :: task_id, e.g. 3
@@ -78,7 +84,7 @@ get_task_ids = function(problem) {
 # @example
 # run_algo("mlr_svm", 3, "make_tuple(1,1)")
 run_algo = function(problem, task, str, parallel = 10L) {
-	  if (parallel)
+   if (set_parallel_by_task(parallel, task))
 		      parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
     on.exit(parallelMap::parallelStop())
 
