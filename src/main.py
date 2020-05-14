@@ -1,15 +1,13 @@
 import argparse
 import functools
 import logging
-import sys
 import time
 import numpy as np
-import pandas as pd
 
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed, approx_eq, cxDepthOne
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, insert_fixed, approx_eq
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
