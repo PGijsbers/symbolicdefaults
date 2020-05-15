@@ -108,9 +108,9 @@ def main():
         log_file = os.path.join(run_dir, 'output.log')
         configure_logging(log_file)
         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-            fh.write(f"run,task,gen,inout,score,length,endresult,expression\n")
+            fh.write(f"run;task;gen;inout;score;length;endresult;expression\n")
         with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
-            fh.write(f"run,task,generation,score_min,score_avg,score_max\n")
+            fh.write(f"run;task;generation;score_min;score_avg;score_max\n")
     else:
         configure_logging()
 
@@ -254,7 +254,7 @@ def main():
             )
             if args.output:
                 with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
-                    fh.write(f"{run_id},{task},{i},{record['fitness']['min']},{record['fitness']['avg']},{record['fitness']['max']}\n")
+                    fh.write(f"{run_id};{task};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
             logging.info(generation_info_string)
 
             stop = (i == args.ngen - 1)
@@ -277,7 +277,7 @@ def main():
                     logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id},{task},{i},in,{scale_result:.4f},{length},{stop},{ind}\n")
+                            fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
 
                 logging.info("Evaluating out-of-sample:")
                 for ind in sorted(hof, key=n_primitives_in):
@@ -288,7 +288,7 @@ def main():
                     logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id},{task},{i},out,{score[0]:.4f},{n_primitives_in(ind)},{stop},{ind}\n")
+                            fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
                 break
@@ -304,7 +304,7 @@ def main():
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id},{task},{i},in,{score[0]:.4f},{n_primitives_in(ind)},{True},{check_name}\n")
+                        fh.write(f"{run_id};{task};{i};in;{score[0]:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
@@ -317,7 +317,7 @@ def main():
                 logging.info(f"[GEN_{i}|{check_name}: {ind}|{score[0]:.4f}]")
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id},{task},{i},out,{score[0]:.4f},{n_primitives_in(ind)},{True},{check_name}\n")
+                        fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
 
     # # Get benchmark scores across all tasks
