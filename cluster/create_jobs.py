@@ -17,7 +17,7 @@ import pandas as pd
 job_header = """\
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -t 1:00:00
+#SBATCH -t 0:15:00
 
 module load 2019
 module load Python/3.6.6-intel-2018b
@@ -59,9 +59,10 @@ if __name__ == '__main__':
             search = start_command.format(problem=problem, outdir=outdir, alg=algorithm, task=task)
             if algorithm == "random_search":
                 search += ' -mss 3'
+            mkdir = f"mkdir -p ~/{outdir}"
             move = f"cp -r $TMPDIR/{outdir} ~/{outdir}"
             with open(job_name, 'a') as fh:
-                fh.write(f"({search}; {move}) &\n")
+                fh.write(f"({search};{mkdir};{move}) &\n")
 
         with open(job_name, 'a') as fh:
             fh.write(job_footer)
