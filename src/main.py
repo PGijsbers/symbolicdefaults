@@ -1,15 +1,18 @@
 import argparse
 import functools
 import logging
-import sys
+import os
 import time
+import uuid
+import pathlib
+
 import numpy as np
-import pandas as pd
 
 from deap import tools
+import pandas as pd
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, mut_all_constants, insert_fixed, approx_eq, cxDepthOne
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, insert_fixed, approx_eq
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -39,15 +42,13 @@ def cli_parser():
     parser.add_argument('-a',
                         help="Algorithm. {mupluslambda, onepluslambda, random_search}",
                         dest='algorithm', type=str, default='mupluslambda')
-    parser.add_argument('-s',
-                        help="Evaluate individuals on a random [S]ubset of size [0, 1].",
-                        dest='subset', type=float, default=1.)
     parser.add_argument('-esn',
                         help="Early Stopping N. Stop optimization if there is no improvement in n generations.",
                         dest='early_stop_n', type=int, default=20)
     parser.add_argument('-o',
-                        help="Output file. Also write log output to this file.",
-                        dest='output_file', type=str, default=None)
+                        help="Output directory."
+                             "Write log, evaluations and progress to files in this dir.",
+                        dest='output', type=str, default=None)
     parser.add_argument('-mno',
                         help="Max Number of Operators",
                         dest='max_number_operators', type=int, default=None)
@@ -95,10 +96,24 @@ def configure_logging(output_file: str = None):
 
 
 def main():
+    run_id = str(uuid.uuid4())
     # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
     args = cli_parser()
-    configure_logging(args.output_file)
+    if args.output:
+        if not os.path.exists(args.output):
+            pathlib.Path(args.output).mkdir(parents=True, exist_ok=True)
+        run_dir = os.path.join(args.output, run_id)
+        os.mkdir(run_dir)
+        log_file = os.path.join(run_dir, 'output.log')
+        configure_logging(log_file)
+        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+            fh.write(f"run,task,gen,inout,score,length,endresult,expression\n")
+        with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
+            fh.write(f"run,task,generation,score_min,score_avg,score_max\n")
+    else:
+        configure_logging()
+
     time_start = time.time()
 
     problem = Problem(args.problem)
@@ -106,6 +121,7 @@ def main():
     logging.info(f"Starting problem: {args.problem}")
     for parameter, value in args._get_kwargs():
         logging.info(f"param:{parameter}:{value}")
+    logging.info(f"runid:{run_id}")
 
     logging.info(f"Benchmark problems: {args.problem}")
     if not args.constants_only:
@@ -120,11 +136,7 @@ def main():
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
     # return toolbox, pset
-    # ================================================
-    # Start evolutionary optimization
-    # ================================================
-    top_5s = {}
-    in_sample_mean = {}
+
     if args.algorithm == 'random_search':
         # iterations don't make much sense in random search,
         # so we modify the values to make better use of batch predictions.
@@ -142,6 +154,11 @@ def main():
     if len(problem.fixed):
         logging.info(f"With fixed hyperparameters: {problem.fixed}:")
         logging.info(f"And hyperparameters: {problem.hyperparameters}:")
+
+    # ================================================
+    # Start evolutionary optimization
+    # ================================================
+    in_sample_mean = {}
     for task in tasks:
         logging.info(f"START_TASK: {task}")
         # 'task' experiment data is used as validation set, so we must not use
@@ -154,7 +171,7 @@ def main():
             "map",
             functools.partial(
                 mass_eval_fun, pset=pset, metadataset=loo_metadataset,
-                surrogates=problem.surrogates, subset=args.subset,
+                surrogates=problem.surrogates,
                 toolbox=toolbox, optimize_constants=args.optimize_constants,
                 problem=problem
             )
@@ -199,8 +216,7 @@ def main():
                     mutpb=1-args.cxpb,
                     ngen=1,
                     verbose=False,
-                    halloffame=hof,
-                    no_cache=(args.subset < 1.0)
+                    halloffame=hof
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(
@@ -236,9 +252,12 @@ def main():
                     record['size']['avg'], record['size']['max']
                 )
             )
-
+            if args.output:
+                with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
+                    fh.write(f"{run_id},{task},{i},{record['fitness']['min']},{record['fitness']['avg']},{record['fitness']['max']}\n")
             logging.info(generation_info_string)
 
+            stop = (i == args.ngen - 1)
             # Little hackery for logging early stopping
             for ind in hof:
                 if ind.fitness.wvalues > last_best:
@@ -251,11 +270,14 @@ def main():
 
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
-            if ((i > 1 and i % 20 == 0) or stop or args.algorithm == "random_search"):
+            if ((i > 1 and i % 5 == 0) or stop or args.algorithm == "random_search"):
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
-                    scale_result = list(toolbox.map(toolbox.evaluate, [ind]))[0][0]
+                    scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
                     logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id},{task},{i},in,{scale_result:.4f},{length},{stop},{ind}\n")
 
                 logging.info("Evaluating out-of-sample:")
                 for ind in sorted(hof, key=n_primitives_in):
@@ -264,6 +286,9 @@ def main():
                     hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
                     score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
                     logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id},{task},{i},out,{score[0]:.4f},{n_primitives_in(ind)},{stop},{ind}\n")
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
                 break
@@ -277,6 +302,9 @@ def main():
                 scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
                 logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
                 in_sample_mean[task][check_name] = scale_result
+                if args.output:
+                    with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                        fh.write(f"{run_id},{task},{i},in,{score[0]:.4f},{n_primitives_in(ind)},{True},{check_name}\n")
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
@@ -287,6 +315,10 @@ def main():
                 hp_values = toolbox.evaluate(fn_, mf_values)
                 score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
                 logging.info(f"[GEN_{i}|{check_name}: {ind}|{score[0]:.4f}]")
+                if args.output:
+                    with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                        fh.write(f"{run_id},{task},{i},out,{score[0]:.4f},{n_primitives_in(ind)},{True},{check_name}\n")
+
 
     # # Get benchmark scores across all tasks
     # for check_name, check_individual in problem.benchmarks.items():

@@ -20,7 +20,7 @@ wait
 """
 
 if __name__ == '__main__':
-    continue_number = sys.argv[1]
+    continue_number = int(sys.argv[1])
     if len(sys.argv) > 2:
         problems = [sys.argv[1]]
     else:
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 3:
         algorithms = [sys.argv[2]]  # random_search or mupluslambda
     else:
-        algorithms = ["-a random_search", "-a mupluslambda", "-cst"]
+        algorithms = ["-a random_search", "-a mupluslambda", "-cst True"]
 
     start_command = "python src/main.py mlr_{problem} -o {log} {alg}"
     for problem, algorithm in itertools.product(problems, algorithms):
