@@ -73,10 +73,10 @@ def try_evaluate_function(fn, input_, invalid, problem=None):
     """
     # If individual has only constants, fn is not afunction but already has the results.
     if not callable(fn):
-        return(fn)
+        return (fn)
 
     try:
-        values = fn(**dict(input_))
+        values = fn(**input_)
         # All float values need to be finite in range float32,
         # i.e. abs() < 3.4028235e+38 (np.finfo(np.float32).max)
         # However, `predict` internally also sums all values,
@@ -170,7 +170,8 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
 
     for i, (idx, row) in enumerate(metadataset.iterrows()):
-        hyperparam_values = [evaluate(fn, row) for fn in fns]
+        task_feature_values = dict(row)
+        hyperparam_values = [evaluate(fn, task_feature_values) for fn in fns]   # not the issue, but speeds up a lot.
         surrogate = surrogates[idx]
 
         scores = surrogate.predict(hyperparam_values)
