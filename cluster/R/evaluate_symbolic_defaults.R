@@ -17,10 +17,6 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr")
 
-
-REG_DIR = NA
-
-
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
@@ -44,10 +40,6 @@ if (!file.exists(REG_DIR)) {
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
-
-testJob(1)
-
-
 
 reg$cluster.functions = makeClusterFunctionsSocket(6)
 
