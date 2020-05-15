@@ -64,7 +64,6 @@ while (length(jobs)) {
   Sys.sleep(3)
 }
 
-
 # Reduce results.
 if (FALSE) {
   reg = loadRegistry(REG_DIR, writeable = FALSE)
@@ -72,3 +71,8 @@ if (FALSE) {
   problem_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_baselines_results")
   problem_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_baselines_results")
 }
+
+
+findErrors()
+showLog(418)
+testJob(418)

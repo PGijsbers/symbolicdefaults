@@ -95,6 +95,14 @@ sanitize_algo = function(algo) {
   return(mlr_algo_name)
 }
 
+repairPoints2 = function(ps, hpars) {
+  hpars = repairPoint(ps, hpars)
+  setNames(pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
+    if(type == "integer") par = round(par)
+    return(par)
+  }), names(hpars))
+}
+
 # Get task ids for a given problem.
 get_task_ids = function(problem) {
   p = reticulate::import_from_path("src.problem")
@@ -108,6 +116,7 @@ get_task_ids = function(problem) {
 # @example
 # run_algo("mlr_svm", 3, "make_tuple(1,1)")
 run_algo = function(problem, task, str, parallel = 10L) {
+
    if (set_parallel_by_task(parallel, task))
 		      parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
     on.exit(parallelMap::parallelStop())
@@ -116,20 +125,23 @@ run_algo = function(problem, task, str, parallel = 10L) {
     lgr$add_appender(lgr::AppenderFile$new("runs/mlr_evaluation_log.log"))
     lgr$info(sprintf("Evaluating %s|%s|%s", problem, task, str))
 
+    # Get learner and hyperpars
     lrn = make_preproc_pipeline(problem)
 	  hpars = eval_tuple(problem, task, str)
+
     # Repair hyperparams according to paramset before predicting
     ps = filterParams(getParamSet(lrn), names(hpars))
     hpars = parse_lgl(hpars)
-    hpars = repairPoint(ps, hpars[names(ps$pars)])
-	  setHyperPars(lrn, par.vals = hpars)
+    hpars = repairPoints2(ps, hpars[names(ps$pars)])
+	  lrn = setHyperPars(lrn, par.vals = hpars)
+
     bmr = try({
         # Some task have gotten different ids
         task = fix_task(task)
 	      omltsk = getOMLTask(task)
         # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
-		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681)) omltsk$input$evaluation.measures = ""
+		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
