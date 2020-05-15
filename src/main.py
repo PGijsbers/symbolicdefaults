@@ -304,7 +304,7 @@ def main():
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{task};{i};in;{score[0]:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                        fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
