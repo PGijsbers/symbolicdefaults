@@ -9,7 +9,8 @@ import operator
 import json
 import pandas as pd
 
-from surrogates import train_save_surrogates
+from surrogates import train_save_surrogates, load_surrogates
+
 
 
 class Problem:
@@ -86,9 +87,7 @@ class Problem:
         if self._surrogates is None:
             surrogate_file = self._json["surrogates"]
             if os.path.exists(surrogate_file):
-                logging.info("Loading surrogates from file.")
-                with open(surrogate_file, 'rb') as fh:
-                    self._surrogates = pickle.load(fh)
+                self._surrogates = load_surrogates(surrogate_file)
             else:
                 self._surrogates = train_save_surrogates(
                     self.data, self.hyperparameters, surrogate_file
