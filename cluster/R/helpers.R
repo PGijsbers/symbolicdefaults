@@ -72,7 +72,7 @@ get_task_ids = function(problem) {
 }
 
 set_parallel_by_task = function(parallel, task) {
- 	if (task %in% NO_PARALLEL_TASKS) parallel = 0
+ 	if (task %in% NO_PARALLEL_TASKS) parallel = 5
 	return(parallel)
 }
 
