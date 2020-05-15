@@ -35,15 +35,9 @@ make_preproc_pipeline = function(algo) {
     cpoMaxFact(32) %>>%
     cpoDropConstants(abs.tol = 0)
 
-    if (algo %in% c("classif.knn", "classif.xgboost"))
+    if (algo %in% c("classif.RcppHNSW", "classif.xgboost"))
       pipe = pipe %>>% cpoDummyEncode(reference.cat = TRUE, infixdot = TRUE)
 
-    if (algo != "classif.knn") {
-      mlr_algo_name = algo
-    } else {
-      mlr_algo_name = "classif.RcppHNSW"
-    }
-
-    lrn = makeLearner(mlr_algo_name, predict.type = "prob")
+    lrn = makeLearner(algo, predict.type = "prob")
     pipe %>>% lrn
 }

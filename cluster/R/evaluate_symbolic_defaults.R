@@ -18,6 +18,8 @@ sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr")
 
 
+REG_DIR = NA
+
 
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
@@ -31,9 +33,11 @@ if (!file.exists(REG_DIR)) {
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
 
   jobs = c("mlr_svm", "mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
+
+  jobs = "mlr_rpart"
   for (job in jobs) {
     benchmarks = get_problem_json(job)$benchmark
-    tasks = get_task_ids(job)
+    tasks = 168332# get_task_ids(job)
     grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
     addExperiments(algo.designs = list(run_algo = grd))
   }
@@ -41,7 +45,11 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(3)
+testJob(1)
+
+
+
+reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 
 

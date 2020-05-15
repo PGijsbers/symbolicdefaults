@@ -80,9 +80,19 @@ eval_tuple = function(problem, task, str) {
 # Sanitize algorithm string
 sanitize_algo = function(algo) {
   if (grepl("classif.", algo, fixed = TRUE))
-    return(algo)
+    algo = return(algo)
   else
-    gsub("mlr_", "classif.", algo, fixed = TRUE)
+    algo = gsub("mlr_", "classif.", algo, fixed = TRUE)
+
+  # Rename to mlr counterparts
+  if (algo == "classif.rf") {
+    mlr_algo_name = "classif.ranger"
+  } else if (algo == "classif.knn") {
+    mlr_algo_name = "classif.RcppHNSW"
+  } else {
+    mlr_algo_name = algo
+  }
+  return(mlr_algo_name)
 }
 
 # Get task ids for a given problem.
@@ -144,6 +154,7 @@ problem_results_to_csv = function(pname, out_suffix) {
     map_dtr(reduceResultsList(jt$job.id, function(x)
       t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "mmce.test.mean")])), data.table)
   )
+  # Update column order
   jt = jt[, c(3, 4, 1, 6, 9, 7, 8, 2)]
   fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }
