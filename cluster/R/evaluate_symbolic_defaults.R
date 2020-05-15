@@ -44,6 +44,7 @@ if (!file.exists(REG_DIR)) {
 reg$cluster.functions = makeClusterFunctionsSocket(3)
 
 
+
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
@@ -54,17 +55,20 @@ while (length(jobs)) {
   Sys.sleep(3)
 }
 
-testJob(283)
-# > findErrors(jobs)
-#     job.id
-#  1:    278 # memory
-#  2:    283
-#  3:    284
-#  4:    285
-#  5:    286
-#  6:    287
-#  7:    288
-#  8:    289
-#  9:    290
-# 10:    291
-# 11:    870
+jobs = findNotDone()$job.id
+while (length(jobs)) {
+  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
+  jt = getJobTable(jobs)
+  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+  try({submitJobs(sample(jobs))})
+  Sys.sleep(3)
+}
+
+
+# Reduce results.
+if (FALSE) {
+  reg = loadRegistry(REG_DIR, writeable = FALSE)
+  problem_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_baselines_results")
+  problem_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_baselines_results")
+  problem_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_baselines_results")
+}

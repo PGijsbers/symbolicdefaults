@@ -1,3 +1,15 @@
+# Iterate over a list converting character "TRUE", "FALSE" to logical.
+parse_lgl = function(lst) {
+  lst = lapply(lst, function(x) {
+    if (!is.na(x)) {
+      if (x == "FALSE" || x == "TRUE")
+        x = as.logical(x)
+    }
+    return(x)
+  })
+  Filter(Negate(is.na), lst)
+}
+
 # Parse a tupel into a expression
 # @param str [character]: tuple to parse
 # @example
@@ -27,14 +39,17 @@ get_deap_operations = function() {
   )
 }
 
+# Read Metadata from JSON for a problem
 read_metadata = function(problem) {
   setnames(fread(get_problem_json(problem)$metadata), "V1", "task_id")
 }
 
+# Read Experiment Data for a problem, return a data.table
 read_expdata = function(problem) {
   farff::readARFF(get_problem_json(problem)$experiment_data)
 }
 
+# Fix task ids that have changed on OpenML since  the results were obtained.
 fix_task = function(task) {
   if (task == 168759) task = 167211 # Satellite
   if (task == 168761) task = 168912 # sylvine
@@ -42,6 +57,9 @@ fix_task = function(task) {
   return(task)
 }
 
+
+# Evaluate a tuple (see test) using metadata from a task and functions defined in
+# get_deap_operations.
 # Test:
 # eval_tuple(str = "make_tuple(mcp, add(4,p))", "mlr_svm", 3)
 # eval_tuple(str = "make_tuple(mcp, add(4,p),  3)", "mlr_rf", 3)
@@ -59,6 +77,7 @@ eval_tuple = function(problem, task, str) {
 }
 
 
+# Sanitize algorithm string
 sanitize_algo = function(algo) {
   if (grepl("classif.", algo, fixed = TRUE))
     return(algo)
@@ -66,16 +85,11 @@ sanitize_algo = function(algo) {
     gsub("mlr_", "classif.", algo, fixed = TRUE)
 }
 
+# Get task ids for a given problem.
 get_task_ids = function(problem) {
-  p = import_from_path("src.problem")
+  p = reticulate::import_from_path("src.problem")
   p$Problem(problem)$valid_tasks
 }
-
-set_parallel_by_task = function(parallel, task) {
- 	if (task %in% NO_PARALLEL_TASKS) parallel = 0
-	return(parallel)
-}
-
 
 # Run an algorithm
 # @param algo :: algorithm name, e.g. classif.svm
@@ -113,4 +127,23 @@ run_algo = function(problem, task, str, parallel = 10L) {
     measure = "mmce.test.mean"
     lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
     bmr$results[[1]][[1]]
+}
+
+# Write results from registry to a CSV
+# @param pname: problem_name
+# @param out_suffix: suffix for output file
+problem_results_to_csv = function(pname, out_suffix) {
+  jt = getJobTable()[, success := !is.na(done) & is.na(error)]
+  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+  jt = jt[problem_name == pname, c("job.id", "problem_name", "task", "str", "success")]
+  jt = merge(jt, imap_dtr(get_problem_json(pname)$benchmark, function(x, y) data.table("default" = y, "str" = x)), by = "str")
+  if (nrow(jt[(!success)]))
+    message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
+  jt = jt[(success)]
+  jt = cbind(jt,
+    map_dtr(reduceResultsList(jt$job.id, function(x)
+      t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "mmce.test.mean")])), data.table)
+  )
+  jt = jt[, c(3, 4, 1, 6, 9, 7, 8, 2)]
+  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }

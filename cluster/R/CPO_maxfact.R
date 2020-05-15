@@ -1,15 +1,4 @@
-# Oterate over a list converting character "TRUE", "FALSE" to logical.
-parse_lgl = function(lst) {
-  lst = lapply(lst, function(x) {
-    if (!is.na(x)) {
-      if (x == "FALSE" || x == "TRUE")
-        x = as.logical(x)
-    }
-    return(x)
-  })
-  Filter(Negate(is.na), lst)
-}
-
+# Preprocessing 0perator: Sets a maximum number of allowed factor levels, collapses all others to "collapsed"
 cpoMaxFact <- makeCPO("max.fact",
   pSS(max.fact.no = .Machine$integer.max: integer[1, ]),
   fix.factors = TRUE,
@@ -30,7 +19,7 @@ cpoMaxFact <- makeCPO("max.fact",
     data
   })
 
-# Make the learner pipeline
+# Make the preprocessing + learner pipeline
 make_preproc_pipeline = function(algo) {
   algo = sanitize_algo(algo)
   pipe = cpoFixFactors() %>>%
