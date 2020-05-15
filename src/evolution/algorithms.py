@@ -29,7 +29,7 @@ def one_plus_lambda(toolbox, P=None, popsize=50, new_per_gen=50, ngen=100, hallo
 
 # Code below taken from DEAP: https://github.com/DEAP/deap, with one modification.
 def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
-                   stats=None, halloffame=None, verbose=__debug__, no_cache=False):
+                   stats=None, halloffame=None, verbose=__debug__,):
     """This is the :math:`(\mu + \lambda)` evolutionary algorithm.
 
     :param population: A list of individuals.
@@ -108,10 +108,10 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
         # re-evaluate old population here (after creating offspring)
         # this is used when evaluations are performed on only a subset of tasks,
         # as otherwise an 'easy' subset of tasks may lead to a permanent high score.
-        if no_cache:
-            fitnesses = toolbox.map(toolbox.evaluate, population)
-            for ind, fit in zip(population, fitnesses):
-                ind.fitness.values = fit
+        # if no_cache:
+        #     fitnesses = toolbox.map(toolbox.evaluate, population)
+        #     for ind, fit in zip(population, fitnesses):
+        #         ind.fitness.values = fit
         # ============================================================
 
         # Update the hall of fame with the generated individuals
