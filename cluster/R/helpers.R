@@ -96,8 +96,9 @@ sanitize_algo = function(algo) {
 }
 
 repairPoints2 = function(ps, hpars) {
+  library(mlr3misc)	
   hpars = repairPoint(ps, hpars)
-  setNames(pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
+  setNames(mlr3misc::pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
     if(type == "integer") par = round(par)
     return(par)
   }), names(hpars))
