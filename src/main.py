@@ -270,7 +270,7 @@ def main():
 
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
-            if ((i > 1 and i % 5 == 0) or stop or args.algorithm == "random_search"):
+            if ((i > 1 and i % 50 == 0) or stop or args.algorithm == "random_search"):
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
                     scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
