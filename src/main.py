@@ -289,6 +289,11 @@ def main():
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                             fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+
+                if args.output and stop:
+                    with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
+                        for final_ind in pop:
+                            fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
                 break
