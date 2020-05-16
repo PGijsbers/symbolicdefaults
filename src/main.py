@@ -270,7 +270,7 @@ def main():
 
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
-            if ((i > 1 and i % 5 == 0) or stop or args.algorithm == "random_search"):
+            if ((i > 1 and i % 50 == 0) or stop or args.algorithm == "random_search"):
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
                     scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
@@ -289,6 +289,11 @@ def main():
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                             fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+
+                if args.output and stop:
+                    with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
+                        for final_ind in pop:
+                            fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
                 break
