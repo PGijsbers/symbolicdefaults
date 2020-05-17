@@ -1,5 +1,5 @@
 problem_name,task,str,default,mmce.test.mean,timetrain.test.sum,timepredict.test.sum,job.id
-mlr_svm,3,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0797884012539185,51.358,1.07500000000002,1
+mlr_svm,3,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0431798589341693,32.896,0.984000000000004,1
 mlr_svm,6,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.04815,1942.048,45.427,4
 mlr_svm,11,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0945468509984639,4.527,1.841,7
 mlr_svm,12,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.022,125.209,5.099,10
@@ -92,6 +92,7 @@ mlr_svm,167125,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.044
 mlr_svm,167140,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0486534177165277,327.513999999999,10.9160000000011,271
 mlr_svm,167141,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0796,76.5750000000007,1.5580000000009,274
 mlr_svm,167211,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00549019607843137,28.0439999999981,1.5869999999959,277
+mlr_svm,168329,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.636971589417249,26186.808,778.343999999994,280
 mlr_svm,168336,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.105051835712112,366341.442,341.691999999996,283
 mlr_svm,168868,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00796992481203008,28369.505,142.131000000023,286
 mlr_svm,168908,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.260800349223455,11149.247,140.577999999994,289
@@ -104,7 +105,7 @@ mlr_svm,189927,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.263
 mlr_svm,189928,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.279616010898139,79.1440000000002,2.59700000000885,310
 mlr_svm,190411,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.159401664629533,206.507000000005,2.41199999999662,313
 mlr_svm,190412,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.31,234.163000000015,56.8159999999916,316
-mlr_svm,3,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0797884012539185,47.7349999999999,2.09399999999999,3
+mlr_svm,3,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00813675548589342,18.001,0.712,3
 mlr_svm,6,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0482,1732.363,43.0689999999999,6
 mlr_svm,11,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0945468509984639,3.793,1.53,9
 mlr_svm,12,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.021,123.072,3.039,12
