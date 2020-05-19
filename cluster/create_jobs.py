@@ -59,8 +59,8 @@ if __name__ == '__main__':
             search = start_command.format(problem=problem, outdir=outdir, alg=algorithm, task=task)
             if algorithm == "random_search":
                 search += ' -mss 3'
-            mkdir = f"mkdir -p ~/{outdir}"
-            move = f"cp -r $TMPDIR/{outdir} ~/{outdir}"
+            mkdir = f"mkdir -p ~/results"
+            move = f"cp -r $TMPDIR/{outdir} ~/results"
             with open(job_name, 'a') as fh:
                 fh.write(f"({search};{mkdir};{move}) &\n")
 
