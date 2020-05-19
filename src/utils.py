@@ -22,7 +22,7 @@ class SimpleImputerDuplicate(SimpleImputer):
 def simple_construct_pipeline_for_task(task, learner=None):
     cat_indices = task.get_dataset().get_features_by_type('nominal', [task.target_name])
     num_indices = task.get_dataset().get_features_by_type('numeric', [task.target_name])
-    
+
     X, y = task.get_X_and_y()
 
     all_nan = np.where([np.all(np.isnan(v)) for v in X.T])[0]
@@ -53,3 +53,14 @@ def simple_construct_pipeline_for_task(task, learner=None):
                     ]
     learner_step = [('learner', learner)] if learner is not None else []
     return Pipeline(steps=preprocessing_steps + learner_step)
+
+
+def str2bool(v):
+    if isinstance(v, bool):
+       return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')

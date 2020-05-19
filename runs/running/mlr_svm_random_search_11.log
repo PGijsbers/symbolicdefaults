@@ -1,0 +1,46 @@
+Starting problem: mlr_svm
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_svm_random_search_11.log
+param:problem:mlr_svm
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_svm
+sklearn_default := make_tuple(1., truediv(1., mul(p, xvar)))
+mlr_default := make_tuple(1, truediv(po, 1))
+symbolic_best := make_tuple(16., truediv(mkd, xvar))
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.2428221268617666_0.4956933753938847_0.8907320761329875_SIZE_1_3.6981_11
+Evaluating in sample:
+[GEN_0|make_tuple(p, mkd)|0.8899]
+[GEN_0|make_tuple(mul(4, m), if_gt(n, rc, mkd, mkd))|0.8907]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(p, mkd)|0.9641]
+[GEN_0|make_tuple(mul(4, m), if_gt(n, rc, mkd, mkd))|0.8818]
+GEN_1_FIT_0.24313114508178066_0.49321026914300303_0.8916566317220188_SIZE_1_3.672_11
+Evaluating in sample:
+[GEN_1|make_tuple(p, mkd)|0.8899]
+[GEN_1|make_tuple(mul(m, po), truediv(xvar, po))|0.8917]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(p, mkd)|0.9641]
+[GEN_1|make_tuple(mul(m, po), truediv(xvar, po))|0.9523]
+GEN_2_FIT_0.24298820527768084_0.4955734593155649_0.901670704165086_SIZE_1_3.6398_11
+Evaluating in sample:
+[GEN_2|make_tuple(p, mkd)|0.8899]
+[GEN_2|make_tuple(if_gt(m, n, 807, m), truediv(mkd, xvar))|0.9017]
+Evaluating out-of-sample:
+[GEN_2|make_tuple(p, mkd)|0.9641]
+[GEN_2|make_tuple(if_gt(m, n, 807, m), truediv(mkd, xvar))|0.9132]
+BENCHMARK: Evaluating in-sample:
+[sklearn_default: make_tuple(1.0, truediv(1.0, mul(p, xvar)))|0.8870]

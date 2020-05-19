@@ -1,0 +1,212 @@
+problem_name,task,str,default,mmce.test.mean,timetrain.test.sum,timepredict.test.sum,job.id
+mlr_svm,3,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0431798589341693,32.896,0.984000000000004,1
+mlr_svm,6,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.04815,1942.048,45.427,4
+mlr_svm,11,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0945468509984639,4.527,1.841,7
+mlr_svm,12,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.022,125.209,5.099,10
+mlr_svm,14,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.1775,110.721,3.28799999999999,13
+mlr_svm,15,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0300414078674948,5.609,1.05399999999999,16
+mlr_svm,16,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0235,77.675,2.301,19
+mlr_svm,18,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.271,15.262,1.23499999999999,22
+mlr_svm,22,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.128,52.055,2.18700000000004,25
+mlr_svm,23,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.448041919470491,25.364,1.17900000000002,28
+mlr_svm,24,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00123046673816492,222.39,3.05500000000001,31
+mlr_svm,28,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0133451957295374,267.519,7.571,34
+mlr_svm,29,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.140579710144928,20.095,1.52599999999998,37
+mlr_svm,31,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.246,16.0779999999999,1.44600000000003,40
+mlr_svm,32,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00500330879311771,183.225,5.33000000000001,43
+mlr_svm,37,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.239661654135338,7.72899999999999,0.987999999999943,46
+mlr_svm,41,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0803708439897698,13.315,1.56899999999993,49
+mlr_svm,43,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0669390738470244,240.18,3.54999999999998,52
+mlr_svm,45,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0623824451410658,508.259,5.95600000000002,55
+mlr_svm,49,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0605592105263158,6.30000000000001,0.535000000000025,58
+mlr_svm,53,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.231750700280112,7.33600000000001,0.90399999999994,61
+mlr_svm,58,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.141,295.355,4.49800000000002,64
+mlr_svm,219,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.208289116672572,20548.253,135.604,67
+mlr_svm,2073,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.396276981679666,20.6279999999999,1.28600000000006,70
+mlr_svm,2074,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0992223950233281,219.069,5.31099999999987,73
+mlr_svm,2079,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.351980747871159,11.2900000000001,1.50200000000001,76
+mlr_svm,3021,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.030754494547598,37.462,1.71999999999997,79
+mlr_svm,3022,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0848484848484849,13.243,1.4199999999999,82
+mlr_svm,3481,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0294980415391198,7159.302,132.012,85
+mlr_svm,3485,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0772735131396957,260.905,14.3749999999995,88
+mlr_svm,3493,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.364398907103825,8.72000000000003,3.24400000000014,91
+mlr_svm,3510,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0143559191631118,216.557,6.97100000000023,94
+mlr_svm,3512,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.01,10.4670000000003,1.94699999999989,97
+mlr_svm,3549,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00474789915966387,14.6600000000001,1.95600000000036,100
+mlr_svm,3560,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.802974683544304,11.079,1.15899999999965,103
+mlr_svm,3561,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.287247585601405,7.92899999999963,1.45599999999922,106
+mlr_svm,3893,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00701572272411397,1073.923,10.7359999999996,109
+mlr_svm,3902,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0898299480396788,13.1329999999998,2.48699999999985,112
+mlr_svm,3903,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.106197942185203,19.2930000000001,1.93200000000002,115
+mlr_svm,3904,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.186587043563982,1786.341,12.6780000000006,118
+mlr_svm,3907,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00570456164007403,134.827,1.70599999999945,121
+mlr_svm,3913,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.160812772133527,5.82000000000039,1.21000000000004,124
+mlr_svm,3917,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.144619724667118,32.9970000000001,1.99599999999964,127
+mlr_svm,3918,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0694185094185094,8.91499999999996,1.23900000000026,130
+mlr_svm,3945,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0182,16054.426,54.9130000000005,133
+mlr_svm,7592,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.146390402685183,16635.649,117.176999999999,136
+mlr_svm,9910,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.216739007092199,6956.871,94.005000000001,139
+mlr_svm,9946,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0281015037593985,4.53700000000026,0.884000000001834,142
+mlr_svm,9950,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.399274047186933,179.128,7.64800000000105,145
+mlr_svm,9952,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.156738550010269,97.4920000000011,1.72299999999905,148
+mlr_svm,9956,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.163195754716981,118.720000000001,4.33200000000033,151
+mlr_svm,9957,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.121320754716981,14.2090000000007,1.63200000000143,154
+mlr_svm,9960,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.108136236851833,249.068,3.49399999999969,157
+mlr_svm,9964,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0407940251572327,183.534000000001,5.64699999999994,160
+mlr_svm,9970,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.527198211624441,89.0829999999996,2.64099999999871,163
+mlr_svm,9971,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.296610169491525,6.60900000000129,1.13999999999942,166
+mlr_svm,9976,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.41,1293.146,19.4109999999992,169
+mlr_svm,9977,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0414041851898435,14424.477,113.54,172
+mlr_svm,9978,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.050513522766176,59.3600000000015,2.0510000000013,175
+mlr_svm,9981,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.103703703703704,389.365999999999,8.65799999999854,178
+mlr_svm,9985,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.464694115507632,1121.787,11.2500000000009,181
+mlr_svm,9986,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0113587347232207,2445.863,35.5100000000011,184
+mlr_svm,10090,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.353333333333333,18675.182,195.779999999997,187
+mlr_svm,10093,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0,10.0119999999997,1.55299999999988,190
+mlr_svm,10101,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.216540540540541,8.37100000000282,1.44900000000234,193
+mlr_svm,10106,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00098314606741573,421.724000000002,4.0669999999991,196
+mlr_svm,14952,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0605135296572378,1175.296,14.5610000000006,199
+mlr_svm,14954,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.257407407407407,12.0969999999998,2.63599999999678,202
+mlr_svm,14965,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.102939542736383,18289.985,99.6810000000023,205
+mlr_svm,14969,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.456395489542186,2590.975,19.9850000000006,208
+mlr_svm,14970,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0210701312425109,4995.531,102.127,211
+mlr_svm,14971,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.168043441883727,55818.806,93.735999999999,214
+mlr_svm,34539,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0579511137490997,2254.811,23.6819999999989,217
+mlr_svm,125920,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.348,10.5089999999964,3.58799999999792,220
+mlr_svm,125921,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.294,6.04900000000271,1.39099999999962,223
+mlr_svm,125922,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.008,119.836000000003,4.55099999999948,226
+mlr_svm,145681,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.426089896081132,298.273000000001,4.51100000000042,229
+mlr_svm,146195,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.216543169785423,69063.125,424.925000000003,232
+mlr_svm,146212,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00141379310344828,1491.05,13.2179999999989,235
+mlr_svm,146607,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.138459750843306,2361.179,35.7640000000029,238
+mlr_svm,146800,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0037037037037037,38.0120000000006,3.70099999999729,241
+mlr_svm,146817,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.239053661115517,46.018,2.3760000000002,244
+mlr_svm,146818,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.150724637681159,9.21100000000297,1.77500000000146,247
+mlr_svm,146819,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0537037037037037,6.07600000000093,1.4539999999979,250
+mlr_svm,146820,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0140508700785381,26.1320000000014,1.62500000000182,253
+mlr_svm,146821,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.100137787337008,29.7399999999998,1.80999999999949,256
+mlr_svm,146822,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0683982683982684,24.4849999999969,1.85699999999997,259
+mlr_svm,146824,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.02,184.856,4.77499999999236,262
+mlr_svm,167119,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.172203764598427,14337.026,69.6659999999902,265
+mlr_svm,167125,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0445271127023197,176.391,41.6749999999956,268
+mlr_svm,167140,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0486534177165277,327.513999999999,10.9160000000011,271
+mlr_svm,167141,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0796,76.5750000000007,1.5580000000009,274
+mlr_svm,167211,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00549019607843137,28.0439999999981,1.5869999999959,277
+mlr_svm,168329,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.636971589417249,26186.808,778.343999999994,280
+mlr_svm,168336,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.105051835712112,366341.442,341.691999999996,283
+mlr_svm,168868,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.00796992481203008,28369.505,142.131000000023,286
+mlr_svm,168908,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.260800349223455,11149.247,140.577999999994,289
+mlr_svm,168909,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0178888888888889,20877.602,329.059000000023,292
+mlr_svm,168910,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.313345385695242,26419.43,186.101000000017,295
+mlr_svm,168911,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.215482256290543,337.241999999991,11.2009999999864,298
+mlr_svm,168912,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.0681130451998051,223.793000000005,2.81899999999587,301
+mlr_svm,189924,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.766657988191464,3957.14899999998,44.6249999999854,304
+mlr_svm,189927,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.263462600095335,82814.111,326.724000000002,307
+mlr_svm,189928,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.279616010898139,79.1440000000002,2.59700000000885,310
+mlr_svm,190411,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.159401664629533,206.507000000005,2.41199999999662,313
+mlr_svm,190412,"make_tuple(1., truediv(1., mul(p, xvar)))",sklearn_default,0.31,234.163000000015,56.8159999999916,316
+mlr_svm,3,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00813675548589342,18.001,0.712,3
+mlr_svm,6,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0482,1732.363,43.0689999999999,6
+mlr_svm,11,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0945468509984639,3.793,1.53,9
+mlr_svm,12,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.021,123.072,3.039,12
+mlr_svm,14,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.172,110.864,2.37600000000001,15
+mlr_svm,15,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0300414078674948,4.614,0.881999999999998,18
+mlr_svm,16,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0225,87.185,2.07299999999999,21
+mlr_svm,18,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.2805,16.295,1.40700000000004,24
+mlr_svm,22,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.128,54.862,1.96299999999998,27
+mlr_svm,23,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.44600110314396,29.337,2.61599999999999,30
+mlr_svm,24,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00123046673816492,233.575,3.096,33
+mlr_svm,28,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0129893238434164,328.081,5.57300000000001,36
+mlr_svm,29,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.142028985507246,7.50900000000002,1.37800000000001,39
+mlr_svm,31,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.243,17.679,1.54400000000004,42
+mlr_svm,32,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00500339151294565,189.507,3.60300000000001,45
+mlr_svm,37,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.238362952836637,6.59399999999994,0.92399999999995,48
+mlr_svm,41,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0759590792838875,12.254,1.31999999999994,51
+mlr_svm,43,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0669390738470244,241.51,1.89599999999999,54
+mlr_svm,45,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0620689655172414,467.784,6.69599999999997,57
+mlr_svm,49,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0626425438596491,6.85300000000001,0.648000000000053,60
+mlr_svm,53,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.230546218487395,9.43099999999998,1.01399999999998,63
+mlr_svm,58,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.1406,308.544,4.85899999999995,66
+mlr_svm,219,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.208399467588485,21254.334,111.215,69
+mlr_svm,2073,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.396943587883185,22.407,1.17000000000007,72
+mlr_svm,2074,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0996889580093313,219.661,3.85900000000004,75
+mlr_svm,2079,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.356034801925213,10.405,1.0390000000001,78
+mlr_svm,3021,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0302232888439785,26.08,1.36299999999994,81
+mlr_svm,3022,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0828282828282828,13.0830000000001,1.012,84
+mlr_svm,3481,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0293696718343702,8385.412,107.682,87
+mlr_svm,3485,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0776867219917013,269.33,6.58700000000044,90
+mlr_svm,3493,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.364398907103825,11.0980000000002,1.82899999999995,93
+mlr_svm,3510,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0144563207695375,230.066,4.66499999999996,96
+mlr_svm,3512,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0116666666666667,9.66599999999971,1.72399999999993,99
+mlr_svm,3549,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00474789915966387,14.1340000000002,1.58700000000022,102
+mlr_svm,3560,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.810363924050633,10.6379999999997,0.813999999999624,105
+mlr_svm,3561,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.29315188762072,7.09700000000021,1.11799999999994,108
+mlr_svm,3893,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00694627827966952,1108.806,9.38500000000045,111
+mlr_svm,3902,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0905196032120926,16.9849999999997,2.27300000000014,114
+mlr_svm,3903,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.104915890903152,18.539,1.51800000000003,117
+mlr_svm,3904,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.18585208704694,1792.315,13.9929999999999,120
+mlr_svm,3907,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00570456164007403,120.672,2.38199999999938,123
+mlr_svm,3913,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.15888969521045,6.971,1.29400000000032,126
+mlr_svm,3917,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.144143534190928,23.5119999999997,1.70299999999997,129
+mlr_svm,3918,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0703194103194103,8.31199999999967,1.66300000000024,132
+mlr_svm,3945,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.018,106881.632,298.800999999978,135
+mlr_svm,7592,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.146431352726133,16565.874,108.218999999999,138
+mlr_svm,9910,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.216739716312057,6973.583,70.5930000000008,141
+mlr_svm,9946,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0281015037593985,4.26200000000154,0.83600000000024,144
+mlr_svm,9950,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.404476709013914,162.712000000002,7.84100000000035,147
+mlr_svm,9952,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.156923392893818,97.7029999999968,1.77000000000135,150
+mlr_svm,9956,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.163207547169811,108.508000000001,4.26499999999942,153
+mlr_svm,9957,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.122264150943396,10.4830000000002,1.45800000000145,156
+mlr_svm,9960,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.108320395201129,259.156000000001,2.94800000000123,159
+mlr_svm,9964,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0433058176100629,202.700999999999,6.27999999999793,162
+mlr_svm,9970,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.514923452106761,83.3380000000007,1.67700000000059,165
+mlr_svm,9971,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.288077147866745,4.46700000000237,0.934000000001106,168
+mlr_svm,9976,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.410384615384615,1392.712,18.8399999999992,171
+mlr_svm,9977,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0414041936085127,14657.509,125.904,174
+mlr_svm,9978,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0516992935171641,56.6959999999981,1.62800000000061,177
+mlr_svm,9981,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.10462962962963,385.396,12.8049999999994,180
+mlr_svm,9985,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.464857781628745,1069.503,7.15000000000055,183
+mlr_svm,9986,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.011214953271028,2784.459,24.3039999999983,186
+mlr_svm,10090,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.362,16876.597,278.532999999999,189
+mlr_svm,10093,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0,4.8949999999968,1.00200000000041,192
+mlr_svm,10101,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.219225225225225,12.6140000000005,1.75500000000011,195
+mlr_svm,10106,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00098314606741573,344.634,3.75699999999779,198
+mlr_svm,14952,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0606040273947943,972.684,12.329999999999,201
+mlr_svm,14954,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.244444444444444,13.0420000000031,2.47500000000127,204
+mlr_svm,14965,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.102939542736383,13519.959,109.012000000002,207
+mlr_svm,14969,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.455180299357231,2549.549,24.0559999999969,210
+mlr_svm,14970,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0208759564852293,5147.993,87.9470000000001,213
+mlr_svm,14971,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.168018416861838,54501.697,94.6619999999984,216
+mlr_svm,34539,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0579511044341682,2273.399,21.5850000000009,219
+mlr_svm,125920,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.356,12.0110000000004,1.78600000000006,222
+mlr_svm,125921,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.294,6.37099999999737,1.47099999999955,225
+mlr_svm,125922,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.008,100.519999999999,3.08899999999994,228
+mlr_svm,145681,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.426703393013647,269.490999999996,6.81899999999587,231
+mlr_svm,146195,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.21658757914121,68128.705,408.293000000002,234
+mlr_svm,146212,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00143103448275862,1589.538,13.5839999999971,237
+mlr_svm,146607,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.139772970291101,2443.493,33.7019999999975,240
+mlr_svm,146800,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0037037037037037,39.3389999999999,3.49599999999919,243
+mlr_svm,146817,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.240081945545863,50.7079999999987,2.23999999999796,246
+mlr_svm,146818,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.150724637681159,11.389000000001,1.67100000000391,249
+mlr_svm,146819,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0518518518518519,7.82200000000375,1.22600000000239,252
+mlr_svm,146820,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0140508700785381,26.1569999999956,1.87299999999777,255
+mlr_svm,146821,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.102446565398575,28.5130000000008,1.79300000000512,258
+mlr_svm,146822,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.067965367965368,23.5779999999995,1.67500000000109,261
+mlr_svm,146824,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0195,191.540000000001,5.91999999999644,264
+mlr_svm,167119,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.172181463088586,13562.469,72.2910000000011,267
+mlr_svm,167125,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0445271127023197,134.052999999996,36.1320000000014,270
+mlr_svm,167140,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0486544035015083,258.022000000001,6.71999999999753,273
+mlr_svm,167141,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0798,98.130000000001,1.71199999998862,276
+mlr_svm,167211,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.00549019607843137,11.6140000000014,0.725999999998749,279
+mlr_svm,168336,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.10522710195306,69271.544,74.5610000000015,285
+mlr_svm,168868,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0075,7304.39500000002,37.4909999999945,288
+mlr_svm,168908,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.260984851068474,13775.36,562.960999999996,291
+mlr_svm,168909,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.017625,26069.326,465.188999999999,294
+mlr_svm,168910,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.313588251601411,26488.818,184.941999999988,297
+mlr_svm,168911,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.215815582141815,408.464999999982,27.0509999999995,300
+mlr_svm,168912,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.0685032894736842,249.646999999997,2.63999999998487,303
+mlr_svm,189924,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.766658605488863,3882.69699999999,48.461000000003,306
+mlr_svm,189927,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.264151809057692,78168.658,299.410000000004,309
+mlr_svm,189928,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.279154649269378,95.3639999999941,2.15299999999115,312
+mlr_svm,190411,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.159643210523252,180.919000000002,2.75700000000506,315
+mlr_svm,190412,"make_tuple(16., truediv(mkd, xvar))",symbolic_best,0.31,214.403000000006,51.8059999999896,318

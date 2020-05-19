@@ -5,12 +5,12 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/rpart_surrogates.pkl",
-    "hyperparameters": [
-      "cp",
-      "maxdepth",
-      "minbucket",
-      "minsplit"
-    ],
+    "hyperparameters": {
+      "cp": "float",
+      "maxdepth": "int",
+      "minbucket": "int",
+      "minsplit": "int"
+    },
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [

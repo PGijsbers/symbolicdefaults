@@ -4,10 +4,10 @@
     "metric": "predictive_accuracy",
     "metadata": "data/after_pipeline_metafeatures.csv",
     "surrogates": "data/svc_surrogates_rbf_big.pkl",
-    "hyperparameters": [
-      "svc__C",
-      "svc__gamma"
-    ],
+    "hyperparameters": {
+      "svc__C" : "float",
+      "svc__gamma" : "float"
+    },
     "filters": {
       "svc__kernel": "rbf"
     },

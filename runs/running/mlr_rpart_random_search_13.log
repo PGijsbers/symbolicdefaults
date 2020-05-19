@@ -1,0 +1,37 @@
+Starting problem: mlr_rpart
+param:age_regularization:100000.0
+param:algorithm:random_search
+param:constants_only:False
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_rpart_random_search_13.log
+param:problem:mlr_rpart
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_rpart
+mlr_default := make_tuple(0.01, 30., 1., 20.)
+Loading surrogates from file.
+START_TASK: 3
+GEN_0_FIT_0.10837555351638652_0.287140901198581_0.8567294390378303_SIZE_1_6.4541_19
+Evaluating in sample:
+[GEN_0|make_tuple(0.0017331382923970805, p, 3, m)|0.8557]
+[GEN_0|make_tuple(pow(min(mkd, m), max(m, rc)), add(max(p, n), max(10, p)), neg(max(m, p)), max(add(rc, 3), pow(n, 0.002479288324638005)))|0.8567]
+Evaluating out-of-sample:
+[GEN_0|make_tuple(0.0017331382923970805, p, 3, m)|0.9729]
+[GEN_0|make_tuple(pow(min(mkd, m), max(m, rc)), add(max(p, n), max(10, p)), neg(max(m, p)), max(add(rc, 3), pow(n, 0.002479288324638005)))|0.9909]
+GEN_1_FIT_0.1075792628839754_0.28218640466469164_0.8565102352347033_SIZE_1_6.3956_21
+Evaluating in sample:
+[GEN_1|make_tuple(0.0017331382923970805, p, 3, m)|0.8557]
+[GEN_1|make_tuple(min(p, 0.002398767892258268), if_gt(m, mkd, 25, 3), truediv(xvar, p), truediv(rc, mkd))|0.8559]
+[GEN_1|make_tuple(pow(min(mkd, m), max(m, rc)), add(max(p, n), max(10, p)), neg(max(m, p)), max(add(rc, 3), pow(n, 0.002479288324638005)))|0.8567]
+Evaluating out-of-sample:
+[GEN_1|make_tuple(0.0017331382923970805, p, 3, m)|0.9729]
+[GEN_1|make_tuple(min(p, 0.002398767892258268), if_gt(m, mkd, 25, 3), truediv(xvar, p), truediv(rc, mkd))|0.9523]
+[GEN_1|make_tuple(pow(min(mkd, m), max(m, rc)), add(max(p, n), max(10, p)), neg(max(m, p)), max(add(rc, 3), pow(n, 0.002479288324638005)))|0.9909]

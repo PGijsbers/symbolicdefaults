@@ -5,15 +5,16 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/mlr_svm_surrogates.pkl",
-    "hyperparameters": [
-      "cost",
-      "gamma"
-    ],
+    "hyperparameters": {
+      "cost": "float",
+      "gamma": "float"
+    },
     "filters": {
       "kernel": "radial"
     },
     "benchmark": {
       "sklearn_default":"make_tuple(1., truediv(1., mul(p, xvar)))",
+      "mlr_default":"make_tuple(1., truediv(1., po))",
       "symbolic_best":"make_tuple(16., truediv(mkd, xvar))"
     }
 }

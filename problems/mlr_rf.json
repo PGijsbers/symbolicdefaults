@@ -5,12 +5,12 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/ranger_surrogates.pkl",
-    "hyperparameters": [
-      "num.trees",
-      "sample.fraction",
-      "min.node.size",
-      "mtry"
-    ],
+    "hyperparameters": {
+      "num.trees": "int",
+      "sample.fraction": "float",
+      "min.node.size": "int",
+      "mtry": "int"
+    },
     "fixed": {
       "num.trees": 500.0
     },

@@ -1,0 +1,20 @@
+Starting problem: mlr_rpart
+param:age_regularization:100000.0
+param:algorithm:mupluslambda
+param:constants_only:True
+param:cxpb:0.25
+param:early_stop_n:20
+param:lambda_:100
+param:max_number_operators:None
+param:max_start_size:2
+param:mu:20
+param:ngen:300
+param:optimize_constants:False
+param:output_file:/home/gijsbers/symbolicdefaults/runs/mlr_rpart_True_16.log
+param:problem:mlr_rpart
+param:subset:1.0
+param:task:None
+param:warm_start:False
+Benchmark problems: mlr_rpart
+Loading surrogates from file.
+START_TASK: 3

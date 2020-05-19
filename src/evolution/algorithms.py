@@ -1,5 +1,6 @@
+import random
+
 from deap import tools
-from deap.algorithms import varOr
 
 
 def one_plus_lambda(toolbox, P=None, popsize=50, new_per_gen=50, ngen=100, halloffame=None, stats=None, logbook=None):
@@ -29,7 +30,7 @@ def one_plus_lambda(toolbox, P=None, popsize=50, new_per_gen=50, ngen=100, hallo
 
 # Code below taken from DEAP: https://github.com/DEAP/deap, with one modification.
 def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
-                   stats=None, halloffame=None, verbose=__debug__, no_cache=False):
+                   stats=None, halloffame=None, verbose=__debug__,):
     """This is the :math:`(\mu + \lambda)` evolutionary algorithm.
 
     :param population: A list of individuals.
@@ -78,6 +79,7 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
     """
     logbook = tools.Logbook()
     logbook.header = ['gen', 'nevals'] + (stats.fields if stats else [])
+    population = list(set(population))
 
     # Evaluate the individuals with an invalid fitness
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
@@ -97,6 +99,7 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
     for gen in range(1, ngen + 1):
         # Vary the population
         offspring = varOr(population, toolbox, lambda_, cxpb, mutpb)
+        offspring = list(set(offspring))
 
         # Evaluate the individuals with an invalid fitness
         invalid_ind = [ind for ind in offspring]  # <<<<
@@ -108,26 +111,104 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
         # re-evaluate old population here (after creating offspring)
         # this is used when evaluations are performed on only a subset of tasks,
         # as otherwise an 'easy' subset of tasks may lead to a permanent high score.
-        if no_cache:
-            fitnesses = toolbox.map(toolbox.evaluate, population)
-            for ind, fit in zip(population, fitnesses):
-                ind.fitness.values = fit
+        # if no_cache:
+        #     fitnesses = toolbox.map(toolbox.evaluate, population)
+        #     for ind, fit in zip(population, fitnesses):
+        #         ind.fitness.values = fit
         # ============================================================
 
         # Update the hall of fame with the generated individuals
         if halloffame is not None:
             halloffame.update(offspring)
 
+        # for ind in offspring:
+        #     print(f"[{str(ind)}|{ind.fitness}]")
+
         # Select the next generation population
-        population[:] = toolbox.select(population + offspring, mu)
+        combined = list(set(population + offspring))
+        population[:] = toolbox.select(combined, mu)
 
         # Update the statistics with the new population
         record = stats.compile(population) if stats is not None else {}
         logbook.record(gen=gen, nevals=len(invalid_ind), **record)
         if verbose:
             print(logbook.stream)
-
+            
     return population, logbook
+
+
+def varOr(population, toolbox, lambda_, cxpb, mutpb):
+    """Part of an evolutionary algorithm applying only the variation part
+    (crossover, mutation **or** reproduction). The modified individuals have
+    their fitness invalidated. The individuals are cloned so returned
+    population is independent of the input population.
+
+    :param population: A list of individuals to vary.
+    :param toolbox: A :class:`~deap.base.Toolbox` that contains the evolution
+                    operators.
+    :param lambda\_: The number of children to produce
+    :param cxpb: The probability of mating two individuals.
+    :param mutpb: The probability of mutating an individual.
+    :returns: The final population.
+
+    The variation goes as follow. On each of the *lambda_* iteration, it
+    selects one of the three operations; crossover, mutation or reproduction.
+    In the case of a crossover, two individuals are selected at random from
+    the parental population :math:`P_\mathrm{p}`, those individuals are cloned
+    using the :meth:`toolbox.clone` method and then mated using the
+    :meth:`toolbox.mate` method. Only the first child is appended to the
+    offspring population :math:`P_\mathrm{o}`, the second child is discarded.
+    In the case of a mutation, one individual is selected at random from
+    :math:`P_\mathrm{p}`, it is cloned and then mutated using using the
+    :meth:`toolbox.mutate` method. The resulting mutant is appended to
+    :math:`P_\mathrm{o}`. In the case of a reproduction, one individual is
+    selected at random from :math:`P_\mathrm{p}`, cloned and appended to
+    :math:`P_\mathrm{o}`.
+
+    This variation is named *Or* because an offspring will never result from
+    both operations crossover and mutation. The sum of both probabilities
+    shall be in :math:`[0, 1]`, the reproduction probability is
+    1 - *cxpb* - *mutpb*.
+    """
+    assert (cxpb + mutpb) <= 1.0, (
+        "The sum of the crossover and mutation probabilities must be smaller "
+        "or equal to 1.0.")
+
+    offspring = []
+    for _ in range(lambda_):
+        op_choice = random.random()
+        if op_choice < cxpb:            # Apply crossover
+            ind1, ind2, ind3, ind4 = list(map(toolbox.clone, random.sample(population, 4)))
+            first = binary_tournament_nsga(ind1, ind2)
+            second = binary_tournament_nsga(ind3, ind4)
+            ind1, ind2 = toolbox.mate(first, second)
+            del ind1.fitness.values
+            offspring.append(ind1)
+        elif op_choice < cxpb + mutpb:  # Apply mutation
+            ind1, ind2 = list(map(toolbox.clone, random.sample(population, 2)))
+            ind = binary_tournament_nsga(ind1, ind2)
+            ind, = toolbox.mutate(ind)
+            del ind.fitness.values
+            offspring.append(ind)
+        else:                           # Apply reproduction
+            print("reproduce")
+            offspring.append(random.choice(population))
+
+    return offspring
+
+
+def binary_tournament_nsga(one, other):
+    if one.fitness.dominates(other.fitness):
+        return one
+    if other.fitness.dominates(one.fitness):
+        return other
+    if not hasattr(one.fitness, 'crowding_dist'):
+        return one  # For first generation
+
+    if one.fitness.crowding_dist > other.fitness.crowding_dist:
+        return one
+    else:
+        return other
 
 
 def random_search(toolbox, popsize, halloffame=None):
