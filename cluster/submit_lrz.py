@@ -27,7 +27,6 @@ def runjob(job, search_method, constants_only=False, suffix="lrz", moreargs=""):
 
     # xgboost needs more memory
     if job == "mlr_xgboost":
-        mem=22000
 
     outfile = mkoutstring(job, search_method, suffix, constants_only, moreargs)
     job_file = os.path.join(job_directory, f"{job}.job")
@@ -59,3 +58,4 @@ for job in jobs:
         for cst in csts:
             for rep in range(3):
                 runjob(job, sm, constants_only=cst, suffix=f"lrz_{rep}")
+
