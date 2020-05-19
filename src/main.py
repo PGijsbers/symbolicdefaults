@@ -65,6 +65,9 @@ def cli_parser():
                             "Warm-start optimization by including the 'benchmark' solutions in the "
                             "initial population."),
                         dest='warm_start', type=str2bool, default=False)
+    parser.add_argument('-s',
+                        help="Evaluate individuals on a random [S]ubset of size [0, 1].",
+                        dest='subset', type=float, default=1.)
     parser.add_argument('-cst',
                     help=("Search only constant formulas?"),
                     dest='constants_only', type=str2bool, default=False)
@@ -165,18 +168,6 @@ def main():
         # it during our symbolic regression search.
         loo_metadataset = problem.metadata[problem.metadata.index != task]
 
-        # 'map' will be called within the optimization algorithm for batch evaluation.
-        # All evaluation variables are fixed, except for the individuals themselves.
-        toolbox.register(
-            "map",
-            functools.partial(
-                mass_eval_fun, pset=pset, metadataset=loo_metadataset,
-                surrogates=problem.surrogates,
-                toolbox=toolbox, optimize_constants=args.optimize_constants,
-                problem=problem
-            )
-        )
-
         # Seed population with configurations from problem.benchmark // fully "Symc" config
         pop = []
         if args.optimize_constants:
@@ -195,7 +186,7 @@ def main():
         mstats.register("std", np.std)
         mstats.register("min", np.min)
         mstats.register("max", np.max)
-        hof = tools.ParetoFront(similar = approx_eq)
+        hof = tools.ParetoFront(similar=approx_eq)
         last_best = (0, -10)
         last_best_gen = 0
 
@@ -207,6 +198,24 @@ def main():
         for i in range(args.ngen):
             # Hacky way to integrate early stopping with DEAP.
             if args.algorithm == 'mupluslambda':
+                hof = tools.ParetoFront(similar=approx_eq)
+                if args.subset != 1.0 and i != args.ngen - 1 and i % 2 != 0:
+                    subset = args.subset
+                else:
+                    subset = 1.0
+
+                # 'map' will be called within the optimization algorithm for batch evaluation.
+                # All evaluation variables are fixed, except for the individuals themselves.
+                toolbox.register(
+                    "map",
+                    functools.partial(
+                        mass_eval_fun, pset=pset, metadataset=loo_metadataset,
+                        surrogates=problem.surrogates, subset=subset,
+                        toolbox=toolbox, optimize_constants=args.optimize_constants,
+                        problem=problem
+                    )
+                )
+
                 pop, _ = eaMuPlusLambda(
                     population=pop,
                     toolbox=toolbox,
@@ -216,7 +225,8 @@ def main():
                     mutpb=1-args.cxpb,
                     ngen=1,
                     verbose=False,
-                    halloffame=hof
+                    halloffame=hof,
+                    no_cache=(args.subset < 1.0),
                 )
             if args.algorithm == 'onepluslambda':
                 P, pop = one_plus_lambda(

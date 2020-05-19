@@ -154,7 +154,7 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
     return zip(scores_mean, lengths)
 
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None, subset=1.0):
     """
         Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
         :param evaluate: should turn (fn, row) into valid hyperparameter values.
@@ -168,6 +168,9 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
 
     lengths = [max(n_primitives_in(individual), 0) for individual in individuals]
     scores_full = np.zeros(shape=(len(individuals), len(metadataset)), dtype=float)
+
+    if subset != 1.0:
+        metadataset = metadataset.sample(int(subset * len(metadataset)))
 
     for i, (idx, row) in enumerate(metadataset.iterrows()):
         task_feature_values = dict(row)
