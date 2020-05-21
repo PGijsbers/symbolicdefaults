@@ -25,18 +25,16 @@ if (!file.exists(REG_DIR)) {
     packages = source_packages,
     source = source_files
   )
-  addProblem("package_defaults")
+  addProblem("symbolic_best_best")
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
 
-  jobs = c("mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
-  jobs = "mlr_xgboost"
-  for (job in jobs) {
-    benchmarks = get_problem_json(job)$benchmark
-    if (job == "mlr_xgboost") benchmarks = get_problem_json(job)$benchmark["sklearn_default"] # do not run symbolic_best
-    tasks =  get_task_ids(job)
-    grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
-    addExperiments(algo.designs = list(run_algo = grd))
-  }
+  # Each line in grd is a configuration
+  grd = fread("data/random_search_30k.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = unique(grd)
+  addExperiments(algo.designs = list(run_algo = grd))
+
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
@@ -65,7 +63,7 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
+    jobs = intersect(jobs, jt[problem_name %in% c(""), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)

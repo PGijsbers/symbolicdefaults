@@ -81,8 +81,11 @@ eval_tuple = function(problem, task, str) {
 sanitize_algo = function(algo) {
   if (grepl("classif.", algo, fixed = TRUE))
     algo = return(algo)
-  else
+  else if (grepl("mlr_", algo, fixed = TRUE)) {
     algo = gsub("mlr_", "classif.", algo, fixed = TRUE)
+  } else {
+    algo = paste0("classif.", algo)
+  }
 
   # Rename to mlr counterparts
   if (algo == "classif.rf") {
@@ -97,6 +100,12 @@ sanitize_algo = function(algo) {
 
 repairPoints2 = function(ps, hpars) {
   library(mlr3misc)
+
+  # Current invalid strategy: Replace with 10^-6
+  invalids = map_lgl(hpars, is.infinite) | map_lgl(hpars, is.nan)
+  if (any(invalids)) {
+    hpars[invalids] = 10^-6
+  }
   hpars = repairPoint(ps, hpars)
   setNames(mlr3misc::pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
     if(type == "integer") par = round(par)
