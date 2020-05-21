@@ -1,0 +1,1141 @@
+endresult;expression;gen;inout;length;problem;run;score;search;task
+1.0;make_tuple(truediv(max(10, m), add(0.003080588724469144, xvar)), min(truediv(xvar, po), mul(915, mkd)));2.0;in;7.0;svm;f1242166-f452-46c8-875d-a57b33d5318f;0.9037;random_search_300;146195.0
+1.0;make_tuple(truediv(max(10, m), add(0.003080588724469144, xvar)), min(truediv(xvar, po), mul(915, mkd)));2.0;out;7.0;svm;f1242166-f452-46c8-875d-a57b33d5318f;0.6088;random_search_300;146195.0
+1.0;make_tuple(mul(expit(p), add(m, rc)), truediv(expit(25), sub(po, xvar)));2.0;in;7.0;svm;1bc4524f-f5ff-4ae2-b15a-3cce7b1472a2;0.9035;random_search_300;14954.0
+1.0;make_tuple(mul(expit(p), add(m, rc)), truediv(expit(25), sub(po, xvar)));2.0;out;7.0;svm;1bc4524f-f5ff-4ae2-b15a-3cce7b1472a2;0.9348;random_search_300;14954.0
+1.0;make_tuple(mul(sub(6, mkd), mul(m, xvar)), truediv(pow(xvar, xvar), sub(po, rc)));2.0;in;7.0;svm;f3cc63a2-679f-4bde-8ede-71243980a85e;0.9045;random_search_300;14.0
+1.0;make_tuple(mul(sub(6, mkd), mul(m, xvar)), truediv(pow(xvar, xvar), sub(po, rc)));2.0;out;7.0;svm;f3cc63a2-679f-4bde-8ede-71243980a85e;0.9906;random_search_300;14.0
+1.0;make_tuple(max(pow(m, xvar), add(4, xvar)), truediv(pow(xvar, xvar), add(mkd, po)));2.0;in;7.0;svm;e7c73532-bc3f-4a77-b027-6005daac5c58;0.9067;random_search_300;10090.0
+1.0;make_tuple(max(pow(m, xvar), add(4, xvar)), truediv(pow(xvar, xvar), add(mkd, po)));2.0;out;7.0;svm;e7c73532-bc3f-4a77-b027-6005daac5c58;0.6855;random_search_300;10090.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;8f5a97c7-2b4a-4508-9b74-f03bf634ca05;0.9039;random_search_300;168910.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;8f5a97c7-2b4a-4508-9b74-f03bf634ca05;0.9554;random_search_300;168910.0
+1.0;make_tuple(truediv(po, xvar), truediv(1, po));2.0;in;3.0;svm;586c2a30-9c40-405c-bdbc-d7a0d1a7e9de;0.9029;random_search_300;15.0
+1.0;make_tuple(truediv(po, xvar), truediv(1, po));2.0;out;3.0;svm;586c2a30-9c40-405c-bdbc-d7a0d1a7e9de;0.9575;random_search_300;15.0
+1.0;make_tuple(mul(m, m), truediv(1, po));2.0;in;3.0;svm;0a05e44a-ca87-4786-b3fd-c4e6b9796ec9;0.9053;random_search_300;41.0
+1.0;make_tuple(mul(m, m), truediv(1, po));2.0;out;3.0;svm;0a05e44a-ca87-4786-b3fd-c4e6b9796ec9;0.9799;random_search_300;41.0
+1.0;make_tuple(max(truediv(m, m), min(m, 76)), pow(if_gt(mkd, po, mkd, po), neg(1)));2.0;in;7.0;svm;e53e83a5-70e3-4abc-a03f-1c0f75c63c0c;0.9023;random_search_300;9978.0
+1.0;make_tuple(max(truediv(m, m), min(m, 76)), pow(if_gt(mkd, po, mkd, po), neg(1)));2.0;out;7.0;svm;e53e83a5-70e3-4abc-a03f-1c0f75c63c0c;0.9705;random_search_300;9978.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;a0f8dbd6-957c-4a2a-8733-4d8ad02500f4;0.9039;random_search_300;9957.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;a0f8dbd6-957c-4a2a-8733-4d8ad02500f4;0.9601;random_search_300;9957.0
+1.0;make_tuple(max(m, 3), truediv(mkd, xvar));2.0;in;3.0;svm;ee94d901-0eca-462c-947d-57c8dea0c3af;0.9056;random_search_300;190412.0
+1.0;make_tuple(max(m, 3), truediv(mkd, xvar));2.0;out;3.0;svm;ee94d901-0eca-462c-947d-57c8dea0c3af;0.6719;random_search_300;190412.0
+1.0;make_tuple(truediv(max(3, mcp), expit(rc)), truediv(expit(173), if_gt(xvar, 0.05534520644562864, po, 7)));2.0;in;7.0;svm;387a080e-18af-4c0c-9791-94d81a8b86cf;0.9058;random_search_300;9981.0
+1.0;make_tuple(truediv(max(3, mcp), expit(rc)), truediv(expit(173), if_gt(xvar, 0.05534520644562864, po, 7)));2.0;out;7.0;svm;387a080e-18af-4c0c-9791-94d81a8b86cf;0.9587;random_search_300;9981.0
+1.0;make_tuple(add(mcp, m), truediv(mkd, xvar));2.0;in;3.0;svm;bfb796ec-b07a-489c-9c1b-555ee576a53a;0.9027;random_search_300;3.0
+1.0;make_tuple(add(mcp, m), truediv(mkd, xvar));2.0;out;3.0;svm;bfb796ec-b07a-489c-9c1b-555ee576a53a;0.9162;random_search_300;3.0
+1.0;make_tuple(add(add(m, mkd), truediv(p, po)), truediv(truediv(n, n), add(po, mkd)));2.0;in;7.0;svm;a44a164f-2274-4e73-89cb-b19812f35e86;0.9027;random_search_300;168868.0
+1.0;make_tuple(add(add(m, mkd), truediv(p, po)), truediv(truediv(n, n), add(po, mkd)));2.0;out;7.0;svm;a44a164f-2274-4e73-89cb-b19812f35e86;0.9988;random_search_300;168868.0
+1.0;make_tuple(add(min(p, m), expit(p)), mul(truediv(mkd, xvar), expit(4)));2.0;in;7.0;svm;5aefe4bc-1c50-4430-b224-fb9d320c1b20;0.9047;random_search_300;219.0
+1.0;make_tuple(add(min(p, m), expit(p)), mul(truediv(mkd, xvar), expit(4)));2.0;out;7.0;svm;5aefe4bc-1c50-4430-b224-fb9d320c1b20;0.7986;random_search_300;219.0
+1.0;make_tuple(add(rc, m), truediv(1, po));2.0;in;3.0;svm;04fa8eac-4d0b-4bcd-ba2d-86bfee9ee66d;0.9039;random_search_300;23.0
+1.0;make_tuple(add(rc, m), truediv(1, po));2.0;out;3.0;svm;04fa8eac-4d0b-4bcd-ba2d-86bfee9ee66d;0.8923;random_search_300;23.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;in;3.0;svm;92c4b0db-550b-4f8a-b324-c22ef434563a;0.9029;random_search_300;146820.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;out;3.0;svm;92c4b0db-550b-4f8a-b324-c22ef434563a;0.9932;random_search_300;146820.0
+1.0;make_tuple(max(m, xvar), truediv(1, po));2.0;in;3.0;svm;78cc34b1-9f79-4e8d-a8fe-179086d7a587;0.9021;random_search_300;14965.0
+1.0;make_tuple(max(m, xvar), truediv(1, po));2.0;out;3.0;svm;78cc34b1-9f79-4e8d-a8fe-179086d7a587;0.9904;random_search_300;14965.0
+1.0;make_tuple(max(rc, m), truediv(1, po));2.0;in;3.0;svm;0044de4d-722b-425d-b8f7-293614d3a8d4;0.9027;random_search_300;31.0
+1.0;make_tuple(max(rc, m), truediv(1, po));2.0;out;3.0;svm;0044de4d-722b-425d-b8f7-293614d3a8d4;0.9288;random_search_300;31.0
+1.0;make_tuple(min(mul(m, 2), add(po, 823)), truediv(expit(xvar), if_gt(mcp, n, mkd, po)));2.0;in;7.0;svm;84ed8a7e-44f7-431d-8ae0-9dd975fe3e3f;0.9033;random_search_300;53.0
+1.0;make_tuple(min(mul(m, 2), add(po, 823)), truediv(expit(xvar), if_gt(mcp, n, mkd, po)));2.0;out;7.0;svm;84ed8a7e-44f7-431d-8ae0-9dd975fe3e3f;0.9283;random_search_300;53.0
+1.0;make_tuple(add(max(1, m), truediv(n, n)), truediv(neg(mkd), neg(xvar)));2.0;in;7.0;svm;e63e08f1-0843-4053-b5aa-76dcd538d145;0.9036;random_search_300;168911.0
+1.0;make_tuple(add(max(1, m), truediv(n, n)), truediv(neg(mkd), neg(xvar)));2.0;out;7.0;svm;e63e08f1-0843-4053-b5aa-76dcd538d145;0.9495;random_search_300;168911.0
+1.0;make_tuple(max(mul(m, m), min(mkd, mkd)), truediv(pow(mcp, mcp), if_gt(279, mcp, po, 62)));2.0;in;7.0;svm;ae5fde2a-798c-41c1-9221-30ac14a12e4d;0.9102;random_search_300;3918.0
+1.0;make_tuple(max(mul(m, m), min(mkd, mkd)), truediv(pow(mcp, mcp), if_gt(279, mcp, po, 62)));2.0;out;7.0;svm;ae5fde2a-798c-41c1-9221-30ac14a12e4d;0.3011;random_search_300;3918.0
+1.0;make_tuple(max(min(m, 9), min(mkd, mcp)), truediv(expit(353), max(mkd, po)));2.0;in;7.0;svm;1ba2b4d6-fbac-4435-9400-d8803ab9be07;0.9029;random_search_300;9986.0
+1.0;make_tuple(max(min(m, 9), min(mkd, mcp)), truediv(expit(353), max(mkd, po)));2.0;out;7.0;svm;1ba2b4d6-fbac-4435-9400-d8803ab9be07;0.9976;random_search_300;9986.0
+1.0;make_tuple(add(mkd, m), truediv(1, po));2.0;in;3.0;svm;d96a2fb9-b49e-4c07-ae58-cd6abaeec635;0.9019;random_search_300;7592.0
+1.0;make_tuple(add(mkd, m), truediv(1, po));2.0;out;3.0;svm;d96a2fb9-b49e-4c07-ae58-cd6abaeec635;0.9939;random_search_300;7592.0
+1.0;make_tuple(min(11, m), truediv(mkd, xvar));2.0;in;3.0;svm;c66c2abd-a351-4de7-8b0c-efbf5d631558;0.9047;random_search_300;3561.0
+1.0;make_tuple(min(11, m), truediv(mkd, xvar));2.0;out;3.0;svm;c66c2abd-a351-4de7-8b0c-efbf5d631558;0.7189;random_search_300;3561.0
+1.0;make_tuple(truediv(min(5, po), truediv(mcp, xvar)), truediv(expit(13), add(rc, po)));2.0;in;7.0;svm;a763a7da-e49c-406a-8382-99cbd88c362a;0.9054;random_search_300;9971.0
+1.0;make_tuple(truediv(min(5, po), truediv(mcp, xvar)), truediv(expit(13), add(rc, po)));2.0;out;7.0;svm;a763a7da-e49c-406a-8382-99cbd88c362a;0.8713;random_search_300;9971.0
+1.0;make_tuple(add(add(0.0012558282904889062, m), if_gt(mcp, 696, n, mcp)), truediv(expit(n), max(0.01229658823861906, po)));2.0;in;7.0;svm;ab65b422-11a9-4898-86e9-faea63aee673;0.9038;random_search_300;3021.0
+1.0;make_tuple(add(add(0.0012558282904889062, m), if_gt(mcp, 696, n, mcp)), truediv(expit(n), max(0.01229658823861906, po)));2.0;out;7.0;svm;ab65b422-11a9-4898-86e9-faea63aee673;0.9653;random_search_300;3021.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;d2268688-9af0-4914-987d-ab24f80261de;0.9093;random_search_300;125920.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;d2268688-9af0-4914-987d-ab24f80261de;0.3931;random_search_300;125920.0
+1.0;make_tuple(mul(m, m), truediv(1, p));2.0;in;3.0;svm;c5548398-626a-4796-a03d-0d0c781efd28;0.9039;random_search_300;146824.0
+1.0;make_tuple(mul(m, m), truediv(1, p));2.0;out;3.0;svm;c5548398-626a-4796-a03d-0d0c781efd28;0.9979;random_search_300;146824.0
+1.0;make_tuple(max(if_gt(43, po, m, mcp), sub(po, 23)), truediv(expit(po), if_gt(mcp, po, mkd, po)));2.0;in;7.0;svm;e058ce57-93b4-4f29-bdc0-9ed637eeb431;0.9079;random_search_300;14971.0
+1.0;make_tuple(max(if_gt(43, po, m, mcp), sub(po, 23)), truediv(expit(po), if_gt(mcp, po, mkd, po)));2.0;out;7.0;svm;e058ce57-93b4-4f29-bdc0-9ed637eeb431;0.6945;random_search_300;14971.0
+1.0;make_tuple(max(truediv(xvar, po), max(rc, 5)), truediv(expit(n), min(po, p)));2.0;in;7.0;svm;9d1a6d03-d4aa-48ea-836f-457f01cadc88;0.9039;random_search_300;37.0
+1.0;make_tuple(max(truediv(xvar, po), max(rc, 5)), truediv(expit(n), min(po, p)));2.0;out;7.0;svm;9d1a6d03-d4aa-48ea-836f-457f01cadc88;0.8963;random_search_300;37.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;918b3213-a4e5-4148-8964-53d3f8b067c3;0.9036;random_search_300;9956.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;918b3213-a4e5-4148-8964-53d3f8b067c3;0.9953;random_search_300;9956.0
+1.0;make_tuple(add(add(xvar, xvar), if_gt(mcp, p, p, m)), truediv(expit(p), add(po, mkd)));2.0;in;7.0;svm;b4ec90f7-18a9-4ce8-bd73-1725cf9e6c48;0.9056;random_search_300;189928.0
+1.0;make_tuple(add(add(xvar, xvar), if_gt(mcp, p, p, m)), truediv(expit(p), add(po, mkd)));2.0;out;7.0;svm;b4ec90f7-18a9-4ce8-bd73-1725cf9e6c48;0.9714;random_search_300;189928.0
+1.0;make_tuple(add(rc, m), truediv(mkd, xvar));2.0;in;3.0;svm;505f8974-c7b3-4a25-81a6-f2c3bd7b5d53;0.9015;random_search_300;24.0
+1.0;make_tuple(add(rc, m), truediv(mkd, xvar));2.0;out;3.0;svm;505f8974-c7b3-4a25-81a6-f2c3bd7b5d53;0.9999;random_search_300;24.0
+1.0;make_tuple(add(truediv(m, mcp), sub(mcp, rc)), truediv(expit(n), add(po, mcp)));2.0;in;7.0;svm;e13ab289-568f-4cf6-b2f7-47ea5c636aaf;0.9055;random_search_300;3903.0
+1.0;make_tuple(add(truediv(m, mcp), sub(mcp, rc)), truediv(expit(n), add(po, mcp)));2.0;out;7.0;svm;e13ab289-568f-4cf6-b2f7-47ea5c636aaf;0.9501;random_search_300;3903.0
+1.0;make_tuple(add(0.09860631497929424, m), truediv(1, po));2.0;in;3.0;svm;9270d078-5054-45cd-b331-912704c923b8;0.9026;random_search_300;168912.0
+1.0;make_tuple(add(0.09860631497929424, m), truediv(1, po));2.0;out;3.0;svm;9270d078-5054-45cd-b331-912704c923b8;0.9893;random_search_300;168912.0
+1.0;make_tuple(mul(2, m), truediv(0.7271468538816964, po));2.0;in;3.0;svm;82ac5548-175e-4766-af76-e07828fd6193;0.9043;random_search_300;2074.0
+1.0;make_tuple(mul(2, m), truediv(0.7271468538816964, po));2.0;out;3.0;svm;82ac5548-175e-4766-af76-e07828fd6193;0.9739;random_search_300;2074.0
+1.0;make_tuple(if_gt(if_gt(m, xvar, n, po), truediv(xvar, mcp), min(m, p), min(mkd, 17)), truediv(expit(po), sub(po, mcp)));2.0;in;9.0;svm;c54548bd-b755-471e-9f94-3c9be93975ce;0.9027;random_search_300;14952.0
+1.0;make_tuple(if_gt(if_gt(m, xvar, n, po), truediv(xvar, mcp), min(m, p), min(mkd, 17)), truediv(expit(po), sub(po, mcp)));2.0;out;9.0;svm;c54548bd-b755-471e-9f94-3c9be93975ce;0.9598;random_search_300;14952.0
+1.0;make_tuple(truediv(if_gt(xvar, 0.0012345229735045862, p, mcp), add(xvar, mcp)), truediv(max(xvar, mcp), max(po, mkd)));2.0;in;7.0;svm;0908e12c-ed66-4f7c-b105-f78f63abb1f1;0.9028;random_search_300;146607.0
+1.0;make_tuple(truediv(if_gt(xvar, 0.0012345229735045862, p, mcp), add(xvar, mcp)), truediv(max(xvar, mcp), max(po, mkd)));2.0;out;7.0;svm;0908e12c-ed66-4f7c-b105-f78f63abb1f1;0.7359;random_search_300;146607.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;in;3.0;svm;87ceaad3-48e4-469f-9e47-0c3882d191e9;0.9028;random_search_300;10093.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;out;3.0;svm;87ceaad3-48e4-469f-9e47-0c3882d191e9;1.0;random_search_300;10093.0
+1.0;make_tuple(add(m, xvar), truediv(mkd, xvar));2.0;in;3.0;svm;6476c84d-4cd2-4109-9e8b-bda670fcaec9;0.9028;random_search_300;125922.0
+1.0;make_tuple(add(m, xvar), truediv(mkd, xvar));2.0;out;3.0;svm;6476c84d-4cd2-4109-9e8b-bda670fcaec9;0.9988;random_search_300;125922.0
+1.0;make_tuple(truediv(m, mcp), truediv(0.7642491280094701, po));2.0;in;3.0;svm;c5e237a2-3c12-46e5-9d9a-b6b5d47632bf;0.9042;random_search_300;125921.0
+1.0;make_tuple(truediv(m, mcp), truediv(0.7642491280094701, po));2.0;out;3.0;svm;c5e237a2-3c12-46e5-9d9a-b6b5d47632bf;0.9362;random_search_300;125921.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;304f5b22-ef59-41a5-a0e1-c92eade481a5;0.9036;random_search_300;45.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;304f5b22-ef59-41a5-a0e1-c92eade481a5;0.9955;random_search_300;45.0
+1.0;make_tuple(add(add(m, m), if_gt(mcp, mkd, xvar, po)), truediv(expit(p), min(p, po)));2.0;in;7.0;svm;64daa14b-e986-47da-beed-2f549f5812ec;0.905;random_search_300;14969.0
+1.0;make_tuple(add(add(m, m), if_gt(mcp, mkd, xvar, po)), truediv(expit(p), min(p, po)));2.0;out;7.0;svm;64daa14b-e986-47da-beed-2f549f5812ec;0.9402;random_search_300;14969.0
+1.0;make_tuple(add(max(xvar, m), mul(xvar, rc)), truediv(expit(m), max(po, rc)));2.0;in;7.0;svm;08cac584-af16-407b-963a-032df31d8b52;0.9011;random_search_300;9977.0
+1.0;make_tuple(add(max(xvar, m), mul(xvar, rc)), truediv(expit(m), max(po, rc)));2.0;out;7.0;svm;08cac584-af16-407b-963a-032df31d8b52;0.9942;random_search_300;9977.0
+1.0;make_tuple(add(max(xvar, mcp), sub(m, mkd)), max(neg(n), truediv(mkd, xvar)));2.0;in;7.0;svm;63662ec7-85af-48e1-8f1c-1b0205be711a;0.903;random_search_300;32.0
+1.0;make_tuple(add(max(xvar, mcp), sub(m, mkd)), max(neg(n), truediv(mkd, xvar)));2.0;out;7.0;svm;63662ec7-85af-48e1-8f1c-1b0205be711a;0.9986;random_search_300;32.0
+1.0;make_tuple(if_gt(expit(p), neg(mkd), truediv(10, xvar), sub(0.6885632804630449, mcp)), truediv(expit(mkd), max(po, 0.01797099491301969)));2.0;in;9.0;svm;f9fd7801-7618-44a0-a4f5-3f75a07314a1;0.9032;random_search_300;3907.0
+1.0;make_tuple(if_gt(expit(p), neg(mkd), truediv(10, xvar), sub(0.6885632804630449, mcp)), truediv(expit(mkd), max(po, 0.01797099491301969)));2.0;out;9.0;svm;f9fd7801-7618-44a0-a4f5-3f75a07314a1;0.9883;random_search_300;3907.0
+1.0;make_tuple(sub(9, 0.6398645373854197), truediv(0.7251336682135997, po));2.0;in;3.0;svm;780b644b-e08f-4101-8714-5c8c0a322d92;0.9036;random_search_300;3945.0
+1.0;make_tuple(sub(9, 0.6398645373854197), truediv(0.7251336682135997, po));2.0;out;3.0;svm;780b644b-e08f-4101-8714-5c8c0a322d92;0.874;random_search_300;3945.0
+1.0;make_tuple(sub(min(xvar, xvar), neg(m)), truediv(min(0.7110341591981458, m), sub(po, rc)));2.0;in;7.0;svm;c397b2e7-b35f-4732-bbfe-20367b706077;0.9031;random_search_300;168329.0
+1.0;make_tuple(sub(min(xvar, xvar), neg(m)), truediv(min(0.7110341591981458, m), sub(po, rc)));2.0;out;7.0;svm;c397b2e7-b35f-4732-bbfe-20367b706077;0.9864;random_search_300;168329.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;bf29309d-e199-4b3e-a43d-5f40c7764e42;0.9036;random_search_300;146822.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;bf29309d-e199-4b3e-a43d-5f40c7764e42;0.9936;random_search_300;146822.0
+1.0;make_tuple(add(if_gt(mkd, mcp, po, m), expit(p)), add(truediv(0.4918070871088822, po), truediv(rc, p)));2.0;in;7.0;svm;54e90ac9-fe5d-4a19-aee9-71b077b8f279;0.9023;random_search_300;146818.0
+1.0;make_tuple(add(if_gt(mkd, mcp, po, m), expit(p)), add(truediv(0.4918070871088822, po), truediv(rc, p)));2.0;out;7.0;svm;54e90ac9-fe5d-4a19-aee9-71b077b8f279;0.9692;random_search_300;146818.0
+1.0;make_tuple(sub(add(m, po), sub(po, xvar)), truediv(expit(n), add(po, xvar)));2.0;in;7.0;svm;a7366e89-0279-455d-be28-9ee0b20862b8;0.9067;random_search_300;3913.0
+1.0;make_tuple(sub(add(m, po), sub(po, xvar)), truediv(expit(n), add(po, xvar)));2.0;out;7.0;svm;a7366e89-0279-455d-be28-9ee0b20862b8;0.6832;random_search_300;3913.0
+1.0;make_tuple(add(max(5, mkd), if_gt(m, rc, xvar, 2)), truediv(expit(6), if_gt(0.3174328578632279, p, n, po)));2.0;in;7.0;svm;a3edeb4a-9a11-4510-af40-d11be99315c6;0.9036;random_search_300;6.0
+1.0;make_tuple(add(max(5, mkd), if_gt(m, rc, xvar, 2)), truediv(expit(6), if_gt(0.3174328578632279, p, n, po)));2.0;out;7.0;svm;a3edeb4a-9a11-4510-af40-d11be99315c6;0.9931;random_search_300;6.0
+1.0;make_tuple(if_gt(110, n, 47, m), truediv(mkd, xvar));2.0;in;3.0;svm;e7e63c60-84cf-4820-a00b-4e38ea73e851;0.9026;random_search_300;9964.0
+1.0;make_tuple(if_gt(110, n, 47, m), truediv(mkd, xvar));2.0;out;3.0;svm;e7e63c60-84cf-4820-a00b-4e38ea73e851;0.9935;random_search_300;9964.0
+1.0;make_tuple(add(if_gt(n, xvar, m, n), mul(0.21309754863860744, po)), truediv(truediv(n, po), sub(n, 0.24361681827583306)));2.0;in;7.0;svm;3505107b-90dd-4cbc-a55b-54ab83dc1222;0.9028;random_search_300;16.0
+1.0;make_tuple(add(if_gt(n, xvar, m, n), mul(0.21309754863860744, po)), truediv(truediv(n, po), sub(n, 0.24361681827583306)));2.0;out;7.0;svm;3505107b-90dd-4cbc-a55b-54ab83dc1222;0.9984;random_search_300;16.0
+1.0;make_tuple(if_gt(n, po, m, po), truediv(mkd, xvar));2.0;in;3.0;svm;45081ab3-f462-4ec2-8019-c761bd0b60c2;0.9052;random_search_300;167141.0
+1.0;make_tuple(if_gt(n, po, m, po), truediv(mkd, xvar));2.0;out;3.0;svm;45081ab3-f462-4ec2-8019-c761bd0b60c2;0.947;random_search_300;167141.0
+1.0;make_tuple(max(truediv(6, mcp), if_gt(mcp, p, m, m)), truediv(expit(mkd), mul(p, xvar)));2.0;in;7.0;svm;7a365452-278d-4c13-bc08-e6681f4d6037;0.9055;random_search_300;3560.0
+1.0;make_tuple(max(truediv(6, mcp), if_gt(mcp, p, m, m)), truediv(expit(mkd), mul(p, xvar)));2.0;out;7.0;svm;7a365452-278d-4c13-bc08-e6681f4d6037;0.6869;random_search_300;3560.0
+1.0;make_tuple(add(add(xvar, p), if_gt(p, xvar, 0.15151474675294907, n)), truediv(expit(mcp), if_gt(mcp, 231, xvar, po)));2.0;in;7.0;svm;ff0a9f02-e531-4bfc-b708-298048cd1044;0.9025;random_search_300;9950.0
+1.0;make_tuple(add(add(xvar, p), if_gt(p, xvar, 0.15151474675294907, n)), truediv(expit(mcp), if_gt(mcp, 231, xvar, po)));2.0;out;7.0;svm;ff0a9f02-e531-4bfc-b708-298048cd1044;0.8173;random_search_300;9950.0
+1.0;make_tuple(sub(expit(88), sub(0.07516168661140549, m)), truediv(expit(p), max(po, po)));2.0;in;7.0;svm;15d292f1-0ebc-4c23-9001-c64d332abb97;0.9048;random_search_300;9960.0
+1.0;make_tuple(sub(expit(88), sub(0.07516168661140549, m)), truediv(expit(p), max(po, po)));2.0;out;7.0;svm;15d292f1-0ebc-4c23-9001-c64d332abb97;0.9708;random_search_300;9960.0
+1.0;make_tuple(mul(m, m), truediv(mcp, po));2.0;in;3.0;svm;848bc731-6e9d-4a95-8294-9eabcaf1da27;0.9108;random_search_300;9970.0
+1.0;make_tuple(mul(m, m), truediv(mcp, po));2.0;out;3.0;svm;848bc731-6e9d-4a95-8294-9eabcaf1da27;0.1107;random_search_300;9970.0
+1.0;make_tuple(sub(sub(n, n), neg(m)), truediv(add(rc, m), mul(m, po)));2.0;in;7.0;svm;f29d6707-c94f-431f-9322-cb9fdf1a526e;0.9037;random_search_300;167140.0
+1.0;make_tuple(sub(sub(n, n), neg(m)), truediv(add(rc, m), mul(m, po)));2.0;out;7.0;svm;f29d6707-c94f-431f-9322-cb9fdf1a526e;0.9852;random_search_300;167140.0
+1.0;make_tuple(add(xvar, m), truediv(1, po));2.0;in;3.0;svm;73e9e0f3-9a02-4546-82fb-7e95d52abb56;0.9041;random_search_300;189927.0
+1.0;make_tuple(add(xvar, m), truediv(1, po));2.0;out;3.0;svm;73e9e0f3-9a02-4546-82fb-7e95d52abb56;0.9697;random_search_300;189927.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;3d1bab99-6306-45ea-897e-2ed17db2ddd0;0.9041;random_search_300;167125.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;3d1bab99-6306-45ea-897e-2ed17db2ddd0;0.9398;random_search_300;167125.0
+1.0;make_tuple(truediv(max(mcp, m), truediv(xvar, m)), max(sub(57, n), truediv(xvar, po)));2.0;in;7.0;svm;ba0051fb-b634-4351-addb-b6c33b04c011;0.9032;random_search_300;43.0
+1.0;make_tuple(truediv(max(mcp, m), truediv(xvar, m)), max(sub(57, n), truediv(xvar, po)));2.0;out;7.0;svm;ba0051fb-b634-4351-addb-b6c33b04c011;0.9888;random_search_300;43.0
+1.0;make_tuple(sub(pow(po, mkd), sub(mcp, m)), truediv(neg(mkd), neg(xvar)));2.0;in;7.0;svm;1750a5ba-59e9-47b5-b70f-083f99c10cac;0.9055;random_search_300;9952.0
+1.0;make_tuple(sub(pow(po, mkd), sub(mcp, m)), truediv(neg(mkd), neg(xvar)));2.0;out;7.0;svm;1750a5ba-59e9-47b5-b70f-083f99c10cac;0.6771;random_search_300;9952.0
+1.0;make_tuple(truediv(add(xvar, m), pow(mkd, mkd)), truediv(truediv(xvar, po), min(m, xvar)));2.0;in;7.0;svm;30068b36-6b53-4297-ba4b-8c21ac18f877;0.9057;random_search_300;168336.0
+1.0;make_tuple(truediv(add(xvar, m), pow(mkd, mkd)), truediv(truediv(xvar, po), min(m, xvar)));2.0;out;7.0;svm;30068b36-6b53-4297-ba4b-8c21ac18f877;0.927;random_search_300;168336.0
+1.0;make_tuple(add(m, xvar), truediv(mkd, xvar));2.0;in;3.0;svm;0dbb309a-6174-4237-9641-fc985a104689;0.9037;random_search_300;11.0
+1.0;make_tuple(add(m, xvar), truediv(mkd, xvar));2.0;out;3.0;svm;0dbb309a-6174-4237-9641-fc985a104689;0.9012;random_search_300;11.0
+1.0;make_tuple(truediv(min(n, m), expit(m)), truediv(expit(p), sub(po, mcp)));2.0;in;7.0;svm;9e2d694e-482a-4c05-83d2-4c38780e9496;0.9033;random_search_300;49.0
+1.0;make_tuple(truediv(min(n, m), expit(m)), truediv(expit(p), sub(po, mcp)));2.0;out;7.0;svm;9e2d694e-482a-4c05-83d2-4c38780e9496;0.967;random_search_300;49.0
+1.0;make_tuple(add(min(m, p), max(xvar, 0.0022146550162737972)), truediv(truediv(m, m), if_gt(po, po, m, po)));2.0;in;7.0;svm;33888605-a568-4c43-b1b4-9a731d9620cd;0.9041;random_search_300;146817.0
+1.0;make_tuple(add(min(m, p), max(xvar, 0.0022146550162737972)), truediv(truediv(m, m), if_gt(po, po, m, po)));2.0;out;7.0;svm;33888605-a568-4c43-b1b4-9a731d9620cd;0.9714;random_search_300;146817.0
+1.0;make_tuple(if_gt(neg(mkd), neg(m), mul(3, m), neg(p)), truediv(expit(n), sub(po, rc)));2.0;in;9.0;svm;e819675a-c8b9-45b5-a989-316ec1cbebe4;0.9047;random_search_300;3904.0
+1.0;make_tuple(if_gt(neg(mkd), neg(m), mul(3, m), neg(p)), truediv(expit(n), sub(po, rc)));2.0;out;9.0;svm;e819675a-c8b9-45b5-a989-316ec1cbebe4;0.7855;random_search_300;3904.0
+1.0;make_tuple(if_gt(add(246, p), mul(0.001511072698564249, rc), mul(m, m), expit(p)), truediv(if_gt(mcp, mkd, xvar, po), mul(xvar, po)));2.0;in;9.0;svm;877c627b-a23e-45cb-8d79-ae14c73e2600;0.9092;random_search_300;34539.0
+1.0;make_tuple(if_gt(add(246, p), mul(0.001511072698564249, rc), mul(m, m), expit(p)), truediv(if_gt(mcp, mkd, xvar, po), mul(xvar, po)));2.0;out;9.0;svm;877c627b-a23e-45cb-8d79-ae14c73e2600;0.5965;random_search_300;34539.0
+1.0;make_tuple(add(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;b19435e8-b5f3-497f-9b2e-731c47460b74;0.9022;random_search_300;3893.0
+1.0;make_tuple(add(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;b19435e8-b5f3-497f-9b2e-731c47460b74;0.9674;random_search_300;3893.0
+1.0;make_tuple(max(pow(p, mkd), if_gt(xvar, 299, 0.47926982580841543, m)), truediv(expit(423), if_gt(mkd, m, 0.03519466415936234, po)));2.0;in;7.0;svm;72a63c1c-9417-458f-80c4-1a4af46b52dc;0.9036;random_search_300;9910.0
+1.0;make_tuple(max(pow(p, mkd), if_gt(xvar, 299, 0.47926982580841543, m)), truediv(expit(423), if_gt(mkd, m, 0.03519466415936234, po)));2.0;out;7.0;svm;72a63c1c-9417-458f-80c4-1a4af46b52dc;0.9937;random_search_300;9910.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;in;3.0;svm;3d2f5d51-ba6d-4c42-969e-d349a14f4d2a;0.9035;random_search_300;2073.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;out;3.0;svm;3d2f5d51-ba6d-4c42-969e-d349a14f4d2a;0.9293;random_search_300;2073.0
+1.0;make_tuple(if_gt(p, n, n, m), truediv(1, po));2.0;in;3.0;svm;ac14d0dc-f672-4047-96bd-dbf842ddd707;0.9049;random_search_300;3510.0
+1.0;make_tuple(if_gt(p, n, n, m), truediv(1, po));2.0;out;3.0;svm;ac14d0dc-f672-4047-96bd-dbf842ddd707;0.9951;random_search_300;3510.0
+1.0;make_tuple(mul(truediv(mcp, 0.2092499603197416), if_gt(n, rc, m, po)), truediv(expit(po), max(m, po)));2.0;in;7.0;svm;a39b4211-482a-402c-993a-5d4f0f075d7c;0.9037;random_search_300;146819.0
+1.0;make_tuple(mul(truediv(mcp, 0.2092499603197416), if_gt(n, rc, m, po)), truediv(expit(po), max(m, po)));2.0;out;7.0;svm;a39b4211-482a-402c-993a-5d4f0f075d7c;0.801;random_search_300;146819.0
+1.0;make_tuple(add(add(xvar, m), max(xvar, xvar)), truediv(expit(m), if_gt(mkd, n, 22, po)));2.0;in;7.0;svm;19116bc4-7676-45b3-b0ee-22cd49565f46;0.9052;random_search_300;2079.0
+1.0;make_tuple(add(add(xvar, m), max(xvar, xvar)), truediv(expit(m), if_gt(mkd, n, 22, po)));2.0;out;7.0;svm;19116bc4-7676-45b3-b0ee-22cd49565f46;0.9284;random_search_300;2079.0
+1.0;make_tuple(add(min(xvar, n), if_gt(n, 0.005395521877455612, m, mkd)), truediv(expit(1), add(mcp, po)));2.0;in;7.0;svm;1d593746-ff0f-4bfd-acbd-0f703bc9300e;0.9028;random_search_300;190411.0
+1.0;make_tuple(add(min(xvar, n), if_gt(n, 0.005395521877455612, m, mkd)), truediv(expit(1), add(mcp, po)));2.0;out;7.0;svm;1d593746-ff0f-4bfd-acbd-0f703bc9300e;0.9377;random_search_300;190411.0
+1.0;make_tuple(truediv(2, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;9b0add9b-f60a-4660-9b6a-de9b68f0ba17;0.9031;random_search_300;18.0
+1.0;make_tuple(truediv(2, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;9b0add9b-f60a-4660-9b6a-de9b68f0ba17;0.9706;random_search_300;18.0
+1.0;make_tuple(if_gt(n, p, m, po), truediv(mkd, xvar));2.0;in;3.0;svm;27affc8c-c14d-4906-bbac-f3939ac1b659;0.9048;random_search_300;3512.0
+1.0;make_tuple(if_gt(n, p, m, po), truediv(mkd, xvar));2.0;out;3.0;svm;27affc8c-c14d-4906-bbac-f3939ac1b659;0.9948;random_search_300;3512.0
+1.0;make_tuple(add(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;474eac80-5d7e-4f37-ad86-4f18e754d17e;0.9043;random_search_300;3917.0
+1.0;make_tuple(add(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;474eac80-5d7e-4f37-ad86-4f18e754d17e;0.7422;random_search_300;3917.0
+1.0;make_tuple(add(pow(mkd, mkd), max(m, mkd)), truediv(neg(1), neg(po)));2.0;in;7.0;svm;e1c6f122-4f20-40ca-9336-4626f91dd69e;0.9042;random_search_300;10106.0
+1.0;make_tuple(add(pow(mkd, mkd), max(m, mkd)), truediv(neg(1), neg(po)));2.0;out;7.0;svm;e1c6f122-4f20-40ca-9336-4626f91dd69e;0.9965;random_search_300;10106.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;in;3.0;svm;05c62660-e3d1-48ed-b3d4-8e81bac55f7c;0.9032;random_search_300;168908.0
+1.0;make_tuple(add(xvar, m), truediv(mkd, xvar));2.0;out;3.0;svm;05c62660-e3d1-48ed-b3d4-8e81bac55f7c;0.9582;random_search_300;168908.0
+1.0;make_tuple(add(add(mkd, m), expit(xvar)), truediv(max(xvar, xvar), mul(po, xvar)));2.0;in;7.0;svm;5337b7ae-9e51-46df-b237-2c2367aaadb3;0.9047;random_search_300;29.0
+1.0;make_tuple(add(add(mkd, m), expit(xvar)), truediv(max(xvar, xvar), mul(po, xvar)));2.0;out;7.0;svm;5337b7ae-9e51-46df-b237-2c2367aaadb3;0.9546;random_search_300;29.0
+1.0;make_tuple(add(m, m), truediv(0.6772762455920257, po));2.0;in;3.0;svm;bc9d6306-c3b8-47a7-a92f-44abf079e488;0.9028;random_search_300;12.0
+1.0;make_tuple(add(m, m), truediv(0.6772762455920257, po));2.0;out;3.0;svm;bc9d6306-c3b8-47a7-a92f-44abf079e488;0.9976;random_search_300;12.0
+1.0;make_tuple(if_gt(neg(mcp), sub(m, mkd), expit(xvar), truediv(m, 0.6324570039804213)), truediv(expit(m), sub(po, xvar)));2.0;in;9.0;svm;53abb047-38e6-4d54-a011-828a9644abe0;0.9041;random_search_300;28.0
+1.0;make_tuple(if_gt(neg(mcp), sub(m, mkd), expit(xvar), truediv(m, 0.6324570039804213)), truediv(expit(m), sub(po, xvar)));2.0;out;9.0;svm;53abb047-38e6-4d54-a011-828a9644abe0;0.9985;random_search_300;28.0
+1.0;make_tuple(max(mul(m, m), sub(mcp, mkd)), truediv(truediv(mcp, mcp), max(po, po)));2.0;in;7.0;svm;ddb2c96b-9c44-48a1-ab8a-f2d2be3d7e49;0.9052;random_search_300;9946.0
+1.0;make_tuple(max(mul(m, m), sub(mcp, mkd)), truediv(truediv(mcp, mcp), max(po, po)));2.0;out;7.0;svm;ddb2c96b-9c44-48a1-ab8a-f2d2be3d7e49;0.989;random_search_300;9946.0
+1.0;make_tuple(min(n, m), truediv(1, po));2.0;in;3.0;svm;f2fef1fc-7243-49d3-930b-6a9d3db94267;0.902;random_search_300;146800.0
+1.0;make_tuple(min(n, m), truediv(1, po));2.0;out;3.0;svm;f2fef1fc-7243-49d3-930b-6a9d3db94267;0.9956;random_search_300;146800.0
+1.0;make_tuple(min(4, 24), truediv(1, po));2.0;in;3.0;svm;be4c00f0-e865-4b9b-ae2b-b787224febaa;0.9022;random_search_300;146212.0
+1.0;make_tuple(min(4, 24), truediv(1, po));2.0;out;3.0;svm;be4c00f0-e865-4b9b-ae2b-b787224febaa;0.9996;random_search_300;146212.0
+1.0;make_tuple(pow(if_gt(xvar, p, m, m), min(n, 2)), truediv(add(mcp, n), mul(n, p)));2.0;in;7.0;svm;1195a8f4-af12-4ced-8a13-dc36cfef8f68;0.9047;random_search_300;167211.0
+1.0;make_tuple(pow(if_gt(xvar, p, m, m), min(n, 2)), truediv(add(mcp, n), mul(n, p)));2.0;out;7.0;svm;1195a8f4-af12-4ced-8a13-dc36cfef8f68;0.9222;random_search_300;167211.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;in;3.0;svm;61197989-ee7b-4efd-93d0-51b02cab8fae;0.9123;random_search_300;3493.0
+1.0;make_tuple(truediv(m, mcp), truediv(mkd, xvar));2.0;out;3.0;svm;61197989-ee7b-4efd-93d0-51b02cab8fae;0.0796;random_search_300;3493.0
+1.0;make_tuple(sub(min(m, 92), sub(0.018406392631488938, mcp)), min(truediv(0.9036040588445361, po), if_gt(0.33059580876461997, rc, m, m)));2.0;in;7.0;svm;212fca19-d7a8-4dbd-8383-5790f16e3083;0.9031;random_search_300;3549.0
+1.0;make_tuple(sub(min(m, 92), sub(0.018406392631488938, mcp)), min(truediv(0.9036040588445361, po), if_gt(0.33059580876461997, rc, m, m)));2.0;out;7.0;svm;212fca19-d7a8-4dbd-8383-5790f16e3083;0.9963;random_search_300;3549.0
+1.0;make_tuple(add(m, mcp), truediv(0.867864638782469, po));2.0;in;3.0;svm;d5f1f6e5-9c35-4536-b535-cefb6d0dd30e;0.9039;random_search_300;3902.0
+1.0;make_tuple(add(m, mcp), truediv(0.867864638782469, po));2.0;out;3.0;svm;d5f1f6e5-9c35-4536-b535-cefb6d0dd30e;0.9594;random_search_300;3902.0
+1.0;make_tuple(max(mul(m, m), expit(0.3703422342584148)), truediv(expit(0.0980652564167272), max(po, mcp)));2.0;in;7.0;svm;0519d041-cb71-4cd3-9fe3-e262b4ad3cf8;0.903;random_search_300;22.0
+1.0;make_tuple(max(mul(m, m), expit(0.3703422342584148)), truediv(expit(0.0980652564167272), max(po, mcp)));2.0;out;7.0;svm;0519d041-cb71-4cd3-9fe3-e262b4ad3cf8;0.9837;random_search_300;22.0
+1.0;make_tuple(add(m, 0.06562825678221453), truediv(mkd, xvar));2.0;in;3.0;svm;3b760571-c88d-466b-9259-a503d4ec9942;0.9021;random_search_300;167119.0
+1.0;make_tuple(add(m, 0.06562825678221453), truediv(mkd, xvar));2.0;out;3.0;svm;3b760571-c88d-466b-9259-a503d4ec9942;0.9267;random_search_300;167119.0
+1.0;make_tuple(pow(n, 0.2197433059613879), truediv(1, po));2.0;in;3.0;svm;1ddb3304-cda8-494a-8ac5-38f80602acff;0.9033;random_search_300;168909.0
+1.0;make_tuple(pow(n, 0.2197433059613879), truediv(1, po));2.0;out;3.0;svm;1ddb3304-cda8-494a-8ac5-38f80602acff;0.995;random_search_300;168909.0
+1.0;make_tuple(add(m, xvar), truediv(1, po));2.0;in;3.0;svm;a6b265cc-30ef-44f2-b3eb-02b92093830f;0.9051;random_search_300;10101.0
+1.0;make_tuple(add(m, xvar), truediv(1, po));2.0;out;3.0;svm;a6b265cc-30ef-44f2-b3eb-02b92093830f;0.862;random_search_300;10101.0
+1.0;make_tuple(add(expit(po), sub(m, rc)), truediv(truediv(n, n), sub(po, mcp)));2.0;in;7.0;svm;7e710c6a-913f-4efe-87e5-87cbdd68bfb7;0.9043;random_search_300;58.0
+1.0;make_tuple(add(expit(po), sub(m, rc)), truediv(truediv(n, n), sub(po, mcp)));2.0;out;7.0;svm;7e710c6a-913f-4efe-87e5-87cbdd68bfb7;0.9623;random_search_300;58.0
+1.0;make_tuple(add(add(rc, m), min(m, p)), truediv(expit(xvar), add(rc, po)));2.0;in;7.0;svm;8a25c149-6425-4b79-b725-44cc2f15fe8c;0.9049;random_search_300;9976.0
+1.0;make_tuple(add(add(rc, m), min(m, p)), truediv(expit(xvar), add(rc, po)));2.0;out;7.0;svm;8a25c149-6425-4b79-b725-44cc2f15fe8c;0.8976;random_search_300;9976.0
+1.0;make_tuple(truediv(m, 0.711763751591743), truediv(mkd, xvar));2.0;in;3.0;svm;7210d01c-19b3-4260-b2ba-c5af2473d524;0.9053;random_search_300;3485.0
+1.0;make_tuple(truediv(m, 0.711763751591743), truediv(mkd, xvar));2.0;out;3.0;svm;7210d01c-19b3-4260-b2ba-c5af2473d524;0.7966;random_search_300;3485.0
+1.0;make_tuple(max(add(mcp, 0.07959277708078305), add(xvar, m)), truediv(expit(p), min(po, p)));2.0;in;7.0;svm;02c4bbce-4b57-4a86-809e-fca41901f49c;0.9046;random_search_300;9985.0
+1.0;make_tuple(max(add(mcp, 0.07959277708078305), add(xvar, m)), truediv(expit(p), min(po, p)));2.0;out;7.0;svm;02c4bbce-4b57-4a86-809e-fca41901f49c;0.8824;random_search_300;9985.0
+1.0;make_tuple(min(max(mcp, 7), add(0.009051936639470631, n)), truediv(expit(po), add(po, mcp)));2.0;in;7.0;svm;1f1f346a-5ee6-4dff-95bb-794f641349f8;0.9034;random_search_300;189924.0
+1.0;make_tuple(min(max(mcp, 7), add(0.009051936639470631, n)), truediv(expit(po), add(po, mcp)));2.0;out;7.0;svm;1f1f346a-5ee6-4dff-95bb-794f641349f8;0.9043;random_search_300;189924.0
+1.0;make_tuple(mul(expit(p), mul(m, m)), truediv(expit(19), if_gt(mkd, m, po, po)));2.0;in;7.0;svm;b77839c1-2e62-4de6-92f6-91b8b0252a6e;0.9052;random_search_300;14970.0
+1.0;make_tuple(mul(expit(p), mul(m, m)), truediv(expit(19), if_gt(mkd, m, po, po)));2.0;out;7.0;svm;b77839c1-2e62-4de6-92f6-91b8b0252a6e;0.9996;random_search_300;14970.0
+1.0;make_tuple(max(neg(mcp), max(m, mcp)), pow(min(mkd, xvar), pow(xvar, 0.29476541328791056)));2.0;in;7.0;svm;3a64bbfb-4997-4c33-80f2-a3b963c5db19;0.9027;random_search_300;3022.0
+1.0;make_tuple(max(neg(mcp), max(m, mcp)), pow(min(mkd, xvar), pow(xvar, 0.29476541328791056)));2.0;out;7.0;svm;3a64bbfb-4997-4c33-80f2-a3b963c5db19;0.9934;random_search_300;3022.0
+1.0;make_tuple(max(add(m, xvar), expit(xvar)), truediv(expit(m), max(po, 4)));2.0;in;7.0;svm;64634a09-21e5-4088-adf4-f1626a14855e;0.9034;random_search_300;146821.0
+1.0;make_tuple(max(add(m, xvar), expit(xvar)), truediv(expit(m), max(po, 4)));2.0;out;7.0;svm;64634a09-21e5-4088-adf4-f1626a14855e;0.9648;random_search_300;146821.0
+1.0;make_tuple(sub(add(m, m), neg(rc)), truediv(min(mkd, po), mul(po, mkd)));2.0;in;7.0;svm;abe48fb4-e73c-4adb-8cb7-5745c21e4540;0.9039;random_search_300;3481.0
+1.0;make_tuple(sub(add(m, m), neg(rc)), truediv(min(mkd, po), mul(po, mkd)));2.0;out;7.0;svm;abe48fb4-e73c-4adb-8cb7-5745c21e4540;0.9982;random_search_300;3481.0
+1.0;make_tuple(truediv(max(mkd, 4), expit(rc)), truediv(max(mcp, p), mul(po, p)));2.0;in;7.0;svm;5b1f9b35-bd7a-4a18-9338-1e7803c0b1b6;0.9059;random_search_300;145681.0
+1.0;make_tuple(truediv(max(mkd, 4), expit(rc)), truediv(max(mcp, p), mul(po, p)));2.0;out;7.0;svm;5b1f9b35-bd7a-4a18-9338-1e7803c0b1b6;0.6196;random_search_300;145681.0
+1.0;make_tuple(mul(max(m, mcp), if_gt(n, mcp, 0.09205371748590706, 0.781672926269082)), truediv(truediv(p, m), mul(n, po)));2.0;in;7.0;glmnet;ad6dd1b7-5909-4dfb-8652-3fa00c8b68fd;0.9208;random_search_300;22.0
+1.0;make_tuple(mul(max(m, mcp), if_gt(n, mcp, 0.09205371748590706, 0.781672926269082)), truediv(truediv(p, m), mul(n, po)));2.0;out;7.0;glmnet;ad6dd1b7-5909-4dfb-8652-3fa00c8b68fd;0.9878;random_search_300;22.0
+1.0;make_tuple(min(mcp, po), sub(0.0036451849138683175, mkd));2.0;in;3.0;glmnet;00a08f63-80ea-434b-9193-f00d593f0fed;0.9228;random_search_300;14970.0
+1.0;make_tuple(min(mcp, po), sub(0.0036451849138683175, mkd));2.0;out;3.0;glmnet;00a08f63-80ea-434b-9193-f00d593f0fed;0.9908;random_search_300;14970.0
+1.0;make_tuple(expit(mkd), sub(0.007407514448660183, mkd));2.0;in;3.0;glmnet;14945faa-1239-4456-a8db-3eefca13638b;0.921;random_search_300;168912.0
+1.0;make_tuple(expit(mkd), sub(0.007407514448660183, mkd));2.0;out;3.0;glmnet;14945faa-1239-4456-a8db-3eefca13638b;0.9917;random_search_300;168912.0
+1.0;make_tuple(min(mcp, 0.3226505417012209), sub(0.007845347440411194, mkd));2.0;in;3.0;glmnet;ceeeebf3-e330-4c5e-9bfb-37793e767bba;0.9241;random_search_300;168336.0
+1.0;make_tuple(min(mcp, 0.3226505417012209), sub(0.007845347440411194, mkd));2.0;out;3.0;glmnet;ceeeebf3-e330-4c5e-9bfb-37793e767bba;0.9477;random_search_300;168336.0
+1.0;make_tuple(mul(0.13691084959880404, mcp), sub(0.012050427912395831, mkd));2.0;in;3.0;glmnet;7ce6fb5e-56b4-4d6c-991e-f6aebffa186c;0.9225;random_search_300;16.0
+1.0;make_tuple(mul(0.13691084959880404, mcp), sub(0.012050427912395831, mkd));2.0;out;3.0;glmnet;7ce6fb5e-56b4-4d6c-991e-f6aebffa186c;0.9903;random_search_300;16.0
+1.0;make_tuple(if_gt(mul(po, 0.02771516997552807), neg(p), max(mcp, mcp), max(m, 0.00624988921307903)), min(max(1, xvar), sub(0.006897441980984471, mkd)));2.0;in;9.0;glmnet;737800bb-7193-49ba-8976-168dbd985a04;0.922;random_search_300;6.0
+1.0;make_tuple(if_gt(mul(po, 0.02771516997552807), neg(p), max(mcp, mcp), max(m, 0.00624988921307903)), min(max(1, xvar), sub(0.006897441980984471, mkd)));2.0;out;9.0;glmnet;737800bb-7193-49ba-8976-168dbd985a04;0.9981;random_search_300;6.0
+1.0;make_tuple(min(expit(rc), mul(m, mcp)), truediv(truediv(p, n), max(m, po)));2.0;in;7.0;glmnet;180eb2b4-6cf0-4c20-8832-91740590aacd;0.9226;random_search_300;3904.0
+1.0;make_tuple(min(expit(rc), mul(m, mcp)), truediv(truediv(p, n), max(m, po)));2.0;out;7.0;glmnet;180eb2b4-6cf0-4c20-8832-91740590aacd;0.9194;random_search_300;3904.0
+1.0;make_tuple(expit(min(po, mkd)), sub(sub(0.03525804425973196, 0.027709689970249977), truediv(mkd, mcp)));2.0;in;6.0;glmnet;6ce57178-a9ce-4136-a428-430422e1ee27;0.9245;random_search_300;3913.0
+1.0;make_tuple(expit(min(po, mkd)), sub(sub(0.03525804425973196, 0.027709689970249977), truediv(mkd, mcp)));2.0;out;6.0;glmnet;6ce57178-a9ce-4136-a428-430422e1ee27;0.5897;random_search_300;3913.0
+1.0;make_tuple(expit(if_gt(0.294328599994602, rc, mkd, mcp)), sub(neg(mkd), neg(0.009095799788558134)));2.0;in;6.0;glmnet;61cd3d69-db8e-40dc-ac3d-5b4a6e66d072;0.9246;random_search_300;168868.0
+1.0;make_tuple(expit(if_gt(0.294328599994602, rc, mkd, mcp)), sub(neg(mkd), neg(0.009095799788558134)));2.0;out;6.0;glmnet;61cd3d69-db8e-40dc-ac3d-5b4a6e66d072;0.9819;random_search_300;168868.0
+1.0;make_tuple(if_gt(po, po, p, mcp), sub(0.004266446507598024, mkd));2.0;in;3.0;glmnet;c86ad47e-9e9d-4257-a81a-e4faaabf7530;0.9227;random_search_300;43.0
+1.0;make_tuple(if_gt(po, po, p, mcp), sub(0.004266446507598024, mkd));2.0;out;3.0;glmnet;c86ad47e-9e9d-4257-a81a-e4faaabf7530;0.9979;random_search_300;43.0
+1.0;make_tuple(mul(if_gt(mkd, mkd, po, mcp), expit(mkd)), min(expit(mcp), sub(0.008827690717212587, mkd)));2.0;in;7.0;glmnet;0ba531e3-bb4c-4727-8d3a-f9e914649c84;0.9267;random_search_300;3945.0
+1.0;make_tuple(mul(if_gt(mkd, mkd, po, mcp), expit(mkd)), min(expit(mcp), sub(0.008827690717212587, mkd)));2.0;out;7.0;glmnet;0ba531e3-bb4c-4727-8d3a-f9e914649c84;0.9993;random_search_300;3945.0
+1.0;make_tuple(if_gt(p, m, mcp, m), sub(0.0028751376772998037, mkd));2.0;in;3.0;glmnet;d265db86-0630-4149-a579-9d0242026129;0.9211;random_search_300;3.0
+1.0;make_tuple(if_gt(p, m, mcp, m), sub(0.0028751376772998037, mkd));2.0;out;3.0;glmnet;d265db86-0630-4149-a579-9d0242026129;0.9976;random_search_300;3.0
+1.0;make_tuple(if_gt(neg(xvar), min(0.017220631609988067, 0.017868795556139246), neg(m), min(mcp, 6)), max(sub(mcp, mcp), sub(0.00608935263943268, mkd)));2.0;in;9.0;glmnet;f85725a5-1323-45ec-af58-946a0823eb44;0.9226;random_search_300;32.0
+1.0;make_tuple(if_gt(neg(xvar), min(0.017220631609988067, 0.017868795556139246), neg(m), min(mcp, 6)), max(sub(mcp, mcp), sub(0.00608935263943268, mkd)));2.0;out;9.0;glmnet;f85725a5-1323-45ec-af58-946a0823eb44;0.9989;random_search_300;32.0
+1.0;make_tuple(max(mcp, mcp), sub(0.007744847160212513, mkd));2.0;in;3.0;glmnet;adbc3ea9-36ce-4c3a-a335-feafdb775fe9;0.9217;random_search_300;10093.0
+1.0;make_tuple(max(mcp, mcp), sub(0.007744847160212513, mkd));2.0;out;3.0;glmnet;adbc3ea9-36ce-4c3a-a335-feafdb775fe9;0.9952;random_search_300;10093.0
+1.0;make_tuple(if_gt(p, mkd, 0.17874154320215158, 209), sub(0.010351884877268475, mkd));2.0;in;3.0;glmnet;1dfe62f4-d1af-4e36-96e5-41aa7a0fdc12;0.9261;random_search_300;3573.0
+1.0;make_tuple(if_gt(p, mkd, 0.17874154320215158, 209), sub(0.010351884877268475, mkd));2.0;out;3.0;glmnet;1dfe62f4-d1af-4e36-96e5-41aa7a0fdc12;0.9868;random_search_300;3573.0
+1.0;make_tuple(expit(if_gt(rc, mcp, mcp, rc)), truediv(expit(rc), mul(n, xvar)));2.0;in;6.0;glmnet;c9c267ce-c585-4e6e-9270-951bc3be9b4e;0.9229;random_search_300;168909.0
+1.0;make_tuple(expit(if_gt(rc, mcp, mcp, rc)), truediv(expit(rc), mul(n, xvar)));2.0;out;6.0;glmnet;c9c267ce-c585-4e6e-9270-951bc3be9b4e;0.9954;random_search_300;168909.0
+1.0;make_tuple(mul(max(xvar, n), max(mcp, 121)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;in;7.0;glmnet;f3fb2456-54ff-4247-becd-573e36d17f82;0.923;random_search_300;167211.0
+1.0;make_tuple(mul(max(xvar, n), max(mcp, 121)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;out;7.0;glmnet;f3fb2456-54ff-4247-becd-573e36d17f82;0.9679;random_search_300;167211.0
+1.0;make_tuple(mul(pow(mkd, 0.01844284681290145), expit(0.004110381632852959)), mul(mul(2, p), truediv(0.011651907736274994, n)));2.0;in;7.0;glmnet;3eb23290-7083-4a14-b026-701e2807e2f5;0.9232;random_search_300;168339.0
+1.0;make_tuple(mul(pow(mkd, 0.01844284681290145), expit(0.004110381632852959)), mul(mul(2, p), truediv(0.011651907736274994, n)));2.0;out;7.0;glmnet;3eb23290-7083-4a14-b026-701e2807e2f5;0.9987;random_search_300;168339.0
+1.0;make_tuple(pow(mul(m, mcp), min(1, 0.005909493800079478)), truediv(expit(mcp), mul(xvar, n)));2.0;in;7.0;glmnet;13399417-2e96-4844-8de5-48236f0631ea;0.9228;random_search_300;14965.0
+1.0;make_tuple(pow(mul(m, mcp), min(1, 0.005909493800079478)), truediv(expit(mcp), mul(xvar, n)));2.0;out;7.0;glmnet;13399417-2e96-4844-8de5-48236f0631ea;0.9927;random_search_300;14965.0
+1.0;make_tuple(if_gt(p, m, 0.5735138353088052, p), sub(0.011202170083183683, mkd));2.0;in;3.0;glmnet;b9f41728-91c2-47a7-a52f-cfb0a09549ee;0.9193;random_search_300;168910.0
+1.0;make_tuple(if_gt(p, m, 0.5735138353088052, p), sub(0.011202170083183683, mkd));2.0;out;3.0;glmnet;b9f41728-91c2-47a7-a52f-cfb0a09549ee;0.9651;random_search_300;168910.0
+1.0;make_tuple(expit(expit(0.05662536501620577)), truediv(truediv(mcp, xvar), add(0.002617440364570451, n)));2.0;in;6.0;glmnet;6c2eb144-ac91-498a-a7b7-94048e065fb3;0.9226;random_search_300;53.0
+1.0;make_tuple(expit(expit(0.05662536501620577)), truediv(truediv(mcp, xvar), add(0.002617440364570451, n)));2.0;out;6.0;glmnet;6c2eb144-ac91-498a-a7b7-94048e065fb3;0.9933;random_search_300;53.0
+1.0;make_tuple(add(pow(m, mcp), sub(40, rc)), truediv(expit(n), mul(xvar, n)));2.0;in;7.0;glmnet;665512e3-ebd3-4bfd-9f02-43189ffe07f3;0.9159;random_search_300;7592.0
+1.0;make_tuple(add(pow(m, mcp), sub(40, rc)), truediv(expit(n), mul(xvar, n)));2.0;out;7.0;glmnet;665512e3-ebd3-4bfd-9f02-43189ffe07f3;0.9975;random_search_300;7592.0
+1.0;make_tuple(truediv(0.006056012020506304, 0.022044361825151907), sub(0.0098864843000936, mkd));2.0;in;3.0;glmnet;8c89429d-91d6-4c63-92d5-6a2633dd6f2f;0.9265;random_search_300;168337.0
+1.0;make_tuple(truediv(0.006056012020506304, 0.022044361825151907), sub(0.0098864843000936, mkd));2.0;out;3.0;glmnet;8c89429d-91d6-4c63-92d5-6a2633dd6f2f;0.9729;random_search_300;168337.0
+1.0;make_tuple(expit(expit(po)), truediv(truediv(mcp, xvar), add(po, n)));2.0;in;6.0;glmnet;7ed1c0f4-0a7d-4f6d-8a18-4493d29e1f76;0.9245;random_search_300;9910.0
+1.0;make_tuple(expit(expit(po)), truediv(truediv(mcp, xvar), add(po, n)));2.0;out;6.0;glmnet;7ed1c0f4-0a7d-4f6d-8a18-4493d29e1f76;0.7675;random_search_300;9910.0
+1.0;make_tuple(min(mcp, 0.13268484505032654), sub(0.014266008736977571, mkd));2.0;in;3.0;glmnet;d90e4752-9c61-4ac8-8ef2-4a24d2989723;0.9253;random_search_300;3485.0
+1.0;make_tuple(min(mcp, 0.13268484505032654), sub(0.014266008736977571, mkd));2.0;out;3.0;glmnet;d90e4752-9c61-4ac8-8ef2-4a24d2989723;0.9877;random_search_300;3485.0
+1.0;make_tuple(add(mcp, mkd), sub(0.00971380433400738, mkd));2.0;in;3.0;glmnet;6f1fd4e2-c10a-45d1-9b12-e7a74e924653;0.9253;random_search_300;3560.0
+1.0;make_tuple(add(mcp, mkd), sub(0.00971380433400738, mkd));2.0;out;3.0;glmnet;6f1fd4e2-c10a-45d1-9b12-e7a74e924653;0.8008;random_search_300;3560.0
+1.0;make_tuple(expit(mcp), sub(0.009041968241365711, mkd));2.0;in;3.0;glmnet;7c812387-8cfa-434f-8ee0-e1b9f1f94692;0.9222;random_search_300;146607.0
+1.0;make_tuple(expit(mcp), sub(0.009041968241365711, mkd));2.0;out;3.0;glmnet;7c812387-8cfa-434f-8ee0-e1b9f1f94692;0.956;random_search_300;146607.0
+1.0;make_tuple(add(max(mkd, 39), neg(mkd)), truediv(expit(mcp), mul(xvar, n)));2.0;in;7.0;glmnet;860221cb-534f-44d9-8106-c344a14d74c6;0.9251;random_search_300;10090.0
+1.0;make_tuple(add(max(mkd, 39), neg(mkd)), truediv(expit(mcp), mul(xvar, n)));2.0;out;7.0;glmnet;860221cb-534f-44d9-8106-c344a14d74c6;0.7263;random_search_300;10090.0
+1.0;make_tuple(min(mcp, m), sub(0.009907185668034177, mkd));2.0;in;3.0;glmnet;5c457c9c-0bd0-4ec7-973e-47b5a061b814;0.9228;random_search_300;125921.0
+1.0;make_tuple(min(mcp, m), sub(0.009907185668034177, mkd));2.0;out;3.0;glmnet;5c457c9c-0bd0-4ec7-973e-47b5a061b814;0.949;random_search_300;125921.0
+1.0;make_tuple(min(mul(mcp, mcp), expit(m)), neg(sub(mkd, 0.010481067704929396)));2.0;in;6.0;glmnet;1d624ae7-e4a2-4adc-b531-2fa984976f3d;0.9245;random_search_300;28.0
+1.0;make_tuple(min(mul(mcp, mcp), expit(m)), neg(sub(mkd, 0.010481067704929396)));2.0;out;6.0;glmnet;1d624ae7-e4a2-4adc-b531-2fa984976f3d;0.9983;random_search_300;28.0
+1.0;make_tuple(expit(expit(rc)), truediv(truediv(mcp, xvar), max(n, mcp)));2.0;in;6.0;glmnet;19f13548-2046-4689-a031-0eba2f7e306f;0.9228;random_search_300;146800.0
+1.0;make_tuple(expit(expit(rc)), truediv(truediv(mcp, xvar), max(n, mcp)));2.0;out;6.0;glmnet;19f13548-2046-4689-a031-0eba2f7e306f;0.9968;random_search_300;146800.0
+1.0;make_tuple(pow(if_gt(p, n, n, m), truediv(po, n)), truediv(min(m, mcp), mul(xvar, n)));2.0;in;7.0;glmnet;91ff1037-d3d1-4601-a432-abbd2bced1b8;0.9223;random_search_300;9964.0
+1.0;make_tuple(pow(if_gt(p, n, n, m), truediv(po, n)), truediv(min(m, mcp), mul(xvar, n)));2.0;out;7.0;glmnet;91ff1037-d3d1-4601-a432-abbd2bced1b8;0.9886;random_search_300;9964.0
+1.0;make_tuple(if_gt(neg(rc), truediv(n, m), mul(0.004863534372879191, n), sub(mcp, 0.0010993631423425044)), truediv(truediv(0.003723690747015251, mkd), if_gt(n, 185, n, rc)));2.0;in;9.0;glmnet;6d516e5c-d713-43c8-b471-018de1e168a8;0.9197;random_search_300;9956.0
+1.0;make_tuple(if_gt(neg(rc), truediv(n, m), mul(0.004863534372879191, n), sub(mcp, 0.0010993631423425044)), truediv(truediv(0.003723690747015251, mkd), if_gt(n, 185, n, rc)));2.0;out;9.0;glmnet;6d516e5c-d713-43c8-b471-018de1e168a8;0.9939;random_search_300;9956.0
+1.0;make_tuple(mul(add(0.03967670216014788, mcp), expit(mkd)), if_gt(add(p, rc), expit(mkd), sub(0.004262094200130194, mkd), add(n, n)));2.0;in;9.0;glmnet;e5e9b7d5-8765-4a6e-b5a8-fb3c85d61b2c;0.9237;random_search_300;168908.0
+1.0;make_tuple(mul(add(0.03967670216014788, mcp), expit(mkd)), if_gt(add(p, rc), expit(mkd), sub(0.004262094200130194, mkd), add(n, n)));2.0;out;9.0;glmnet;e5e9b7d5-8765-4a6e-b5a8-fb3c85d61b2c;0.8884;random_search_300;168908.0
+1.0;make_tuple(mul(mcp, mcp), sub(0.004327578228105622, mkd));2.0;in;3.0;glmnet;27397bf5-103f-449b-b173-296d3497f0ac;0.9295;random_search_300;125920.0
+1.0;make_tuple(mul(mcp, mcp), sub(0.004327578228105622, mkd));2.0;out;3.0;glmnet;27397bf5-103f-449b-b173-296d3497f0ac;0.1086;random_search_300;125920.0
+1.0;make_tuple(expit(min(mkd, po)), mul(sub(p, m), pow(0.0012952980794686427, m)));2.0;in;6.0;glmnet;a68911b8-c01a-44fb-bbd1-2d8bff42ee34;0.9224;random_search_300;41.0
+1.0;make_tuple(expit(min(mkd, po)), mul(sub(p, m), pow(0.0012952980794686427, m)));2.0;out;6.0;glmnet;a68911b8-c01a-44fb-bbd1-2d8bff42ee34;0.9962;random_search_300;41.0
+1.0;make_tuple(add(mcp, mkd), sub(0.003933127936533894, mkd));2.0;in;3.0;glmnet;33cac21a-a19b-4562-aac9-06ec56d643be;0.9228;random_search_300;29.0
+1.0;make_tuple(add(mcp, mkd), sub(0.003933127936533894, mkd));2.0;out;3.0;glmnet;33cac21a-a19b-4562-aac9-06ec56d643be;0.9368;random_search_300;29.0
+1.0;make_tuple(if_gt(min(p, m), min(n, xvar), max(p, rc), max(xvar, 6)), truediv(max(mcp, 0.0019534697948216445), mul(n, xvar)));2.0;in;9.0;glmnet;0e20ec7b-56a9-4311-ab58-4c4cd863a242;0.9239;random_search_300;3493.0
+1.0;make_tuple(if_gt(min(p, m), min(n, xvar), max(p, rc), max(xvar, 6)), truediv(max(mcp, 0.0019534697948216445), mul(n, xvar)));2.0;out;9.0;glmnet;0e20ec7b-56a9-4311-ab58-4c4cd863a242;0.7539;random_search_300;3493.0
+1.0;make_tuple(max(neg(m), truediv(mcp, m)), sub(max(0.011213007866269815, mkd), add(mkd, mkd)));2.0;in;7.0;glmnet;5a0c527b-6548-438d-8184-3d4c011f59b8;0.9228;random_search_300;146818.0
+1.0;make_tuple(max(neg(m), truediv(mcp, m)), sub(max(0.011213007866269815, mkd), add(mkd, mkd)));2.0;out;7.0;glmnet;5a0c527b-6548-438d-8184-3d4c011f59b8;0.9579;random_search_300;146818.0
+1.0;make_tuple(if_gt(expit(mcp), mul(po, po), truediv(mcp, mkd), expit(xvar)), mul(truediv(0.04086720126284367, n), mul(mcp, p)));2.0;in;9.0;glmnet;c0bb316b-68ed-436b-ad14-b6d7ae899466;0.9255;random_search_300;3902.0
+1.0;make_tuple(if_gt(expit(mcp), mul(po, po), truediv(mcp, mkd), expit(xvar)), mul(truediv(0.04086720126284367, n), mul(mcp, p)));2.0;out;9.0;glmnet;c0bb316b-68ed-436b-ad14-b6d7ae899466;0.8093;random_search_300;3902.0
+1.0;make_tuple(mul(max(rc, 0.655851463943671), if_gt(po, xvar, mcp, p)), neg(sub(mkd, 0.012869435908121086)));2.0;in;6.0;glmnet;18734501-5c0a-4e4e-afce-e00e429173f4;0.9211;random_search_300;168335.0
+1.0;make_tuple(mul(max(rc, 0.655851463943671), if_gt(po, xvar, mcp, p)), neg(sub(mkd, 0.012869435908121086)));2.0;out;6.0;glmnet;18734501-5c0a-4e4e-afce-e00e429173f4;0.9361;random_search_300;168335.0
+1.0;make_tuple(pow(if_gt(rc, n, p, mcp), pow(po, 0.011725317371195074)), truediv(add(mcp, 0.0022955320906145587), mul(xvar, n)));2.0;in;7.0;glmnet;a73634b5-9234-439e-8ef8-ea31c6609fd8;0.9258;random_search_300;168329.0
+1.0;make_tuple(pow(if_gt(rc, n, p, mcp), pow(po, 0.011725317371195074)), truediv(add(mcp, 0.0022955320906145587), mul(xvar, n)));2.0;out;7.0;glmnet;a73634b5-9234-439e-8ef8-ea31c6609fd8;0.9797;random_search_300;168329.0
+1.0;make_tuple(mul(add(rc, mcp), expit(mkd)), truediv(expit(p), mul(n, xvar)));2.0;in;7.0;glmnet;975c6309-9143-4eea-aac0-37153df2676e;0.9255;random_search_300;167120.0
+1.0;make_tuple(mul(add(rc, mcp), expit(mkd)), truediv(expit(p), mul(n, xvar)));2.0;out;7.0;glmnet;975c6309-9143-4eea-aac0-37153df2676e;0.9806;random_search_300;167120.0
+1.0;make_tuple(if_gt(p, 13, mcp, po), sub(0.0025691314320902174, mkd));2.0;in;3.0;glmnet;6104336e-5ff7-4836-82b8-c0e221489f59;0.9217;random_search_300;18.0
+1.0;make_tuple(if_gt(p, 13, mcp, po), sub(0.0025691314320902174, mkd));2.0;out;3.0;glmnet;6104336e-5ff7-4836-82b8-c0e221489f59;0.9892;random_search_300;18.0
+1.0;make_tuple(expit(mcp), sub(0.0034607305783904982, mkd));2.0;in;3.0;glmnet;5cab7bd8-c4c2-4776-9cdf-61511bd35a66;0.9204;random_search_300;49.0
+1.0;make_tuple(expit(mcp), sub(0.0034607305783904982, mkd));2.0;out;3.0;glmnet;5cab7bd8-c4c2-4776-9cdf-61511bd35a66;0.9976;random_search_300;49.0
+1.0;make_tuple(expit(if_gt(0.06844237859106313, rc, rc, rc)), truediv(if_gt(xvar, po, m, mcp), mul(n, xvar)));2.0;in;6.0;glmnet;3089d2ba-2695-42a7-a640-8241173a7a83;0.9231;random_search_300;146817.0
+1.0;make_tuple(expit(if_gt(0.06844237859106313, rc, rc, rc)), truediv(if_gt(xvar, po, m, mcp), mul(n, xvar)));2.0;out;6.0;glmnet;3089d2ba-2695-42a7-a640-8241173a7a83;0.9964;random_search_300;146817.0
+1.0;make_tuple(min(expit(mkd), sub(n, 23)), truediv(mul(p, 0.024872075107338253), add(n, p)));2.0;in;7.0;glmnet;3786e5b7-aad1-40da-9eb9-a3219dcafce8;0.9358;random_search_300;9971.0
+1.0;make_tuple(min(expit(mkd), sub(n, 23)), truediv(mul(p, 0.024872075107338253), add(n, p)));2.0;out;7.0;glmnet;3786e5b7-aad1-40da-9eb9-a3219dcafce8;0.7646;random_search_300;9971.0
+1.0;make_tuple(min(mcp, po), sub(0.004313283540312763, mkd));2.0;in;3.0;glmnet;c0db0e54-5560-4d43-8092-5cc7b06a994e;0.9227;random_search_300;146606.0
+1.0;make_tuple(min(mcp, po), sub(0.004313283540312763, mkd));2.0;out;3.0;glmnet;c0db0e54-5560-4d43-8092-5cc7b06a994e;0.9947;random_search_300;146606.0
+1.0;make_tuple(min(add(mkd, p), expit(mcp)), truediv(expit(rc), mul(n, xvar)));2.0;in;7.0;glmnet;74e1c712-f7f9-434a-bf41-a54c34514457;0.9231;random_search_300;3510.0
+1.0;make_tuple(min(add(mkd, p), expit(mcp)), truediv(expit(rc), mul(n, xvar)));2.0;out;7.0;glmnet;74e1c712-f7f9-434a-bf41-a54c34514457;0.9983;random_search_300;3510.0
+1.0;make_tuple(expit(mcp), sub(0.00578659334229477, mkd));2.0;in;3.0;glmnet;f41b6b58-ba06-496c-8779-c70af69a9ddf;0.9201;random_search_300;219.0
+1.0;make_tuple(expit(mcp), sub(0.00578659334229477, mkd));2.0;out;3.0;glmnet;f41b6b58-ba06-496c-8779-c70af69a9ddf;0.9992;random_search_300;219.0
+1.0;make_tuple(if_gt(mcp, m, rc, mcp), sub(0.0030168404428574163, mkd));2.0;in;3.0;glmnet;667bac0a-18fa-4a78-9ff0-17f0fd0f323e;0.9222;random_search_300;2073.0
+1.0;make_tuple(if_gt(mcp, m, rc, mcp), sub(0.0030168404428574163, mkd));2.0;out;3.0;glmnet;667bac0a-18fa-4a78-9ff0-17f0fd0f323e;0.9831;random_search_300;2073.0
+1.0;make_tuple(pow(sub(p, rc), add(mkd, m)), truediv(expit(xvar), mul(n, xvar)));2.0;in;7.0;glmnet;00707d64-07f3-4a10-a47b-b3c489c2c92c;0.923;random_search_300;146822.0
+1.0;make_tuple(pow(sub(p, rc), add(mkd, m)), truediv(expit(xvar), mul(n, xvar)));2.0;out;7.0;glmnet;00707d64-07f3-4a10-a47b-b3c489c2c92c;0.9914;random_search_300;146822.0
+1.0;make_tuple(expit(mkd), sub(0.004526406443586415, mkd));2.0;in;3.0;glmnet;c1661b13-86fa-4bce-bf3a-1b6dc520125f;0.9204;random_search_300;14969.0
+1.0;make_tuple(expit(mkd), sub(0.004526406443586415, mkd));2.0;out;3.0;glmnet;c1661b13-86fa-4bce-bf3a-1b6dc520125f;0.9907;random_search_300;14969.0
+1.0;make_tuple(sub(truediv(n, xvar), expit(2)), truediv(truediv(mcp, n), if_gt(p, p, xvar, xvar)));2.0;in;7.0;glmnet;fdda1c8f-540c-44d0-9178-bdf9fbef8892;0.9217;random_search_300;34539.0
+1.0;make_tuple(sub(truediv(n, xvar), expit(2)), truediv(truediv(mcp, n), if_gt(p, p, xvar, xvar)));2.0;out;7.0;glmnet;fdda1c8f-540c-44d0-9178-bdf9fbef8892;1.0;random_search_300;34539.0
+1.0;make_tuple(sub(mcp, 0.03832802336557393), sub(0.0028622736734631934, mkd));2.0;in;3.0;glmnet;a80c3898-5f1f-4e41-a017-b0fa5bd55fe8;0.9228;random_search_300;9960.0
+1.0;make_tuple(sub(mcp, 0.03832802336557393), sub(0.0028622736734631934, mkd));2.0;out;3.0;glmnet;a80c3898-5f1f-4e41-a017-b0fa5bd55fe8;0.997;random_search_300;9960.0
+1.0;make_tuple(add(max(mcp, mcp), min(mcp, mkd)), if_gt(expit(22), max(mcp, 0.16869953515890587), sub(0.006188734567679426, mkd), expit(mkd)));2.0;in;9.0;glmnet;6c635e6b-577b-4879-adb0-ad928902a738;0.9219;random_search_300;37.0
+1.0;make_tuple(add(max(mcp, mcp), min(mcp, mkd)), if_gt(expit(22), max(mcp, 0.16869953515890587), sub(0.006188734567679426, mkd), expit(mkd)));2.0;out;9.0;glmnet;6c635e6b-577b-4879-adb0-ad928902a738;1.0;random_search_300;37.0
+1.0;make_tuple(expit(max(m, po)), truediv(min(p, 1), mul(n, xvar)));2.0;in;6.0;glmnet;c92bad1f-f0e3-4c43-9e89-0515ef2c6ed2;0.9168;random_search_300;146821.0
+1.0;make_tuple(expit(max(m, po)), truediv(min(p, 1), mul(n, xvar)));2.0;out;6.0;glmnet;c92bad1f-f0e3-4c43-9e89-0515ef2c6ed2;0.9097;random_search_300;146821.0
+1.0;make_tuple(if_gt(p, 2, mcp, p), sub(0.006667289151249154, mkd));2.0;in;3.0;glmnet;741284e5-889f-4fb7-ae41-69fbc057a6b4;0.9218;random_search_300;3549.0
+1.0;make_tuple(if_gt(p, 2, mcp, p), sub(0.006667289151249154, mkd));2.0;out;3.0;glmnet;741284e5-889f-4fb7-ae41-69fbc057a6b4;0.9989;random_search_300;3549.0
+1.0;make_tuple(min(expit(rc), mul(0.021889507468152204, po)), add(neg(mkd), truediv(mcp, 95)));2.0;in;7.0;glmnet;b9274b05-fb2f-4555-bd09-d00b57e613e5;0.9227;random_search_300;58.0
+1.0;make_tuple(min(expit(rc), mul(0.021889507468152204, po)), add(neg(mkd), truediv(mcp, 95)));2.0;out;7.0;glmnet;b9274b05-fb2f-4555-bd09-d00b57e613e5;0.9923;random_search_300;58.0
+1.0;make_tuple(expit(min(mcp, 0.059377521227205264)), truediv(expit(mcp), mul(xvar, n)));2.0;in;6.0;glmnet;547d3e85-bb32-4a76-9c40-f03b69ada021;0.9225;random_search_300;31.0
+1.0;make_tuple(expit(min(mcp, 0.059377521227205264)), truediv(expit(mcp), mul(xvar, n)));2.0;out;6.0;glmnet;547d3e85-bb32-4a76-9c40-f03b69ada021;0.8822;random_search_300;31.0
+1.0;make_tuple(truediv(min(451, 1011), truediv(p, mcp)), truediv(pow(0.0027761182427530964, mkd), mul(n, xvar)));2.0;in;7.0;glmnet;b11b00d0-32c2-46a3-ab13-e1001d48e77a;0.9262;random_search_300;45.0
+1.0;make_tuple(truediv(min(451, 1011), truediv(p, mcp)), truediv(pow(0.0027761182427530964, mkd), mul(n, xvar)));2.0;out;7.0;glmnet;b11b00d0-32c2-46a3-ab13-e1001d48e77a;0.9911;random_search_300;45.0
+1.0;make_tuple(min(po, mcp), sub(0.0033165277539698584, mkd));2.0;in;3.0;glmnet;6894aa32-5b8e-4ac9-bd58-c82857f04af1;0.9231;random_search_300;2074.0
+1.0;make_tuple(min(po, mcp), sub(0.0033165277539698584, mkd));2.0;out;3.0;glmnet;6894aa32-5b8e-4ac9-bd58-c82857f04af1;0.9976;random_search_300;2074.0
+1.0;make_tuple(sub(sub(n, mcp), sub(rc, 434)), truediv(max(mcp, mcp), mul(xvar, n)));2.0;in;7.0;glmnet;9f15efae-c10b-4fde-8ff3-e5d7ea5f4b8f;0.922;random_search_300;167119.0
+1.0;make_tuple(sub(sub(n, mcp), sub(rc, 434)), truediv(max(mcp, mcp), mul(xvar, n)));2.0;out;7.0;glmnet;9f15efae-c10b-4fde-8ff3-e5d7ea5f4b8f;0.9655;random_search_300;167119.0
+1.0;make_tuple(truediv(pow(n, mkd), add(po, mcp)), truediv(mul(mcp, p), truediv(n, 0.03645393848834617)));2.0;in;7.0;glmnet;84fe090c-433a-41aa-a6fc-0862975d51ba;0.924;random_search_300;9970.0
+1.0;make_tuple(truediv(pow(n, mkd), add(po, mcp)), truediv(mul(mcp, p), truediv(n, 0.03645393848834617)));2.0;out;7.0;glmnet;84fe090c-433a-41aa-a6fc-0862975d51ba;0.6936;random_search_300;9970.0
+1.0;make_tuple(expit(if_gt(rc, mcp, 143, mcp)), truediv(if_gt(po, m, p, mcp), mul(po, n)));2.0;in;6.0;glmnet;6262cbec-ccd4-46e1-835c-e36e1ecd82af;0.924;random_search_300;3561.0
+1.0;make_tuple(expit(if_gt(rc, mcp, 143, mcp)), truediv(if_gt(po, m, p, mcp), mul(po, n)));2.0;out;6.0;glmnet;6262cbec-ccd4-46e1-835c-e36e1ecd82af;0.7915;random_search_300;3561.0
+1.0;make_tuple(min(mcp, p), sub(0.0035438790098399476, mkd));2.0;in;3.0;glmnet;df243378-2ca3-42b8-82ae-6b6be4f1f592;0.9234;random_search_300;146819.0
+1.0;make_tuple(min(mcp, p), sub(0.0035438790098399476, mkd));2.0;out;3.0;glmnet;df243378-2ca3-42b8-82ae-6b6be4f1f592;0.963;random_search_300;146819.0
+1.0;make_tuple(add(mcp, 0.0471898236051213), sub(0.00961999631417856, mkd));2.0;in;3.0;glmnet;6d064dec-74ee-43b2-9bcd-cffd0532dca3;0.9225;random_search_300;145681.0
+1.0;make_tuple(add(mcp, 0.0471898236051213), sub(0.00961999631417856, mkd));2.0;out;3.0;glmnet;6d064dec-74ee-43b2-9bcd-cffd0532dca3;0.9768;random_search_300;145681.0
+1.0;make_tuple(mul(1, mcp), sub(0.0030460465972835847, mkd));2.0;in;3.0;glmnet;af6147ad-8cfb-4d39-9e95-5fd7704dbb62;0.9223;random_search_300;146824.0
+1.0;make_tuple(mul(1, mcp), sub(0.0030460465972835847, mkd));2.0;out;3.0;glmnet;af6147ad-8cfb-4d39-9e95-5fd7704dbb62;0.997;random_search_300;146824.0
+1.0;make_tuple(expit(mcp), sub(0.007958387339288563, mkd));2.0;in;3.0;glmnet;a504b950-6db8-4c4a-9d10-757871dd1dfa;0.9195;random_search_300;9952.0
+1.0;make_tuple(expit(mcp), sub(0.007958387339288563, mkd));2.0;out;3.0;glmnet;a504b950-6db8-4c4a-9d10-757871dd1dfa;0.9933;random_search_300;9952.0
+1.0;make_tuple(min(po, mcp), sub(0.003059205208814287, mkd));2.0;in;3.0;glmnet;0a8d063a-fd77-40fd-a025-65aa7834beea;0.9223;random_search_300;12.0
+1.0;make_tuple(min(po, mcp), sub(0.003059205208814287, mkd));2.0;out;3.0;glmnet;0a8d063a-fd77-40fd-a025-65aa7834beea;0.9969;random_search_300;12.0
+1.0;make_tuple(mul(mcp, 1), sub(0.003276120866525954, mkd));2.0;in;3.0;glmnet;3addc43e-fa83-45af-8e34-9d09ca51ca86;0.9231;random_search_300;168331.0
+1.0;make_tuple(mul(mcp, 1), sub(0.003276120866525954, mkd));2.0;out;3.0;glmnet;3addc43e-fa83-45af-8e34-9d09ca51ca86;0.9956;random_search_300;168331.0
+1.0;make_tuple(if_gt(max(m, 1), neg(p), if_gt(92, xvar, mcp, mcp), pow(m, mcp)), if_gt(max(mcp, 16), min(po, m), sub(0.006316761630140912, mkd), neg(0.14595839605416241)));2.0;in;11.0;glmnet;e4e2dea5-4e25-4d74-b597-289cbe155167;0.9221;random_search_300;11.0
+1.0;make_tuple(if_gt(max(m, 1), neg(p), if_gt(92, xvar, mcp, mcp), pow(m, mcp)), if_gt(max(mcp, 16), min(po, m), sub(0.006316761630140912, mkd), neg(0.14595839605416241)));2.0;out;11.0;glmnet;e4e2dea5-4e25-4d74-b597-289cbe155167;0.9996;random_search_300;11.0
+1.0;make_tuple(max(0.07061198684605996, mcp), sub(0.002339796569225256, mkd));2.0;in;3.0;glmnet;2c6c8852-8996-442c-a993-118030459024;0.9203;random_search_300;9981.0
+1.0;make_tuple(max(0.07061198684605996, mcp), sub(0.002339796569225256, mkd));2.0;out;3.0;glmnet;2c6c8852-8996-442c-a993-118030459024;0.9853;random_search_300;9981.0
+1.0;make_tuple(add(min(mcp, 5), min(m, rc)), truediv(min(p, mcp), mul(xvar, n)));2.0;in;7.0;glmnet;b14d6976-dc63-49bb-afa1-ce20193a315c;0.9273;random_search_300;168330.0
+1.0;make_tuple(add(min(mcp, 5), min(m, rc)), truediv(min(p, mcp), mul(xvar, n)));2.0;out;7.0;glmnet;b14d6976-dc63-49bb-afa1-ce20193a315c;0.9995;random_search_300;168330.0
+1.0;make_tuple(expit(mul(po, mkd)), mul(sub(0.010859180804875898, mkd), min(mcp, 580)));2.0;in;6.0;glmnet;7d8c70a2-5660-4fa2-a337-c01a1034c093;0.925;random_search_300;9986.0
+1.0;make_tuple(expit(mul(po, mkd)), mul(sub(0.010859180804875898, mkd), min(mcp, 580)));2.0;out;6.0;glmnet;7d8c70a2-5660-4fa2-a337-c01a1034c093;0.9905;random_search_300;9986.0
+1.0;make_tuple(pow(mcp, m), sub(0.006721452654827081, mkd));2.0;in;3.0;glmnet;6243aa62-20f5-478b-8a76-e72563b53727;0.9193;random_search_300;9977.0
+1.0;make_tuple(pow(mcp, m), sub(0.006721452654827081, mkd));2.0;out;3.0;glmnet;6243aa62-20f5-478b-8a76-e72563b53727;0.9822;random_search_300;9977.0
+1.0;make_tuple(min(mcp, p), sub(0.0029631347702584834, mkd));2.0;in;3.0;glmnet;061d4212-cda7-479b-98c4-ffc2f1042e44;0.9222;random_search_300;167140.0
+1.0;make_tuple(min(mcp, p), sub(0.0029631347702584834, mkd));2.0;out;3.0;glmnet;061d4212-cda7-479b-98c4-ffc2f1042e44;0.9843;random_search_300;167140.0
+1.0;make_tuple(max(truediv(mcp, n), add(p, xvar)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;in;7.0;glmnet;7b8505b6-8371-4a40-ac94-e11084988790;0.9228;random_search_300;146195.0
+1.0;make_tuple(max(truediv(mcp, n), add(p, xvar)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;out;7.0;glmnet;7b8505b6-8371-4a40-ac94-e11084988790;0.9916;random_search_300;146195.0
+1.0;make_tuple(pow(mcp, m), sub(0.005382505344937068, mkd));2.0;in;3.0;glmnet;c83be936-02d1-4f3a-9454-04e38731f457;0.9184;random_search_300;14971.0
+1.0;make_tuple(pow(mcp, m), sub(0.005382505344937068, mkd));2.0;out;3.0;glmnet;c83be936-02d1-4f3a-9454-04e38731f457;1.0;random_search_300;14971.0
+1.0;make_tuple(mul(expit(0.49176295953935056), if_gt(172, 886, 225, mcp)), min(sub(0.006785610867137294, mkd), truediv(po, mcp)));2.0;in;7.0;glmnet;ae4c4075-8e8a-416f-823c-0473b0fa815a;0.9243;random_search_300;3022.0
+1.0;make_tuple(mul(expit(0.49176295953935056), if_gt(172, 886, 225, mcp)), min(sub(0.006785610867137294, mkd), truediv(po, mcp)));2.0;out;7.0;glmnet;ae4c4075-8e8a-416f-823c-0473b0fa815a;0.9946;random_search_300;3022.0
+1.0;make_tuple(max(min(mcp, p), max(mkd, mcp)), neg(sub(mkd, 0.0069764512892195735)));2.0;in;6.0;glmnet;83fdbd1a-be40-4725-83c0-484b00f00df0;0.9259;random_search_300;9976.0
+1.0;make_tuple(max(min(mcp, p), max(mkd, mcp)), neg(sub(mkd, 0.0069764512892195735)));2.0;out;6.0;glmnet;83fdbd1a-be40-4725-83c0-484b00f00df0;0.5807;random_search_300;9976.0
+1.0;make_tuple(if_gt(po, rc, mcp, m), sub(0.007527336860380678, mkd));2.0;in;3.0;glmnet;e38e07fe-32b4-40ac-b32e-18834b8cfb6f;0.9222;random_search_300;24.0
+1.0;make_tuple(if_gt(po, rc, mcp, m), sub(0.007527336860380678, mkd));2.0;out;3.0;glmnet;e38e07fe-32b4-40ac-b32e-18834b8cfb6f;0.999;random_search_300;24.0
+1.0;make_tuple(max(truediv(0.21033022953936545, n), if_gt(n, xvar, mcp, rc)), min(sub(0.004739281830713218, mkd), min(n, m)));2.0;in;7.0;glmnet;509fd9d0-a69a-41ad-ae90-3c3d7c790f58;0.923;random_search_300;23.0
+1.0;make_tuple(max(truediv(0.21033022953936545, n), if_gt(n, xvar, mcp, rc)), min(sub(0.004739281830713218, mkd), min(n, m)));2.0;out;7.0;glmnet;509fd9d0-a69a-41ad-ae90-3c3d7c790f58;0.8892;random_search_300;23.0
+1.0;make_tuple(min(po, mcp), sub(0.005622761291458906, mkd));2.0;in;3.0;glmnet;aa38d4ee-7cbb-4a92-98bf-0be4e41d64d0;0.924;random_search_300;168338.0
+1.0;make_tuple(min(po, mcp), sub(0.005622761291458906, mkd));2.0;out;3.0;glmnet;aa38d4ee-7cbb-4a92-98bf-0be4e41d64d0;0.7877;random_search_300;168338.0
+1.0;make_tuple(add(if_gt(mkd, p, rc, rc), sub(p, m)), mul(truediv(p, n), truediv(mcp, po)));2.0;in;7.0;glmnet;9328017b-fce2-4027-9b3c-90397ca96306;0.9191;random_search_300;125922.0
+1.0;make_tuple(add(if_gt(mkd, p, rc, rc), sub(p, m)), mul(truediv(p, n), truediv(mcp, po)));2.0;out;7.0;glmnet;9328017b-fce2-4027-9b3c-90397ca96306;0.9997;random_search_300;125922.0
+1.0;make_tuple(expit(max(xvar, n)), truediv(truediv(mcp, n), if_gt(po, m, xvar, xvar)));2.0;in;6.0;glmnet;12b04411-388c-4414-8e5d-11c6700139d3;0.9218;random_search_300;9946.0
+1.0;make_tuple(expit(max(xvar, n)), truediv(truediv(mcp, n), if_gt(po, m, xvar, xvar)));2.0;out;6.0;glmnet;12b04411-388c-4414-8e5d-11c6700139d3;0.9835;random_search_300;9946.0
+1.0;make_tuple(add(mcp, mkd), sub(0.0025958705682826624, mkd));2.0;in;3.0;glmnet;68e70174-b1fc-40c1-be86-7dfc3350ac76;0.9235;random_search_300;190412.0
+1.0;make_tuple(add(mcp, mkd), sub(0.0025958705682826624, mkd));2.0;out;3.0;glmnet;68e70174-b1fc-40c1-be86-7dfc3350ac76;0.7593;random_search_300;190412.0
+1.0;make_tuple(truediv(add(po, xvar), sub(po, xvar)), truediv(expit(mcp), mul(xvar, n)));2.0;in;7.0;glmnet;a8446841-7e85-4f43-b933-df6882b166d6;0.923;random_search_300;9985.0
+1.0;make_tuple(truediv(add(po, xvar), sub(po, xvar)), truediv(expit(mcp), mul(xvar, n)));2.0;out;7.0;glmnet;a8446841-7e85-4f43-b933-df6882b166d6;0.9699;random_search_300;9985.0
+1.0;make_tuple(min(po, mcp), sub(0.005077850920673369, mkd));2.0;in;3.0;glmnet;3077fc89-a267-4bbc-acd2-89251b77b4b1;0.9303;random_search_300;9978.0
+1.0;make_tuple(min(po, mcp), sub(0.005077850920673369, mkd));2.0;out;3.0;glmnet;3077fc89-a267-4bbc-acd2-89251b77b4b1;0.0584;random_search_300;9978.0
+1.0;make_tuple(if_gt(pow(0.0053498857347935285, rc), truediv(mcp, mcp), neg(po), if_gt(2, m, mcp, mcp)), truediv(truediv(0.010490350376227066, n), if_gt(rc, n, po, mkd)));2.0;in;9.0;glmnet;93b80b52-a664-4d24-8996-43d0758c08a5;0.9268;random_search_300;3917.0
+1.0;make_tuple(if_gt(pow(0.0053498857347935285, rc), truediv(mcp, mcp), neg(po), if_gt(2, m, mcp, mcp)), truediv(truediv(0.010490350376227066, n), if_gt(rc, n, po, mkd)));2.0;out;9.0;glmnet;93b80b52-a664-4d24-8996-43d0758c08a5;0.6534;random_search_300;3917.0
+1.0;make_tuple(if_gt(mcp, mcp, mkd, mcp), sub(0.009071794368282537, mkd));2.0;in;3.0;glmnet;6d1f091f-1a51-424b-bfac-c3596f9c0203;0.9241;random_search_300;9957.0
+1.0;make_tuple(if_gt(mcp, mcp, mkd, mcp), sub(0.009071794368282537, mkd));2.0;out;3.0;glmnet;6d1f091f-1a51-424b-bfac-c3596f9c0203;0.9612;random_search_300;9957.0
+1.0;make_tuple(expit(expit(rc)), add(truediv(0.032990357906753545, 7), neg(mkd)));2.0;in;6.0;glmnet;c10a0de6-ec5d-448b-a06c-8af42d93136a;0.9202;random_search_300;2079.0
+1.0;make_tuple(expit(expit(rc)), add(truediv(0.032990357906753545, 7), neg(mkd)));2.0;out;6.0;glmnet;c10a0de6-ec5d-448b-a06c-8af42d93136a;0.9866;random_search_300;2079.0
+1.0;make_tuple(mul(if_gt(po, n, n, po), min(po, mcp)), truediv(truediv(0.736999250026895, xvar), add(n, po)));2.0;in;7.0;glmnet;01477a79-9f5e-43c6-b5a7-a0e1ff6b1f70;0.9225;random_search_300;190411.0
+1.0;make_tuple(mul(if_gt(po, n, n, po), min(po, mcp)), truediv(truediv(0.736999250026895, xvar), add(n, po)));2.0;out;7.0;glmnet;01477a79-9f5e-43c6-b5a7-a0e1ff6b1f70;0.9955;random_search_300;190411.0
+1.0;make_tuple(if_gt(n, 0.002112027157904204, mcp, mcp), sub(0.004358127544475326, mkd));2.0;in;3.0;glmnet;bd3ad5cf-3b2c-4d26-bf44-32b08f18793f;0.9227;random_search_300;189928.0
+1.0;make_tuple(if_gt(n, 0.002112027157904204, mcp, mcp), sub(0.004358127544475326, mkd));2.0;out;3.0;glmnet;bd3ad5cf-3b2c-4d26-bf44-32b08f18793f;0.9957;random_search_300;189928.0
+1.0;make_tuple(expit(mkd), sub(0.01037140929711915, mkd));2.0;in;3.0;glmnet;c6913453-3b6e-4ca3-b3ff-dae733c9453a;0.9222;random_search_300;146820.0
+1.0;make_tuple(expit(mkd), sub(0.01037140929711915, mkd));2.0;out;3.0;glmnet;c6913453-3b6e-4ca3-b3ff-dae733c9453a;0.9926;random_search_300;146820.0
+1.0;make_tuple(truediv(pow(1, rc), min(xvar, mcp)), truediv(truediv(0.7237676413497105, xvar), if_gt(mcp, po, mkd, n)));2.0;in;7.0;glmnet;a549f036-3020-4dec-ad33-cda80ae7a522;0.9218;random_search_300;3893.0
+1.0;make_tuple(truediv(pow(1, rc), min(xvar, mcp)), truediv(truediv(0.7237676413497105, xvar), if_gt(mcp, po, mkd, n)));2.0;out;7.0;glmnet;a549f036-3020-4dec-ad33-cda80ae7a522;0.9918;random_search_300;3893.0
+1.0;make_tuple(expit(mkd), sub(0.009837162962012902, mkd));2.0;in;3.0;glmnet;c0743a52-91d0-4c3f-9525-10f5e9d96ea5;0.9265;random_search_300;10101.0
+1.0;make_tuple(expit(mkd), sub(0.009837162962012902, mkd));2.0;out;3.0;glmnet;c0743a52-91d0-4c3f-9525-10f5e9d96ea5;0.7279;random_search_300;10101.0
+1.0;make_tuple(min(mcp, 0.41232586603059407), sub(0.009399028571960547, mkd));2.0;in;3.0;glmnet;768fa567-0171-4360-84e5-ac0dd92482f4;0.9313;random_search_300;3903.0
+1.0;make_tuple(min(mcp, 0.41232586603059407), sub(0.009399028571960547, mkd));2.0;out;3.0;glmnet;768fa567-0171-4360-84e5-ac0dd92482f4;0.7534;random_search_300;3903.0
+1.0;make_tuple(if_gt(p, p, po, mcp), sub(0.009243210315752051, mkd));2.0;in;3.0;glmnet;85986757-6d8b-460e-9a76-921d52c3034b;0.9242;random_search_300;9950.0
+1.0;make_tuple(if_gt(p, p, po, mcp), sub(0.009243210315752051, mkd));2.0;out;3.0;glmnet;85986757-6d8b-460e-9a76-921d52c3034b;0.9837;random_search_300;9950.0
+1.0;make_tuple(add(if_gt(0.0024793795686038466, 9, rc, xvar), sub(m, rc)), truediv(truediv(mcp, n), if_gt(mkd, po, rc, xvar)));2.0;in;7.0;glmnet;197b2555-fa88-4cd4-acd2-41fde77e0b5b;0.9237;random_search_300;3907.0
+1.0;make_tuple(add(if_gt(0.0024793795686038466, 9, rc, xvar), sub(m, rc)), truediv(truediv(mcp, n), if_gt(mkd, po, rc, xvar)));2.0;out;7.0;glmnet;197b2555-fa88-4cd4-acd2-41fde77e0b5b;0.7777;random_search_300;3907.0
+1.0;make_tuple(truediv(mcp, 3), sub(0.009822665842692887, mkd));2.0;in;3.0;glmnet;ed2aad51-2d3b-464b-bc43-446c1a069cb2;0.928;random_search_300;14952.0
+1.0;make_tuple(truediv(mcp, 3), sub(0.009822665842692887, mkd));2.0;out;3.0;glmnet;ed2aad51-2d3b-464b-bc43-446c1a069cb2;0.9979;random_search_300;14952.0
+1.0;make_tuple(expit(min(p, m)), truediv(expit(mcp), mul(n, xvar)));2.0;in;6.0;glmnet;8a8940c4-3f93-4997-9717-8d61a9e52a31;0.9237;random_search_300;3481.0
+1.0;make_tuple(expit(min(p, m)), truediv(expit(mcp), mul(n, xvar)));2.0;out;6.0;glmnet;8a8940c4-3f93-4997-9717-8d61a9e52a31;0.979;random_search_300;3481.0
+1.0;make_tuple(truediv(0.5189894969543197, m), sub(0.012164340211672823, mkd));2.0;in;3.0;glmnet;bb26981e-ed9d-41b2-b343-4c04a75326ee;0.9262;random_search_300;146212.0
+1.0;make_tuple(truediv(0.5189894969543197, m), sub(0.012164340211672823, mkd));2.0;out;3.0;glmnet;bb26981e-ed9d-41b2-b343-4c04a75326ee;0.9881;random_search_300;146212.0
+1.0;make_tuple(add(0.01294219214965068, mcp), sub(0.010833118129502783, mkd));2.0;in;3.0;glmnet;7fa21d5d-b7a1-40a3-9452-b097f949e612;0.9217;random_search_300;14954.0
+1.0;make_tuple(add(0.01294219214965068, mcp), sub(0.010833118129502783, mkd));2.0;out;3.0;glmnet;7fa21d5d-b7a1-40a3-9452-b097f949e612;0.9057;random_search_300;14954.0
+1.0;make_tuple(min(truediv(m, m), truediv(0.5283630696105285, m)), neg(sub(mkd, 0.010933090032587045)));2.0;in;6.0;glmnet;44cfb357-f75c-4c04-ab40-b669dd598e27;0.937;random_search_300;3918.0
+1.0;make_tuple(min(truediv(m, m), truediv(0.5283630696105285, m)), neg(sub(mkd, 0.010933090032587045)));2.0;out;6.0;glmnet;44cfb357-f75c-4c04-ab40-b669dd598e27;0.0013;random_search_300;3918.0
+1.0;make_tuple(neg(neg(n)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;in;6.0;glmnet;68628332-8ec7-47f0-ab93-a96f0202f1e1;0.9238;random_search_300;189927.0
+1.0;make_tuple(neg(neg(n)), truediv(sub(mcp, mkd), mul(n, xvar)));2.0;out;6.0;glmnet;68628332-8ec7-47f0-ab93-a96f0202f1e1;0.874;random_search_300;189927.0
+1.0;make_tuple(if_gt(xvar, 1, mcp, mcp), sub(0.004816750998410297, mkd));2.0;in;3.0;glmnet;dcb461f4-bca9-4429-8aa0-6d0108e334a4;0.9228;random_search_300;189924.0
+1.0;make_tuple(if_gt(xvar, 1, mcp, mcp), sub(0.004816750998410297, mkd));2.0;out;3.0;glmnet;dcb461f4-bca9-4429-8aa0-6d0108e334a4;0.9465;random_search_300;189924.0
+1.0;make_tuple(pow(mcp, 2), sub(0.008633167598242491, mkd));2.0;in;3.0;glmnet;6185fb08-f65e-4c5a-b6c2-e5099d1baf25;0.9297;random_search_300;167141.0
+1.0;make_tuple(pow(mcp, 2), sub(0.008633167598242491, mkd));2.0;out;3.0;glmnet;6185fb08-f65e-4c5a-b6c2-e5099d1baf25;0.0691;random_search_300;167141.0
+1.0;make_tuple(mul(add(po, m), expit(3)), truediv(expit(mcp), mul(n, xvar)));2.0;in;7.0;glmnet;48a41cd4-9bda-4ba9-9093-497159311101;0.9228;random_search_300;168911.0
+1.0;make_tuple(mul(add(po, m), expit(3)), truediv(expit(mcp), mul(n, xvar)));2.0;out;7.0;glmnet;48a41cd4-9bda-4ba9-9093-497159311101;0.9939;random_search_300;168911.0
+1.0;make_tuple(min(expit(xvar), expit(m)), truediv(expit(6), mul(xvar, n)));2.0;in;7.0;glmnet;eda22fa5-76e6-41a0-bb8b-26a1d124da78;0.9219;random_search_300;15.0
+1.0;make_tuple(min(expit(xvar), expit(m)), truediv(expit(6), mul(xvar, n)));2.0;out;7.0;glmnet;eda22fa5-76e6-41a0-bb8b-26a1d124da78;0.9962;random_search_300;15.0
+1.0;make_tuple(mul(min(p, 0.6918162911931316), sub(p, m)), truediv(truediv(mcp, xvar), add(xvar, n)));2.0;in;7.0;glmnet;71b9248c-bc82-4c22-bbbd-e3e809850d64;0.9224;random_search_300;167125.0
+1.0;make_tuple(mul(min(p, 0.6918162911931316), sub(p, m)), truediv(truediv(mcp, xvar), add(xvar, n)));2.0;out;7.0;glmnet;71b9248c-bc82-4c22-bbbd-e3e809850d64;0.9989;random_search_300;167125.0
+1.0;make_tuple(max(max(mkd, 0.19482138199671298), neg(0.015239180338552639)), sub(add(0.009216449273051175, 0.0010236524204892856), truediv(mkd, mcp)));2.0;in;7.0;glmnet;7bd53a08-2f0c-4db4-96fd-0afdc427e23d;0.9259;random_search_300;3512.0
+1.0;make_tuple(max(max(mkd, 0.19482138199671298), neg(0.015239180338552639)), sub(add(0.009216449273051175, 0.0010236524204892856), truediv(mkd, mcp)));2.0;out;7.0;glmnet;7bd53a08-2f0c-4db4-96fd-0afdc427e23d;0.9898;random_search_300;3512.0
+1.0;make_tuple(expit(mkd), sub(0.003697539107960028, mkd));2.0;in;3.0;glmnet;a0f2c5e5-b69e-491a-88df-d2cfcb7c5335;0.9205;random_search_300;14.0
+1.0;make_tuple(expit(mkd), sub(0.003697539107960028, mkd));2.0;out;3.0;glmnet;a0f2c5e5-b69e-491a-88df-d2cfcb7c5335;0.9444;random_search_300;14.0
+1.0;make_tuple(expit(mul(mkd, mkd)), add(neg(mkd), truediv(0.017751827112358336, m)));2.0;in;6.0;glmnet;705b15c4-017f-4586-8133-f8adf39a5e50;0.9267;random_search_300;3021.0
+1.0;make_tuple(expit(mul(mkd, mkd)), add(neg(mkd), truediv(0.017751827112358336, m)));2.0;out;6.0;glmnet;705b15c4-017f-4586-8133-f8adf39a5e50;0.9582;random_search_300;3021.0
+1.0;make_tuple(truediv(po, 22), expit(xvar), max(xvar, rc));2.0;in;4.0;random forest;118be86e-c2bb-4e4a-a8da-3e322d157ac2;0.9222;random_search_300;3913.0
+1.0;make_tuple(truediv(po, 22), expit(xvar), max(xvar, rc));2.0;out;4.0;random forest;118be86e-c2bb-4e4a-a8da-3e322d157ac2;0.655;random_search_300;3913.0
+1.0;make_tuple(expit(xvar), expit(mcp), pow(xvar, 70));2.0;in;4.0;random forest;47c1dc11-94d0-495c-aa35-ece34d190b2a;0.915;random_search_300;37.0
+1.0;make_tuple(expit(xvar), expit(mcp), pow(xvar, 70));2.0;out;4.0;random forest;47c1dc11-94d0-495c-aa35-ece34d190b2a;0.9216;random_search_300;37.0
+1.0;make_tuple(min(expit(xvar), max(m, rc)), expit(pow(mkd, 0.009802136710799894)), if_gt(sub(n, mkd), add(xvar, 0.0012163624855793004), pow(m, rc), add(rc, mkd)));2.0;in;11.0;random forest;634cc4a7-826e-4ab9-b224-b5b8c6344c6a;0.9178;random_search_300;3561.0
+1.0;make_tuple(min(expit(xvar), max(m, rc)), expit(pow(mkd, 0.009802136710799894)), if_gt(sub(n, mkd), add(xvar, 0.0012163624855793004), pow(m, rc), add(rc, mkd)));2.0;out;11.0;random forest;634cc4a7-826e-4ab9-b224-b5b8c6344c6a;0.5972;random_search_300;3561.0
+1.0;make_tuple(if_gt(max(m, p), add(mkd, po), truediv(xvar, 0.0023417170058177873), mul(p, 0.03678262356444401)), expit(min(mcp, xvar)), mul(expit(p), expit(m)));2.0;in;11.0;random forest;3adb140c-e484-482e-afdd-758d6ed2cf0d;0.9171;random_search_300;9978.0
+1.0;make_tuple(if_gt(max(m, p), add(mkd, po), truediv(xvar, 0.0023417170058177873), mul(p, 0.03678262356444401)), expit(min(mcp, xvar)), mul(expit(p), expit(m)));2.0;out;11.0;random forest;3adb140c-e484-482e-afdd-758d6ed2cf0d;0.8912;random_search_300;9978.0
+1.0;make_tuple(mul(po, 0.043464302889675926), expit(mcp), neg(m));2.0;in;4.0;random forest;59111077-b18e-4da1-9172-305ba14e00da;0.9157;random_search_300;3573.0
+1.0;make_tuple(mul(po, 0.043464302889675926), expit(mcp), neg(m));2.0;out;4.0;random forest;59111077-b18e-4da1-9172-305ba14e00da;0.9901;random_search_300;3573.0
+1.0;make_tuple(max(max(rc, 0.0020657773457407195), truediv(p, 16)), expit(add(mkd, xvar)), pow(mul(xvar, m), truediv(rc, n)));2.0;in;9.0;random forest;b48f27aa-6d91-4821-8c17-17ff8016c555;0.9191;random_search_300;34539.0
+1.0;make_tuple(max(max(rc, 0.0020657773457407195), truediv(p, 16)), expit(add(mkd, xvar)), pow(mul(xvar, m), truediv(rc, n)));2.0;out;9.0;random forest;b48f27aa-6d91-4821-8c17-17ff8016c555;0.5219;random_search_300;34539.0
+1.0;make_tuple(mul(0.043187097331079866, po), expit(xvar), min(mcp, po));2.0;in;4.0;random forest;c37c8d71-3ddb-470b-b6b2-e81b64a69277;0.9189;random_search_300;18.0
+1.0;make_tuple(mul(0.043187097331079866, po), expit(xvar), min(mcp, po));2.0;out;4.0;random forest;c37c8d71-3ddb-470b-b6b2-e81b64a69277;0.9912;random_search_300;18.0
+1.0;make_tuple(add(expit(xvar), min(po, mkd)), if_gt(add(n, po), add(po, xvar), expit(xvar), min(p, mcp)), if_gt(min(p, m), sub(631, rc), truediv(p, po), expit(3)));2.0;in;14.0;random forest;15328347-fe1c-45a4-b932-ab7e98b78011;0.9163;random_search_300;146607.0
+1.0;make_tuple(add(expit(xvar), min(po, mkd)), if_gt(add(n, po), add(po, xvar), expit(xvar), min(p, mcp)), if_gt(min(p, m), sub(631, rc), truediv(p, po), expit(3)));2.0;out;14.0;random forest;15328347-fe1c-45a4-b932-ab7e98b78011;0.8405;random_search_300;146607.0
+1.0;make_tuple(mul(0.04405725325787822, po), expit(xvar), neg(m));2.0;in;4.0;random forest;f50b0220-8223-475c-a03c-e7c9d2336a8f;0.9192;random_search_300;14954.0
+1.0;make_tuple(mul(0.04405725325787822, po), expit(xvar), neg(m));2.0;out;4.0;random forest;f50b0220-8223-475c-a03c-e7c9d2336a8f;0.975;random_search_300;14954.0
+1.0;make_tuple(mul(0.03991743374307886, po), expit(xvar), min(0.0667729700328487, mkd));2.0;in;4.0;random forest;c890bb0c-b871-49aa-9263-f2c47931521c;0.9185;random_search_300;49.0
+1.0;make_tuple(mul(0.03991743374307886, po), expit(xvar), min(0.0667729700328487, mkd));2.0;out;4.0;random forest;c890bb0c-b871-49aa-9263-f2c47931521c;0.9336;random_search_300;49.0
+1.0;make_tuple(truediv(po, 18), expit(xvar), neg(rc));2.0;in;4.0;random forest;dd650962-6af1-45c4-85b2-3b60804c0be0;0.9178;random_search_300;22.0
+1.0;make_tuple(truediv(po, 18), expit(xvar), neg(rc));2.0;out;4.0;random forest;dd650962-6af1-45c4-85b2-3b60804c0be0;0.9922;random_search_300;22.0
+1.0;make_tuple(add(expit(xvar), min(mkd, po)), min(expit(xvar), max(n, mcp)), truediv(expit(po), if_gt(rc, mcp, m, m)));2.0;in;10.0;random forest;2482608b-6843-4106-9e65-06c14679252f;0.9152;random_search_300;3549.0
+1.0;make_tuple(add(expit(xvar), min(mkd, po)), min(expit(xvar), max(n, mcp)), truediv(expit(po), if_gt(rc, mcp, m, m)));2.0;out;10.0;random forest;2482608b-6843-4106-9e65-06c14679252f;0.9765;random_search_300;3549.0
+1.0;make_tuple(truediv(po, 21), expit(xvar), min(n, mkd));2.0;in;4.0;random forest;b2e13ffd-49f3-4443-aefe-e9a42915f81d;0.9234;random_search_300;167120.0
+1.0;make_tuple(truediv(po, 21), expit(xvar), min(n, mkd));2.0;out;4.0;random forest;b2e13ffd-49f3-4443-aefe-e9a42915f81d;0.4836;random_search_300;167120.0
+1.0;make_tuple(add(truediv(mcp, 54), expit(xvar)), min(if_gt(p, xvar, p, 2), expit(xvar)), min(truediv(0.01873307506520292, 0.6078774041970535), if_gt(264, 52, mkd, 37)));2.0;in;10.0;random forest;f1f96a2a-d494-4bf9-85d6-7fd50aa9e49b;0.9149;random_search_300;6.0
+1.0;make_tuple(add(truediv(mcp, 54), expit(xvar)), min(if_gt(p, xvar, p, 2), expit(xvar)), min(truediv(0.01873307506520292, 0.6078774041970535), if_gt(264, 52, mkd, 37)));2.0;out;10.0;random forest;f1f96a2a-d494-4bf9-85d6-7fd50aa9e49b;0.9798;random_search_300;6.0
+1.0;make_tuple(expit(xvar), expit(mcp), min(p, mcp));2.0;in;4.0;random forest;407fe209-1949-442e-8c0d-50ae3b01c0a3;0.9144;random_search_300;168910.0
+1.0;make_tuple(expit(xvar), expit(mcp), min(p, mcp));2.0;out;4.0;random forest;407fe209-1949-442e-8c0d-50ae3b01c0a3;0.9884;random_search_300;168910.0
+1.0;make_tuple(expit(truediv(po, 36)), expit(max(mkd, xvar)), if_gt(truediv(mkd, po), max(m, po), mul(0.07414973306339048, 1), neg(mkd)));2.0;in;10.0;random forest;beeb30af-424c-4f32-9437-e18bda70ca20;0.9176;random_search_300;168339.0
+1.0;make_tuple(expit(truediv(po, 36)), expit(max(mkd, xvar)), if_gt(truediv(mkd, po), max(m, po), mul(0.07414973306339048, 1), neg(mkd)));2.0;out;10.0;random forest;beeb30af-424c-4f32-9437-e18bda70ca20;0.9637;random_search_300;168339.0
+1.0;make_tuple(mul(po, 0.044862886347514036), expit(xvar), sub(m, 36));2.0;in;4.0;random forest;ed59fd71-7191-412a-a5f7-43a599bd437c;0.9163;random_search_300;125921.0
+1.0;make_tuple(mul(po, 0.044862886347514036), expit(xvar), sub(m, 36));2.0;out;4.0;random forest;ed59fd71-7191-412a-a5f7-43a599bd437c;0.9566;random_search_300;125921.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(rc, m));2.0;in;4.0;random forest;53f76cc7-d0d4-44e9-8e3f-f9125aeaf980;0.9158;random_search_300;168329.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(rc, m));2.0;out;4.0;random forest;53f76cc7-d0d4-44e9-8e3f-f9125aeaf980;0.9623;random_search_300;168329.0
+1.0;make_tuple(mul(po, 0.045398268494056024), expit(xvar), truediv(mkd, 27));2.0;in;4.0;random forest;64841668-8cd2-4ad5-8ac5-35e73842ad2a;0.9193;random_search_300;3945.0
+1.0;make_tuple(mul(po, 0.045398268494056024), expit(xvar), truediv(mkd, 27));2.0;out;4.0;random forest;64841668-8cd2-4ad5-8ac5-35e73842ad2a;0.9957;random_search_300;3945.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(mcp, xvar));2.0;in;4.0;random forest;d5bf6911-3707-4e5b-b21c-6fbbf0dd2c1c;0.9171;random_search_300;9976.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(mcp, xvar));2.0;out;4.0;random forest;d5bf6911-3707-4e5b-b21c-6fbbf0dd2c1c;0.752;random_search_300;9976.0
+1.0;make_tuple(mul(p, 0.043841374986052874), expit(xvar), sub(107, n));2.0;in;4.0;random forest;cb68f04e-9b5d-46ca-8c35-7b6a3e5c45ff;0.917;random_search_300;168337.0
+1.0;make_tuple(mul(p, 0.043841374986052874), expit(xvar), sub(107, n));2.0;out;4.0;random forest;cb68f04e-9b5d-46ca-8c35-7b6a3e5c45ff;0.9824;random_search_300;168337.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(74, p));2.0;in;4.0;random forest;f79c162c-0280-4241-9ba7-d46e93385db2;0.9187;random_search_300;14970.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(74, p));2.0;out;4.0;random forest;f79c162c-0280-4241-9ba7-d46e93385db2;0.9762;random_search_300;14970.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(40, mkd));2.0;in;4.0;random forest;99e1b295-3850-4867-b745-a88df6b33103;0.9152;random_search_300;3022.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(40, mkd));2.0;out;4.0;random forest;99e1b295-3850-4867-b745-a88df6b33103;0.9808;random_search_300;3022.0
+1.0;make_tuple(expit(pow(1, 0.24504660440534343)), min(expit(xvar), pow(m, 0.14681935644907065)), mul(max(m, n), truediv(0.01056317631174309, po)));2.0;in;9.0;random forest;30a52cdb-1299-4a8f-8065-49600a7c01d6;0.9157;random_search_300;219.0
+1.0;make_tuple(expit(pow(1, 0.24504660440534343)), min(expit(xvar), pow(m, 0.14681935644907065)), mul(max(m, n), truediv(0.01056317631174309, po)));2.0;out;9.0;random forest;30a52cdb-1299-4a8f-8065-49600a7c01d6;0.6607;random_search_300;219.0
+1.0;make_tuple(truediv(p, 19), expit(xvar), neg(mkd));2.0;in;4.0;random forest;91c3fd08-995c-49e0-87e2-0a85a8c8a5e7;0.9176;random_search_300;168911.0
+1.0;make_tuple(truediv(p, 19), expit(xvar), neg(mkd));2.0;out;4.0;random forest;91c3fd08-995c-49e0-87e2-0a85a8c8a5e7;0.9586;random_search_300;168911.0
+1.0;make_tuple(pow(min(0.132343274533944, mkd), truediv(2, p)), expit(truediv(po, p)), max(neg(33), min(mcp, 6)));2.0;in;9.0;random forest;8c1afe79-bee5-4b7c-8a7e-42c52c8c2f2f;0.9172;random_search_300;14952.0
+1.0;make_tuple(pow(min(0.132343274533944, mkd), truediv(2, p)), expit(truediv(po, p)), max(neg(33), min(mcp, 6)));2.0;out;9.0;random forest;8c1afe79-bee5-4b7c-8a7e-42c52c8c2f2f;0.97;random_search_300;14952.0
+1.0;make_tuple(max(mkd, 0.8373856895004499), expit(xvar), mul(93, mkd));2.0;in;4.0;random forest;7ea98841-48c3-44dc-a89d-b85ffe04c6de;0.9154;random_search_300;168912.0
+1.0;make_tuple(max(mkd, 0.8373856895004499), expit(xvar), mul(93, mkd));2.0;out;4.0;random forest;7ea98841-48c3-44dc-a89d-b85ffe04c6de;0.9928;random_search_300;168912.0
+1.0;make_tuple(mul(add(0.022015776300487046, 0.02246703255156152), if_gt(xvar, m, m, po)), expit(pow(mkd, 0.10316092480681678)), sub(mul(mcp, rc), truediv(po, mcp)));2.0;in;9.0;random forest;9360f96c-0dec-4715-96e2-f308d2a1e74c;0.918;random_search_300;29.0
+1.0;make_tuple(mul(add(0.022015776300487046, 0.02246703255156152), if_gt(xvar, m, m, po)), expit(pow(mkd, 0.10316092480681678)), sub(mul(mcp, rc), truediv(po, mcp)));2.0;out;9.0;random forest;9360f96c-0dec-4715-96e2-f308d2a1e74c;0.9692;random_search_300;29.0
+1.0;make_tuple(expit(pow(p, mkd)), expit(if_gt(mkd, n, po, mcp)), truediv(truediv(po, xvar), max(m, po)));2.0;in;8.0;random forest;b94018f6-f17a-488f-8e43-80ce29aea1fc;0.9167;random_search_300;10106.0
+1.0;make_tuple(expit(pow(p, mkd)), expit(if_gt(mkd, n, po, mcp)), truediv(truediv(po, xvar), max(m, po)));2.0;out;8.0;random forest;b94018f6-f17a-488f-8e43-80ce29aea1fc;0.8575;random_search_300;10106.0
+1.0;make_tuple(expit(mul(0.0043098055209297124, po)), expit(max(mkd, xvar)), truediv(max(xvar, p), if_gt(m, mkd, po, mkd)));2.0;in;8.0;random forest;d8a25185-75da-4043-9b20-b8e098038fbf;0.915;random_search_300;53.0
+1.0;make_tuple(expit(mul(0.0043098055209297124, po)), expit(max(mkd, xvar)), truediv(max(xvar, p), if_gt(m, mkd, po, mkd)));2.0;out;8.0;random forest;d8a25185-75da-4043-9b20-b8e098038fbf;0.9692;random_search_300;53.0
+1.0;make_tuple(expit(xvar), expit(mcp), expit(mkd));2.0;in;4.0;random forest;34faaddc-f859-418d-83db-7dadf506b4c6;0.9145;random_search_300;167141.0
+1.0;make_tuple(expit(xvar), expit(mcp), expit(mkd));2.0;out;4.0;random forest;34faaddc-f859-418d-83db-7dadf506b4c6;0.9809;random_search_300;167141.0
+1.0;make_tuple(add(if_gt(mkd, rc, rc, mkd), expit(xvar)), expit(sub(mcp, 0.014506131263386006)), if_gt(expit(n), add(mcp, po), add(m, po), expit(p)));2.0;in;11.0;random forest;5b399dad-1429-4806-a49e-1b666bbc2c2b;0.9147;random_search_300;3.0
+1.0;make_tuple(add(if_gt(mkd, rc, rc, mkd), expit(xvar)), expit(sub(mcp, 0.014506131263386006)), if_gt(expit(n), add(mcp, po), add(m, po), expit(p)));2.0;out;11.0;random forest;5b399dad-1429-4806-a49e-1b666bbc2c2b;0.9851;random_search_300;3.0
+1.0;make_tuple(truediv(mul(0.04485855182410648, po), expit(p)), expit(truediv(m, m)), sub(if_gt(m, n, po, mkd), max(mkd, n)));2.0;in;9.0;random forest;c74d67ab-6a24-4319-bc30-57c8e43e9716;0.9159;random_search_300;9977.0
+1.0;make_tuple(truediv(mul(0.04485855182410648, po), expit(p)), expit(truediv(m, m)), sub(if_gt(m, n, po, mkd), max(mkd, n)));2.0;out;9.0;random forest;c74d67ab-6a24-4319-bc30-57c8e43e9716;0.9751;random_search_300;9977.0
+1.0;make_tuple(expit(mul(po, 0.0154452413207485)), expit(expit(mcp)), expit(if_gt(xvar, 32, mkd, 0.0012229177950622326)));2.0;in;7.0;random forest;f8d67f4b-fca0-402b-a711-5c2c6fd0a34b;0.9166;random_search_300;14969.0
+1.0;make_tuple(expit(mul(po, 0.0154452413207485)), expit(expit(mcp)), expit(if_gt(xvar, 32, mkd, 0.0012229177950622326)));2.0;out;7.0;random forest;f8d67f4b-fca0-402b-a711-5c2c6fd0a34b;0.9336;random_search_300;14969.0
+1.0;make_tuple(expit(add(xvar, xvar)), expit(truediv(po, p)), mul(expit(497), expit(m)));2.0;in;8.0;random forest;cbab2806-c793-4deb-be41-febd8fe587db;0.9154;random_search_300;146825.0
+1.0;make_tuple(expit(add(xvar, xvar)), expit(truediv(po, p)), mul(expit(497), expit(m)));2.0;out;8.0;random forest;cbab2806-c793-4deb-be41-febd8fe587db;0.987;random_search_300;146825.0
+1.0;make_tuple(pow(expit(xvar), max(rc, mcp)), max(expit(mcp), sub(mkd, 574)), expit(max(0.002841635694685169, rc)));2.0;in;9.0;random forest;3fdad9fb-b81b-453f-9294-d1ccf6d7ea19;0.9154;random_search_300;12.0
+1.0;make_tuple(pow(expit(xvar), max(rc, mcp)), max(expit(mcp), sub(mkd, 574)), expit(max(0.002841635694685169, rc)));2.0;out;9.0;random forest;3fdad9fb-b81b-453f-9294-d1ccf6d7ea19;0.996;random_search_300;12.0
+1.0;make_tuple(sub(expit(xvar), neg(mkd)), min(expit(xvar), max(m, mcp)), sub(truediv(454, 38), if_gt(p, mcp, p, p)));2.0;in;10.0;random forest;11ef7197-a4ef-44ee-bf87-af1ec54fcf33;0.9187;random_search_300;3485.0
+1.0;make_tuple(sub(expit(xvar), neg(mkd)), min(expit(xvar), max(m, mcp)), sub(truediv(454, 38), if_gt(p, mcp, p, p)));2.0;out;10.0;random forest;11ef7197-a4ef-44ee-bf87-af1ec54fcf33;0.8332;random_search_300;3485.0
+1.0;make_tuple(expit(mul(xvar, 1)), expit(min(mcp, p)), min(truediv(rc, mcp), if_gt(0.4951196177889472, rc, rc, 8)));2.0;in;8.0;random forest;f2054865-c475-44dd-b217-6f2e9b8895f1;0.915;random_search_300;9952.0
+1.0;make_tuple(expit(mul(xvar, 1)), expit(min(mcp, p)), min(truediv(rc, mcp), if_gt(0.4951196177889472, rc, rc, 8)));2.0;out;8.0;random forest;f2054865-c475-44dd-b217-6f2e9b8895f1;0.9759;random_search_300;9952.0
+1.0;make_tuple(expit(xvar), expit(xvar), if_gt(mcp, rc, mcp, m));2.0;in;4.0;random forest;76de0564-4f19-40b0-81c8-aa711c7132e7;0.9159;random_search_300;190411.0
+1.0;make_tuple(expit(xvar), expit(xvar), if_gt(mcp, rc, mcp, m));2.0;out;4.0;random forest;76de0564-4f19-40b0-81c8-aa711c7132e7;0.9354;random_search_300;190411.0
+1.0;make_tuple(expit(mul(po, 0.01705924420587081)), max(expit(xvar), if_gt(xvar, n, 531, mkd)), min(neg(po), min(mkd, p)));2.0;in;9.0;random forest;9d6eb152-eb2e-4e86-ab50-acb7f936f2fd;0.9163;random_search_300;58.0
+1.0;make_tuple(expit(mul(po, 0.01705924420587081)), max(expit(xvar), if_gt(xvar, n, 531, mkd)), min(neg(po), min(mkd, p)));2.0;out;9.0;random forest;9d6eb152-eb2e-4e86-ab50-acb7f936f2fd;0.9809;random_search_300;58.0
+1.0;make_tuple(mul(0.04223126493815027, p), expit(xvar), min(m, mkd));2.0;in;4.0;random forest;61ce92c0-2c2b-4322-831c-5f7f0cdd7e3e;0.9177;random_search_300;146819.0
+1.0;make_tuple(mul(0.04223126493815027, p), expit(xvar), min(m, mkd));2.0;out;4.0;random forest;61ce92c0-2c2b-4322-831c-5f7f0cdd7e3e;0.8893;random_search_300;146819.0
+1.0;make_tuple(expit(xvar), expit(xvar), if_gt(p, mcp, mcp, po));2.0;in;4.0;random forest;5ef05f6c-cab7-45ec-b005-155317526460;0.9156;random_search_300;3493.0
+1.0;make_tuple(expit(xvar), expit(xvar), if_gt(p, mcp, mcp, po));2.0;out;4.0;random forest;5ef05f6c-cab7-45ec-b005-155317526460;0.8305;random_search_300;3493.0
+1.0;make_tuple(truediv(po, 24), expit(0.7284380660129741), sub(rc, m));2.0;in;4.0;random forest;e347ffe0-aa96-4b58-979a-e00f8f6203bf;0.9175;random_search_300;9964.0
+1.0;make_tuple(truediv(po, 24), expit(0.7284380660129741), sub(rc, m));2.0;out;4.0;random forest;e347ffe0-aa96-4b58-979a-e00f8f6203bf;0.9834;random_search_300;9964.0
+1.0;make_tuple(expit(mul(xvar, 2)), expit(min(p, xvar)), expit(mul(rc, p)));2.0;in;7.0;random forest;3e96a9df-64ed-4646-aa70-d73fdd80b8bd;0.9152;random_search_300;24.0
+1.0;make_tuple(expit(mul(xvar, 2)), expit(min(p, xvar)), expit(mul(rc, p)));2.0;out;7.0;random forest;3e96a9df-64ed-4646-aa70-d73fdd80b8bd;0.9969;random_search_300;24.0
+1.0;make_tuple(expit(add(xvar, mcp)), add(sub(mcp, mcp), expit(xvar)), add(add(rc, rc), if_gt(0.0025755149240814855, p, rc, mcp)));2.0;in;9.0;random forest;a5e136bd-fc1a-4b53-8d87-cb6977bb1946;0.9145;random_search_300;9956.0
+1.0;make_tuple(expit(add(xvar, mcp)), add(sub(mcp, mcp), expit(xvar)), add(add(rc, rc), if_gt(0.0025755149240814855, p, rc, mcp)));2.0;out;9.0;random forest;a5e136bd-fc1a-4b53-8d87-cb6977bb1946;0.9838;random_search_300;9956.0
+1.0;make_tuple(max(truediv(po, 22), expit(rc)), min(expit(xvar), pow(p, 34)), truediv(truediv(mcp, 0.39611102309394824), expit(mkd)));2.0;in;10.0;random forest;3b4815b4-b07e-43f4-8862-b76f6bfd509c;0.9161;random_search_300;16.0
+1.0;make_tuple(max(truediv(po, 22), expit(rc)), min(expit(xvar), pow(p, 34)), truediv(truediv(mcp, 0.39611102309394824), expit(mkd)));2.0;out;10.0;random forest;3b4815b4-b07e-43f4-8862-b76f6bfd509c;0.985;random_search_300;16.0
+1.0;make_tuple(mul(0.06412638014690482, p), expit(xvar), min(mcp, p));2.0;in;4.0;random forest;c414168d-bf09-4648-b3e5-f3133c6cfd8a;0.9179;random_search_300;189924.0
+1.0;make_tuple(mul(0.06412638014690482, p), expit(xvar), min(mcp, p));2.0;out;4.0;random forest;c414168d-bf09-4648-b3e5-f3133c6cfd8a;0.6999;random_search_300;189924.0
+1.0;make_tuple(truediv(expit(mkd), truediv(14, po)), expit(expit(mcp)), mul(min(mcp, 10), add(rc, xvar)));2.0;in;9.0;random forest;04f38733-0ac5-4d85-923f-cb060c3a455b;0.9155;random_search_300;168909.0
+1.0;make_tuple(truediv(expit(mkd), truediv(14, po)), expit(expit(mcp)), mul(min(mcp, 10), add(rc, xvar)));2.0;out;9.0;random forest;04f38733-0ac5-4d85-923f-cb060c3a455b;0.9856;random_search_300;168909.0
+1.0;make_tuple(if_gt(truediv(po, mkd), sub(po, 62), expit(xvar), min(mcp, n)), expit(if_gt(po, m, mcp, 0.018768562035888836)), expit(min(m, 31)));2.0;in;10.0;random forest;d95a6903-363b-4d85-94fc-41d2a8a2e0fb;0.9156;random_search_300;31.0
+1.0;make_tuple(if_gt(truediv(po, mkd), sub(po, 62), expit(xvar), min(mcp, n)), expit(if_gt(po, m, mcp, 0.018768562035888836)), expit(min(m, 31)));2.0;out;10.0;random forest;d95a6903-363b-4d85-94fc-41d2a8a2e0fb;0.8852;random_search_300;31.0
+1.0;make_tuple(expit(mul(po, 0.012786826434206248)), expit(expit(mcp)), pow(min(p, m), min(xvar, 0.04682526146009878)));2.0;in;8.0;random forest;e73838dc-21e6-42a8-91ba-e75b3f84e26b;0.9156;random_search_300;125922.0
+1.0;make_tuple(expit(mul(po, 0.012786826434206248)), expit(expit(mcp)), pow(min(p, m), min(xvar, 0.04682526146009878)));2.0;out;8.0;random forest;e73838dc-21e6-42a8-91ba-e75b3f84e26b;0.9941;random_search_300;125922.0
+1.0;make_tuple(expit(mul(xvar, 3)), min(expit(xvar), mul(m, mcp)), pow(expit(po), min(mkd, mkd)));2.0;in;9.0;random forest;e8c372bb-7737-404f-b14c-40d754efd9cd;0.9158;random_search_300;10093.0
+1.0;make_tuple(expit(mul(xvar, 3)), min(expit(xvar), mul(m, mcp)), pow(expit(po), min(mkd, mkd)));2.0;out;9.0;random forest;e8c372bb-7737-404f-b14c-40d754efd9cd;0.9963;random_search_300;10093.0
+1.0;make_tuple(mul(0.04172619166532946, po), expit(xvar), truediv(2, p));2.0;in;4.0;random forest;9f6e415d-52aa-4a9d-a871-1f5bfc44a8f0;0.9185;random_search_300;146822.0
+1.0;make_tuple(mul(0.04172619166532946, po), expit(xvar), truediv(2, p));2.0;out;4.0;random forest;9f6e415d-52aa-4a9d-a871-1f5bfc44a8f0;0.9959;random_search_300;146822.0
+1.0;make_tuple(mul(0.047492096375990216, po), expit(xvar), mul(m, 0.19005580758477356));2.0;in;4.0;random forest;b7fd742e-9a59-4bb8-9053-93e11479463b;0.9182;random_search_300;168330.0
+1.0;make_tuple(mul(0.047492096375990216, po), expit(xvar), mul(m, 0.19005580758477356));2.0;out;4.0;random forest;b7fd742e-9a59-4bb8-9053-93e11479463b;0.9751;random_search_300;168330.0
+1.0;make_tuple(mul(0.05940162157373348, po), expit(xvar), mul(rc, mkd));2.0;in;4.0;random forest;a614458d-ff7a-481b-b5df-89aa5769b8a4;0.9194;random_search_300;14971.0
+1.0;make_tuple(mul(0.05940162157373348, po), expit(xvar), mul(rc, mkd));2.0;out;4.0;random forest;a614458d-ff7a-481b-b5df-89aa5769b8a4;0.6585;random_search_300;14971.0
+1.0;make_tuple(mul(0.05558350183321408, p), expit(xvar), sub(mkd, po));2.0;in;4.0;random forest;773f2af9-d3cf-4cab-b288-e0436ce94bf3;0.9168;random_search_300;146820.0
+1.0;make_tuple(mul(0.05558350183321408, p), expit(xvar), sub(mkd, po));2.0;out;4.0;random forest;773f2af9-d3cf-4cab-b288-e0436ce94bf3;0.8883;random_search_300;146820.0
+1.0;make_tuple(min(expit(xvar), expit(m)), expit(add(0.006482104218479128, xvar)), neg(add(xvar, 52)));2.0;in;8.0;random forest;bbfe7740-18a8-4045-8a25-4d69876e6715;0.9144;random_search_300;9960.0
+1.0;make_tuple(min(expit(xvar), expit(m)), expit(add(0.006482104218479128, xvar)), neg(add(xvar, 52)));2.0;out;8.0;random forest;bbfe7740-18a8-4045-8a25-4d69876e6715;0.999;random_search_300;9960.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(0.0037418067880928135, xvar));2.0;in;4.0;random forest;aea26800-63f0-4a5d-a51a-3ab133217f75;0.9146;random_search_300;168336.0
+1.0;make_tuple(expit(xvar), expit(xvar), mul(0.0037418067880928135, xvar));2.0;out;4.0;random forest;aea26800-63f0-4a5d-a51a-3ab133217f75;0.9433;random_search_300;168336.0
+1.0;make_tuple(truediv(max(po, mcp), add(19, m)), expit(expit(0.016547788676282926)), neg(pow(mcp, mcp)));2.0;in;8.0;random forest;26bf4ea6-0b6a-4b88-b06f-2f56550b8553;0.916;random_search_300;3917.0
+1.0;make_tuple(truediv(max(po, mcp), add(19, m)), expit(expit(0.016547788676282926)), neg(pow(mcp, mcp)));2.0;out;8.0;random forest;26bf4ea6-0b6a-4b88-b06f-2f56550b8553;0.7933;random_search_300;3917.0
+1.0;make_tuple(truediv(po, 23), expit(0.7487308218890444), expit(po));2.0;in;4.0;random forest;4bd2cfd4-4f37-41e2-b4f4-9b773680f23c;0.9181;random_search_300;3903.0
+1.0;make_tuple(truediv(po, 23), expit(0.7487308218890444), expit(po));2.0;out;4.0;random forest;4bd2cfd4-4f37-41e2-b4f4-9b773680f23c;0.9658;random_search_300;3903.0
+1.0;make_tuple(pow(expit(xvar), expit(m)), expit(if_gt(mkd, rc, 0.305403438740234, mcp)), min(sub(p, 0.03709667777091464), neg(p)));2.0;in;9.0;random forest;607dae8c-e438-4c01-899f-80069a58a92e;0.9175;random_search_300;167119.0
+1.0;make_tuple(pow(expit(xvar), expit(m)), expit(if_gt(mkd, rc, 0.305403438740234, mcp)), min(sub(p, 0.03709667777091464), neg(p)));2.0;out;9.0;random forest;607dae8c-e438-4c01-899f-80069a58a92e;0.7336;random_search_300;167119.0
+1.0;make_tuple(expit(sub(p, 6)), min(expit(xvar), mul(0.9902262529188737, m)), truediv(mul(n, xvar), neg(po)));2.0;in;9.0;random forest;93443eb3-c186-492d-8e04-5936523fef87;0.9198;random_search_300;9971.0
+1.0;make_tuple(expit(sub(p, 6)), min(expit(xvar), mul(0.9902262529188737, m)), truediv(mul(n, xvar), neg(po)));2.0;out;9.0;random forest;93443eb3-c186-492d-8e04-5936523fef87;0.3651;random_search_300;9971.0
+1.0;make_tuple(pow(expit(xvar), pow(0.6041318830787072, xvar)), expit(max(mkd, mcp)), mul(expit(p), sub(rc, xvar)));2.0;in;9.0;random forest;0e457776-3bac-4c55-8929-ba927eb37bd0;0.9163;random_search_300;146821.0
+1.0;make_tuple(pow(expit(xvar), pow(0.6041318830787072, xvar)), expit(max(mkd, mcp)), mul(expit(p), sub(rc, xvar)));2.0;out;9.0;random forest;0e457776-3bac-4c55-8929-ba927eb37bd0;0.9624;random_search_300;146821.0
+1.0;make_tuple(expit(truediv(po, 32)), expit(if_gt(rc, n, 0.006038154151189555, mcp)), add(truediv(rc, po), pow(mkd, mkd)));2.0;in;8.0;random forest;206bd8be-a011-461b-854b-04b92d3ce93d;0.9145;random_search_300;9910.0
+1.0;make_tuple(expit(truediv(po, 32)), expit(if_gt(rc, n, 0.006038154151189555, mcp)), add(truediv(rc, po), pow(mkd, mkd)));2.0;out;8.0;random forest;206bd8be-a011-461b-854b-04b92d3ce93d;0.9896;random_search_300;9910.0
+1.0;make_tuple(expit(xvar), expit(mcp), max(xvar, 5));2.0;in;4.0;random forest;f7b6842e-b427-4171-9e67-d421f7ce4b2c;0.9163;random_search_300;167211.0
+1.0;make_tuple(expit(xvar), expit(mcp), max(xvar, 5));2.0;out;4.0;random forest;f7b6842e-b427-4171-9e67-d421f7ce4b2c;0.8983;random_search_300;167211.0
+1.0;make_tuple(mul(0.05598998139667434, p), expit(xvar), mul(0.019548661454976447, 0.7525131778586994));2.0;in;4.0;random forest;42c34557-8202-4e72-ae13-bd6cb96af33e;0.9203;random_search_300;3560.0
+1.0;make_tuple(mul(0.05598998139667434, p), expit(xvar), mul(0.019548661454976447, 0.7525131778586994));2.0;out;4.0;random forest;42c34557-8202-4e72-ae13-bd6cb96af33e;0.4764;random_search_300;3560.0
+1.0;make_tuple(mul(0.08108324844509412, p), expit(xvar), expit(p));2.0;in;4.0;random forest;55150c08-4081-4fb2-a640-295283544fe5;0.9152;random_search_300;15.0
+1.0;make_tuple(mul(0.08108324844509412, p), expit(xvar), expit(p));2.0;out;4.0;random forest;55150c08-4081-4fb2-a640-295283544fe5;0.9631;random_search_300;15.0
+1.0;make_tuple(truediv(po, 20), expit(0.5959813171296925), expit(mkd));2.0;in;4.0;random forest;2d0c27a7-40a1-4aac-a33e-20f8a54b1715;0.9174;random_search_300;3510.0
+1.0;make_tuple(truediv(po, 20), expit(0.5959813171296925), expit(mkd));2.0;out;4.0;random forest;2d0c27a7-40a1-4aac-a33e-20f8a54b1715;0.9806;random_search_300;3510.0
+1.0;make_tuple(expit(xvar), expit(mcp), mul(m, rc));2.0;in;4.0;random forest;1c50059f-647e-4a98-8580-3460f131f71c;0.9158;random_search_300;146212.0
+1.0;make_tuple(expit(xvar), expit(mcp), mul(m, rc));2.0;out;4.0;random forest;1c50059f-647e-4a98-8580-3460f131f71c;0.9953;random_search_300;146212.0
+1.0;make_tuple(expit(if_gt(22, po, mkd, po)), expit(min(po, xvar)), truediv(max(xvar, po), truediv(283, mcp)));2.0;in;8.0;random forest;5404c8fc-2f7e-451c-bca7-836d79ba449a;0.9181;random_search_300;14.0
+1.0;make_tuple(expit(if_gt(22, po, mkd, po)), expit(min(po, xvar)), truediv(max(xvar, po), truediv(283, mcp)));2.0;out;8.0;random forest;5404c8fc-2f7e-451c-bca7-836d79ba449a;0.9936;random_search_300;14.0
+1.0;make_tuple(truediv(po, 16), expit(xvar), sub(mcp, po));2.0;in;4.0;random forest;300618ef-8855-4f8d-a7a3-229d3d7086ad;0.9165;random_search_300;9985.0
+1.0;make_tuple(truediv(po, 16), expit(xvar), sub(mcp, po));2.0;out;4.0;random forest;300618ef-8855-4f8d-a7a3-229d3d7086ad;0.9732;random_search_300;9985.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(p, po));2.0;in;4.0;random forest;c6e903d0-4012-427e-ac59-305b15e4cee9;0.9164;random_search_300;9950.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(p, po));2.0;out;4.0;random forest;c6e903d0-4012-427e-ac59-305b15e4cee9;0.968;random_search_300;9950.0
+1.0;make_tuple(expit(xvar), expit(mcp), add(mcp, 4));2.0;in;4.0;random forest;32d1633f-0129-4a0e-a2e5-ef6fa40a2d79;0.916;random_search_300;9981.0
+1.0;make_tuple(expit(xvar), expit(mcp), add(mcp, 4));2.0;out;4.0;random forest;32d1633f-0129-4a0e-a2e5-ef6fa40a2d79;0.9645;random_search_300;9981.0
+1.0;make_tuple(if_gt(if_gt(p, xvar, po, p), max(32, 0.08136327977163647), expit(m), expit(xvar)), expit(pow(xvar, rc)), expit(max(m, mcp)));2.0;in;10.0;random forest;e959207e-5308-43be-8811-dcbce59c48ff;0.9168;random_search_300;3902.0
+1.0;make_tuple(if_gt(if_gt(p, xvar, po, p), max(32, 0.08136327977163647), expit(m), expit(xvar)), expit(pow(xvar, rc)), expit(max(m, mcp)));2.0;out;10.0;random forest;e959207e-5308-43be-8811-dcbce59c48ff;0.9351;random_search_300;3902.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), expit(if_gt(mkd, m, m, xvar)), if_gt(neg(rc), sub(p, n), if_gt(xvar, m, p, rc), truediv(m, po)));2.0;in;10.0;random forest;080cc161-abc7-4920-ac5e-6e8fbec6df23;0.9155;random_search_300;168335.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), expit(if_gt(mkd, m, m, xvar)), if_gt(neg(rc), sub(p, n), if_gt(xvar, m, p, rc), truediv(m, po)));2.0;out;10.0;random forest;080cc161-abc7-4920-ac5e-6e8fbec6df23;0.9874;random_search_300;168335.0
+1.0;make_tuple(if_gt(expit(rc), add(p, xvar), pow(mkd, mkd), expit(xvar)), expit(if_gt(xvar, rc, 0.6435283898873371, 0.22351836111091034)), expit(expit(11)));2.0;in;10.0;random forest;edd55d8f-5a03-44fb-831b-b60fce4a00f8;0.9156;random_search_300;189928.0
+1.0;make_tuple(if_gt(expit(rc), add(p, xvar), pow(mkd, mkd), expit(xvar)), expit(if_gt(xvar, rc, 0.6435283898873371, 0.22351836111091034)), expit(expit(11)));2.0;out;10.0;random forest;edd55d8f-5a03-44fb-831b-b60fce4a00f8;0.9541;random_search_300;189928.0
+1.0;make_tuple(expit(pow(xvar, rc)), max(truediv(xvar, n), expit(xvar)), if_gt(mul(mcp, mkd), add(p, xvar), add(p, mkd), min(xvar, p)));2.0;in;11.0;random forest;6a1be4c2-68f3-46d9-b7e2-c65af1ae5496;0.9145;random_search_300;167121.0
+1.0;make_tuple(expit(pow(xvar, rc)), max(truediv(xvar, n), expit(xvar)), if_gt(mul(mcp, mkd), add(p, xvar), add(p, mkd), min(xvar, p)));2.0;out;11.0;random forest;6a1be4c2-68f3-46d9-b7e2-c65af1ae5496;0.9787;random_search_300;167121.0
+1.0;make_tuple(min(mul(0.04486729727073257, p), expit(4)), expit(truediv(xvar, m)), neg(add(po, mkd)));2.0;in;8.0;random forest;a0bd00e8-6981-486c-8782-23c0a8bffc7e;0.9147;random_search_300;43.0
+1.0;make_tuple(min(mul(0.04486729727073257, p), expit(4)), expit(truediv(xvar, m)), neg(add(po, mkd)));2.0;out;8.0;random forest;a0bd00e8-6981-486c-8782-23c0a8bffc7e;0.9875;random_search_300;43.0
+1.0;make_tuple(truediv(p, 18), expit(xvar), expit(m));2.0;in;4.0;random forest;5550e265-639f-46ac-bb9d-074120991f2a;0.9159;random_search_300;9946.0
+1.0;make_tuple(truediv(p, 18), expit(xvar), expit(m));2.0;out;4.0;random forest;5550e265-639f-46ac-bb9d-074120991f2a;0.9928;random_search_300;9946.0
+1.0;make_tuple(mul(mul(0.05198797731389434, p), min(xvar, po)), max(expit(xvar), sub(xvar, m)), pow(min(7, n), neg(573)));2.0;in;10.0;random forest;78459931-cadc-4477-9adb-ff571a103e12;0.9161;random_search_300;146195.0
+1.0;make_tuple(mul(mul(0.05198797731389434, p), min(xvar, po)), max(expit(xvar), sub(xvar, m)), pow(min(7, n), neg(573)));2.0;out;10.0;random forest;78459931-cadc-4477-9adb-ff571a103e12;0.9521;random_search_300;146195.0
+1.0;make_tuple(mul(truediv(po, mcp), min(n, 0.02957866594712173)), expit(if_gt(xvar, m, 64, xvar)), min(expit(p), min(p, mcp)));2.0;in;9.0;random forest;49cd0133-471d-45a7-9d0b-23d20a2ceeb4;0.9177;random_search_300;146800.0
+1.0;make_tuple(mul(truediv(po, mcp), min(n, 0.02957866594712173)), expit(if_gt(xvar, m, 64, xvar)), min(expit(p), min(p, mcp)));2.0;out;9.0;random forest;49cd0133-471d-45a7-9d0b-23d20a2ceeb4;0.9963;random_search_300;146800.0
+1.0;make_tuple(truediv(max(xvar, po), sub(24, 2)), expit(expit(mcp)), expit(if_gt(po, p, po, mkd)));2.0;in;8.0;random forest;bfc29ecf-ecde-4ae8-8be6-3912510bc197;0.9187;random_search_300;32.0
+1.0;make_tuple(truediv(max(xvar, po), sub(24, 2)), expit(expit(mcp)), expit(if_gt(po, p, po, mkd)));2.0;out;8.0;random forest;bfc29ecf-ecde-4ae8-8be6-3912510bc197;0.9955;random_search_300;32.0
+1.0;make_tuple(min(mul(p, 0.03000716964226369), expit(xvar)), expit(min(po, xvar)), mul(pow(p, rc), neg(mkd)));2.0;in;9.0;random forest;14c8e609-3f94-4bd5-8668-fe416e9215f1;0.9185;random_search_300;145681.0
+1.0;make_tuple(min(mul(p, 0.03000716964226369), expit(xvar)), expit(min(po, xvar)), mul(pow(p, rc), neg(mkd)));2.0;out;9.0;random forest;14c8e609-3f94-4bd5-8668-fe416e9215f1;0.7959;random_search_300;145681.0
+1.0;make_tuple(expit(mul(m, xvar)), expit(max(mcp, mkd)), mul(expit(rc), truediv(mkd, m)));2.0;in;8.0;random forest;e5c42c28-50f3-495c-a090-6a1f41ecb68b;0.9173;random_search_300;11.0
+1.0;make_tuple(expit(mul(m, xvar)), expit(max(mcp, mkd)), mul(expit(rc), truediv(mkd, m)));2.0;out;8.0;random forest;e5c42c28-50f3-495c-a090-6a1f41ecb68b;0.8243;random_search_300;11.0
+1.0;make_tuple(expit(xvar), sub(0.6618104204442377, 0.01222261688705743), if_gt(po, m, 0.03498781586058149, 20));2.0;in;4.0;random forest;ab0c2daf-c71c-4f54-836e-5ccc25b26198;0.9167;random_search_300;2079.0
+1.0;make_tuple(expit(xvar), sub(0.6618104204442377, 0.01222261688705743), if_gt(po, m, 0.03498781586058149, 20));2.0;out;4.0;random forest;ab0c2daf-c71c-4f54-836e-5ccc25b26198;0.9735;random_search_300;2079.0
+1.0;make_tuple(mul(po, 0.047371416295222804), expit(xvar), max(0.007103783906861413, 2));2.0;in;4.0;random forest;b673edba-c1ac-47f2-9134-abc5f81e6ef0;0.9185;random_search_300;146606.0
+1.0;make_tuple(mul(po, 0.047371416295222804), expit(xvar), max(0.007103783906861413, 2));2.0;out;4.0;random forest;b673edba-c1ac-47f2-9134-abc5f81e6ef0;0.987;random_search_300;146606.0
+1.0;make_tuple(expit(min(xvar, n)), expit(min(po, xvar)), min(add(po, m), mul(rc, m)));2.0;in;8.0;random forest;97e41014-e6a4-482d-9ffa-30fcd6eeab41;0.9183;random_search_300;125920.0
+1.0;make_tuple(expit(min(xvar, n)), expit(min(po, xvar)), min(add(po, m), mul(rc, m)));2.0;out;8.0;random forest;97e41014-e6a4-482d-9ffa-30fcd6eeab41;0.6707;random_search_300;125920.0
+1.0;make_tuple(add(expit(xvar), min(mkd, n)), expit(if_gt(po, rc, mcp, xvar)), pow(if_gt(mkd, xvar, m, rc), sub(xvar, rc)));2.0;in;9.0;random forest;9a5ecf7e-f106-486d-bf03-f924b4e90fbc;0.9156;random_search_300;190412.0
+1.0;make_tuple(add(expit(xvar), min(mkd, n)), expit(if_gt(po, rc, mcp, xvar)), pow(if_gt(mkd, xvar, m, rc), sub(xvar, rc)));2.0;out;9.0;random forest;9a5ecf7e-f106-486d-bf03-f924b4e90fbc;0.8832;random_search_300;190412.0
+1.0;make_tuple(expit(xvar), expit(xvar), min(5, po));2.0;in;4.0;random forest;9e897199-a64f-4329-a939-808ac719c1f0;0.9152;random_search_300;168908.0
+1.0;make_tuple(expit(xvar), expit(xvar), min(5, po));2.0;out;4.0;random forest;9e897199-a64f-4329-a939-808ac719c1f0;0.9623;random_search_300;168908.0
+1.0;make_tuple(expit(xvar), expit(mcp), sub(8, po));2.0;in;4.0;random forest;1ed35820-f807-4f5e-9c59-64717d966159;0.9155;random_search_300;167124.0
+1.0;make_tuple(expit(xvar), expit(mcp), sub(8, po));2.0;out;4.0;random forest;1ed35820-f807-4f5e-9c59-64717d966159;0.9757;random_search_300;167124.0
+1.0;make_tuple(expit(truediv(po, 21)), min(add(p, n), expit(xvar)), min(neg(mkd), add(m, 0.0045132707739411184)));2.0;in;9.0;random forest;8ae43af0-6563-4d0a-b579-2329f74c630b;0.9189;random_search_300;7592.0
+1.0;make_tuple(expit(truediv(po, 21)), min(add(p, n), expit(xvar)), min(neg(mkd), add(m, 0.0045132707739411184)));2.0;out;9.0;random forest;8ae43af0-6563-4d0a-b579-2329f74c630b;0.7073;random_search_300;7592.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), max(expit(mkd), expit(mcp)), min(neg(po), max(n, xvar)));2.0;in;9.0;random forest;d9c561c0-5fb0-424d-bb41-9a4d2e290b3a;0.9175;random_search_300;23.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), max(expit(mkd), expit(mcp)), min(neg(po), max(n, xvar)));2.0;out;9.0;random forest;d9c561c0-5fb0-424d-bb41-9a4d2e290b3a;0.7754;random_search_300;23.0
+1.0;make_tuple(expit(truediv(po, 63)), mul(expit(xvar), expit(p)), if_gt(mul(0.00946444583908873, 19), mul(p, p), expit(po), pow(xvar, xvar)));2.0;in;11.0;random forest;75b07a17-c3c6-4615-9c7a-671a2874fa17;0.9161;random_search_300;28.0
+1.0;make_tuple(expit(truediv(po, 63)), mul(expit(xvar), expit(p)), if_gt(mul(0.00946444583908873, 19), mul(p, p), expit(po), pow(xvar, xvar)));2.0;out;11.0;random forest;75b07a17-c3c6-4615-9c7a-671a2874fa17;0.9958;random_search_300;28.0
+1.0;make_tuple(mul(0.06884333968226432, po), expit(xvar), add(xvar, rc));2.0;in;4.0;random forest;808381a9-4b64-4e73-97c4-8fe505c5a693;0.9163;random_search_300;41.0
+1.0;make_tuple(mul(0.06884333968226432, po), expit(xvar), add(xvar, rc));2.0;out;4.0;random forest;808381a9-4b64-4e73-97c4-8fe505c5a693;0.9886;random_search_300;41.0
+1.0;make_tuple(mul(p, 0.03457573716129111), expit(xvar), mul(0.029291059120686597, xvar));2.0;in;4.0;random forest;49f15421-f336-4a38-af0d-bec7a4f5caad;0.9164;random_search_300;10090.0
+1.0;make_tuple(mul(p, 0.03457573716129111), expit(xvar), mul(0.029291059120686597, xvar));2.0;out;4.0;random forest;49f15421-f336-4a38-af0d-bec7a4f5caad;0.9409;random_search_300;10090.0
+1.0;make_tuple(expit(mul(xvar, m)), expit(sub(mcp, mkd)), add(expit(mkd), truediv(mkd, mkd)));2.0;in;8.0;random forest;0cba4b27-35aa-4bfd-94a4-7825c5725c3f;0.9164;random_search_300;167125.0
+1.0;make_tuple(expit(mul(xvar, m)), expit(sub(mcp, mkd)), add(expit(mkd), truediv(mkd, mkd)));2.0;out;8.0;random forest;0cba4b27-35aa-4bfd-94a4-7825c5725c3f;0.9911;random_search_300;167125.0
+1.0;make_tuple(truediv(po, 23), expit(xvar), sub(mkd, po));2.0;in;4.0;random forest;9663016a-173f-450b-97d1-123df6134234;0.919;random_search_300;9986.0
+1.0;make_tuple(truediv(po, 23), expit(xvar), sub(mkd, po));2.0;out;4.0;random forest;9663016a-173f-450b-97d1-123df6134234;0.9873;random_search_300;9986.0
+1.0;make_tuple(mul(truediv(p, xvar), mul(0.006706609315536712, po)), min(expit(po), expit(xvar)), min(if_gt(rc, 9, p, n), pow(xvar, 13)));2.0;in;10.0;random forest;b0192e97-69a7-469c-b7c0-21e2af03d418;0.9156;random_search_300;2074.0
+1.0;make_tuple(mul(truediv(p, xvar), mul(0.006706609315536712, po)), min(expit(po), expit(xvar)), min(if_gt(rc, 9, p, n), pow(xvar, 13)));2.0;out;10.0;random forest;b0192e97-69a7-469c-b7c0-21e2af03d418;0.9959;random_search_300;2074.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), max(expit(xvar), neg(xvar)), truediv(mul(rc, m), pow(mcp, mcp)));2.0;in;9.0;random forest;1b95d5e3-bc12-4724-8f4d-607394eec991;0.9167;random_search_300;146817.0
+1.0;make_tuple(expit(truediv(xvar, mcp)), max(expit(xvar), neg(xvar)), truediv(mul(rc, m), pow(mcp, mcp)));2.0;out;9.0;random forest;1b95d5e3-bc12-4724-8f4d-607394eec991;0.9853;random_search_300;146817.0
+1.0;make_tuple(expit(max(m, xvar)), min(sub(po, 4), expit(xvar)), max(neg(2), truediv(mkd, 0.17374027781533835)));2.0;in;9.0;random forest;a843d628-e83c-4e44-bda0-104cba61068b;0.9171;random_search_300;146818.0
+1.0;make_tuple(expit(max(m, xvar)), min(sub(po, 4), expit(xvar)), max(neg(2), truediv(mkd, 0.17374027781533835)));2.0;out;9.0;random forest;a843d628-e83c-4e44-bda0-104cba61068b;0.9662;random_search_300;146818.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(p, po));2.0;in;4.0;random forest;3667486a-f9f3-43c1-958e-a8deb4271bbf;0.9162;random_search_300;3512.0
+1.0;make_tuple(expit(xvar), expit(mcp), truediv(p, po));2.0;out;4.0;random forest;3667486a-f9f3-43c1-958e-a8deb4271bbf;0.9914;random_search_300;3512.0
+1.0;make_tuple(truediv(p, 27), expit(xvar), sub(xvar, n));2.0;in;4.0;random forest;c84a4c2f-3475-49a4-8b67-5d864c230e72;0.9167;random_search_300;2073.0
+1.0;make_tuple(truediv(p, 27), expit(xvar), sub(xvar, n));2.0;out;4.0;random forest;c84a4c2f-3475-49a4-8b67-5d864c230e72;0.9574;random_search_300;2073.0
+1.0;make_tuple(mul(0.050548600766474494, po), expit(0.7355084541596979), pow(rc, xvar));2.0;in;4.0;random forest;e0cefe65-b4a7-4f96-9ccc-f0962a6ac9f7;0.9182;random_search_300;189927.0
+1.0;make_tuple(mul(0.050548600766474494, po), expit(0.7355084541596979), pow(rc, xvar));2.0;out;4.0;random forest;e0cefe65-b4a7-4f96-9ccc-f0962a6ac9f7;0.7208;random_search_300;189927.0
+1.0;make_tuple(expit(xvar), expit(0.6549823230817468), truediv(rc, xvar));2.0;in;4.0;random forest;f9087ffc-c5c2-4d95-aa6b-e2cd2a1a9a02;0.9159;random_search_300;9957.0
+1.0;make_tuple(expit(xvar), expit(0.6549823230817468), truediv(rc, xvar));2.0;out;4.0;random forest;f9087ffc-c5c2-4d95-aa6b-e2cd2a1a9a02;0.9674;random_search_300;9957.0
+1.0;make_tuple(add(sub(xvar, mkd), truediv(rc, m)), if_gt(add(m, mcp), pow(xvar, 21), expit(0.41408273199841095), truediv(n, mkd)), neg(neg(0.17322364010055333)));2.0;in;11.0;random forest;7c8e1df8-c0d8-4e7b-a03b-6d436a587733;0.9165;random_search_300;3021.0
+1.0;make_tuple(add(sub(xvar, mkd), truediv(rc, m)), if_gt(add(m, mcp), pow(xvar, 21), expit(0.41408273199841095), truediv(n, mkd)), neg(neg(0.17322364010055333)));2.0;out;11.0;random forest;7c8e1df8-c0d8-4e7b-a03b-6d436a587733;0.9436;random_search_300;3021.0
+1.0;make_tuple(min(expit(xvar), expit(po)), expit(min(0.9270288822988572, 871)), truediv(expit(rc), add(0.012582887010110498, xvar)));2.0;in;9.0;random forest;c4dad831-c5ea-4837-a1ef-28509eea81b0;0.9156;random_search_300;168331.0
+1.0;make_tuple(min(expit(xvar), expit(po)), expit(min(0.9270288822988572, 871)), truediv(expit(rc), add(0.012582887010110498, xvar)));2.0;out;9.0;random forest;c4dad831-c5ea-4837-a1ef-28509eea81b0;0.9586;random_search_300;168331.0
+1.0;make_tuple(add(expit(xvar), mul(rc, xvar)), add(min(mkd, xvar), expit(mcp)), truediv(neg(m), max(m, 0.0285287789944429)));2.0;in;10.0;random forest;d3083942-0af1-4807-a947-b404979bea40;0.9155;random_search_300;14965.0
+1.0;make_tuple(add(expit(xvar), mul(rc, xvar)), add(min(mkd, xvar), expit(mcp)), truediv(neg(m), max(m, 0.0285287789944429)));2.0;out;10.0;random forest;d3083942-0af1-4807-a947-b404979bea40;0.9194;random_search_300;14965.0
+1.0;make_tuple(mul(0.04765828390594242, po), expit(mcp), expit(0.0843295057451438));2.0;in;4.0;random forest;89e2889a-9191-41cf-93ae-b74f22eadb38;0.9145;random_search_300;167140.0
+1.0;make_tuple(mul(0.04765828390594242, po), expit(mcp), expit(0.0843295057451438));2.0;out;4.0;random forest;89e2889a-9191-41cf-93ae-b74f22eadb38;0.9893;random_search_300;167140.0
+1.0;make_tuple(expit(add(xvar, xvar)), expit(if_gt(m, mkd, mcp, mcp)), pow(expit(mkd), if_gt(m, p, xvar, 17)));2.0;in;8.0;random forest;b690df7e-c7b2-4967-9abb-c068a63647ae;0.9157;random_search_300;146824.0
+1.0;make_tuple(expit(add(xvar, xvar)), expit(if_gt(m, mkd, mcp, mcp)), pow(expit(mkd), if_gt(m, p, xvar, 17)));2.0;out;8.0;random forest;b690df7e-c7b2-4967-9abb-c068a63647ae;0.9972;random_search_300;146824.0
+1.0;make_tuple(mul(po, 0.05023787581491643), expit(xvar), truediv(mcp, 1));2.0;in;4.0;random forest;11d3936b-bf66-4200-9771-4ba74f3ef499;0.9189;random_search_300;168332.0
+1.0;make_tuple(mul(po, 0.05023787581491643), expit(xvar), truediv(mcp, 1));2.0;out;4.0;random forest;11d3936b-bf66-4200-9771-4ba74f3ef499;0.9723;random_search_300;168332.0
+1.0;make_tuple(mul(po, 0.06328757313531698), expit(xvar), neg(xvar));2.0;in;4.0;random forest;041ca32f-9c6e-42fb-9c81-f9f74ce1d795;0.9164;random_search_300;3893.0
+1.0;make_tuple(mul(po, 0.06328757313531698), expit(xvar), neg(xvar));2.0;out;4.0;random forest;041ca32f-9c6e-42fb-9c81-f9f74ce1d795;0.9965;random_search_300;3893.0
+1.0;make_tuple(add(expit(xvar), if_gt(rc, 0.07599654557315268, xvar, rc)), min(add(mcp, p), expit(mcp)), mul(min(mcp, p), neg(m)));2.0;in;10.0;random forest;9e13935d-a9dd-4e93-8469-4daf5e06ddf2;0.9167;random_search_300;3907.0
+1.0;make_tuple(add(expit(xvar), if_gt(rc, 0.07599654557315268, xvar, rc)), min(add(mcp, p), expit(mcp)), mul(min(mcp, p), neg(m)));2.0;out;10.0;random forest;9e13935d-a9dd-4e93-8469-4daf5e06ddf2;0.8276;random_search_300;3907.0
+1.0;make_tuple(expit(mul(m, xvar)), if_gt(sub(2, m), neg(m), expit(xvar), truediv(rc, p)), if_gt(if_gt(p, p, 0.002030835844990084, p), mul(0.0054051773967760215, mcp), neg(m), if_gt(0.009848432494575876, po, mcp, xvar)));2.0;in;13.0;random forest;4d22fb6a-36c5-48df-94a0-0bab161c2f06;0.9223;random_search_300;10101.0
+1.0;make_tuple(expit(mul(m, xvar)), if_gt(sub(2, m), neg(m), expit(xvar), truediv(rc, p)), if_gt(if_gt(p, p, 0.002030835844990084, p), mul(0.0054051773967760215, mcp), neg(m), if_gt(0.009848432494575876, po, mcp, xvar)));2.0;out;13.0;random forest;4d22fb6a-36c5-48df-94a0-0bab161c2f06;0.1879;random_search_300;10101.0
+1.0;make_tuple(mul(0.05580333796618118, po), expit(xvar), neg(m));2.0;in;4.0;random forest;1983071b-18ca-4af6-b2f5-7af6cf4bc051;0.9179;random_search_300;168868.0
+1.0;make_tuple(mul(0.05580333796618118, po), expit(xvar), neg(m));2.0;out;4.0;random forest;1983071b-18ca-4af6-b2f5-7af6cf4bc051;0.9663;random_search_300;168868.0
+1.0;make_tuple(truediv(po, 22), expit(mcp), if_gt(292, 0.26969351108005335, mkd, p));2.0;in;4.0;random forest;8bf3e2c3-cf54-4053-befd-7f466936bf2c;0.9172;random_search_300;168338.0
+1.0;make_tuple(truediv(po, 22), expit(mcp), if_gt(292, 0.26969351108005335, mkd, p));2.0;out;4.0;random forest;8bf3e2c3-cf54-4053-befd-7f466936bf2c;0.8019;random_search_300;168338.0
+1.0;make_tuple(max(expit(xvar), neg(p)), expit(min(mcp, n)), if_gt(add(mkd, po), pow(po, xvar), sub(10, po), sub(rc, p)));2.0;in;11.0;random forest;71359169-c1f7-4de0-af7a-dc6f0e7c5b68;0.9173;random_search_300;9970.0
+1.0;make_tuple(max(expit(xvar), neg(p)), expit(min(mcp, n)), if_gt(add(mkd, po), pow(po, xvar), sub(10, po), sub(rc, p)));2.0;out;11.0;random forest;71359169-c1f7-4de0-af7a-dc6f0e7c5b68;0.8482;random_search_300;9970.0
+1.0;make_tuple(truediv(p, 31), expit(xvar), neg(n));2.0;in;4.0;random forest;159edd79-cd50-4b55-bd76-c4dba18ed1a5;0.9149;random_search_300;3481.0
+1.0;make_tuple(truediv(p, 31), expit(xvar), neg(n));2.0;out;4.0;random forest;159edd79-cd50-4b55-bd76-c4dba18ed1a5;0.9844;random_search_300;3481.0
+1.0;make_tuple(mul(po, 0.08385385996483552), expit(xvar), neg(0.010054327216570055));2.0;in;4.0;random forest;0bcb35bf-7c3c-4704-805f-4f3cf180c9cd;0.9167;random_search_300;3904.0
+1.0;make_tuple(mul(po, 0.08385385996483552), expit(xvar), neg(0.010054327216570055));2.0;out;4.0;random forest;0bcb35bf-7c3c-4704-805f-4f3cf180c9cd;0.8282;random_search_300;3904.0
+1.0;make_tuple(expit(mul(xvar, m)), expit(min(xvar, 2)), truediv(sub(mkd, mcp), max(0.01822618176338227, po)));2.0;in;8.0;random forest;9b247f82-4d94-4d72-844d-5f5bcdcddffa;0.917;random_search_300;3918.0
+1.0;make_tuple(expit(mul(xvar, m)), expit(min(xvar, 2)), truediv(sub(mkd, mcp), max(0.01822618176338227, po)));2.0;out;8.0;random forest;9b247f82-4d94-4d72-844d-5f5bcdcddffa;0.8054;random_search_300;3918.0
+1.0;make_tuple(mul(0.03965943298158812, po), expit(xvar), mul(mkd, po));2.0;in;4.0;random forest;e8fc3337-248d-499c-8886-ba714e444a55;0.9164;random_search_300;45.0
+1.0;make_tuple(mul(0.03965943298158812, po), expit(xvar), mul(mkd, po));2.0;out;4.0;random forest;e8fc3337-248d-499c-8886-ba714e444a55;0.9843;random_search_300;45.0
+1.0;make_tuple(truediv(pow(p, mcp), max(n, n)), max(neg(n), add(po, mcp)), truediv(expit(xvar), neg(mcp)), min(if_gt(rc, m, xvar, m), if_gt(3, mkd, m, p)));2.0;in;13.0;rpart;af00cd01-a1c3-4516-9b39-ef9dc0e4619c;0.8778;random_search_300;32.0
+1.0;make_tuple(truediv(pow(p, mcp), max(n, n)), max(neg(n), add(po, mcp)), truediv(expit(xvar), neg(mcp)), min(if_gt(rc, m, xvar, m), if_gt(3, mkd, m, p)));2.0;out;13.0;rpart;af00cd01-a1c3-4516-9b39-ef9dc0e4619c;0.9754;random_search_300;32.0
+1.0;make_tuple(truediv(pow(159, mcp), sub(n, 98)), add(add(rc, po), pow(11, mcp)), if_gt(expit(po), if_gt(xvar, 0.005247966929505357, mcp, mkd), pow(n, 0.20524300036030108), add(po, xvar)), sub(truediv(mcp, mcp), mul(xvar, n)));2.0;in;15.0;rpart;57716bc0-aa90-46e7-aa4c-566505ba0b30;0.8938;random_search_300;167124.0
+1.0;make_tuple(truediv(pow(159, mcp), sub(n, 98)), add(add(rc, po), pow(11, mcp)), if_gt(expit(po), if_gt(xvar, 0.005247966929505357, mcp, mkd), pow(n, 0.20524300036030108), add(po, xvar)), sub(truediv(mcp, mcp), mul(xvar, n)));2.0;out;15.0;rpart;57716bc0-aa90-46e7-aa4c-566505ba0b30;0.9815;random_search_300;167124.0
+1.0;make_tuple(pow(expit(0.03695210590795196), truediv(m, 0.2498582600832944)), sub(add(rc, p), neg(xvar)), neg(expit(p)), pow(add(mcp, po), if_gt(m, xvar, 0.004333166999474731, mcp)));2.0;in;12.0;rpart;00bd25b3-4708-4b15-95cf-45a4276f9163;0.8739;random_search_300;9977.0
+1.0;make_tuple(pow(expit(0.03695210590795196), truediv(m, 0.2498582600832944)), sub(add(rc, p), neg(xvar)), neg(expit(p)), pow(add(mcp, po), if_gt(m, xvar, 0.004333166999474731, mcp)));2.0;out;12.0;rpart;00bd25b3-4708-4b15-95cf-45a4276f9163;0.9224;random_search_300;9977.0
+1.0;make_tuple(truediv(mcp, 320), min(54, n), min(po, 5), min(mcp, m));2.0;in;5.0;rpart;c7e39e68-9793-46bd-aecc-0ab58715b50e;0.874;random_search_300;3022.0
+1.0;make_tuple(truediv(mcp, 320), min(54, n), min(po, 5), min(mcp, m));2.0;out;5.0;rpart;c7e39e68-9793-46bd-aecc-0ab58715b50e;0.9346;random_search_300;3022.0
+1.0;make_tuple(pow(pow(m, 2), sub(mcp, 4)), add(add(mcp, po), expit(p)), pow(expit(m), mul(m, m)), neg(truediv(m, po)));2.0;in;12.0;rpart;b3439e0f-7b23-4810-b853-5652eaef4547;0.8784;random_search_300;22.0
+1.0;make_tuple(pow(pow(m, 2), sub(mcp, 4)), add(add(mcp, po), expit(p)), pow(expit(m), mul(m, m)), neg(truediv(m, po)));2.0;out;12.0;rpart;b3439e0f-7b23-4810-b853-5652eaef4547;0.9781;random_search_300;22.0
+1.0;make_tuple(mul(mcp, 0.0029299415462452558), add(mkd, po), mul(181, mkd), neg(mkd));2.0;in;5.0;rpart;a60a802a-d532-4ff9-b9a5-04227f790466;0.8756;random_search_300;9956.0
+1.0;make_tuple(mul(mcp, 0.0029299415462452558), add(mkd, po), mul(181, mkd), neg(mkd));2.0;out;5.0;rpart;a60a802a-d532-4ff9-b9a5-04227f790466;0.916;random_search_300;9956.0
+1.0;make_tuple(pow(0.06979980348267796, m), truediv(110, mcp), add(0.11302160894472164, mcp), expit(mcp));2.0;in;5.0;rpart;81e5c3fb-8d32-4ae9-8c3c-616f9e96bd06;0.8721;random_search_300;14969.0
+1.0;make_tuple(pow(0.06979980348267796, m), truediv(110, mcp), add(0.11302160894472164, mcp), expit(mcp));2.0;out;5.0;rpart;81e5c3fb-8d32-4ae9-8c3c-616f9e96bd06;0.9825;random_search_300;14969.0
+1.0;make_tuple(pow(0.045098247283202705, m), mul(n, p), expit(mcp), neg(n));2.0;in;5.0;rpart;03c53f1e-9bc4-44ee-bae6-920b7f66f96f;0.8716;random_search_300;14954.0
+1.0;make_tuple(pow(0.045098247283202705, m), mul(n, p), expit(mcp), neg(n));2.0;out;5.0;rpart;03c53f1e-9bc4-44ee-bae6-920b7f66f96f;0.9225;random_search_300;14954.0
+1.0;make_tuple(pow(mcp, 28), add(p, po), neg(po), truediv(rc, mcp));2.0;in;5.0;rpart;9ca2a2af-7aa7-48e5-9739-44cbf4ec8f7c;0.8747;random_search_300;14.0
+1.0;make_tuple(pow(mcp, 28), add(p, po), neg(po), truediv(rc, mcp));2.0;out;5.0;rpart;9ca2a2af-7aa7-48e5-9739-44cbf4ec8f7c;0.9728;random_search_300;14.0
+1.0;make_tuple(pow(0.050988302071588915, m), add(po, n), expit(n), max(mcp, xvar));2.0;in;5.0;rpart;46dff8b9-2e00-4f89-bbc7-9e564bc38bbe;0.8758;random_search_300;146800.0
+1.0;make_tuple(pow(0.050988302071588915, m), add(po, n), expit(n), max(mcp, xvar));2.0;out;5.0;rpart;46dff8b9-2e00-4f89-bbc7-9e564bc38bbe;0.9822;random_search_300;146800.0
+1.0;make_tuple(mul(expit(6), pow(mcp, 33)), max(add(n, rc), expit(n)), neg(max(m, po)), min(mul(n, xvar), max(mkd, xvar)));2.0;in;12.0;rpart;22bb599c-c8f1-4c2d-9177-11c2c6ff9dab;0.875;random_search_300;168908.0
+1.0;make_tuple(mul(expit(6), pow(mcp, 33)), max(add(n, rc), expit(n)), neg(max(m, po)), min(mul(n, xvar), max(mkd, xvar)));2.0;out;12.0;rpart;22bb599c-c8f1-4c2d-9177-11c2c6ff9dab;0.7266;random_search_300;168908.0
+1.0;make_tuple(mul(0.0036390531733551702, mcp), mul(p, 432), truediv(0.0016964459330966477, xvar), min(p, mkd));2.0;in;5.0;rpart;26de2ff7-6ce6-4c75-b468-d9e9004d32bc;0.8693;random_search_300;9950.0
+1.0;make_tuple(mul(0.0036390531733551702, mcp), mul(p, 432), truediv(0.0016964459330966477, xvar), min(p, mkd));2.0;out;5.0;rpart;26de2ff7-6ce6-4c75-b468-d9e9004d32bc;0.9665;random_search_300;9950.0
+1.0;make_tuple(truediv(truediv(mcp, 0.024139335349520084), add(n, p)), mul(neg(n), sub(rc, m)), neg(max(xvar, mcp)), max(pow(po, mkd), sub(0.0016278235719005434, m)));2.0;in;12.0;rpart;2e3aa170-441d-4f04-beca-8f10966c5724;0.8956;random_search_300;14970.0
+1.0;make_tuple(truediv(truediv(mcp, 0.024139335349520084), add(n, p)), mul(neg(n), sub(rc, m)), neg(max(xvar, mcp)), max(pow(po, mkd), sub(0.0016278235719005434, m)));2.0;out;12.0;rpart;2e3aa170-441d-4f04-beca-8f10966c5724;0.9969;random_search_300;14970.0
+1.0;make_tuple(mul(0.004056402191785245, mcp), add(m, po), pow(mkd, mkd), min(p, mkd));2.0;in;5.0;rpart;d41fad0a-1f8e-4009-86e6-ab5dcee76189;0.871;random_search_300;29.0
+1.0;make_tuple(mul(0.004056402191785245, mcp), add(m, po), pow(mkd, mkd), min(p, mkd));2.0;out;5.0;rpart;d41fad0a-1f8e-4009-86e6-ab5dcee76189;0.9127;random_search_300;29.0
+1.0;make_tuple(pow(truediv(25, 328), max(xvar, m)), sub(sub(n, mkd), sub(m, po)), mul(pow(15, mcp), if_gt(mcp, p, 58, mcp)), expit(expit(mkd)));2.0;in;12.0;rpart;f5c5c5b0-fbb8-4633-bca5-90b199a2d610;0.8846;random_search_300;41.0
+1.0;make_tuple(pow(truediv(25, 328), max(xvar, m)), sub(sub(n, mkd), sub(m, po)), mul(pow(15, mcp), if_gt(mcp, p, 58, mcp)), expit(expit(mkd)));2.0;out;12.0;rpart;f5c5c5b0-fbb8-4633-bca5-90b199a2d610;0.9589;random_search_300;41.0
+1.0;make_tuple(truediv(pow(po, mcp), add(po, n)), truediv(sub(n, xvar), add(m, xvar)), min(neg(mkd), expit(42)), truediv(sub(3, po), add(mcp, 0.0014333102898405352)));2.0;in;13.0;rpart;5ba871ac-4f44-4c91-9710-636385a90f8d;0.8824;random_search_300;6.0
+1.0;make_tuple(truediv(pow(po, mcp), add(po, n)), truediv(sub(n, xvar), add(m, xvar)), min(neg(mkd), expit(42)), truediv(sub(3, po), add(mcp, 0.0014333102898405352)));2.0;out;13.0;rpart;5ba871ac-4f44-4c91-9710-636385a90f8d;0.9494;random_search_300;6.0
+1.0;make_tuple(pow(0.12263892683020933, m), max(mcp, 31), neg(n), min(mcp, 994));2.0;in;5.0;rpart;f8ab424b-d87f-4562-99b7-8fb0b5366af6;0.874;random_search_300;3493.0
+1.0;make_tuple(pow(0.12263892683020933, m), max(mcp, 31), neg(n), min(mcp, 994));2.0;out;5.0;rpart;f8ab424b-d87f-4562-99b7-8fb0b5366af6;0.4386;random_search_300;3493.0
+1.0;make_tuple(truediv(mcp, n), mul(p, p), pow(96, mcp), min(0.0010385091209636412, n));2.0;in;5.0;rpart;e56a77c6-fcc1-4675-ae3d-6821eeaaced4;0.8692;random_search_300;3573.0
+1.0;make_tuple(truediv(mcp, n), mul(p, p), pow(96, mcp), min(0.0010385091209636412, n));2.0;out;5.0;rpart;e56a77c6-fcc1-4675-ae3d-6821eeaaced4;0.9861;random_search_300;3573.0
+1.0;make_tuple(truediv(add(mcp, mcp), if_gt(mcp, m, m, 417)), mul(if_gt(25, mcp, po, 4), mul(3, m)), max(add(xvar, 7), expit(0.013932565738070682)), expit(min(33, m)));2.0;in;12.0;rpart;e2464eaf-0741-485f-81de-a7a6d3674604;0.8755;random_search_300;168339.0
+1.0;make_tuple(truediv(add(mcp, mcp), if_gt(mcp, m, m, 417)), mul(if_gt(25, mcp, po, 4), mul(3, m)), max(add(xvar, 7), expit(0.013932565738070682)), expit(min(33, m)));2.0;out;12.0;rpart;e2464eaf-0741-485f-81de-a7a6d3674604;0.8799;random_search_300;168339.0
+1.0;make_tuple(mul(if_gt(m, rc, mcp, n), add(0.001505639858191809, 0.0011984297219964767)), max(add(mkd, p), pow(13, mcp)), mul(min(mcp, m), max(30, xvar)), pow(min(mkd, po), expit(0.016069090636925357)));2.0;in;13.0;rpart;0f834e21-2b14-4273-a3da-fcab6c647e12;0.876;random_search_300;168335.0
+1.0;make_tuple(mul(if_gt(m, rc, mcp, n), add(0.001505639858191809, 0.0011984297219964767)), max(add(mkd, p), pow(13, mcp)), mul(min(mcp, m), max(30, xvar)), pow(min(mkd, po), expit(0.016069090636925357)));2.0;out;13.0;rpart;0f834e21-2b14-4273-a3da-fcab6c647e12;0.9078;random_search_300;168335.0
+1.0;make_tuple(pow(0.052277030059872796, m), truediv(n, 0.00465409979299316), expit(n), min(0.008354245865950268, rc));2.0;in;5.0;rpart;565ed7b8-3f36-43a1-8743-21a030fa0bdf;0.8762;random_search_300;18.0
+1.0;make_tuple(pow(0.052277030059872796, m), truediv(n, 0.00465409979299316), expit(n), min(0.008354245865950268, rc));2.0;out;5.0;rpart;565ed7b8-3f36-43a1-8743-21a030fa0bdf;0.9784;random_search_300;18.0
+1.0;make_tuple(min(if_gt(m, m, xvar, 1), pow(0.050605267638323986, m)), max(truediv(m, mkd), expit(n)), max(pow(rc, mkd), neg(5)), expit(truediv(mcp, mkd)));2.0;in;12.0;rpart;3581d38d-f7d5-459b-b62f-4580af5d9c05;0.8797;random_search_300;146819.0
+1.0;make_tuple(min(if_gt(m, m, xvar, 1), pow(0.050605267638323986, m)), max(truediv(m, mkd), expit(n)), max(pow(rc, mkd), neg(5)), expit(truediv(mcp, mkd)));2.0;out;12.0;rpart;3581d38d-f7d5-459b-b62f-4580af5d9c05;0.4227;random_search_300;146819.0
+1.0;make_tuple(truediv(pow(0.042014220138991094, m), expit(mcp)), max(max(p, mcp), if_gt(p, 0.029908131990580338, 45, n)), if_gt(min(p, p), mul(mkd, mcp), neg(xvar), min(n, xvar)), expit(expit(n)));2.0;in;14.0;rpart;45638272-9cfb-481c-b7a9-5cda930628b2;0.8756;random_search_300;9986.0
+1.0;make_tuple(truediv(pow(0.042014220138991094, m), expit(mcp)), max(max(p, mcp), if_gt(p, 0.029908131990580338, 45, n)), if_gt(min(p, p), mul(mkd, mcp), neg(xvar), min(n, xvar)), expit(expit(n)));2.0;out;14.0;rpart;45638272-9cfb-481c-b7a9-5cda930628b2;0.9895;random_search_300;9986.0
+1.0;make_tuple(min(pow(mcp, 8), truediv(142, n)), if_gt(min(n, p), expit(0.9847801659240271), truediv(po, mkd), sub(mcp, mcp)), expit(truediv(0.017793527061838545, 0.018802831221695564)), neg(min(3, 0.0025304432564339733)));2.0;in;13.0;rpart;6bdccc04-3e9e-4410-9831-ac5c776a8146;0.8804;random_search_300;219.0
+1.0;make_tuple(min(pow(mcp, 8), truediv(142, n)), if_gt(min(n, p), expit(0.9847801659240271), truediv(po, mkd), sub(mcp, mcp)), expit(truediv(0.017793527061838545, 0.018802831221695564)), neg(min(3, 0.0025304432564339733)));2.0;out;13.0;rpart;6bdccc04-3e9e-4410-9831-ac5c776a8146;0.7789;random_search_300;219.0
+1.0;make_tuple(min(pow(0.05921123514509484, m), min(0.6631365913486506, p)), max(pow(mcp, m), max(rc, n)), min(truediv(mkd, po), min(mkd, n)), expit(max(po, rc)));2.0;in;12.0;rpart;361ea9f1-c7c2-49aa-a223-c4b6e3b1d7a4;0.874;random_search_300;9976.0
+1.0;make_tuple(min(pow(0.05921123514509484, m), min(0.6631365913486506, p)), max(pow(mcp, m), max(rc, n)), min(truediv(mkd, po), min(mkd, n)), expit(max(po, rc)));2.0;out;12.0;rpart;361ea9f1-c7c2-49aa-a223-c4b6e3b1d7a4;0.9147;random_search_300;9976.0
+1.0;make_tuple(pow(mcp, 33), mul(po, p), min(xvar, p), mul(m, xvar));2.0;in;5.0;rpart;ff03c5f0-bdf4-449c-9e4e-093f29124fc5;0.8714;random_search_300;12.0
+1.0;make_tuple(pow(mcp, 33), mul(po, p), min(xvar, p), mul(m, xvar));2.0;out;5.0;rpart;ff03c5f0-bdf4-449c-9e4e-093f29124fc5;0.9908;random_search_300;12.0
+1.0;make_tuple(pow(0.05183488602685864, m), add(n, m), expit(0.38562247754390205), neg(p));2.0;in;5.0;rpart;8f172c2a-31ef-4639-8bcc-cce37d40ca7b;0.8762;random_search_300;146820.0
+1.0;make_tuple(pow(0.05183488602685864, m), add(n, m), expit(0.38562247754390205), neg(p));2.0;out;5.0;rpart;8f172c2a-31ef-4639-8bcc-cce37d40ca7b;0.95;random_search_300;146820.0
+1.0;make_tuple(mul(mcp, 0.0029312552236562166), max(21, rc), expit(n), pow(mcp, mcp));2.0;in;5.0;rpart;78d4841d-3445-479b-9937-ad3b54edd698;0.875;random_search_300;168332.0
+1.0;make_tuple(mul(mcp, 0.0029312552236562166), max(21, rc), expit(n), pow(mcp, mcp));2.0;out;5.0;rpart;78d4841d-3445-479b-9937-ad3b54edd698;0.9162;random_search_300;168332.0
+1.0;make_tuple(pow(0.08308365696540337, m), max(p, mcp), expit(54), if_gt(0.018622775830691076, rc, xvar, 0.002942144155432304));2.0;in;5.0;rpart;0494f7ab-f61d-4f3f-a946-106a0b190647;0.872;random_search_300;168336.0
+1.0;make_tuple(pow(0.08308365696540337, m), max(p, mcp), expit(54), if_gt(0.018622775830691076, rc, xvar, 0.002942144155432304));2.0;out;5.0;rpart;0494f7ab-f61d-4f3f-a946-106a0b190647;0.9367;random_search_300;168336.0
+1.0;make_tuple(pow(0.06389685972356135, m), add(mkd, n), if_gt(xvar, mkd, rc, po), truediv(rc, p));2.0;in;5.0;rpart;b55bc85d-6ba5-4e48-b392-6f619316ee9e;0.8726;random_search_300;167140.0
+1.0;make_tuple(pow(0.06389685972356135, m), add(mkd, n), if_gt(xvar, mkd, rc, po), truediv(rc, p));2.0;out;5.0;rpart;b55bc85d-6ba5-4e48-b392-6f619316ee9e;0.9944;random_search_300;167140.0
+1.0;make_tuple(truediv(0.0037479089095279537, m), max(n, 5), sub(16, xvar), neg(po));2.0;in;5.0;rpart;b244a81d-5ca6-4d33-b4b0-42701a0408fe;0.8785;random_search_300;3918.0
+1.0;make_tuple(truediv(0.0037479089095279537, m), max(n, 5), sub(16, xvar), neg(po));2.0;out;5.0;rpart;b244a81d-5ca6-4d33-b4b0-42701a0408fe;0.5507;random_search_300;3918.0
+1.0;make_tuple(truediv(add(mcp, mkd), mul(0.046944397416734736, n)), mul(if_gt(n, rc, po, 0.1546417416971014), expit(5)), min(if_gt(mcp, p, 1, rc), neg(po)), add(add(mcp, xvar), max(xvar, mkd)));2.0;in;13.0;rpart;c28105ea-c91e-4ecb-94c2-a4fa44278787;0.8868;random_search_300;3481.0
+1.0;make_tuple(truediv(add(mcp, mkd), mul(0.046944397416734736, n)), mul(if_gt(n, rc, po, 0.1546417416971014), expit(5)), min(if_gt(mcp, p, 1, rc), neg(po)), add(add(mcp, xvar), max(xvar, mkd)));2.0;out;13.0;rpart;c28105ea-c91e-4ecb-94c2-a4fa44278787;0.9941;random_search_300;3481.0
+1.0;make_tuple(truediv(truediv(mcp, n), min(0.05348583127321411, n)), mul(pow(p, rc), min(n, p)), truediv(mul(po, m), neg(1)), expit(if_gt(mcp, mkd, mcp, p)));2.0;in;12.0;rpart;cbda214b-2016-456a-9140-6a03d12aeb10;0.8894;random_search_300;167141.0
+1.0;make_tuple(truediv(truediv(mcp, n), min(0.05348583127321411, n)), mul(pow(p, rc), min(n, p)), truediv(mul(po, m), neg(1)), expit(if_gt(mcp, mkd, mcp, p)));2.0;out;12.0;rpart;cbda214b-2016-456a-9140-6a03d12aeb10;0.9654;random_search_300;167141.0
+1.0;make_tuple(truediv(truediv(149, m), truediv(n, mcp)), truediv(neg(113), neg(mkd)), if_gt(max(xvar, 21), neg(257), neg(mcp), min(mcp, n)), mul(neg(po), sub(xvar, xvar)));2.0;in;15.0;rpart;3dae845a-733a-4645-b628-e2f34856a849;0.8749;random_search_300;146824.0
+1.0;make_tuple(truediv(truediv(149, m), truediv(n, mcp)), truediv(neg(113), neg(mkd)), if_gt(max(xvar, 21), neg(257), neg(mcp), min(mcp, n)), mul(neg(po), sub(xvar, xvar)));2.0;out;15.0;rpart;3dae845a-733a-4645-b628-e2f34856a849;0.9924;random_search_300;146824.0
+1.0;make_tuple(truediv(mul(mcp, 17), add(0.025364796606276996, n)), max(pow(0.013804236866581814, 444), max(160, mcp)), sub(neg(rc), pow(0.03795498183102897, mcp)), mul(add(mcp, m), max(mcp, rc)));2.0;in;13.0;rpart;4c2eacb1-00a0-449d-bd5e-0c57bc5a2ec1;0.8837;random_search_300;3510.0
+1.0;make_tuple(truediv(mul(mcp, 17), add(0.025364796606276996, n)), max(pow(0.013804236866581814, 444), max(160, mcp)), sub(neg(rc), pow(0.03795498183102897, mcp)), mul(add(mcp, m), max(mcp, rc)));2.0;out;13.0;rpart;4c2eacb1-00a0-449d-bd5e-0c57bc5a2ec1;0.9793;random_search_300;3510.0
+1.0;make_tuple(pow(truediv(mcp, n), expit(xvar)), sub(max(xvar, n), max(rc, 0.4116937691732057)), sub(neg(mkd), truediv(n, mcp)), if_gt(add(31, mkd), if_gt(p, n, xvar, xvar), neg(3), pow(xvar, xvar)));2.0;in;15.0;rpart;45f89710-33e7-47d0-bdfa-ce80d0380e9d;0.8786;random_search_300;28.0
+1.0;make_tuple(pow(truediv(mcp, n), expit(xvar)), sub(max(xvar, n), max(rc, 0.4116937691732057)), sub(neg(mkd), truediv(n, mcp)), if_gt(add(31, mkd), if_gt(p, n, xvar, xvar), neg(3), pow(xvar, xvar)));2.0;out;15.0;rpart;45f89710-33e7-47d0-bdfa-ce80d0380e9d;0.995;random_search_300;28.0
+1.0;make_tuple(truediv(mcp, 340), max(m, p), mul(rc, mkd), truediv(po, p));2.0;in;5.0;rpart;db92bcc2-96f0-4a3d-9e71-cf7cbc08f557;0.8723;random_search_300;145681.0
+1.0;make_tuple(truediv(mcp, 340), max(m, p), mul(rc, mkd), truediv(po, p));2.0;out;5.0;rpart;db92bcc2-96f0-4a3d-9e71-cf7cbc08f557;0.91;random_search_300;145681.0
+1.0;make_tuple(pow(min(mcp, 0.07222427871786427), if_gt(0.014563294054321727, 919, p, m)), mul(max(0.048256926339760205, po), max(12, m)), sub(neg(p), mul(n, n)), mul(neg(m), expit(mcp)));2.0;in;13.0;rpart;6c388395-a068-48dd-94e1-10f8d4d56cd3;0.8781;random_search_300;3560.0
+1.0;make_tuple(pow(min(mcp, 0.07222427871786427), if_gt(0.014563294054321727, 919, p, m)), mul(max(0.048256926339760205, po), max(12, m)), sub(neg(p), mul(n, n)), mul(neg(m), expit(mcp)));2.0;out;13.0;rpart;6c388395-a068-48dd-94e1-10f8d4d56cd3;0.4325;random_search_300;3560.0
+1.0;make_tuple(truediv(expit(mcp), pow(m, 7)), add(add(n, 0.020290036092119157), neg(36)), pow(truediv(po, po), neg(po)), neg(add(0.006604713249119754, po)));2.0;in;12.0;rpart;5b68c7eb-7d3d-40bc-90de-19576f029f5a;0.8741;random_search_300;168911.0
+1.0;make_tuple(truediv(expit(mcp), pow(m, 7)), add(add(n, 0.020290036092119157), neg(36)), pow(truediv(po, po), neg(po)), neg(add(0.006604713249119754, po)));2.0;out;12.0;rpart;5b68c7eb-7d3d-40bc-90de-19576f029f5a;0.9525;random_search_300;168911.0
+1.0;make_tuple(pow(mcp, 34), truediv(xvar, mkd), expit(mcp), min(mkd, xvar));2.0;in;5.0;rpart;aed8072f-6b71-4405-8c7e-21b55e9493dd;0.8767;random_search_300;3913.0
+1.0;make_tuple(pow(mcp, 34), truediv(xvar, mkd), expit(mcp), min(mkd, xvar));2.0;out;5.0;rpart;aed8072f-6b71-4405-8c7e-21b55e9493dd;0.3723;random_search_300;3913.0
+1.0;make_tuple(pow(0.04306576829921906, m), max(p, xvar), pow(mkd, xvar), neg(mkd));2.0;in;5.0;rpart;8caed228-8ec5-43d6-88c0-6426e93e491e;0.8723;random_search_300;168329.0
+1.0;make_tuple(pow(0.04306576829921906, m), max(p, xvar), pow(mkd, xvar), neg(mkd));2.0;out;5.0;rpart;8caed228-8ec5-43d6-88c0-6426e93e491e;0.9745;random_search_300;168329.0
+1.0;make_tuple(if_gt(max(mcp, po), neg(3), truediv(mcp, 283), sub(694, rc)), max(mul(10, m), min(0.08165117397040046, 2)), neg(add(rc, p)), min(mul(340, rc), add(mkd, p)));2.0;in;14.0;rpart;f7298ef6-cc98-4a88-83bd-05ac4477a71d;0.8803;random_search_300;9970.0
+1.0;make_tuple(if_gt(max(mcp, po), neg(3), truediv(mcp, 283), sub(694, rc)), max(mul(10, m), min(0.08165117397040046, 2)), neg(add(rc, p)), min(mul(340, rc), add(mkd, p)));2.0;out;14.0;rpart;f7298ef6-cc98-4a88-83bd-05ac4477a71d;0.816;random_search_300;9970.0
+1.0;make_tuple(pow(0.07958159430009284, m), max(p, 57), truediv(po, po), add(rc, 22));2.0;in;5.0;rpart;736425dc-3eb2-49c1-88f9-0cb36c364f74;0.8773;random_search_300;9946.0
+1.0;make_tuple(pow(0.07958159430009284, m), max(p, 57), truediv(po, po), add(rc, 22));2.0;out;5.0;rpart;736425dc-3eb2-49c1-88f9-0cb36c364f74;0.9427;random_search_300;9946.0
+1.0;make_tuple(pow(0.08289464691096313, m), add(p, mkd), expit(m), sub(m, 232));2.0;in;5.0;rpart;d6f7ac0a-feb9-4cf5-adcf-b45aebfc4215;0.872;random_search_300;3.0
+1.0;make_tuple(pow(0.08289464691096313, m), add(p, mkd), expit(m), sub(m, 232));2.0;out;5.0;rpart;d6f7ac0a-feb9-4cf5-adcf-b45aebfc4215;0.9602;random_search_300;3.0
+1.0;make_tuple(truediv(pow(p, mcp), sub(n, mkd)), sub(truediv(m, mcp), sub(m, p)), expit(min(p, mkd)), max(sub(mkd, xvar), truediv(po, po)));2.0;in;12.0;rpart;e72f69db-65f6-460b-bd95-d940414200ba;0.884;random_search_300;3561.0
+1.0;make_tuple(truediv(pow(p, mcp), sub(n, mkd)), sub(truediv(m, mcp), sub(m, p)), expit(min(p, mkd)), max(sub(mkd, xvar), truediv(po, po)));2.0;out;12.0;rpart;e72f69db-65f6-460b-bd95-d940414200ba;0.8223;random_search_300;3561.0
+1.0;make_tuple(mul(mcp, 0.00320232505051518), sub(p, rc), neg(xvar), neg(mcp));2.0;in;5.0;rpart;046d2f17-985a-42a1-a230-70c2facf385d;0.8704;random_search_300;16.0
+1.0;make_tuple(mul(mcp, 0.00320232505051518), sub(p, rc), neg(xvar), neg(mcp));2.0;out;5.0;rpart;046d2f17-985a-42a1-a230-70c2facf385d;0.9766;random_search_300;16.0
+1.0;make_tuple(truediv(pow(mcp, m), max(124, xvar)), mul(max(n, 0.039476358194168636), max(rc, n)), neg(truediv(p, n)), neg(pow(xvar, 0.21699566059192643)));2.0;in;11.0;rpart;46788c0a-bcfc-443c-b2f1-ad41fb404826;0.8737;random_search_300;168330.0
+1.0;make_tuple(truediv(pow(mcp, m), max(124, xvar)), mul(max(n, 0.039476358194168636), max(rc, n)), neg(truediv(p, n)), neg(pow(xvar, 0.21699566059192643)));2.0;out;11.0;rpart;46788c0a-bcfc-443c-b2f1-ad41fb404826;0.9772;random_search_300;168330.0
+1.0;make_tuple(pow(neg(0.09506380696103553), if_gt(po, po, po, m)), add(min(p, 13), add(3, m)), add(sub(xvar, 0.636250231878105), pow(16, mkd)), truediv(sub(mcp, rc), expit(xvar)));2.0;in;13.0;rpart;225f1473-12e6-4915-a717-24627b5213ec;0.8733;random_search_300;9964.0
+1.0;make_tuple(pow(neg(0.09506380696103553), if_gt(po, po, po, m)), add(min(p, 13), add(3, m)), add(sub(xvar, 0.636250231878105), pow(16, mkd)), truediv(sub(mcp, rc), expit(xvar)));2.0;out;13.0;rpart;225f1473-12e6-4915-a717-24627b5213ec;0.9506;random_search_300;9964.0
+1.0;make_tuple(pow(0.06630352336468143, m), truediv(p, mcp), neg(po), expit(m));2.0;in;5.0;rpart;7f0feafa-f982-49bf-8572-8b5ad96bb2c3;0.8759;random_search_300;168910.0
+1.0;make_tuple(pow(0.06630352336468143, m), truediv(p, mcp), neg(po), expit(m));2.0;out;5.0;rpart;7f0feafa-f982-49bf-8572-8b5ad96bb2c3;0.9846;random_search_300;168910.0
+1.0;make_tuple(pow(0.0532236465852642, m), max(p, mkd), expit(mcp), neg(17));2.0;in;5.0;rpart;b042cb6e-2116-4ee1-b990-342b8ce7f41a;0.8759;random_search_300;11.0
+1.0;make_tuple(pow(0.0532236465852642, m), max(p, mkd), expit(mcp), neg(17));2.0;out;5.0;rpart;b042cb6e-2116-4ee1-b990-342b8ce7f41a;0.9674;random_search_300;11.0
+1.0;make_tuple(truediv(sub(4, m), truediv(n, 8)), truediv(mul(xvar, n), mul(mcp, 23)), add(mul(xvar, 0.0023080708560482754), min(166, mcp)), sub(neg(n), pow(p, xvar)));2.0;in;13.0;rpart;46c6f484-0d6f-4b80-b00a-9b181850abd3;0.8931;random_search_300;3945.0
+1.0;make_tuple(truediv(sub(4, m), truediv(n, 8)), truediv(mul(xvar, n), mul(mcp, 23)), add(mul(xvar, 0.0023080708560482754), min(166, mcp)), sub(neg(n), pow(p, xvar)));2.0;out;13.0;rpart;46c6f484-0d6f-4b80-b00a-9b181850abd3;0.6052;random_search_300;3945.0
+1.0;make_tuple(truediv(0.0062784808346559385, m), add(p, xvar), max(6, xvar), add(xvar, mkd));2.0;in;5.0;rpart;581100ae-7c13-4384-a645-bf112ea4d0ac;0.8747;random_search_300;23.0
+1.0;make_tuple(truediv(0.0062784808346559385, m), add(p, xvar), max(6, xvar), add(xvar, mkd));2.0;out;5.0;rpart;581100ae-7c13-4384-a645-bf112ea4d0ac;0.7871;random_search_300;23.0
+1.0;make_tuple(pow(0.06535052596456828, m), max(po, 12), truediv(xvar, 226), expit(15));2.0;in;5.0;rpart;33d2508c-99d9-4a25-8b98-49aced72e915;0.8739;random_search_300;45.0
+1.0;make_tuple(pow(0.06535052596456828, m), max(po, 12), truediv(xvar, 226), expit(15));2.0;out;5.0;rpart;33d2508c-99d9-4a25-8b98-49aced72e915;0.9865;random_search_300;45.0
+1.0;make_tuple(truediv(0.0057599001269151824, m), add(m, po), expit(p), sub(po, po));2.0;in;5.0;rpart;0900ee1a-64af-41db-ae90-df716dde4b92;0.8768;random_search_300;3917.0
+1.0;make_tuple(truediv(0.0057599001269151824, m), add(m, po), expit(p), sub(po, po));2.0;out;5.0;rpart;0900ee1a-64af-41db-ae90-df716dde4b92;0.4475;random_search_300;3917.0
+1.0;make_tuple(mul(sub(mcp, mkd), if_gt(4, mcp, 0.0029714354006391912, p)), min(mul(m, p), mul(0.3704112045910667, 61)), max(if_gt(0.00404243418081551, 0.4587097690899124, n, xvar), neg(1)), if_gt(truediv(mkd, mkd), max(rc, xvar), sub(0.19452844862630628, p), truediv(xvar, 1)));2.0;in;15.0;rpart;abd5c78b-cbda-4020-a4d8-4f2f0d944fe4;0.8741;random_search_300;146825.0
+1.0;make_tuple(mul(sub(mcp, mkd), if_gt(4, mcp, 0.0029714354006391912, p)), min(mul(m, p), mul(0.3704112045910667, 61)), max(if_gt(0.00404243418081551, 0.4587097690899124, n, xvar), neg(1)), if_gt(truediv(mkd, mkd), max(rc, xvar), sub(0.19452844862630628, p), truediv(xvar, 1)));2.0;out;15.0;rpart;abd5c78b-cbda-4020-a4d8-4f2f0d944fe4;0.9961;random_search_300;146825.0
+1.0;make_tuple(mul(expit(mkd), pow(0.07405540251093166, m)), max(neg(n), truediv(n, m)), mul(truediv(po, po), neg(xvar)), min(if_gt(m, po, 334, n), min(m, 0.012271520940187786)));2.0;in;13.0;rpart;488b44ff-9d96-4947-9456-66237f5f6bc0;0.8749;random_search_300;190412.0
+1.0;make_tuple(mul(expit(mkd), pow(0.07405540251093166, m)), max(neg(n), truediv(n, m)), mul(truediv(po, po), neg(xvar)), min(if_gt(m, po, 334, n), min(m, 0.012271520940187786)));2.0;out;13.0;rpart;488b44ff-9d96-4947-9456-66237f5f6bc0;0.9195;random_search_300;190412.0
+1.0;make_tuple(truediv(0.007065717590528521, m), max(mcp, p), mul(mcp, 16), pow(rc, mkd));2.0;in;5.0;rpart;c8ea1337-0289-4204-b09b-f459ef1996a6;0.8794;random_search_300;9981.0
+1.0;make_tuple(truediv(0.007065717590528521, m), max(mcp, p), mul(mcp, 16), pow(rc, mkd));2.0;out;5.0;rpart;c8ea1337-0289-4204-b09b-f459ef1996a6;0.9876;random_search_300;9981.0
+1.0;make_tuple(pow(mcp, 29), mul(5, m), min(n, mkd), truediv(xvar, xvar));2.0;in;5.0;rpart;f83ceadd-2aa6-4b7b-aa9e-c80b0936e3e5;0.8767;random_search_300;43.0
+1.0;make_tuple(pow(mcp, 29), mul(5, m), min(n, mkd), truediv(xvar, xvar));2.0;out;5.0;rpart;f83ceadd-2aa6-4b7b-aa9e-c80b0936e3e5;0.9857;random_search_300;43.0
+1.0;make_tuple(pow(0.04578128651803373, m), if_gt(p, mkd, n, mkd), truediv(p, p), pow(mcp, xvar));2.0;in;5.0;rpart;a33b72d7-86e1-4c1e-92be-9b06452f2fa5;0.8736;random_search_300;146606.0
+1.0;make_tuple(pow(0.04578128651803373, m), if_gt(p, mkd, n, mkd), truediv(p, p), pow(mcp, xvar));2.0;out;5.0;rpart;a33b72d7-86e1-4c1e-92be-9b06452f2fa5;0.8816;random_search_300;146606.0
+1.0;make_tuple(truediv(add(29, 0.21464114601677797), truediv(n, mcp)), add(add(0.9876011710598681, 118), max(xvar, mkd)), truediv(mul(xvar, 0.12362394890091245), mul(mcp, 3)), add(sub(0.008266480899596222, po), max(mcp, p)));2.0;in;13.0;rpart;09c391ef-49ec-4363-b340-e172b55799fe;0.8938;random_search_300;9957.0
+1.0;make_tuple(truediv(add(29, 0.21464114601677797), truediv(n, mcp)), add(add(0.9876011710598681, 118), max(xvar, mkd)), truediv(mul(xvar, 0.12362394890091245), mul(mcp, 3)), add(sub(0.008266480899596222, po), max(mcp, p)));2.0;out;13.0;rpart;09c391ef-49ec-4363-b340-e172b55799fe;0.9397;random_search_300;9957.0
+1.0;make_tuple(pow(0.07072082907095353, m), add(po, m), max(mcp, mkd), mul(rc, rc));2.0;in;5.0;rpart;482c90a2-1b44-4c83-bd58-1efc3b51af07;0.8756;random_search_300;7592.0
+1.0;make_tuple(pow(0.07072082907095353, m), add(po, m), max(mcp, mkd), mul(rc, rc));2.0;out;5.0;rpart;482c90a2-1b44-4c83-bd58-1efc3b51af07;0.8885;random_search_300;7592.0
+1.0;make_tuple(truediv(mcp, 494), truediv(12, mcp), add(2, mcp), sub(xvar, m));2.0;in;5.0;rpart;0dabb4f6-44f2-4a09-a979-7d8c5d271c7c;0.8785;random_search_300;146822.0
+1.0;make_tuple(truediv(mcp, 494), truediv(12, mcp), add(2, mcp), sub(xvar, m));2.0;out;5.0;rpart;0dabb4f6-44f2-4a09-a979-7d8c5d271c7c;0.9968;random_search_300;146822.0
+1.0;make_tuple(mul(min(mcp, p), truediv(44, n)), mul(add(po, 0.118637933990264), sub(p, 0.024997133086732973)), neg(pow(n, mkd)), neg(truediv(po, mcp)));2.0;in;11.0;rpart;2d2348ff-ac9e-43e1-b9d9-8142b20ab9b7;0.8901;random_search_300;189928.0
+1.0;make_tuple(mul(min(mcp, p), truediv(44, n)), mul(add(po, 0.118637933990264), sub(p, 0.024997133086732973)), neg(pow(n, mkd)), neg(truediv(po, mcp)));2.0;out;11.0;rpart;2d2348ff-ac9e-43e1-b9d9-8142b20ab9b7;0.8795;random_search_300;189928.0
+1.0;make_tuple(pow(expit(mcp), add(14, mkd)), add(max(p, rc), min(mkd, rc)), neg(pow(xvar, xvar)), pow(pow(rc, xvar), sub(xvar, mkd)));2.0;in;12.0;rpart;1776a73b-23d0-4ec8-a9c0-803328874b75;0.878;random_search_300;146195.0
+1.0;make_tuple(pow(expit(mcp), add(14, mkd)), add(max(p, rc), min(mkd, rc)), neg(pow(xvar, xvar)), pow(pow(rc, xvar), sub(xvar, mkd)));2.0;out;12.0;rpart;1776a73b-23d0-4ec8-a9c0-803328874b75;0.4246;random_search_300;146195.0
+1.0;make_tuple(min(truediv(mcp, 342), expit(po)), max(if_gt(m, m, 429, n), truediv(0.0036253286889938985, mcp)), add(neg(rc), mul(16, mcp)), min(if_gt(n, p, 3, m), neg(p)));2.0;in;13.0;rpart;437a0330-8e8d-4241-b41a-1957b9f50a74;0.885;random_search_300;9952.0
+1.0;make_tuple(min(truediv(mcp, 342), expit(po)), max(if_gt(m, m, 429, n), truediv(0.0036253286889938985, mcp)), add(neg(rc), mul(16, mcp)), min(if_gt(n, p, 3, m), neg(p)));2.0;out;13.0;rpart;437a0330-8e8d-4241-b41a-1957b9f50a74;0.9634;random_search_300;9952.0
+1.0;make_tuple(truediv(pow(po, mcp), max(po, n)), min(mul(m, po), max(m, 457)), max(min(272, mkd), if_gt(1, mcp, 0.024045922708419175, n)), neg(add(xvar, n)));2.0;in;12.0;rpart;6693af6a-2e38-4c5e-9dd1-9d330cb4b7b2;0.883;random_search_300;146817.0
+1.0;make_tuple(truediv(pow(po, mcp), max(po, n)), min(mul(m, po), max(m, 457)), max(min(272, mkd), if_gt(1, mcp, 0.024045922708419175, n)), neg(add(xvar, n)));2.0;out;12.0;rpart;6693af6a-2e38-4c5e-9dd1-9d330cb4b7b2;0.98;random_search_300;146817.0
+1.0;make_tuple(pow(mul(3, 0.010247759473918563), sub(m, mcp)), if_gt(mul(0.03276056592760747, 34), neg(mkd), if_gt(p, mkd, po, m), max(xvar, 0.0027694109758881927)), min(expit(rc), max(mkd, n)), sub(max(m, xvar), mul(po, m)));2.0;in;15.0;rpart;29728619-967c-483d-825a-22bbe5ceb4ae;0.8798;random_search_300;49.0
+1.0;make_tuple(pow(mul(3, 0.010247759473918563), sub(m, mcp)), if_gt(mul(0.03276056592760747, 34), neg(mkd), if_gt(p, mkd, po, m), max(xvar, 0.0027694109758881927)), min(expit(rc), max(mkd, n)), sub(max(m, xvar), mul(po, m)));2.0;out;15.0;rpart;29728619-967c-483d-825a-22bbe5ceb4ae;0.9475;random_search_300;49.0
+1.0;make_tuple(truediv(0.004506858416838399, m), add(p, xvar), mul(xvar, xvar), neg(mcp));2.0;in;5.0;rpart;6c954dba-50ff-47d3-a4b8-573929ec8c66;0.8728;random_search_300;167119.0
+1.0;make_tuple(truediv(0.004506858416838399, m), add(p, xvar), mul(xvar, xvar), neg(mcp));2.0;out;5.0;rpart;6c954dba-50ff-47d3-a4b8-573929ec8c66;0.8357;random_search_300;167119.0
+1.0;make_tuple(mul(0.0036848371993599563, mcp), max(p, p), neg(po), expit(po));2.0;in;5.0;rpart;a8e6bdfb-de91-47d9-a2df-710c906a97d3;0.87;random_search_300;10093.0
+1.0;make_tuple(mul(0.0036848371993599563, mcp), max(p, p), neg(po), expit(po));2.0;out;5.0;rpart;a8e6bdfb-de91-47d9-a2df-710c906a97d3;0.9533;random_search_300;10093.0
+1.0;make_tuple(min(max(32, xvar), pow(0.0691244115849161, m)), sub(if_gt(m, n, mkd, xvar), sub(rc, n)), expit(neg(mcp)), expit(min(n, n)));2.0;in;11.0;rpart;a43f4bad-b002-4058-852a-7fba5db039fc;0.8718;random_search_300;10090.0
+1.0;make_tuple(min(max(32, xvar), pow(0.0691244115849161, m)), sub(if_gt(m, n, mkd, xvar), sub(rc, n)), expit(neg(mcp)), expit(min(n, n)));2.0;out;11.0;rpart;a43f4bad-b002-4058-852a-7fba5db039fc;0.982;random_search_300;10090.0
+1.0;make_tuple(truediv(pow(p, mcp), add(n, po)), truediv(if_gt(rc, mcp, po, mkd), pow(0.6966311922303178, 35)), neg(neg(rc)), truediv(neg(po), if_gt(p, mkd, p, 0.19884088867504193)));2.0;in;12.0;rpart;f568640a-68f8-4164-a56c-5ba4fb6e1d6f;0.8852;random_search_300;15.0
+1.0;make_tuple(truediv(pow(p, mcp), add(n, po)), truediv(if_gt(rc, mcp, po, mkd), pow(0.6966311922303178, 35)), neg(neg(rc)), truediv(neg(po), if_gt(p, mkd, p, 0.19884088867504193)));2.0;out;12.0;rpart;f568640a-68f8-4164-a56c-5ba4fb6e1d6f;0.9753;random_search_300;15.0
+1.0;make_tuple(truediv(pow(125, mcp), add(mkd, n)), min(add(54, po), max(p, rc)), mul(if_gt(p, p, 5, po), neg(po)), expit(expit(mcp)));2.0;in;12.0;rpart;4a0ea46b-169f-4d85-94f1-570ae97ea27b;0.9037;random_search_300;14952.0
+1.0;make_tuple(truediv(pow(125, mcp), add(mkd, n)), min(add(54, po), max(p, rc)), mul(if_gt(p, p, 5, po), neg(po)), expit(expit(mcp)));2.0;out;12.0;rpart;4a0ea46b-169f-4d85-94f1-570ae97ea27b;0.9845;random_search_300;14952.0
+1.0;make_tuple(mul(add(xvar, rc), pow(0.05363313539682423, m)), add(mul(m, p), neg(rc)), truediv(min(mcp, 0.004745524014759006), min(m, 0.001312167020067052)), expit(pow(mkd, mkd)));2.0;in;12.0;rpart;4b2cab22-a3ed-47df-bdc9-27a5ecf001f0;0.8806;random_search_300;2079.0
+1.0;make_tuple(mul(add(xvar, rc), pow(0.05363313539682423, m)), add(mul(m, p), neg(rc)), truediv(min(mcp, 0.004745524014759006), min(m, 0.001312167020067052)), expit(pow(mkd, mkd)));2.0;out;12.0;rpart;4b2cab22-a3ed-47df-bdc9-27a5ecf001f0;0.8969;random_search_300;2079.0
+1.0;make_tuple(min(expit(4), mul(mcp, 0.0028922044912834317)), mul(max(rc, n), if_gt(mkd, rc, n, po)), neg(if_gt(m, p, m, m)), pow(truediv(mkd, po), pow(rc, m)));2.0;in;12.0;rpart;7d6c0b1a-ab9e-40ec-8084-2f672d8479bc;0.8709;random_search_300;9985.0
+1.0;make_tuple(min(expit(4), mul(mcp, 0.0028922044912834317)), mul(max(rc, n), if_gt(mkd, rc, n, po)), neg(if_gt(m, p, m, m)), pow(truediv(mkd, po), pow(rc, m)));2.0;out;12.0;rpart;7d6c0b1a-ab9e-40ec-8084-2f672d8479bc;0.9509;random_search_300;9985.0
+1.0;make_tuple(truediv(sub(mcp, 0.036043083275781394), truediv(2, 0.0043468331358625595)), max(pow(n, 0.03327219807107855), truediv(po, mcp)), if_gt(min(mkd, xvar), max(p, po), pow(mkd, mkd), if_gt(m, xvar, 0.07075107878377676, xvar)), sub(min(xvar, po), max(xvar, po)));2.0;in;15.0;rpart;48ae6ee1-19b7-44e1-9fcf-2fd81bcaa898;0.8788;random_search_300;9978.0
+1.0;make_tuple(truediv(sub(mcp, 0.036043083275781394), truediv(2, 0.0043468331358625595)), max(pow(n, 0.03327219807107855), truediv(po, mcp)), if_gt(min(mkd, xvar), max(p, po), pow(mkd, mkd), if_gt(m, xvar, 0.07075107878377676, xvar)), sub(min(xvar, po), max(xvar, po)));2.0;out;15.0;rpart;48ae6ee1-19b7-44e1-9fcf-2fd81bcaa898;0.3232;random_search_300;9978.0
+1.0;make_tuple(truediv(mcp, 302), if_gt(po, mkd, po, rc), min(7, 13), mul(m, rc));2.0;in;5.0;rpart;d1fe6b8d-66a5-4fb0-b219-81271249bd06;0.8742;random_search_300;2073.0
+1.0;make_tuple(truediv(mcp, 302), if_gt(po, mkd, po, rc), min(7, 13), mul(m, rc));2.0;out;5.0;rpart;d1fe6b8d-66a5-4fb0-b219-81271249bd06;0.9196;random_search_300;2073.0
+1.0;make_tuple(mul(mcp, 0.0037248698382758355), pow(m, 4), min(po, rc), min(xvar, mcp));2.0;in;5.0;rpart;ea800fe7-acac-472d-9e10-ba48bf7b62c9;0.8755;random_search_300;146821.0
+1.0;make_tuple(mul(mcp, 0.0037248698382758355), pow(m, 4), min(po, rc), min(xvar, mcp));2.0;out;5.0;rpart;ea800fe7-acac-472d-9e10-ba48bf7b62c9;0.945;random_search_300;146821.0
+1.0;make_tuple(pow(sub(0.022978723708470244, 0.25821760923466913), add(m, m)), add(max(po, mcp), pow(0.0019444090362019612, mcp)), truediv(sub(rc, mcp), pow(p, m)), neg(sub(rc, rc)));2.0;in;12.0;rpart;2a986202-a9b2-46a9-9346-6f34a08c912a;0.8731;random_search_300;3512.0
+1.0;make_tuple(pow(sub(0.022978723708470244, 0.25821760923466913), add(m, m)), add(max(po, mcp), pow(0.0019444090362019612, mcp)), truediv(sub(rc, mcp), pow(p, m)), neg(sub(rc, rc)));2.0;out;12.0;rpart;2a986202-a9b2-46a9-9346-6f34a08c912a;0.9919;random_search_300;3512.0
+1.0;make_tuple(neg(0.0023692682193664468), if_gt(mcp, m, p, 21), truediv(mcp, 0.0642705570032877), neg(34));2.0;in;5.0;rpart;b6eddc58-1ed8-4688-80e5-72b195922d27;0.8734;random_search_300;3021.0
+1.0;make_tuple(neg(0.0023692682193664468), if_gt(mcp, m, p, 21), truediv(mcp, 0.0642705570032877), neg(34));2.0;out;5.0;rpart;b6eddc58-1ed8-4688-80e5-72b195922d27;0.8772;random_search_300;3021.0
+1.0;make_tuple(mul(mcp, 0.0010660184637334286), max(rc, 21), mul(307, mkd), mul(xvar, 0.026587929678924174));2.0;in;5.0;rpart;23c136e0-c9cd-4ce3-9845-91280d7128f4;0.8783;random_search_300;3485.0
+1.0;make_tuple(mul(mcp, 0.0010660184637334286), max(rc, 21), mul(307, mkd), mul(xvar, 0.026587929678924174));2.0;out;5.0;rpart;23c136e0-c9cd-4ce3-9845-91280d7128f4;0.8935;random_search_300;3485.0
+1.0;make_tuple(mul(truediv(mcp, n), add(14, rc)), add(mul(po, n), sub(rc, mcp)), max(expit(mcp), sub(mcp, 0.01906763876635762)), sub(min(mkd, po), expit(mcp)));2.0;in;13.0;rpart;abc663b0-edf2-49d0-8ed9-8d367062d170;0.8836;random_search_300;146607.0
+1.0;make_tuple(mul(truediv(mcp, n), add(14, rc)), add(mul(po, n), sub(rc, mcp)), max(expit(mcp), sub(mcp, 0.01906763876635762)), sub(min(mkd, po), expit(mcp)));2.0;out;13.0;rpart;abc663b0-edf2-49d0-8ed9-8d367062d170;0.3481;random_search_300;146607.0
+1.0;make_tuple(pow(neg(m), neg(8)), truediv(mul(mcp, n), expit(mkd)), expit(add(m, m)), neg(sub(xvar, mcp)));2.0;in;11.0;rpart;224b5a0c-f014-42b0-9848-1b50bb217c4f;0.8789;random_search_300;125920.0
+1.0;make_tuple(pow(neg(m), neg(8)), truediv(mul(mcp, n), expit(mkd)), expit(add(m, m)), neg(sub(xvar, mcp)));2.0;out;11.0;rpart;224b5a0c-f014-42b0-9848-1b50bb217c4f;0.3447;random_search_300;125920.0
+1.0;make_tuple(pow(truediv(1, m), max(m, 8)), neg(neg(p)), neg(max(mkd, n)), neg(add(m, mkd)));2.0;in;10.0;rpart;003e7db6-5a6d-4fbf-8a8f-e6b1c1986cc9;0.8743;random_search_300;3904.0
+1.0;make_tuple(pow(truediv(1, m), max(m, 8)), neg(neg(p)), neg(max(mkd, n)), neg(add(m, mkd)));2.0;out;10.0;rpart;003e7db6-5a6d-4fbf-8a8f-e6b1c1986cc9;0.8941;random_search_300;3904.0
+1.0;make_tuple(pow(0.07231391257388851, m), sub(p, rc), pow(xvar, 2), expit(rc));2.0;in;5.0;rpart;460d2f04-d14d-45ba-bac6-ac57afab7dd6;0.8733;random_search_300;3893.0
+1.0;make_tuple(pow(0.07231391257388851, m), sub(p, rc), pow(xvar, 2), expit(rc));2.0;out;5.0;rpart;460d2f04-d14d-45ba-bac6-ac57afab7dd6;0.9804;random_search_300;3893.0
+1.0;make_tuple(mul(min(po, mcp), truediv(29, n)), max(add(rc, po), mul(mcp, xvar)), max(add(m, mcp), min(mkd, mkd)), neg(truediv(0.011270050210747512, m)));2.0;in;12.0;rpart;88619738-25fb-49a9-b537-49d76251f3a1;0.8796;random_search_300;9910.0
+1.0;make_tuple(mul(min(po, mcp), truediv(29, n)), max(add(rc, po), mul(mcp, xvar)), max(add(m, mcp), min(mkd, mkd)), neg(truediv(0.011270050210747512, m)));2.0;out;12.0;rpart;88619738-25fb-49a9-b537-49d76251f3a1;0.947;random_search_300;9910.0
+1.0;make_tuple(min(if_gt(xvar, m, rc, mkd), truediv(mcp, 343)), max(add(6, n), neg(0.024842424056193878)), if_gt(sub(xvar, po), sub(10, m), sub(p, mcp), pow(98, mcp)), neg(pow(n, rc)));2.0;in;14.0;rpart;811dce36-ae3d-46a9-aaa0-ab9625ddff1b;0.8765;random_search_300;167211.0
+1.0;make_tuple(min(if_gt(xvar, m, rc, mkd), truediv(mcp, 343)), max(add(6, n), neg(0.024842424056193878)), if_gt(sub(xvar, po), sub(10, m), sub(p, mcp), pow(98, mcp)), neg(pow(n, rc)));2.0;out;14.0;rpart;811dce36-ae3d-46a9-aaa0-ab9625ddff1b;0.236;random_search_300;167211.0
+1.0;make_tuple(pow(0.08251420888596189, m), truediv(po, mcp), truediv(0.011685264744245675, xvar), mul(rc, m));2.0;in;5.0;rpart;7ac9bd0f-1f48-444a-ab0d-ef9549589c9a;0.8748;random_search_300;146212.0
+1.0;make_tuple(pow(0.08251420888596189, m), truediv(po, mcp), truediv(0.011685264744245675, xvar), mul(rc, m));2.0;out;5.0;rpart;7ac9bd0f-1f48-444a-ab0d-ef9549589c9a;0.9975;random_search_300;146212.0
+1.0;make_tuple(pow(min(po, 0.04972924423851767), max(mkd, m)), if_gt(max(mkd, mkd), max(n, m), mul(m, 210), max(xvar, p)), mul(pow(mkd, rc), truediv(xvar, xvar)), sub(sub(mkd, mcp), if_gt(mkd, po, n, mkd)));2.0;in;15.0;rpart;9dd42d51-888c-4f3b-b29a-80feda715b08;0.8763;random_search_300;167121.0
+1.0;make_tuple(pow(min(po, 0.04972924423851767), max(mkd, m)), if_gt(max(mkd, mkd), max(n, m), mul(m, 210), max(xvar, p)), mul(pow(mkd, rc), truediv(xvar, xvar)), sub(sub(mkd, mcp), if_gt(mkd, po, n, mkd)));2.0;out;15.0;rpart;9dd42d51-888c-4f3b-b29a-80feda715b08;0.9379;random_search_300;167121.0
+1.0;make_tuple(pow(0.06674370371689256, m), truediv(p, xvar), max(mcp, 11), min(xvar, m));2.0;in;5.0;rpart;7ea8a91c-c9ed-419e-8c58-7196f8f8f87c;0.8778;random_search_300;168909.0
+1.0;make_tuple(pow(0.06674370371689256, m), truediv(p, xvar), max(mcp, 11), min(xvar, m));2.0;out;5.0;rpart;7ea8a91c-c9ed-419e-8c58-7196f8f8f87c;0.9703;random_search_300;168909.0
+1.0;make_tuple(truediv(pow(p, mcp), if_gt(xvar, xvar, po, n)), mul(max(mcp, n), min(65, mcp)), truediv(add(rc, 3), max(rc, m)), expit(add(po, m)));2.0;in;12.0;rpart;c3976de3-88f1-427a-9e8d-41f95dc4a9b0;0.8785;random_search_300;37.0
+1.0;make_tuple(truediv(pow(p, mcp), if_gt(xvar, xvar, po, n)), mul(max(mcp, n), min(65, mcp)), truediv(add(rc, 3), max(rc, m)), expit(add(po, m)));2.0;out;12.0;rpart;c3976de3-88f1-427a-9e8d-41f95dc4a9b0;0.67;random_search_300;37.0
+1.0;make_tuple(mul(if_gt(0.05750528835844884, 0.37228780817755314, p, 29), truediv(mcp, n)), add(mul(p, p), mul(xvar, m)), min(pow(p, rc), sub(mcp, 416)), truediv(max(mcp, 0.13174898321853), neg(m)));2.0;in;13.0;rpart;6afddb72-7ae0-47a3-b999-a623866bcc1f;0.8967;random_search_300;9971.0
+1.0;make_tuple(mul(if_gt(0.05750528835844884, 0.37228780817755314, p, 29), truediv(mcp, n)), add(mul(p, p), mul(xvar, m)), min(pow(p, rc), sub(mcp, 416)), truediv(max(mcp, 0.13174898321853), neg(m)));2.0;out;13.0;rpart;6afddb72-7ae0-47a3-b999-a623866bcc1f;0.6817;random_search_300;9971.0
+1.0;make_tuple(if_gt(expit(xvar), min(mcp, xvar), sub(m, m), mul(1, mkd)), if_gt(if_gt(m, rc, m, 0.07155499418160674), pow(xvar, po), max(po, 0.004041022359004236), neg(mkd)), if_gt(expit(po), expit(mcp), neg(m), mul(po, 28)), neg(min(498, p)));2.0;in;18.0;rpart;528b573d-bacd-43d3-b78c-79fb0ef85778;0.8741;random_search_300;53.0
+1.0;make_tuple(if_gt(expit(xvar), min(mcp, xvar), sub(m, m), mul(1, mkd)), if_gt(if_gt(m, rc, m, 0.07155499418160674), pow(xvar, po), max(po, 0.004041022359004236), neg(mkd)), if_gt(expit(po), expit(mcp), neg(m), mul(po, 28)), neg(min(498, p)));2.0;out;18.0;rpart;528b573d-bacd-43d3-b78c-79fb0ef85778;0.9761;random_search_300;53.0
+1.0;make_tuple(truediv(pow(mcp, m), max(70, mkd)), add(min(xvar, m), max(n, 1)), add(pow(0.001151231229301664, 0.006981690645366471), truediv(n, n)), min(pow(rc, rc), neg(n)));2.0;in;13.0;rpart;3df7232a-eeca-4958-b1e8-7c3b01c31268;0.8813;random_search_300;3907.0
+1.0;make_tuple(truediv(pow(mcp, m), max(70, mkd)), add(min(xvar, m), max(n, 1)), add(pow(0.001151231229301664, 0.006981690645366471), truediv(n, n)), min(pow(rc, rc), neg(n)));2.0;out;13.0;rpart;3df7232a-eeca-4958-b1e8-7c3b01c31268;0.7316;random_search_300;3907.0
+1.0;make_tuple(mul(0.003274281722922761, mcp), max(p, n), min(po, rc), pow(p, rc));2.0;in;5.0;rpart;5b67ad81-43c6-4852-93a7-a65bf76caf59;0.8728;random_search_300;168338.0
+1.0;make_tuple(mul(0.003274281722922761, mcp), max(p, n), min(po, rc), pow(p, rc));2.0;out;5.0;rpart;5b67ad81-43c6-4852-93a7-a65bf76caf59;0.9118;random_search_300;168338.0
+1.0;make_tuple(pow(0.055736615191308625, m), add(562, p), if_gt(mcp, n, mkd, mkd), expit(n));2.0;in;5.0;rpart;b5465f47-a5c9-4d05-81e2-4dbbfd9cef4e;0.8749;random_search_300;167125.0
+1.0;make_tuple(pow(0.055736615191308625, m), add(562, p), if_gt(mcp, n, mkd, mkd), expit(n));2.0;out;5.0;rpart;b5465f47-a5c9-4d05-81e2-4dbbfd9cef4e;0.9736;random_search_300;167125.0
+1.0;make_tuple(min(if_gt(rc, p, mkd, po), mul(0.0023848316577937596, mcp)), if_gt(mul(p, n), pow(xvar, rc), max(rc, 26), if_gt(mcp, po, 41, p)), expit(expit(p)), neg(pow(mcp, mkd)));2.0;in;13.0;rpart;265c6492-7e0f-4c10-b99c-000f744a5387;0.8736;random_search_300;125922.0
+1.0;make_tuple(min(if_gt(rc, p, mkd, po), mul(0.0023848316577937596, mcp)), if_gt(mul(p, n), pow(xvar, rc), max(rc, 26), if_gt(mcp, po, 41, p)), expit(expit(p)), neg(pow(mcp, mkd)));2.0;out;13.0;rpart;265c6492-7e0f-4c10-b99c-000f744a5387;0.9933;random_search_300;125922.0
+1.0;make_tuple(pow(pow(mcp, 2), add(rc, 14)), add(sub(279, mcp), max(po, n)), expit(sub(m, m)), pow(if_gt(m, 35, m, 0.017030949530261328), truediv(p, n)));2.0;in;12.0;rpart;55665947-244d-49e3-9b7b-6bb934b44895;0.8791;random_search_300;14965.0
+1.0;make_tuple(pow(pow(mcp, 2), add(rc, 14)), add(sub(279, mcp), max(po, n)), expit(sub(m, m)), pow(if_gt(m, 35, m, 0.017030949530261328), truediv(p, n)));2.0;out;12.0;rpart;55665947-244d-49e3-9b7b-6bb934b44895;0.6403;random_search_300;14965.0
+1.0;make_tuple(truediv(0.004496222695514915, m), truediv(xvar, mkd), max(rc, rc), expit(0.016185990720515287));2.0;in;5.0;rpart;b8532df4-ac69-4ee0-a89c-bc74f72806da;0.871;random_search_300;190411.0
+1.0;make_tuple(truediv(0.004496222695514915, m), truediv(xvar, mkd), max(rc, rc), expit(0.016185990720515287));2.0;out;5.0;rpart;b8532df4-ac69-4ee0-a89c-bc74f72806da;0.9121;random_search_300;190411.0
+1.0;make_tuple(truediv(0.005600997594401907, m), max(47, p), pow(m, mcp), expit(m));2.0;in;5.0;rpart;66a4cb2f-5c2e-42db-95dd-e87e90959d39;0.873;random_search_300;168868.0
+1.0;make_tuple(truediv(0.005600997594401907, m), max(47, p), pow(m, mcp), expit(m));2.0;out;5.0;rpart;66a4cb2f-5c2e-42db-95dd-e87e90959d39;0.9501;random_search_300;168868.0
+1.0;make_tuple(truediv(mul(mcp, 33), add(m, n)), pow(sub(n, rc), expit(xvar)), neg(truediv(89, 410)), pow(expit(mcp), mul(po, rc)));2.0;in;12.0;rpart;a87c3deb-1df3-4968-9f50-a22ffbca1191;0.8986;random_search_300;10101.0
+1.0;make_tuple(truediv(mul(mcp, 33), add(m, n)), pow(sub(n, rc), expit(xvar)), neg(truediv(89, 410)), pow(expit(mcp), mul(po, rc)));2.0;out;12.0;rpart;a87c3deb-1df3-4968-9f50-a22ffbca1191;0.5705;random_search_300;10101.0
+1.0;make_tuple(if_gt(add(xvar, 2), expit(84), mul(0.0027144271858621795, mcp), expit(xvar)), min(mul(p, p), mul(7, m)), neg(neg(0.016356346760083098)), min(expit(rc), min(mcp, rc)));2.0;in;14.0;rpart;bf980e5c-02a8-4271-addb-bd47692c2c7c;0.877;random_search_300;3549.0
+1.0;make_tuple(if_gt(add(xvar, 2), expit(84), mul(0.0027144271858621795, mcp), expit(xvar)), min(mul(p, p), mul(7, m)), neg(neg(0.016356346760083098)), min(expit(rc), min(mcp, rc)));2.0;out;14.0;rpart;bf980e5c-02a8-4271-addb-bd47692c2c7c;0.9881;random_search_300;3549.0
+1.0;make_tuple(pow(0.09337363390876607, m), sub(po, 0.3460511844220631), truediv(mkd, po), neg(m));2.0;in;5.0;rpart;9939c503-b287-49f8-9f4f-caf9448720ff;0.8701;random_search_300;168337.0
+1.0;make_tuple(pow(0.09337363390876607, m), sub(po, 0.3460511844220631), truediv(mkd, po), neg(m));2.0;out;5.0;rpart;9939c503-b287-49f8-9f4f-caf9448720ff;0.6254;random_search_300;168337.0
+1.0;make_tuple(truediv(0.0041328409583029115, m), sub(p, 0.4966890042105889), pow(rc, m), neg(n));2.0;in;5.0;rpart;fe55e5e9-51b5-43d2-ba38-a83eb63be6ee;0.8705;random_search_300;168912.0
+1.0;make_tuple(truediv(0.0041328409583029115, m), sub(p, 0.4966890042105889), pow(rc, m), neg(n));2.0;out;5.0;rpart;fe55e5e9-51b5-43d2-ba38-a83eb63be6ee;0.994;random_search_300;168912.0
+1.0;make_tuple(truediv(mul(25, mcp), add(n, po)), max(sub(mkd, m), add(0.17211731284323648, 26)), if_gt(truediv(xvar, m), mul(mkd, 266), mul(n, rc), neg(rc)), pow(add(m, 0.00205119743327013), max(xvar, rc)));2.0;in;15.0;rpart;e2024cd0-28f9-429d-81d2-9104edcaa4d4;0.8943;random_search_300;125921.0
+1.0;make_tuple(truediv(mul(25, mcp), add(n, po)), max(sub(mkd, m), add(0.17211731284323648, 26)), if_gt(truediv(xvar, m), mul(mkd, 266), mul(n, rc), neg(rc)), pow(add(m, 0.00205119743327013), max(xvar, rc)));2.0;out;15.0;rpart;e2024cd0-28f9-429d-81d2-9104edcaa4d4;0.9817;random_search_300;125921.0
+1.0;make_tuple(pow(0.07297961566364453, m), max(243, 0.0018041514100206747), if_gt(m, n, po, mcp), mul(xvar, xvar));2.0;in;5.0;rpart;876eaf30-6d9a-4a69-ab60-49cad34b77bc;0.8742;random_search_300;146818.0
+1.0;make_tuple(pow(0.07297961566364453, m), max(243, 0.0018041514100206747), if_gt(m, n, po, mcp), mul(xvar, xvar));2.0;out;5.0;rpart;876eaf30-6d9a-4a69-ab60-49cad34b77bc;0.9233;random_search_300;146818.0
+1.0;make_tuple(mul(0.0025054190839492612, mcp), add(p, xvar), if_gt(xvar, mkd, 15, xvar), pow(n, rc));2.0;in;5.0;rpart;92ad7257-e828-46d2-9b29-537069562c2a;0.875;random_search_300;14971.0
+1.0;make_tuple(mul(0.0025054190839492612, mcp), add(p, xvar), if_gt(xvar, mkd, 15, xvar), pow(n, rc));2.0;out;5.0;rpart;92ad7257-e828-46d2-9b29-537069562c2a;0.8432;random_search_300;14971.0
+1.0;make_tuple(truediv(pow(p, mcp), sub(n, 15)), max(truediv(0.010462740643135312, po), add(xvar, p)), truediv(neg(xvar), add(po, n)), max(min(xvar, p), mul(mcp, m)));2.0;in;13.0;rpart;3a0ba100-9b1f-4cbc-88e8-f7f5df93a664;0.8856;random_search_300;167120.0
+1.0;make_tuple(truediv(pow(p, mcp), sub(n, 15)), max(truediv(0.010462740643135312, po), add(xvar, p)), truediv(neg(xvar), add(po, n)), max(min(xvar, p), mul(mcp, m)));2.0;out;13.0;rpart;3a0ba100-9b1f-4cbc-88e8-f7f5df93a664;0.4394;random_search_300;167120.0
+1.0;make_tuple(if_gt(max(4, p), truediv(0.002612125696891794, mkd), pow(0.046568191364821356, m), expit(0.14940215586676733)), mul(mul(n, m), expit(p)), truediv(expit(mkd), max(0.004380849070967817, n)), min(mul(m, 127), neg(xvar)));2.0;in;15.0;rpart;973ddb2e-5bfb-46bb-973b-146b835a62ee;0.8731;random_search_300;58.0
+1.0;make_tuple(if_gt(max(4, p), truediv(0.002612125696891794, mkd), pow(0.046568191364821356, m), expit(0.14940215586676733)), mul(mul(n, m), expit(p)), truediv(expit(mkd), max(0.004380849070967817, n)), min(mul(m, 127), neg(xvar)));2.0;out;15.0;rpart;973ddb2e-5bfb-46bb-973b-146b835a62ee;0.9911;random_search_300;58.0
+1.0;make_tuple(pow(0.06455001817688497, m), mul(n, po), neg(p), neg(rc));2.0;in;5.0;rpart;0ce2ef29-e44a-4520-9953-638ff7dea9a4;0.8724;random_search_300;2074.0
+1.0;make_tuple(pow(0.06455001817688497, m), mul(n, po), neg(p), neg(rc));2.0;out;5.0;rpart;0ce2ef29-e44a-4520-9953-638ff7dea9a4;0.9952;random_search_300;2074.0
+1.0;make_tuple(min(add(0.9907018485204628, xvar), pow(0.046803933640232075, m)), sub(max(p, 0.48187507985587397), mul(mkd, m)), sub(sub(xvar, m), add(mkd, 0.0030066394837139293)), neg(if_gt(m, m, mkd, xvar)));2.0;in;12.0;rpart;cd49982b-462f-4cf1-b324-ea58ffaf446d;0.876;random_search_300;31.0
+1.0;make_tuple(min(add(0.9907018485204628, xvar), pow(0.046803933640232075, m)), sub(max(p, 0.48187507985587397), mul(mkd, m)), sub(sub(xvar, m), add(mkd, 0.0030066394837139293)), neg(if_gt(m, m, mkd, xvar)));2.0;out;12.0;rpart;cd49982b-462f-4cf1-b324-ea58ffaf446d;0.6805;random_search_300;31.0
+1.0;make_tuple(truediv(pow(p, mcp), max(0.0033723962491703095, n)), add(sub(rc, 0.02760041610012933), mul(n, n)), pow(mul(m, 823), truediv(0.0011987728814916168, 0.5613776196603305)), expit(sub(mcp, mcp)));2.0;in;12.0;rpart;6d43a1c2-dc77-4151-aeab-879c31d104e3;0.8792;random_search_300;3902.0
+1.0;make_tuple(truediv(pow(p, mcp), max(0.0033723962491703095, n)), add(sub(rc, 0.02760041610012933), mul(n, n)), pow(mul(m, 823), truediv(0.0011987728814916168, 0.5613776196603305)), expit(sub(mcp, mcp)));2.0;out;12.0;rpart;6d43a1c2-dc77-4151-aeab-879c31d104e3;0.7258;random_search_300;3902.0
+1.0;make_tuple(mul(mcp, 0.0025114609533101497), add(2, p), sub(mcp, p), expit(n));2.0;in;5.0;rpart;1916c1aa-dbc5-4056-aa59-913750479bcd;0.8729;random_search_300;168331.0
+1.0;make_tuple(mul(mcp, 0.0025114609533101497), add(2, p), sub(mcp, p), expit(n));2.0;out;5.0;rpart;1916c1aa-dbc5-4056-aa59-913750479bcd;0.8879;random_search_300;168331.0
+1.0;make_tuple(truediv(0.004385966701896088, m), add(m, po), mul(0.04966396574555609, mcp), mul(0.11390825213062106, 11));2.0;in;5.0;rpart;2d7bafc5-bda5-4c1b-88bd-722b4cf77aa8;0.8726;random_search_300;24.0
+1.0;make_tuple(truediv(0.004385966701896088, m), add(m, po), mul(0.04966396574555609, mcp), mul(0.11390825213062106, 11));2.0;out;5.0;rpart;2d7bafc5-bda5-4c1b-88bd-722b4cf77aa8;0.9941;random_search_300;24.0
+1.0;make_tuple(pow(0.05256196486031367, m), max(xvar, po), sub(mcp, 0.0017800675999146767), sub(4, mcp));2.0;in;5.0;rpart;5df4882a-ad0d-4380-a101-bc7e0e7586b5;0.8815;random_search_300;3903.0
+1.0;make_tuple(pow(0.05256196486031367, m), max(xvar, po), sub(mcp, 0.0017800675999146767), sub(4, mcp));2.0;out;5.0;rpart;5df4882a-ad0d-4380-a101-bc7e0e7586b5;0.1285;random_search_300;3903.0
+1.0;make_tuple(sub(truediv(mcp, mcp), expit(p)), add(neg(0.009126859783088519), add(12, m)), truediv(pow(mkd, m), truediv(0.0063024455229949705, po)), expit(expit(xvar)));2.0;in;12.0;rpart;8db63f71-5c5a-4116-b114-80a418ba5ca4;0.8702;random_search_300;9960.0
+1.0;make_tuple(sub(truediv(mcp, mcp), expit(p)), add(neg(0.009126859783088519), add(12, m)), truediv(pow(mkd, m), truediv(0.0063024455229949705, po)), expit(expit(xvar)));2.0;out;12.0;rpart;8db63f71-5c5a-4116-b114-80a418ba5ca4;0.9987;random_search_300;9960.0
+1.0;make_tuple(9, 209, 310, n);2.0;in;1.0;knn;9fff821f-fec4-4dfe-8d80-78e722f55004;0.7721;random_search_300;9971.0
+1.0;make_tuple(9, 209, 310, n);2.0;out;1.0;knn;9fff821f-fec4-4dfe-8d80-78e722f55004;0.5877;random_search_300;9971.0
+1.0;make_tuple(9, n, 304, n);2.0;in;1.0;knn;776af69d-3f17-45d7-870a-581358fea01a;0.7696;random_search_300;146825.0
+1.0;make_tuple(9, n, 304, n);2.0;out;1.0;knn;776af69d-3f17-45d7-870a-581358fea01a;0.8814;random_search_300;146825.0
+1.0;make_tuple(9, 993, 127, n);2.0;in;1.0;knn;4fe81a02-a84d-478e-aded-8bc7d7548b4a;0.7703;random_search_300;168909.0
+1.0;make_tuple(9, 993, 127, n);2.0;out;1.0;knn;4fe81a02-a84d-478e-aded-8bc7d7548b4a;0.8015;random_search_300;168909.0
+1.0;make_tuple(9, 57, n, 275);2.0;in;1.0;knn;f1f8f982-d1d4-4f11-ad5f-bd202511a72b;0.7706;random_search_300;12.0
+1.0;make_tuple(9, 57, n, 275);2.0;out;1.0;knn;f1f8f982-d1d4-4f11-ad5f-bd202511a72b;0.8344;random_search_300;12.0
+1.0;make_tuple(9, n, 153, 279);2.0;in;1.0;knn;38943cff-c6d4-431b-bf1c-e9f285381efa;0.7771;random_search_300;145681.0
+1.0;make_tuple(9, n, 153, 279);2.0;out;1.0;knn;38943cff-c6d4-431b-bf1c-e9f285381efa;0.1693;random_search_300;145681.0
+1.0;make_tuple(9, 85, 424, n);2.0;in;1.0;knn;6bb447a0-6e59-49ba-ae68-332d3f1c57ab;0.7713;random_search_300;2079.0
+1.0;make_tuple(9, 85, 424, n);2.0;out;1.0;knn;6bb447a0-6e59-49ba-ae68-332d3f1c57ab;0.6728;random_search_300;2079.0
+1.0;make_tuple(9, n, 346, n);2.0;in;1.0;knn;96e62de7-0a21-47a0-9ea1-72e0bff6cbb5;0.7704;random_search_300;125921.0
+1.0;make_tuple(9, n, 346, n);2.0;out;1.0;knn;96e62de7-0a21-47a0-9ea1-72e0bff6cbb5;0.7919;random_search_300;125921.0
+1.0;make_tuple(9, 357, n, 334);2.0;in;1.0;knn;e8a04209-03ba-4dc2-95a3-b3950f4428bf;0.7701;random_search_300;3913.0
+1.0;make_tuple(9, 357, n, 334);2.0;out;1.0;knn;e8a04209-03ba-4dc2-95a3-b3950f4428bf;0.8563;random_search_300;3913.0
+1.0;make_tuple(9, n, 187, n);2.0;in;1.0;knn;2c4b0924-1b27-40a6-b39c-1e1753dd5d1c;0.7773;random_search_300;168337.0
+1.0;make_tuple(9, n, 187, n);2.0;out;1.0;knn;2c4b0924-1b27-40a6-b39c-1e1753dd5d1c;0.0835;random_search_300;168337.0
+1.0;make_tuple(9, 29, 158, n);2.0;in;1.0;knn;a5b60e51-8dd5-4644-b5d5-c0da439495b4;0.7696;random_search_300;3893.0
+1.0;make_tuple(9, 29, 158, n);2.0;out;1.0;knn;a5b60e51-8dd5-4644-b5d5-c0da439495b4;0.8761;random_search_300;3893.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;2723ef67-1627-45e9-8f01-2fecad2911a7;0.7706;random_search_300;125922.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;2723ef67-1627-45e9-8f01-2fecad2911a7;0.7328;random_search_300;125922.0
+1.0;make_tuple(9, n, 455, n);2.0;in;1.0;knn;f46c3063-a600-4588-ba10-5ac9896ade3b;0.7755;random_search_300;9970.0
+1.0;make_tuple(9, n, 455, n);2.0;out;1.0;knn;f46c3063-a600-4588-ba10-5ac9896ade3b;0.1867;random_search_300;9970.0
+1.0;make_tuple(9, n, 558, n);2.0;in;1.0;knn;e310df30-d301-4877-ab21-0fea579f9be3;0.7708;random_search_300;168329.0
+1.0;make_tuple(9, n, 558, n);2.0;out;1.0;knn;e310df30-d301-4877-ab21-0fea579f9be3;0.7133;random_search_300;168329.0
+1.0;make_tuple(9, n, 140, 369);2.0;in;1.0;knn;1cd0b76e-f0b9-4797-bc1c-460ca5fd3440;0.7708;random_search_300;9977.0
+1.0;make_tuple(9, n, 140, 369);2.0;out;1.0;knn;1cd0b76e-f0b9-4797-bc1c-460ca5fd3440;0.8658;random_search_300;9977.0
+1.0;make_tuple(9, n, 816, n);2.0;in;1.0;knn;f66ba259-2c63-4a7e-b489-c6a2cc03dfc4;0.7699;random_search_300;14970.0
+1.0;make_tuple(9, n, 816, n);2.0;out;1.0;knn;f66ba259-2c63-4a7e-b489-c6a2cc03dfc4;0.8367;random_search_300;14970.0
+1.0;make_tuple(9, 802, n, n);2.0;in;1.0;knn;3a6353b2-a7f7-49ea-80e1-b593043d1d0b;0.7701;random_search_300;37.0
+1.0;make_tuple(9, 802, n, n);2.0;out;1.0;knn;3a6353b2-a7f7-49ea-80e1-b593043d1d0b;0.7931;random_search_300;37.0
+1.0;make_tuple(9, n, 413, n);2.0;in;1.0;knn;1c372b15-5530-4a41-9800-f2e2c03ffd74;0.769;random_search_300;3907.0
+1.0;make_tuple(9, n, 413, n);2.0;out;1.0;knn;1c372b15-5530-4a41-9800-f2e2c03ffd74;0.9315;random_search_300;3907.0
+1.0;make_tuple(9, n, 884, n);2.0;in;1.0;knn;c07c2372-aa80-497a-a7ac-8e1ad5bed33e;0.7708;random_search_300;3510.0
+1.0;make_tuple(9, n, 884, n);2.0;out;1.0;knn;c07c2372-aa80-497a-a7ac-8e1ad5bed33e;0.7299;random_search_300;3510.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;107bddc7-d765-4677-b4fd-5e12d61ed649;0.7694;random_search_300;7592.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;107bddc7-d765-4677-b4fd-5e12d61ed649;0.8646;random_search_300;7592.0
+1.0;make_tuple(9, n, n, 340);2.0;in;1.0;knn;dd95b0e5-8127-46d2-a49a-50840af538fd;0.7697;random_search_300;2074.0
+1.0;make_tuple(9, n, n, 340);2.0;out;1.0;knn;dd95b0e5-8127-46d2-a49a-50840af538fd;0.8736;random_search_300;2074.0
+1.0;make_tuple(9, n, 204, n);2.0;in;1.0;knn;abe7ebec-db8e-4b1c-ac58-0dd1c70ac123;0.7695;random_search_300;3904.0
+1.0;make_tuple(9, n, 204, n);2.0;out;1.0;knn;abe7ebec-db8e-4b1c-ac58-0dd1c70ac123;0.8818;random_search_300;3904.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;4790d065-75c6-4352-86b4-9f8a64b66f8f;0.7718;random_search_300;167211.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;4790d065-75c6-4352-86b4-9f8a64b66f8f;0.595;random_search_300;167211.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;0b898bc9-5231-4486-90c8-95af8448e59d;0.7688;random_search_300;146607.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;0b898bc9-5231-4486-90c8-95af8448e59d;0.9353;random_search_300;146607.0
+1.0;make_tuple(9, n, n, 256);2.0;in;1.0;knn;ef46330e-141f-4cc1-a48e-593881253575;0.7697;random_search_300;2073.0
+1.0;make_tuple(9, n, n, 256);2.0;out;1.0;knn;ef46330e-141f-4cc1-a48e-593881253575;0.9098;random_search_300;2073.0
+1.0;make_tuple(9, n, n, 296);2.0;in;1.0;knn;b0f6c7ec-a36b-46c6-9439-66e4b07bc775;0.7735;random_search_300;14952.0
+1.0;make_tuple(9, n, n, 296);2.0;out;1.0;knn;b0f6c7ec-a36b-46c6-9439-66e4b07bc775;0.519;random_search_300;14952.0
+1.0;make_tuple(9, n, 564, n);2.0;in;1.0;knn;66c81c00-83af-47b6-be78-6677d2f68031;0.7698;random_search_300;32.0
+1.0;make_tuple(9, n, 564, n);2.0;out;1.0;knn;66c81c00-83af-47b6-be78-6677d2f68031;0.8457;random_search_300;32.0
+1.0;make_tuple(9, 95, n, n);2.0;in;1.0;knn;2af28855-87f5-4d6e-97fa-486d40d8138f;0.7687;random_search_300;146821.0
+1.0;make_tuple(9, 95, n, n);2.0;out;1.0;knn;2af28855-87f5-4d6e-97fa-486d40d8138f;0.95;random_search_300;146821.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;4a589906-d3ec-4b60-83d0-03c0792cc71d;0.7688;random_search_300;49.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;4a589906-d3ec-4b60-83d0-03c0792cc71d;0.9397;random_search_300;49.0
+1.0;make_tuple(9, 422, n, 995);2.0;in;1.0;knn;ef5af7c0-9ce7-4e48-a280-552d772e94d7;0.7691;random_search_300;189928.0
+1.0;make_tuple(9, 422, n, 995);2.0;out;1.0;knn;ef5af7c0-9ce7-4e48-a280-552d772e94d7;0.9241;random_search_300;189928.0
+1.0;make_tuple(9, n, n, 310);2.0;in;1.0;knn;c3eb50ab-3215-437f-822b-82d378794bbb;0.773;random_search_300;146818.0
+1.0;make_tuple(9, n, n, 310);2.0;out;1.0;knn;c3eb50ab-3215-437f-822b-82d378794bbb;0.5949;random_search_300;146818.0
+1.0;make_tuple(9, n, n, 276);2.0;in;1.0;knn;8fe5850a-7330-4cba-9a0f-a444b466c7c1;0.7722;random_search_300;3560.0
+1.0;make_tuple(9, n, n, 276);2.0;out;1.0;knn;8fe5850a-7330-4cba-9a0f-a444b466c7c1;0.6681;random_search_300;3560.0
+1.0;make_tuple(9, n, 312, n);2.0;in;1.0;knn;0f93586d-fbd2-4d41-af61-d4dff9a5e000;0.7689;random_search_300;168336.0
+1.0;make_tuple(9, n, 312, n);2.0;out;1.0;knn;0f93586d-fbd2-4d41-af61-d4dff9a5e000;0.9485;random_search_300;168336.0
+1.0;make_tuple(9, 29, n, n);2.0;in;1.0;knn;e0b8d853-4816-40a5-8c89-639433d1335c;0.7733;random_search_300;168868.0
+1.0;make_tuple(9, 29, n, n);2.0;out;1.0;knn;e0b8d853-4816-40a5-8c89-639433d1335c;0.4267;random_search_300;168868.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;5b7fc866-37eb-43b6-a1b0-5f32664e4001;0.7715;random_search_300;43.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;5b7fc866-37eb-43b6-a1b0-5f32664e4001;0.6216;random_search_300;43.0
+1.0;make_tuple(9, 70, 530, 249);2.0;in;1.0;knn;e6ab595c-d4bd-4120-aa3f-b75f3613e1ac;0.7706;random_search_300;16.0
+1.0;make_tuple(9, 70, 530, 249);2.0;out;1.0;knn;e6ab595c-d4bd-4120-aa3f-b75f3613e1ac;0.813;random_search_300;16.0
+1.0;make_tuple(9, 76, n, n);2.0;in;1.0;knn;a458a2ff-56d8-422d-82a2-0f998fd0bec6;0.7687;random_search_300;3481.0
+1.0;make_tuple(9, 76, n, n);2.0;out;1.0;knn;a458a2ff-56d8-422d-82a2-0f998fd0bec6;0.9456;random_search_300;3481.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;880e69fc-62c1-48ed-b8cc-aa6da115bbe6;0.7724;random_search_300;167125.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;880e69fc-62c1-48ed-b8cc-aa6da115bbe6;0.5286;random_search_300;167125.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;61f57420-efe8-45bf-b85d-b064fcf3926b;0.7767;random_search_300;3493.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;61f57420-efe8-45bf-b85d-b064fcf3926b;0.027;random_search_300;3493.0
+1.0;make_tuple(9, n, 155, n);2.0;in;1.0;knn;a7bdc6d0-9acc-4f36-b7b4-7f4369b648ef;0.7705;random_search_300;167124.0
+1.0;make_tuple(9, n, 155, n);2.0;out;1.0;knn;a7bdc6d0-9acc-4f36-b7b4-7f4369b648ef;0.8095;random_search_300;167124.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;04e01d8c-b65f-4c70-8001-6ef2a835c722;0.7697;random_search_300;28.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;04e01d8c-b65f-4c70-8001-6ef2a835c722;0.8344;random_search_300;28.0
+1.0;make_tuple(9, n, 517, n);2.0;in;1.0;knn;4442ed2a-ff3d-436b-baf2-927a7068506b;0.7705;random_search_300;9986.0
+1.0;make_tuple(9, n, 517, n);2.0;out;1.0;knn;4442ed2a-ff3d-436b-baf2-927a7068506b;0.7439;random_search_300;9986.0
+1.0;make_tuple(9, 106, 143, n);2.0;in;1.0;knn;38369f50-8c97-41fd-a5d9-4bb0a5414647;0.7695;random_search_300;3918.0
+1.0;make_tuple(9, 106, 143, n);2.0;out;1.0;knn;38369f50-8c97-41fd-a5d9-4bb0a5414647;0.9659;random_search_300;3918.0
+1.0;make_tuple(9, 155, n, 327);2.0;in;1.0;knn;3052cd57-971e-496f-8c8b-e7038c88b292;0.7702;random_search_300;9981.0
+1.0;make_tuple(9, 155, n, 327);2.0;out;1.0;knn;3052cd57-971e-496f-8c8b-e7038c88b292;0.8599;random_search_300;9981.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;2c8104d4-d6b5-4ab5-b672-7a3324109e52;0.7689;random_search_300;11.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;2c8104d4-d6b5-4ab5-b672-7a3324109e52;0.9216;random_search_300;11.0
+1.0;make_tuple(9, 169, n, n);2.0;in;1.0;knn;24e64104-7225-4174-a1f5-142310f571ed;0.7684;random_search_300;167141.0
+1.0;make_tuple(9, 169, n, n);2.0;out;1.0;knn;24e64104-7225-4174-a1f5-142310f571ed;0.9878;random_search_300;167141.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;98dac4d9-f8bc-4efe-99ee-4f798d12367b;0.7698;random_search_300;190411.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;98dac4d9-f8bc-4efe-99ee-4f798d12367b;0.8236;random_search_300;190411.0
+1.0;make_tuple(9, 137, n, 251);2.0;in;1.0;knn;9742bcc0-bbd0-4602-b282-bee3fd0f93ee;0.7721;random_search_300;9950.0
+1.0;make_tuple(9, 137, n, 251);2.0;out;1.0;knn;9742bcc0-bbd0-4602-b282-bee3fd0f93ee;0.6401;random_search_300;9950.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;1a5d768d-eed9-4016-bc21-c2a6c3ee206a;0.7696;random_search_300;9976.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;1a5d768d-eed9-4016-bc21-c2a6c3ee206a;0.85;random_search_300;9976.0
+1.0;make_tuple(9, 205, n, n);2.0;in;1.0;knn;64eeb5b9-8b04-4b32-89c6-0ee72f85d5d6;0.7709;random_search_300;23.0
+1.0;make_tuple(9, 205, n, n);2.0;out;1.0;knn;64eeb5b9-8b04-4b32-89c6-0ee72f85d5d6;0.6951;random_search_300;23.0
+1.0;make_tuple(9, 168, 178, n);2.0;in;1.0;knn;6c60606e-327b-470e-855d-b275ed80b622;0.7701;random_search_300;9946.0
+1.0;make_tuple(9, 168, 178, n);2.0;out;1.0;knn;6c60606e-327b-470e-855d-b275ed80b622;0.8677;random_search_300;9946.0
+1.0;make_tuple(9, 408, n, 267);2.0;in;1.0;knn;250aa7db-b42b-4612-951b-16a7f63fee0e;0.7697;random_search_300;3021.0
+1.0;make_tuple(9, 408, n, 267);2.0;out;1.0;knn;250aa7db-b42b-4612-951b-16a7f63fee0e;0.9521;random_search_300;3021.0
+1.0;make_tuple(9, n, 804, n);2.0;in;1.0;knn;a3cf0bc3-b739-4508-beec-73d3533758b5;0.7693;random_search_300;3902.0
+1.0;make_tuple(9, n, 804, n);2.0;out;1.0;knn;a3cf0bc3-b739-4508-beec-73d3533758b5;0.8988;random_search_300;3902.0
+1.0;make_tuple(9, n, 148, 1016);2.0;in;1.0;knn;f9fcb007-4b73-41f4-9e45-d55b5054d033;0.7691;random_search_300;24.0
+1.0;make_tuple(9, n, 148, 1016);2.0;out;1.0;knn;f9fcb007-4b73-41f4-9e45-d55b5054d033;0.9951;random_search_300;24.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;01de33dd-cf4e-4951-a905-f11c5693bcca;0.7702;random_search_300;3561.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;01de33dd-cf4e-4951-a905-f11c5693bcca;0.7712;random_search_300;3561.0
+1.0;make_tuple(9, n, n, 987);2.0;in;1.0;knn;cd5a149a-29d1-4621-8b6c-981773025d4a;0.7698;random_search_300;45.0
+1.0;make_tuple(9, n, n, 987);2.0;out;1.0;knn;cd5a149a-29d1-4621-8b6c-981773025d4a;0.8349;random_search_300;45.0
+1.0;make_tuple(if_gt(2, 66, 0.24053761977560023, 9), sub(n, rc), if_gt(65, 0.037490391065711365, 246, 62), truediv(n, xvar));2.0;in;5.0;knn;d189b019-8172-4aec-aa68-c8e7f4d81c73;0.77;random_search_300;168332.0
+1.0;make_tuple(if_gt(2, 66, 0.24053761977560023, 9), sub(n, rc), if_gt(65, 0.037490391065711365, 246, 62), truediv(n, xvar));2.0;out;5.0;knn;d189b019-8172-4aec-aa68-c8e7f4d81c73;0.8216;random_search_300;168332.0
+1.0;make_tuple(9, 930, 990, n);2.0;in;1.0;knn;479dd22f-4a00-46d0-aabd-ba4b12872b38;0.7698;random_search_300;168338.0
+1.0;make_tuple(9, 930, 990, n);2.0;out;1.0;knn;479dd22f-4a00-46d0-aabd-ba4b12872b38;0.8515;random_search_300;168338.0
+1.0;make_tuple(9, 23, 232, 420);2.0;in;1.0;knn;9faf3796-66ea-44f8-8080-6e73d53733e2;0.7707;random_search_300;167140.0
+1.0;make_tuple(9, 23, 232, 420);2.0;out;1.0;knn;9faf3796-66ea-44f8-8080-6e73d53733e2;0.7027;random_search_300;167140.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;60fbcd8f-d862-48df-a8e9-23e9b7d65bc5;0.7701;random_search_300;146817.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;60fbcd8f-d862-48df-a8e9-23e9b7d65bc5;0.7833;random_search_300;146817.0
+1.0;make_tuple(9, n, 482, 279);2.0;in;1.0;knn;6cc003ef-3e8f-4b38-aecf-c80af0df7fb9;0.7702;random_search_300;14971.0
+1.0;make_tuple(9, n, 482, 279);2.0;out;1.0;knn;6cc003ef-3e8f-4b38-aecf-c80af0df7fb9;0.9219;random_search_300;14971.0
+1.0;make_tuple(9, n, 127, n);2.0;in;1.0;knn;3a2ee6b9-931d-4ec5-8446-0c7ef6cc29e3;0.7701;random_search_300;9964.0
+1.0;make_tuple(9, n, 127, n);2.0;out;1.0;knn;3a2ee6b9-931d-4ec5-8446-0c7ef6cc29e3;0.8313;random_search_300;9964.0
+1.0;make_tuple(9, n, 401, 362);2.0;in;1.0;knn;c0615c6d-80a8-4326-8de1-cd5b5113c1af;0.7712;random_search_300;3917.0
+1.0;make_tuple(9, n, 401, 362);2.0;out;1.0;knn;c0615c6d-80a8-4326-8de1-cd5b5113c1af;0.755;random_search_300;3917.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;01ce97bb-a717-4e44-a0bd-bf6e626899c9;0.7724;random_search_300;14954.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;01ce97bb-a717-4e44-a0bd-bf6e626899c9;0.528;random_search_300;14954.0
+1.0;make_tuple(9, n, 103, n);2.0;in;1.0;knn;4e6fbe88-791b-4292-a630-e40c09160350;0.7703;random_search_300;29.0
+1.0;make_tuple(9, n, 103, n);2.0;out;1.0;knn;4e6fbe88-791b-4292-a630-e40c09160350;0.7842;random_search_300;29.0
+1.0;make_tuple(9, 134, 176, n);2.0;in;1.0;knn;50af315c-434b-4fc7-a986-6de2bfd2c7a1;0.7695;random_search_300;3573.0
+1.0;make_tuple(9, 134, 176, n);2.0;out;1.0;knn;50af315c-434b-4fc7-a986-6de2bfd2c7a1;0.9333;random_search_300;3573.0
+1.0;make_tuple(9, n, 541, n);2.0;in;1.0;knn;653f690b-8dbb-45a0-8e34-b13f41cfb358;0.7707;random_search_300;10101.0
+1.0;make_tuple(9, n, 541, n);2.0;out;1.0;knn;653f690b-8dbb-45a0-8e34-b13f41cfb358;0.7278;random_search_300;10101.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;4268d479-b1c9-4ce9-9da5-e5c62eb247bc;0.7692;random_search_300;219.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;4268d479-b1c9-4ce9-9da5-e5c62eb247bc;0.8932;random_search_300;219.0
+1.0;make_tuple(9, n, 310, n);2.0;in;1.0;knn;417d97f0-7f94-436a-b3ce-ea5aad589fa5;0.7709;random_search_300;146606.0
+1.0;make_tuple(9, n, 310, n);2.0;out;1.0;knn;417d97f0-7f94-436a-b3ce-ea5aad589fa5;0.7233;random_search_300;146606.0
+1.0;make_tuple(9, n, 161, 335);2.0;in;1.0;knn;811ce901-5731-4e40-9cb1-90c0d59d9dde;0.7746;random_search_300;167120.0
+1.0;make_tuple(9, n, 161, 335);2.0;out;1.0;knn;811ce901-5731-4e40-9cb1-90c0d59d9dde;0.4313;random_search_300;167120.0
+1.0;make_tuple(9, n, 366, n);2.0;in;1.0;knn;dbc83c7e-6f17-4b0c-b0d7-f5276084e4ef;0.7691;random_search_300;146820.0
+1.0;make_tuple(9, n, 366, n);2.0;out;1.0;knn;dbc83c7e-6f17-4b0c-b0d7-f5276084e4ef;0.9187;random_search_300;146820.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;4b1d179b-ea9b-4f03-95e1-e4d85a62d6d2;0.7693;random_search_300;168912.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;4b1d179b-ea9b-4f03-95e1-e4d85a62d6d2;0.8751;random_search_300;168912.0
+1.0;make_tuple(9, 228, n, 248);2.0;in;1.0;knn;263b2b9f-cd5c-4081-8a98-19122f4fd86c;0.7708;random_search_300;168908.0
+1.0;make_tuple(9, 228, n, 248);2.0;out;1.0;knn;263b2b9f-cd5c-4081-8a98-19122f4fd86c;0.7893;random_search_300;168908.0
+1.0;make_tuple(9, n, n, 303);2.0;in;1.0;knn;8aa79f1f-18d2-47dc-8f1d-61462d2de643;0.7715;random_search_300;15.0
+1.0;make_tuple(9, n, n, 303);2.0;out;1.0;knn;8aa79f1f-18d2-47dc-8f1d-61462d2de643;0.7446;random_search_300;15.0
+1.0;make_tuple(9, 98, 128, 336);2.0;in;1.0;knn;ba4b0047-7189-4f7e-b3cb-982c8b9087dd;0.7693;random_search_300;3512.0
+1.0;make_tuple(9, 98, 128, 336);2.0;out;1.0;knn;ba4b0047-7189-4f7e-b3cb-982c8b9087dd;0.958;random_search_300;3512.0
+1.0;make_tuple(9, n, 538, n);2.0;in;1.0;knn;9b315b45-8947-4745-8354-ed14c8cb51ae;0.7688;random_search_300;9957.0
+1.0;make_tuple(9, n, 538, n);2.0;out;1.0;knn;9b315b45-8947-4745-8354-ed14c8cb51ae;0.9446;random_search_300;9957.0
+1.0;make_tuple(9, 207, 181, n);2.0;in;1.0;knn;dccf34e7-4eb8-42fb-ab54-aa5520a6bc78;0.7707;random_search_300;53.0
+1.0;make_tuple(9, 207, 181, n);2.0;out;1.0;knn;dccf34e7-4eb8-42fb-ab54-aa5520a6bc78;0.8033;random_search_300;53.0
+1.0;make_tuple(9, 481, 694, n);2.0;in;1.0;knn;dc65f8a4-3a38-4bb0-b4cd-82d541d8d770;0.7695;random_search_300;3549.0
+1.0;make_tuple(9, 481, 694, n);2.0;out;1.0;knn;dc65f8a4-3a38-4bb0-b4cd-82d541d8d770;0.8712;random_search_300;3549.0
+1.0;make_tuple(9, n, n, 363);2.0;in;1.0;knn;768e64bc-769a-4acf-96ba-db0bfa266ad5;0.774;random_search_300;3022.0
+1.0;make_tuple(9, n, n, 363);2.0;out;1.0;knn;768e64bc-769a-4acf-96ba-db0bfa266ad5;0.4238;random_search_300;3022.0
+1.0;make_tuple(9, n, 174, n);2.0;in;1.0;knn;8dad1f0a-d7a6-4ff8-bca3-969006c21c19;0.7715;random_search_300;168330.0
+1.0;make_tuple(9, n, 174, n);2.0;out;1.0;knn;8dad1f0a-d7a6-4ff8-bca3-969006c21c19;0.6882;random_search_300;168330.0
+1.0;make_tuple(9, n, 991, n);2.0;in;1.0;knn;78dfa77d-aad9-462b-8050-aea71dcee95e;0.7704;random_search_300;146819.0
+1.0;make_tuple(9, n, 991, n);2.0;out;1.0;knn;78dfa77d-aad9-462b-8050-aea71dcee95e;0.78;random_search_300;146819.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;069ced8f-84a5-46ed-b44d-239b12ae79cc;0.7696;random_search_300;189927.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;069ced8f-84a5-46ed-b44d-239b12ae79cc;0.8414;random_search_300;189927.0
+1.0;make_tuple(9, 242, 760, n);2.0;in;1.0;knn;60395fad-5db2-4d0d-8592-d03e400983c3;0.7686;random_search_300;168910.0
+1.0;make_tuple(9, 242, 760, n);2.0;out;1.0;knn;60395fad-5db2-4d0d-8592-d03e400983c3;0.9751;random_search_300;168910.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;6cbb757b-cdae-4761-adf3-93dd73f9f839;0.7698;random_search_300;6.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;6cbb757b-cdae-4761-adf3-93dd73f9f839;0.8278;random_search_300;6.0
+1.0;make_tuple(9, n, n, 251);2.0;in;1.0;knn;e9f14138-af69-4456-b0fb-273ded41c75b;0.7701;random_search_300;3.0
+1.0;make_tuple(9, n, n, 251);2.0;out;1.0;knn;e9f14138-af69-4456-b0fb-273ded41c75b;0.8699;random_search_300;3.0
+1.0;make_tuple(9, 155, 144, n);2.0;in;1.0;knn;d1821d33-1787-4152-aa56-2141a104044f;0.7745;random_search_300;125920.0
+1.0;make_tuple(9, 155, 144, n);2.0;out;1.0;knn;d1821d33-1787-4152-aa56-2141a104044f;0.3718;random_search_300;125920.0
+1.0;make_tuple(9, 488, 376, n);2.0;in;1.0;knn;c0365a61-e8ab-4b7b-9942-c610136a90b8;0.7692;random_search_300;168331.0
+1.0;make_tuple(9, 488, 376, n);2.0;out;1.0;knn;c0365a61-e8ab-4b7b-9942-c610136a90b8;0.9125;random_search_300;168331.0
+1.0;make_tuple(9, n, n, 279);2.0;in;1.0;knn;4985dc5c-c447-4dab-ae8c-f81bab19d343;0.7706;random_search_300;168911.0
+1.0;make_tuple(9, n, n, 279);2.0;out;1.0;knn;4985dc5c-c447-4dab-ae8c-f81bab19d343;0.8548;random_search_300;168911.0
+1.0;make_tuple(9, n, n, 323);2.0;in;1.0;knn;235b76a1-a7be-4427-8d03-0f865691d790;0.7745;random_search_300;167119.0
+1.0;make_tuple(9, n, n, 323);2.0;out;1.0;knn;235b76a1-a7be-4427-8d03-0f865691d790;0.4142;random_search_300;167119.0
+1.0;make_tuple(9, n, 116, n);2.0;in;1.0;knn;82c99aad-b1f7-4f58-a035-a25fbf3e1038;0.7693;random_search_300;167121.0
+1.0;make_tuple(9, n, 116, n);2.0;out;1.0;knn;82c99aad-b1f7-4f58-a035-a25fbf3e1038;0.9195;random_search_300;167121.0
+1.0;make_tuple(9, n, 197, n);2.0;in;1.0;knn;1209fc14-ee0f-4cc2-9d44-89de9851cd40;0.7698;random_search_300;146195.0
+1.0;make_tuple(9, n, 197, n);2.0;out;1.0;knn;1209fc14-ee0f-4cc2-9d44-89de9851cd40;0.9257;random_search_300;146195.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;8ed310bb-1471-4eb4-9782-0352f16638e9;0.7686;random_search_300;168335.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;8ed310bb-1471-4eb4-9782-0352f16638e9;0.9558;random_search_300;168335.0
+1.0;make_tuple(9, n, 186, n);2.0;in;1.0;knn;f607cadb-1c40-4d97-9fc1-7641864ac4e2;0.7703;random_search_300;41.0
+1.0;make_tuple(9, n, 186, n);2.0;out;1.0;knn;f607cadb-1c40-4d97-9fc1-7641864ac4e2;0.8853;random_search_300;41.0
+1.0;make_tuple(9, 108, 127, n);2.0;in;1.0;knn;2d6d83e3-9fae-4ef3-b9e0-fde7b86acd92;0.7708;random_search_300;168339.0
+1.0;make_tuple(9, 108, 127, n);2.0;out;1.0;knn;2d6d83e3-9fae-4ef3-b9e0-fde7b86acd92;0.7485;random_search_300;168339.0
+1.0;make_tuple(9, n, n, 302);2.0;in;1.0;knn;13b073ba-5df4-4063-9112-504ba767adc5;0.7693;random_search_300;10093.0
+1.0;make_tuple(9, n, n, 302);2.0;out;1.0;knn;13b073ba-5df4-4063-9112-504ba767adc5;0.9994;random_search_300;10093.0
+1.0;make_tuple(9, 81, n, 251);2.0;in;1.0;knn;bdb26560-5c60-47dd-ab87-9a80461308ed;0.7704;random_search_300;31.0
+1.0;make_tuple(9, 81, n, 251);2.0;out;1.0;knn;bdb26560-5c60-47dd-ab87-9a80461308ed;0.8252;random_search_300;31.0
+1.0;make_tuple(9, n, n, 260);2.0;in;1.0;knn;219bd5f6-8844-4a3e-8b01-af5b14e45953;0.7713;random_search_300;189924.0
+1.0;make_tuple(9, n, n, 260);2.0;out;1.0;knn;219bd5f6-8844-4a3e-8b01-af5b14e45953;0.7123;random_search_300;189924.0
+1.0;make_tuple(9, 530, 190, n);2.0;in;1.0;knn;df8a26ef-49c6-4c06-b33e-9d1a871eebe1;0.7693;random_search_300;3945.0
+1.0;make_tuple(9, 530, 190, n);2.0;out;1.0;knn;df8a26ef-49c6-4c06-b33e-9d1a871eebe1;1.0;random_search_300;3945.0
+1.0;make_tuple(9, 143, 134, n);2.0;in;1.0;knn;3b918f3e-5203-4f00-9e0b-1b51c0410e2e;0.7738;random_search_300;14969.0
+1.0;make_tuple(9, 143, 134, n);2.0;out;1.0;knn;3b918f3e-5203-4f00-9e0b-1b51c0410e2e;0.4343;random_search_300;14969.0
+1.0;make_tuple(9, 28, n, 374);2.0;in;1.0;knn;6f9ae808-ff93-4974-8848-40395b9c98f4;0.7705;random_search_300;3485.0
+1.0;make_tuple(9, 28, n, 374);2.0;out;1.0;knn;6f9ae808-ff93-4974-8848-40395b9c98f4;0.9035;random_search_300;3485.0
+1.0;make_tuple(9, 25, 221, 304);2.0;in;1.0;knn;d7ecea35-087c-4f02-bb9c-b7ba9a7c09c5;0.7715;random_search_300;22.0
+1.0;make_tuple(9, 25, 221, 304);2.0;out;1.0;knn;d7ecea35-087c-4f02-bb9c-b7ba9a7c09c5;0.6785;random_search_300;22.0
+1.0;make_tuple(9, n, 539, n);2.0;in;1.0;knn;69ad2baf-6eb0-4602-b9e6-48cf46b9165a;0.7687;random_search_300;3903.0
+1.0;make_tuple(9, n, 539, n);2.0;out;1.0;knn;69ad2baf-6eb0-4602-b9e6-48cf46b9165a;0.9591;random_search_300;3903.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;bf28d3d1-25f1-423e-946e-d6e1e16bc747;0.7702;random_search_300;9910.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;bf28d3d1-25f1-423e-946e-d6e1e16bc747;0.7762;random_search_300;9910.0
+1.0;make_tuple(9, n, 195, n);2.0;in;1.0;knn;803251d1-3a6d-4e6e-9104-a05bf425c045;0.7719;random_search_300;58.0
+1.0;make_tuple(9, n, 195, n);2.0;out;1.0;knn;803251d1-3a6d-4e6e-9104-a05bf425c045;0.7035;random_search_300;58.0
+1.0;make_tuple(9, 1007, 722, 333);2.0;in;1.0;knn;2ac3a114-bfa1-4b07-9f7b-441cdf6bff10;0.7691;random_search_300;9978.0
+1.0;make_tuple(9, 1007, 722, 333);2.0;out;1.0;knn;2ac3a114-bfa1-4b07-9f7b-441cdf6bff10;0.9915;random_search_300;9978.0
+1.0;make_tuple(9, n, 175, n);2.0;in;1.0;knn;1f12c198-d88f-4a39-84bf-ea504ed331a7;0.7724;random_search_300;9985.0
+1.0;make_tuple(9, n, 175, n);2.0;out;1.0;knn;1f12c198-d88f-4a39-84bf-ea504ed331a7;0.5954;random_search_300;9985.0
+1.0;make_tuple(9, n, 133, n);2.0;in;1.0;knn;18c4ceb7-c673-4b27-a09b-f6f82bc466d6;0.7719;random_search_300;146822.0
+1.0;make_tuple(9, n, 133, n);2.0;out;1.0;knn;18c4ceb7-c673-4b27-a09b-f6f82bc466d6;0.6434;random_search_300;146822.0
+1.0;make_tuple(9, n, 801, n);2.0;in;1.0;knn;0ead097e-0616-476f-a8bd-abbb64cf50a1;0.7728;random_search_300;18.0
+1.0;make_tuple(9, n, 801, n);2.0;out;1.0;knn;0ead097e-0616-476f-a8bd-abbb64cf50a1;0.5008;random_search_300;18.0
+1.0;make_tuple(9, n, 986, n);2.0;in;1.0;knn;931cdca1-5c67-42c2-8643-02f937b11aac;0.7699;random_search_300;14.0
+1.0;make_tuple(9, n, 986, n);2.0;out;1.0;knn;931cdca1-5c67-42c2-8643-02f937b11aac;0.8418;random_search_300;14.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;a5bfd257-6003-4ebc-ae44-9b09a285df09;0.7705;random_search_300;9956.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;a5bfd257-6003-4ebc-ae44-9b09a285df09;0.7473;random_search_300;9956.0
+1.0;make_tuple(9, n, 955, n);2.0;in;1.0;knn;b415c8c8-f4be-47a4-9f2c-e0179adc12aa;0.7692;random_search_300;14965.0
+1.0;make_tuple(9, n, 955, n);2.0;out;1.0;knn;b415c8c8-f4be-47a4-9f2c-e0179adc12aa;0.9116;random_search_300;14965.0
+1.0;make_tuple(9, n, n, 295);2.0;in;1.0;knn;a2562f45-d5b8-42ab-956e-d8051f67a3ca;0.7707;random_search_300;146824.0
+1.0;make_tuple(9, n, n, 295);2.0;out;1.0;knn;a2562f45-d5b8-42ab-956e-d8051f67a3ca;0.8521;random_search_300;146824.0
+1.0;make_tuple(9, n, 454, n);2.0;in;1.0;knn;c83c698c-6d46-4859-b67f-5c3a521c856c;0.7697;random_search_300;146800.0
+1.0;make_tuple(9, n, 454, n);2.0;out;1.0;knn;c83c698c-6d46-4859-b67f-5c3a521c856c;0.8449;random_search_300;146800.0
+1.0;make_tuple(9, 770, 301, n);2.0;in;1.0;knn;bd3d9481-26eb-4234-a6c4-f0952486c951;0.7727;random_search_300;9952.0
+1.0;make_tuple(9, 770, 301, n);2.0;out;1.0;knn;bd3d9481-26eb-4234-a6c4-f0952486c951;0.5227;random_search_300;9952.0
+1.0;make_tuple(9, n, n, n);2.0;in;1.0;knn;e964fb09-6283-423b-bb65-c0d60e557524;0.7714;random_search_300;10090.0
+1.0;make_tuple(9, n, n, n);2.0;out;1.0;knn;e964fb09-6283-423b-bb65-c0d60e557524;0.6336;random_search_300;10090.0
+1.0;make_tuple(9, n, 186, n);2.0;in;1.0;knn;9b781410-3bf6-48a6-8c71-f0ef7217e286;0.7697;random_search_300;146212.0
+1.0;make_tuple(9, n, 186, n);2.0;out;1.0;knn;9b781410-3bf6-48a6-8c71-f0ef7217e286;0.9476;random_search_300;146212.0
+1.0;make_tuple(9, n, 340, n);2.0;in;1.0;knn;af804104-db15-44e6-a382-e8a956420705;0.7719;random_search_300;9960.0
+1.0;make_tuple(9, n, 340, n);2.0;out;1.0;knn;af804104-db15-44e6-a382-e8a956420705;0.6226;random_search_300;9960.0
