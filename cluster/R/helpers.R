@@ -115,8 +115,8 @@ repairPoints2 = function(ps, hpars) {
 
 # Get task ids for a given problem.
 get_task_ids = function(problem) {
-  p = reticulate::import_from_path("src.problem")
-  p$Problem(problem)$valid_tasks
+  p = reticulate::import_from_path("src")
+  p$problem$Problem(problem)$valid_tasks
 }
 
 # Run an algorithm
