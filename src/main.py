@@ -141,7 +141,6 @@ def main():
 
     # The 'toolbox' defines all operations, and the primitive set defines the grammar.
     toolbox, pset = setup_toolbox(problem, args)
-    # return toolbox, pset
 
     if args.algorithm == 'random_search':
         # iterations don't make much sense in random search,
@@ -201,25 +200,33 @@ def main():
         logbook.header = ['gen', 'nevals'] + mstats.fields
         early_stop_iter = args.ngen
         stop = False
+
         for i in range(args.ngen):
+            # 'map' will be called within the optimization algorithm for batch evaluation.
+            # All evaluation variables are fixed, except for the individuals themselves.
+            toolbox.register(
+                "map",
+                functools.partial(
+                    mass_eval_fun, pset=pset, metadataset=loo_metadataset,
+                    surrogates=problem.surrogates, subset=1.0,
+                    toolbox=toolbox, optimize_constants=args.optimize_constants,
+                    problem=problem
+                )
+            )
             # Hacky way to integrate early stopping with DEAP.
             if args.algorithm == 'mupluslambda':
                 if args.subset != 1.0 and i != args.ngen - 1 and i % 2 != 0:
-                    subset = args.subset
-                else:
-                    subset = 1.0
-
-                # 'map' will be called within the optimization algorithm for batch evaluation.
-                # All evaluation variables are fixed, except for the individuals themselves.
-                toolbox.register(
-                    "map",
-                    functools.partial(
-                        mass_eval_fun, pset=pset, metadataset=loo_metadataset,
-                        surrogates=problem.surrogates, subset=subset,
-                        toolbox=toolbox, optimize_constants=args.optimize_constants,
-                        problem=problem
+                    # 'map' will be called within the optimization algorithm for batch evaluation.
+                    # All evaluation variables are fixed, except for the individuals themselves.
+                    toolbox.register(
+                        "map",
+                        functools.partial(
+                            mass_eval_fun, pset=pset, metadataset=loo_metadataset,
+                            surrogates=problem.surrogates, subset=args.subset,
+                            toolbox=toolbox, optimize_constants=args.optimize_constants,
+                            problem=problem
+                        )
                     )
-                )
 
                 pop, _ = eaMuPlusLambda(
                     population=pop,
