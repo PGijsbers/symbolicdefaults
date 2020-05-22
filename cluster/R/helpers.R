@@ -181,3 +181,27 @@ problem_results_to_csv = function(pname, out_suffix) {
   jt = jt[, c(3, 4, 1, 6, 9, 7, 8, 2)]
   fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }
+
+symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_default") {
+  jt = getJobTable()[, success := !is.na(done) & is.na(error)]
+  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+  jt = jt[problem_name == pname, c("job.id", "problem_name", "task", "str", "success")]
+  # Each line in grd is a configuration
+  grd = fread("data/random_search_30k.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = unique(grd)[problem == pname, ]
+  jt = merge(jt, unique(grd), by = c("str", "task"))
+  if (nrow(jt[(!success)]))
+    message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
+  jt = jt[(success)]
+  jt = cbind(jt,
+    map_dtr(reduceResultsList(jt$job.id, function(x)
+      t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "mmce.test.mean")])), data.table)
+  )
+  jt$default = default_name
+  # Update column order
+  jt = jt[, c("problem_name","task","str","default","mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
+  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
+}

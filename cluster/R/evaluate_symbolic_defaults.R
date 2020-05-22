@@ -70,6 +70,8 @@ while (length(jobs)) {
   Sys.sleep(3)
 }
 
+
+
 # Reduce results.
 if (FALSE) {
   reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
@@ -79,9 +81,21 @@ if (FALSE) {
   problem_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_baselines_results")              # done
   problem_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_baselines_results")         # missing: run on: ssh:compstat
   problem_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_baselines_results")             # done
+} else if (REG_DIR == "registry_symbolics") {
+  reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
+  symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results")           # done
+  symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results")             # running: ssh:christoph
+  symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_symbolic_results")          # done
+  symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results")              # done
+  symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results")         # missing: run on: ssh:compstat
+  symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results")             # done
+}
+
 }
 
   jt = getJobTable()
   jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
   jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
   try({submitJobs(sample(jobs))})
+
+
