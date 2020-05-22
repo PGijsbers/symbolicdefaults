@@ -64,6 +64,8 @@ fix_task = function(task) {
 # eval_tuple(str = "make_tuple(mcp, add(4,p))", "mlr_svm", 3)
 # eval_tuple(str = "make_tuple(mcp, add(4,p),  3)", "mlr_rf", 3)
 eval_tuple = function(problem, task, str) {
+  if (problem == "mlr_random forest")
+    problem = "mlr_rf"
   prob = get_problem_json(problem)
   # Parse formula
   symb = as.list(read_metadata(problem)[task_id == fix_task(task),])
@@ -80,7 +82,7 @@ eval_tuple = function(problem, task, str) {
 # Sanitize algorithm string
 sanitize_algo = function(algo) {
   if (grepl("classif.", algo, fixed = TRUE))
-    algo = return(algo)
+    algo = algo
   else if (grepl("mlr_", algo, fixed = TRUE)) {
     algo = gsub("mlr_", "classif.", algo, fixed = TRUE)
   } else {
@@ -88,7 +90,7 @@ sanitize_algo = function(algo) {
   }
 
   # Rename to mlr counterparts
-  if (algo == "classif.rf") {
+  if (algo == "classif.rf" || algo == "classif.random forest") {
     mlr_algo_name = "classif.ranger"
   } else if (algo == "classif.knn") {
     mlr_algo_name = "classif.RcppHNSW"
@@ -101,11 +103,17 @@ sanitize_algo = function(algo) {
 repairPoints2 = function(ps, hpars) {
   library(mlr3misc)
 
+  # browser()
   # Current invalid strategy: Replace with 10^-6
-  invalids = map_lgl(hpars, is.infinite) | map_lgl(hpars, is.nan)
+  invalids = map_lgl(hpars, is.infinite) | map_lgl(hpars, is.nan) | map_lgl(hpars, function(x) if (is.numeric(x)) abs(x) >= 1.2676506e+30 else FALSE)
   if (any(invalids)) {
     hpars[invalids] = 10^-6
   }
+  too_big_int = map_lgl(hpars, function(x) if (is.numeric(x)) abs(x) >= .Machine$integer.max else FALSE)
+  if (any(too_big_int)) {
+    hpars[too_big_int] = .Machine$integer.max - 1
+  }
+
   hpars = repairPoint(ps, hpars)
   setNames(mlr3misc::pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
     if(type == "integer") par = round(par)
@@ -154,6 +162,8 @@ run_algo = function(problem, task, str, parallel = 10L) {
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
 		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
+        if (problem == "mlr_random forest")
+          lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], sum(z$mlr.task$task.desc$n.feat)), 1))
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
     aggr = bmr$results[[1]][[1]]$aggr
@@ -192,6 +202,12 @@ symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_d
   grd[problem == "random forest", ]$problem = "rf"
   grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
   grd = unique(grd)[problem == pname, ]
+  grd = fread("data/random_search_30k_xgb.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd2 = unique(grd)[problem == pname, ]
+  grd = rbind(grd, grd2)
   jt = merge(jt, unique(grd), by = c("str", "task"))
   if (nrow(jt[(!success)]))
     message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
