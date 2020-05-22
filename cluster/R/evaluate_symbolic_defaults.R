@@ -36,11 +36,18 @@ if (!file.exists(REG_DIR)) {
   grd = unique(grd)
   addExperiments(algo.designs = list(run_algo = grd))
 
+  grd = fread("data/random_search_30k_xgb.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = unique(grd)
+  addExperiments(algo.designs = list(run_algo = grd))
+
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(6)
+reg$cluster.functions = makeClusterFunctionsSocket(3)
 
 
 
@@ -51,7 +58,7 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet"), ]$job.id)
+    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)
@@ -70,6 +77,13 @@ while (length(jobs)) {
   Sys.sleep(3)
 }
 
+
+Unfinished jobs: 232,252,255,264,244,312,309,238,224,286,282,253,279                       │14742 flo        20   0 1715M  233M 24844 S  0.0  0.4  0:06.27 /usr/lib/R/bin/exec/R --slave
+>   symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results")│14790 flo        20   0 1715M  233M 24848 S  0.0  0.4  0:06.07 /usr/lib/R/bin/exec/R --slave
+           # done                                                                          │14948 flo        20   0 1715M  233M 24688 S  0.0  0.4  0:06.02 /usr/lib/R/bin/exec/R --slave
+Unfinished jobs: 361,364,368,341
+
+testJob(232)
 
 
 # Reduce results.
