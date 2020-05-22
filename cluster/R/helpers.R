@@ -202,6 +202,12 @@ symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_d
   grd[problem == "random forest", ]$problem = "rf"
   grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
   grd = unique(grd)[problem == pname, ]
+  grd = fread("data/random_search_30k_xgb.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd2 = unique(grd)[problem == pname, ]
+  grd = rbind(grd, grd2)
   jt = merge(jt, unique(grd), by = c("str", "task"))
   if (nrow(jt[(!success)]))
     message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))

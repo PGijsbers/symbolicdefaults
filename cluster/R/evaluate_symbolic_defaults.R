@@ -47,7 +47,7 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(3)
+reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 
 
@@ -77,13 +77,6 @@ while (length(jobs)) {
   Sys.sleep(3)
 }
 
-
-Unfinished jobs: 232,252,255,264,244,312,309,238,224,286,282,253,279                       │14742 flo        20   0 1715M  233M 24844 S  0.0  0.4  0:06.27 /usr/lib/R/bin/exec/R --slave
->   symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results")│14790 flo        20   0 1715M  233M 24848 S  0.0  0.4  0:06.07 /usr/lib/R/bin/exec/R --slave
-           # done                                                                          │14948 flo        20   0 1715M  233M 24688 S  0.0  0.4  0:06.02 /usr/lib/R/bin/exec/R --slave
-Unfinished jobs: 361,364,368,341
-
-testJob(232)
 
 
 # Reduce results.
