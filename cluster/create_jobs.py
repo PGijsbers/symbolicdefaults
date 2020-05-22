@@ -39,7 +39,7 @@ if __name__ == '__main__':
     else:
         tasks = sys.argv[1]
     if len(sys.argv) > 2:
-        problems = [sys.argv[2]]
+        problems = sys.argv[2].split(',')
     else:
         problems = ['knn', 'svm', 'glmnet', 'rf', 'rpart']  # , 'xgboost']
     if len(sys.argv) > 3:
@@ -61,14 +61,24 @@ if __name__ == '__main__':
         with open(job_name, 'a') as fh:
             fh.write(job_header)
 
-        for i in range(10):
+        # xgboost surrogates are huge, and during loading peak memory usage may be as high as 25Gb
+        # To avoid MemoryErrors, we must run fewer tasks in parallel, and avoid loading all at once.
+        if problem == "xgboost":
+           n_jobs = 5
+        else:
+           n_jobs = 10
+           delay = ''
+
+        for i in range(n_jobs):
             search = start_command.format(problem=problem, outdir=outdir, alg=algorithm, task=task, extra=extra)
             if algorithm == "random_search":
                 search += ' -mss 3'
+            if problem == "xgboost":
+                delay = f"sleep {(i // 2)*90};"
             mkdir = f"mkdir -p ~/results"
             move = f"cp -r $TMPDIR/{outdir} ~/results"
             with open(job_name, 'a') as fh:
-                fh.write(f"({search};{mkdir};{move}) &\n")
+                fh.write(f"({delay}{search};{mkdir};{move}) &\n")
 
         with open(job_name, 'a') as fh:
             fh.write(job_footer)
