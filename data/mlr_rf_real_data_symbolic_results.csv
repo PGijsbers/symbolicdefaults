@@ -36,6 +36,7 @@ mlr_rf,167211,"make_tuple(expit(xvar), expit(mcp), max(xvar, 5))",symbolic_defau
 mlr_rf,168910,"make_tuple(expit(xvar), expit(mcp), min(p, mcp))",symbolic_default,0.56926175842584,99.7,9.811,235
 mlr_rf,146212,"make_tuple(expit(xvar), expit(mcp), mul(m, rc))",symbolic_default,0.000413793103448276,167.634,13.522,288
 mlr_rf,37,"make_tuple(expit(xvar), expit(mcp), pow(xvar, 70))",symbolic_default,0.231784005468216,4.271,0.981000000000002,222
+mlr_rf,167124,"make_tuple(expit(xvar), expit(mcp), sub(8, po))",symbolic_default,0.54625,344.544,28.2919999999995,309
 mlr_rf,14970,"make_tuple(expit(xvar), expit(mcp), truediv(74, p))",symbolic_default,0.0501025597478936,219.132,20.395,242
 mlr_rf,9976,"make_tuple(expit(xvar), expit(mcp), truediv(mcp, xvar))",symbolic_default,0.410384615384615,47.058,5.96499999999999,240
 mlr_rf,3512,"make_tuple(expit(xvar), expit(mcp), truediv(p, po))",symbolic_default,0.015,6.09299999999996,1.53399999999988,320

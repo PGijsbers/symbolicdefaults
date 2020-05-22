@@ -1,0 +1,13 @@
+problem_name,task,str,default,mmce.test.mean,timetrain.test.sum,timepredict.test.sum,job.id
+mlr_xgboost,9970,"make_tuple(0.030995604946875564, mkd, mkd, mkd, n, 12, xvar, n, po)",symbolic_default,0.439818452784176,183.859,0.841999999999985,571
+mlr_xgboost,9981,"make_tuple(0.041770768638130326, mkd, 0.27730851961705955, mkd, n, n, xvar, m, n)",symbolic_default,0.0814814814814815,2971.426,5.649,581
+mlr_xgboost,146820,"make_tuple(0.0488881144786229, xvar, 0.031664752683826715, mcp, po, 472, xvar, p, p)",symbolic_default,0.0146711325565081,34.402,0.757000000000019,576
+mlr_xgboost,3917,"make_tuple(0.061841671399332776, 0.19531792678690874, mcp, mkd, p, p, xvar, 30, m)",symbolic_default,0.145572105619499,78.2789999999999,0.714000000000056,579
+mlr_xgboost,146800,"make_tuple(0.061887968970900216, mkd, rc, mcp, p, n, xvar, p, m)",symbolic_default,0.0333333333333333,286.732,2.06000000000006,578
+mlr_xgboost,146822,"make_tuple(0.07603279787986993, mcp, mcp, mkd, po, 172, xvar, po, p)",symbolic_default,0.0225108225108225,102.061,0.965000000000003,577
+mlr_xgboost,125921,"make_tuple(0.09290216060674064, 0.0019416232204248758, 0.01198199767155574, 0.00427154875722142, p, po, xvar, po, n)",symbolic_default,0.298,24.925,0.721999999999998,572
+mlr_xgboost,146606,"make_tuple(0.09571985878186313, 0.2068802700895053, mkd, mcp, n, n, xvar, po, po)",symbolic_default,0.272340642529322,11841.948,43.6810000000005,585
+mlr_xgboost,7592,"make_tuple(0.11058799097492439, xvar, mkd, xvar, po, po, xvar, po, n)",symbolic_default,0.140268631430351,2462.313,11.1200000000006,573
+mlr_xgboost,9978,"make_tuple(0.11339093678863771, rc, mcp, mkd, 3, po, xvar, 0.7503513146076829, p)",symbolic_default,0.0587983567271482,67.138,0.647999999999993,574
+mlr_xgboost,146818,"make_tuple(0.12326585225328487, xvar, rc, mkd, po, 287, xvar, m, p)",symbolic_default,0.142028985507246,27.7860000000001,0.7530000000001,582
+mlr_xgboost,29,"make_tuple(0.14204882866158267, mcp, mcp, xvar, m, 390, xvar, 166, p)",symbolic_default,0.128985507246377,19.556,0.52499999999992,580
