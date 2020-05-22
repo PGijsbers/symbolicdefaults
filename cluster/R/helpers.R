@@ -145,7 +145,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
     hpars = repairPoints2(ps, hpars[names(ps$pars)])
     lrn = setHyperPars(lrn, par.vals = hpars)
     if (problem == "mlr_xgboost")
-      lrn = setHyperPars(lrn,nthread = 1L)
+      lrn = setHyperPars(lrn, nthread = 1L)
     bmr = try({
         # Some task have gotten different ids
         task = fix_task(task)
