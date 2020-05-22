@@ -164,8 +164,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
         if (problem == "mlr_random forest")
           lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], sum(z$mlr.task$task.desc$n.feat)), 1))
-        if (problem == "mlr_knn")
-          browser()3
+        if (problem == "mlr_knn") hpars[["M"]] = min(64, hpars[["M"]])
           lrn = setHyperPars(lrn)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
