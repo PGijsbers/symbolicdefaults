@@ -36,6 +36,13 @@ if (!file.exists(REG_DIR)) {
   grd = unique(grd)
   addExperiments(algo.designs = list(run_algo = grd))
 
+  grd = fread("data/random_search_30k_xgb.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = unique(grd)
+  addExperiments(algo.designs = list(run_algo = grd))
+
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
@@ -51,7 +58,7 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet"), ]$job.id)
+    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)
