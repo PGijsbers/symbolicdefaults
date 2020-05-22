@@ -44,7 +44,7 @@ if (!file.exists(REG_DIR)) {
   addExperiments(algo.designs = list(run_algo = grd))
 
 } else {
-  reg = loadRegistry(REG_DIR, writeable = TRUE)
+  reg = loadRegistry(REG_DIR, writeable = FALSE)
 }
 
 reg$cluster.functions = makeClusterFunctionsSocket(6)
