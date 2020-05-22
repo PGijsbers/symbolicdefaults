@@ -25,18 +25,17 @@ if (!file.exists(REG_DIR)) {
     packages = source_packages,
     source = source_files
   )
-  addProblem("package_defaults")
+  addProblem("symbolic_best_best")
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
 
-  jobs = c("mlr_rpart", "mlr_rf", "mlr_knn", "mlr_glmnet", "mlr_xgboost")
-  jobs = "mlr_xgboost"
-  for (job in jobs) {
-    benchmarks = get_problem_json(job)$benchmark
-    if (job == "mlr_xgboost") benchmarks = get_problem_json(job)$benchmark["sklearn_default"] # do not run symbolic_best
-    tasks =  get_task_ids(job)
-    grd = CJ(problem = job, task = tasks, str = unlist(benchmarks))
-    addExperiments(algo.designs = list(run_algo = grd))
-  }
+  # Each line in grd is a configuration
+  grd = fread("data/random_search_30k.csv")
+  grd = grd[, c("problem", "task", "expression")]
+  grd[problem == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = unique(grd)
+  addExperiments(algo.designs = list(run_algo = grd))
+
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
@@ -52,8 +51,8 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm"), ]$job.id)
-    try({submitJobs(jobs)})
+    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet"), ]$job.id)
+    try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)
 }
@@ -65,11 +64,13 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
+    jobs = intersect(jobs, jt[problem_name %in% c("mlr_rpart", "mlr_rf", "mlr_knn"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)
 }
+
+
 
 # Reduce results.
 if (FALSE) {
@@ -80,9 +81,21 @@ if (FALSE) {
   problem_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_baselines_results")              # done
   problem_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_baselines_results")         # missing: run on: ssh:compstat
   problem_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_baselines_results")             # done
+} else if (REG_DIR == "registry_symbolics") {
+  reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
+  symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results")           # done
+  symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results")             # running: ssh:christoph
+  symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_symbolic_results")          # done
+  symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results")              # done
+  symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results")         # missing: run on: ssh:compstat
+  symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results")             # done
+}
+
 }
 
   jt = getJobTable()
   jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
   jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
   try({submitJobs(sample(jobs))})
+
+

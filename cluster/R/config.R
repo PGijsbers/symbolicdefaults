@@ -1,5 +1,5 @@
 setOMLConfig(cachedir = "../oml_cache/")
-REG_DIR = "cluster/registry"
+REG_DIR = "cluster/registry_symbolics"
 RESAMPLE_PARALLEL_CPUS = 5
 
 learner_packages = c("rpart", "glmnet" ,"xgboost", "e1071", "ranger", "RcppHNSW")
