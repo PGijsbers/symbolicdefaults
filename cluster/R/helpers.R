@@ -163,10 +163,12 @@ run_algo = function(problem, task, str, parallel = 10L) {
 		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
         if (problem == "mlr_random forest")
-          lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], sum(z$mlr.task$task.desc$n.feat)), 1))
+          nfeats = sum(z$mlr.task$task.desc$n.feat)
+          if (task %in% c(3, 219, 15)) nfeats = nfeats-1L
+          lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], nfeats), 1))
         if (problem == "mlr_knn") {
 		hpars[["M"]] = min(64, hpars[["M"]])
-		hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]]) 
+		hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]])
 	}
 	lrn = setHyperPars(lrn)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
