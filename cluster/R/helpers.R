@@ -164,7 +164,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
         if (problem == "mlr_random forest")
           nfeats = sum(z$mlr.task$task.desc$n.feat)
-          if (task %in% c(3, 219, 15)) nfeats = nfeats-1L
+          if (task %in% c(3, 219, 15)) nfeats = nfeats-MTRY_FEATS
           lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], nfeats), 1))
         if (problem == "mlr_knn") {
 		hpars[["M"]] = min(64, hpars[["M"]])

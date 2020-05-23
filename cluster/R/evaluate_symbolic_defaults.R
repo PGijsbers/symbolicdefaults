@@ -52,6 +52,7 @@ if (!file.exists(REG_DIR)) {
 
 reg$cluster.functions = makeClusterFunctionsSocket(6)
 
+testJob(252)
 
 
 # Submit SVM jobs ### ssh: christoph
@@ -68,6 +69,7 @@ while (length(jobs)) {
 }
 
 # Submit xgboost jobs ### ssh: compstat
+
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
