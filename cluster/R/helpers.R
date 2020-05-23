@@ -162,14 +162,15 @@ run_algo = function(problem, task, str, parallel = 10L) {
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
 		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
-        if (problem == "mlr_random forest")
+        if (problem == "mlr_random forest") {
           nfeats = sum(z$mlr.task$task.desc$n.feat)
-          if (task %in% c(3, 219, 15)) nfeats = nfeats-MTRY_FEATS
+          if (task %in% c(3, 219, 15)) nfeats = nfeats-2
           lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], nfeats), 1))
+        }
         if (problem == "mlr_knn") {
-		hpars[["M"]] = min(64, hpars[["M"]])
-		hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]])
-	}
+		      hpars[["M"]] = min(64, hpars[["M"]])
+		      hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]])
+	      }
 	lrn = setHyperPars(lrn)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = z$mlr.measures)
 		})
@@ -209,12 +210,13 @@ symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_d
   grd[problem == "random forest", ]$problem = "rf"
   grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
   grd = unique(grd)[problem == pname, ]
-  grd = fread("data/random_search_30k_xgb.csv")
-  grd = grd[, c("problem", "task", "expression")]
-  grd[problem == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
-  grd2 = unique(grd)[problem == pname, ]
-  grd = rbind(grd, grd2)
+  if (pname == "mlr_xgboost") {
+    grd = fread("data/random_search_30k_xgb.csv")
+    grd = grd[, c("problem", "task", "expression")]
+    grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+    grd2 = unique(grd)[problem == pname, ]
+    grd = rbind(grd, grd2)
+  }
   jt = merge(jt, unique(grd), by = c("str", "task"))
   if (nrow(jt[(!success)]))
     message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
@@ -228,3 +230,5 @@ symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_d
   jt = jt[, c("problem_name","task","str","default","mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
   fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }
+
+pname = "mlr_rpart"

@@ -52,8 +52,6 @@ if (!file.exists(REG_DIR)) {
 
 reg$cluster.functions = makeClusterFunctionsSocket(6)
 
-testJob(252)
-
 
 # Submit SVM jobs ### ssh: christoph
 jobs = findNotDone()$job.id
