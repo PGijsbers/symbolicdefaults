@@ -17,6 +17,9 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
 
+
+REG_DIR = "cluster/registry_symbolics"
+
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
@@ -50,7 +53,6 @@ if (!file.exists(REG_DIR)) {
 reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 
-
 # Submit SVM jobs ### ssh: christoph
 jobs = findNotDone()$job.id
 while (length(jobs)) {
@@ -65,6 +67,7 @@ while (length(jobs)) {
 }
 
 # Submit xgboost jobs ### ssh: compstat
+
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
