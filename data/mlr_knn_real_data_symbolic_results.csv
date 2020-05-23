@@ -43,6 +43,7 @@ mlr_knn,24,"make_tuple(9, n, 148, 1016)",symbolic_default,0,2924.944,67.17600000
 mlr_knn,145681,"make_tuple(9, n, 153, 279)",symbolic_default,0.522863403029924,604.752,14.5350000000008,459
 mlr_knn,9985,"make_tuple(9, n, 175, n)",symbolic_default,0.445084667800563,1262.158,29.8260000000009,559
 mlr_knn,41,"make_tuple(9, n, 186, n)",symbolic_default,0.108290707587383,6.88199999999961,2.15300000000025,546
+mlr_knn,168337,"make_tuple(9, n, 187, n)",symbolic_default,0.5182,31599.432,1877.535,463
 mlr_knn,58,"make_tuple(9, n, 195, n)",symbolic_default,0.1736,688.470000000007,20.0439999999999,557
 mlr_knn,3904,"make_tuple(9, n, 204, n)",symbolic_default,0.198162186706639,6256.005,91.4750000000004,475
 mlr_knn,9960,"make_tuple(9, n, 340, n)",symbolic_default,0.155058977719528,857.449999999999,32.4429999999993,570

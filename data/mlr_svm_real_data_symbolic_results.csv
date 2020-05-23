@@ -85,6 +85,7 @@ mlr_svm,168329,"make_tuple(sub(min(xvar, xvar), neg(m)), truediv(min(0.711034159
 mlr_svm,9952,"make_tuple(sub(pow(po, mkd), sub(mcp, m)), truediv(neg(mkd), neg(xvar)))",symbolic_default,0.160253645512426,64.7179999999989,1.36499999999978,64
 mlr_svm,167140,"make_tuple(sub(sub(n, n), neg(m)), truediv(add(rc, m), mul(m, po)))",symbolic_default,0.0414325427337789,152.157999999999,4.71300000000156,60
 mlr_svm,18,"make_tuple(truediv(2, mcp), truediv(mkd, xvar))",symbolic_default,0.245,9.73799999999756,0.963999999999942,78
+mlr_svm,168336,"make_tuple(truediv(add(xvar, m), pow(mkd, mkd)), truediv(truediv(xvar, po), min(m, xvar)))",symbolic_default,0.100311009767159,320216.143,303.303999999989,65
 mlr_svm,146607,"make_tuple(truediv(if_gt(xvar, 0.0012345229735045862, p, mcp), add(xvar, mcp)), truediv(max(xvar, mcp), max(po, mkd)))",symbolic_default,0.146934585675058,3595.684,19.6389999999983,38
 mlr_svm,3485,"make_tuple(truediv(m, 0.711763751591743), truediv(mkd, xvar))",symbolic_default,0.0623115491009682,153.882999999994,4.46800000001531,99
 mlr_svm,125921,"make_tuple(truediv(m, mcp), truediv(0.7642491280094701, po))",symbolic_default,0.292,2.98999999999887,0.669000000001688,41
