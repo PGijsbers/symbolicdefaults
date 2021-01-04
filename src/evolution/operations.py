@@ -154,7 +154,7 @@ def mass_evaluate_2(evaluate, individuals, pset, metadataset: pd.DataFrame, surr
     return zip(scores_mean, lengths)
 
 
-def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None, subset=1.0):
+def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrogates: typing.Dict[str, object], toolbox, optimize_constants=False, problem=None, subset=1.0, gen=None):
     """
         Evaluate all individuals by averaging their projected score on each dataset using surrogate models.
         :param evaluate: should turn (fn, row) into valid hyperparameter values.
@@ -176,6 +176,10 @@ def mass_evaluate(evaluate, individuals, pset, metadataset: pd.DataFrame, surrog
         task_feature_values = dict(row)
         hyperparam_values = [evaluate(fn, task_feature_values) for fn in fns]   # not the issue, but speeds up a lot.
         surrogate = surrogates[idx]
+
+        with open('hpvals.csv', 'a') as fh:
+            for individual, hyperparameters in zip(individuals, hyperparam_values):
+                fh.write(f"{gen};{row.name};{individual};{';'.join(str(hp) for hp in hyperparameters)}\n")
 
         scores = surrogate.predict(hyperparam_values)
         evaluations_per_individual = len(scores) / len(individuals)

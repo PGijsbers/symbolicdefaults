@@ -195,6 +195,9 @@ def main():
         last_best = (0, -10)
         last_best_gen = 0
 
+        with open('hpvals.csv', 'a') as fh:
+            fh.write(f"gen;task;expression;{';'.join(problem.hyperparameters)}\n")
+
         # Little hackery for logging with early stopping
         logbook = tools.Logbook()
         logbook.header = ['gen', 'nevals'] + mstats.fields
@@ -210,7 +213,7 @@ def main():
                     mass_eval_fun, pset=pset, metadataset=loo_metadataset,
                     surrogates=problem.surrogates, subset=1.0,
                     toolbox=toolbox, optimize_constants=args.optimize_constants,
-                    problem=problem
+                    problem=problem, gen=i,
                 )
             )
             # Hacky way to integrate early stopping with DEAP.
