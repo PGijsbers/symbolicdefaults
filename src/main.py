@@ -1,16 +1,17 @@
 import argparse
+import datetime
 import functools
 import logging
 import os
 import time
 import uuid
 import pathlib
-from typing import List
+import platform
+import sys
 
 import numpy as np
 
 from deap import tools
-import pandas as pd
 
 from evolution import setup_toolbox
 from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, insert_fixed, approx_eq
@@ -88,6 +89,9 @@ def cli_parser():
                       "hyperparameter. (default=3). Note: for random search, "
                       "all candidates are constrained this way."),
                 dest='max_start_size', type=int, default=2)
+    parser.add_argument('--description',
+                help=("Description to log with the hyperparameter settings."),
+                dest='Description', type=str, default='')
     return parser.parse_args()
 
 
@@ -118,6 +122,14 @@ def main():
             fh.write(f"run;task;gen;inout;score;length;endresult;expression\n")
         with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
             fh.write(f"run;task;generation;score_min;score_avg;score_max\n")
+        with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
+            fh.write("field;value\n")
+            for parameter, value in args._get_kwargs():
+                fh.write(f"{parameter};{value}\n")
+            fh.write(f"OS;{platform.system()} {platform.release()}\n")
+            fh.write(f"Python;{sys.version}\n")
+            fh.write(f"start-date;{datetime.datetime.now().isoformat()}\n")
+
     else:
         configure_logging()
 
@@ -357,6 +369,9 @@ def main():
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                         fh.write(f"{run_id};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+    if args.output:
+        with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
+            fh.write(f"end-date;{datetime.datetime.now().isoformat()}\n")
 
 
     # # Get benchmark scores across all tasks
