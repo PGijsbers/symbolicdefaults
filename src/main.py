@@ -304,53 +304,29 @@ def main():
                         )
                     )
 
-                    logging.info("Evaluating in sample:")
-                    for ind in sorted(hof, key=n_primitives_in):
-                        scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
-                        logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
-                        if args.output:
-                            with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
+                logging.info("Evaluating in sample:")
+                for ind in sorted(hof, key=n_primitives_in):
+                    scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
+                    logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
 
-                    logging.info("Evaluating out-of-sample:")
-                    for ind in sorted(hof, key=n_primitives_in):
-                        fn_ = gp.compile(ind, pset)
-                        mf_values = problem.metadata.loc[task]
-                        hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
-                        score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-                        logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
-                        if args.output:
-                            with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                logging.info("Evaluating out-of-sample:")
+                for ind in sorted(hof, key=n_primitives_in):
+                    fn_ = gp.compile(ind, pset)
+                    mf_values = problem.metadata.loc[task]
+                    hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
+                    score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
+                    logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
-                    if args.output and stop:
-                        with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-                            for final_ind in pop:
-                                fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                else:
-                    logging.info("Evaluating in sample:")
-                    for ind in sorted(hof, key=n_primitives_in):
-                        scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
-                        logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
-                        if args.output:
-                            with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
-
-                    logging.info("Evaluating out-of-sample:")
-                    for ind in sorted(hof, key=n_primitives_in):
-                        fn_ = gp.compile(ind, pset)
-                        mf_values = problem.metadata.loc[task]
-                        hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
-                        score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-                        logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
-                        if args.output:
-                            with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
-
-                    if args.output and stop:
-                        with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-                            for final_ind in pop:
-                                fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                if args.output and stop:
+                    with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
+                        for final_ind in pop:
+                            fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
