@@ -90,8 +90,9 @@ def cli_parser():
                       "all candidates are constrained this way."),
                 dest='max_start_size', type=int, default=2)
     parser.add_argument('--description',
-                help=("Description to log with the hyperparameter settings."),
-                dest='Description', type=str, default='')
+                help=("Description to log with the hyperparameter settings."
+                      "May not contain a semicolon (';')."),
+                dest='Description', type=str, default='-')
     return parser.parse_args()
 
 
