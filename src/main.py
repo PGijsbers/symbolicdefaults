@@ -5,6 +5,7 @@ import os
 import time
 import uuid
 import pathlib
+from typing import List
 
 import numpy as np
 
@@ -314,19 +315,18 @@ def main():
 
                 logging.info("Evaluating out-of-sample:")
                 for ind in sorted(hof, key=n_primitives_in):
-                    fn_ = gp.compile(ind, pset)
-                    mf_values = problem.metadata.loc[task]
-                    hp_values = insert_fixed(toolbox.evaluate(fn_, mf_values), problem)
-                    score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-                    logging.info(f"[GEN_{i}|{ind}|{score[0]:.4f}]")
+                    score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                    logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                            fh.write(f"{run_id};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
                 if args.output and stop:
                     with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
+                        score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
                         for final_ind in pop:
-                            fh.write(f"{run_id};{task};{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            fh.write(f"{run_id};{task};in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            fh.write(f"{run_id};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
@@ -336,9 +336,8 @@ def main():
             logging.info("BENCHMARK: Evaluating in-sample:")
             in_sample_mean[task] = {}
             for check_name, check_individual in problem.benchmarks.items():
-                expression = gp.PrimitiveTree.from_string(check_individual, pset)
-                individual = creator.Individual(expression)
-                scale_result = list(toolbox.map(toolbox.evaluate, [individual]))[0][0]
+                individual = str_to_individual(check_individual, pset)
+                scale_result, length = list(toolbox.map(toolbox.evaluate, [individual]))[0]
                 logging.info(f"[{check_name}: {individual}|{scale_result:.4f}]")
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
@@ -347,16 +346,11 @@ def main():
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
-                expression = gp.PrimitiveTree.from_string(check_individual, pset)
-                ind = creator.Individual(expression)
-                fn_ = gp.compile(ind, pset)
-                mf_values = problem.metadata.loc[task]
-                hp_values = toolbox.evaluate(fn_, mf_values)
-                score = problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))
-                logging.info(f"[GEN_{i}|{check_name}: {ind}|{score[0]:.4f}]")
+                score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
+                logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{task};{i};out;{score[0]:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                        fh.write(f"{run_id};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
 
     # # Get benchmark scores across all tasks
@@ -368,6 +362,23 @@ def main():
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
+
+
+def str_to_individual(individual_str, pset):
+    expression = gp.PrimitiveTree.from_string(individual_str, pset)
+    individual = creator.Individual(expression)
+    return individual
+
+
+def get_surrogate_score(problem, task, individual, pset, toolbox) -> float:
+    """ individual can be either an Individual or a str that represents one. """
+    if isinstance(individual, str):
+        individual = str_to_individual(individual, pset)
+
+    fn_ = gp.compile(individual, pset)
+    mf_values = problem.metadata.loc[task]
+    hp_values = toolbox.evaluate(fn_, mf_values)
+    return problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))[0]
 
 
 if __name__ == '__main__':
