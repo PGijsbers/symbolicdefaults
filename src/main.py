@@ -112,10 +112,8 @@ def main():
     np.seterr(all='raise')
     args = cli_parser()
     if args.output:
-        if not os.path.exists(args.output):
-            pathlib.Path(args.output).mkdir(parents=True, exist_ok=True)
         run_dir = os.path.join(args.output, run_id)
-        os.mkdir(run_dir)
+        pathlib.Path(run_dir).mkdir(parents=True, exist_ok=True)
         log_file = os.path.join(run_dir, 'output.log')
         configure_logging(log_file)
         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
