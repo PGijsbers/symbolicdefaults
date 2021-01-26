@@ -323,8 +323,14 @@ def main():
 
                 if args.output and stop:
                     with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-                        score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
                         for final_ind in pop:
+                            score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
+                            fh.write(f"{run_id};{task};in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            fh.write(f"{run_id};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+
+                    with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
+                        for final_ind in hof:
+                            score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
                             fh.write(f"{run_id};{task};in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
                             fh.write(f"{run_id};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
