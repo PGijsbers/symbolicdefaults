@@ -23,7 +23,7 @@ from problem import Problem
 job_header = """\
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -t 0:15:00
+#SBATCH -t 2:00:00
 
 module load 2019
 module load Python/3.6.6-intel-2019b
@@ -66,7 +66,7 @@ def cli_parser():
                         dest='early_stop_n', type=int, default=20)
     parser.add_argument('-queue',
                         help='If set, automatically queue the job.',
-                        dest='warm_start', type=str2bool, default=False)
+                        dest='queue', type=str2bool, default=False)
     return parser.parse_args()
 
 
