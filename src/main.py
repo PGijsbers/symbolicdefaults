@@ -3,6 +3,7 @@ import datetime
 import functools
 import logging
 import os
+import random
 import time
 import uuid
 import pathlib
@@ -62,6 +63,9 @@ def cli_parser():
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
+    parser.add_argument('-k', '--leave-k-out',
+                        help="Amount of tasks to use for out-of-sample evaluations",
+                        dest='leave_k_out', type=int, default=1)
     parser.add_argument('-warm',
                         help=(
                             "Warm-start optimization by including the 'benchmark' solutions in the "
@@ -73,6 +77,15 @@ def cli_parser():
     parser.add_argument('-ho',
                         help="Hold out a fraction of tasks for picking from Pareto front",
                         dest='holdout', type=float, default=0.0)
+    parser.add_argument('--seed',
+                        # I am not sure why it does not fix other random decisions,
+                        # but order for leave-k-out tasks is determined first so
+                        # at that point the script doesn't diverge yet.
+                        # I suspect floating point precision to be the culprit,
+                        # but I have not looked into it.
+                        help=("Seed for random number generator. "
+                              "Currently only fixes samples for leave-k-out"),
+                        dest='seed', type=int, default=0)
     parser.add_argument('-cst',
                     help=("Search only constant formulas?"),
                     dest='constants_only', type=str2bool, default=False)
@@ -112,15 +125,25 @@ def main():
     # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
     args = cli_parser()
+    if args.leave_k_out > 1 and args.task is not None:
+        raise ValueError("It is not possible to use leave-k-out when specifically "
+                         f"holding out a task (k={args.leave_k_out}, task={args.task})")
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+
     if args.output:
         run_dir = os.path.join(args.output, run_id)
         pathlib.Path(run_dir).mkdir(parents=True, exist_ok=True)
         log_file = os.path.join(run_dir, 'output.log')
         configure_logging(log_file)
         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-            fh.write(f"run;task;gen;inout;score;length;endresult;expression\n")
+            fh.write(f"run;k_tasks;task;gen;inout;score;length;endresult;expression\n")
         with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
             fh.write(f"run;task;generation;score_min;score_avg;score_max\n")
+        with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
+            fh.write(f"run;k_tasks;task;sample;score;length;expression\n")
+        with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
+            fh.write(f"run;k_tasks;task;sample;score;length;expression\n")
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
             fh.write("field;value\n")
             for parameter, value in args._get_kwargs():
@@ -163,8 +186,7 @@ def main():
     tasks = list(problem.metadata.index)
     if args.task is not None:
         if args.task not in tasks:
-            logging.error("Requested task not in metadata.")
-            quit(-1)
+            raise ValueError(f"Requested task {args.task} not in metadata.")
         else:
             tasks = [args.task]
 
@@ -176,11 +198,18 @@ def main():
     # Start evolutionary optimization
     # ================================================
     in_sample_mean = {}
-    for task in tasks:
-        logging.info(f"START_TASK: {task}")
-        # 'task' experiment data is used as validation set, so we must not use
+
+    if args.leave_k_out > 1:
+        random.shuffle(tasks)
+
+    for task_idx in range(0, len(tasks), args.leave_k_out):
+        holdout_tasks = tasks[task_idx:task_idx + args.leave_k_out]
+        task_group = holdout_tasks[0] if len(holdout_tasks) == 1 else ",".join(str(task) for task in holdout_tasks)
+
+        logging.info(f"START_TASKS: {holdout_tasks}")
+        # 'tasks' experiment data is used as validation set, so we must not use
         # it during our symbolic regression search.
-        loo_metadataset = problem.metadata[problem.metadata.index != task]
+        loo_metadataset = problem.metadata[~problem.metadata.index.isin(holdout_tasks)]
         if args.holdout > 0.0:
             val_metadata = loo_metadataset.sample(int(args.holdout * len(loo_metadataset)))
             loo_metadataset = loo_metadataset[~loo_metadataset.index.isin(val_metadata.index)]
@@ -288,7 +317,7 @@ def main():
             )
             if args.output:
                 with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
-                    fh.write(f"{run_id};{task};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
+                    fh.write(f"{run_id};{task_group};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
             logging.info(generation_info_string)
 
             stop = (i == args.ngen - 1)
@@ -322,28 +351,31 @@ def main():
                     logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
+                            fh.write(f"{run_id};{task_group};0;{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
 
                 logging.info("Evaluating out-of-sample:")
-                for ind in sorted(hof, key=n_primitives_in):
-                    score = get_surrogate_score(problem, task, ind, pset, toolbox)
-                    logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
-                    if args.output:
-                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
-
                 if args.output and stop:
                     with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
                         for final_ind in pop:
-                            score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                            fh.write(f"{run_id};{task};in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            fh.write(f"{run_id};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            fh.write(f"{run_id};{task_group};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            for task in holdout_tasks:
+                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
+                                fh.write(f"{run_id};{task_group};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
                     with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
                         for final_ind in hof:
-                            score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                            fh.write(f"{run_id};{task};in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            fh.write(f"{run_id};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            fh.write(f"{run_id};{task_group};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            for task in holdout_tasks:
+                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
+                                fh.write(f"{run_id};{task_group};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+
+                for task in holdout_tasks:
+                    for ind in sorted(hof, key=n_primitives_in):
+                        score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                        logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
+                        if args.output:
+                            with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                                fh.write(f"{run_id};{task_group};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
@@ -359,15 +391,17 @@ def main():
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{task};{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                        fh.write(f"{run_id};{task_group};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
-                score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
-                logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
-                if args.output:
-                    with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                for task in holdout_tasks:
+                    score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
+                    logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id};{task_group};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                            
     if args.output:
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
             fh.write(f"end-date;{datetime.datetime.now().isoformat()}\n")
