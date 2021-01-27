@@ -121,9 +121,6 @@ def eaMuPlusLambda(population, toolbox, mu, lambda_, cxpb, mutpb, ngen,
         if halloffame is not None:
             halloffame.update(offspring)
 
-        # for ind in offspring:
-        #     print(f"[{str(ind)}|{ind.fitness}]")
-
         # Select the next generation population
         combined = list(set(population + offspring))
         population[:] = toolbox.select(combined, mu)
@@ -183,12 +180,14 @@ def varOr(population, toolbox, lambda_, cxpb, mutpb):
             second = binary_tournament_nsga(ind3, ind4)
             ind1, ind2 = toolbox.mate(first, second)
             del ind1.fitness.values
+            ind1.birthyear = None
             offspring.append(ind1)
         elif op_choice < cxpb + mutpb:  # Apply mutation
             ind1, ind2 = list(map(toolbox.clone, random.sample(population, 2)))
             ind = binary_tournament_nsga(ind1, ind2)
             ind, = toolbox.mutate(ind)
             del ind.fitness.values
+            ind.birthyear = None
             offspring.append(ind)
         else:                           # Apply reproduction
             print("reproduce")
