@@ -149,7 +149,7 @@ def main():
             for parameter, value in args._get_kwargs():
                 fh.write(f"{parameter};{value}\n")
             fh.write(f"OS;{platform.system()} {platform.release()}\n")
-            fh.write(f"Python;{sys.version}\n")
+            fh.write(f"Python;{platform.python_version()}\n")
             fh.write(f"start-date;{datetime.datetime.now().isoformat()}\n")
 
     else:
@@ -256,7 +256,8 @@ def main():
             )
             # Hacky way to integrate early stopping with DEAP.
             if args.algorithm == 'mupluslambda':
-                if args.subset != 1.0 and i != args.ngen - 1 and i % 2 != 0:
+                if args.subset != 1.0 and i != args.ngen - 1:
+                    hof = tools.ParetoFront(similar=approx_eq)
                     # 'map' will be called within the optimization algorithm for batch evaluation.
                     # All evaluation variables are fixed, except for the individuals themselves.
                     toolbox.register(
@@ -291,17 +292,6 @@ def main():
             if args.algorithm == 'random_search':
                 pop = random_search(toolbox, popsize=args.lambda_, halloffame=hof)
 
-            # ====================== MODIFICATION ========================
-            # Kill off the oldest in the population
-            if i > 1:
-                # set current gen as birthyear for all newly initialized
-                # individuals
-                invalid_birthyear = [ind for ind in pop if not ind.birthyear]
-                for ind in invalid_birthyear:
-                    ind.birthyear = i
-                if not i % args.age_regularization:
-                    # delete the oldest (sort by birthyear) individual
-                    pop = sorted(pop, key=attrgetter("birthyear"))[1:]
             # ============================================================
 
             # Little hackery for logging with early stopping
@@ -315,6 +305,30 @@ def main():
                     record['size']['avg'], record['size']['max']
                 )
             )
+
+            # ====================== MODIFICATION ========================
+            # set current gen as birthyear for all newly initialized
+            # individuals
+            if i > 0 and args.output:
+                with open(os.path.join(run_dir, "age.csv"), 'a') as fh:
+                    birthyears = [i.birthyear for i in pop if i.birthyear is not None]
+                    if len(birthyears) == 0:
+                        # No assigned birthyear means all individuals are new.
+                        fh.write(f"{i};0;0\n")
+                    else:
+                        fh.write(f"{i};{i - sum(birthyears)/ len(birthyears)};{max(i - b for b in birthyears)}\n")
+
+            if i % args.age_regularization == 0 and i > args.age_regularization:
+                # cull -all- individuals older than args.age_regularization
+                old_pop_size = len(pop)
+                pop_to_live = [ind for ind in pop if ind.birthyear is None or ind.birthyear >= (i - args.age_regularization)]
+                killed_pop_size = old_pop_size - len(pop_to_live)
+                pop = [*pop_to_live, *toolbox.population(n=killed_pop_size)]
+
+            invalid_birthyear = [ind for ind in pop if ind.birthyear is None]
+            for ind in invalid_birthyear:
+                ind.birthyear = i
+
             if args.output:
                 with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
                     fh.write(f"{run_id};{task_group};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
@@ -396,6 +410,7 @@ def main():
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
                 for task in holdout_tasks:
+                    ind = str_to_individual(check_individual, pset)
                     score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
                     logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
