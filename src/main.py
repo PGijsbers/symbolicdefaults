@@ -126,7 +126,7 @@ def main():
             for parameter, value in args._get_kwargs():
                 fh.write(f"{parameter};{value}\n")
             fh.write(f"OS;{platform.system()} {platform.release()}\n")
-            fh.write(f"Python;{sys.version}\n")
+            fh.write(f"Python;{platform.python_version()}\n")
             fh.write(f"start-date;{datetime.datetime.now().isoformat()}\n")
 
     else:
@@ -283,7 +283,12 @@ def main():
             if i > 0:
                 with open(os.path.join(run_dir, "age.csv"), 'a') as fh:
                     birthyears = [i.birthyear for i in pop if i.birthyear is not None]
-                    fh.write(f"{i};{i - sum(birthyears)/ len(birthyears)};{max(i - b for b in birthyears)}\n")
+                    if len(birthyears) == 0:
+                        # No assigned birthyear means all individuals are new.
+                        fh.write(f"{i};0;0\n")
+                    else:
+                        fh.write(f"{i};{i - sum(birthyears)/ len(birthyears)};{max(i - b for b in birthyears)}\n")
+
             if i % args.age_regularization == 0 and i > args.age_regularization:
                 # cull -all- individuals older than args.age_regularization
                 old_pop_size = len(pop)
