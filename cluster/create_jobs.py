@@ -12,6 +12,7 @@ import argparse
 import itertools
 import os
 import sys
+import uuid
 
 sys.path.append("./src/")
 
@@ -23,7 +24,7 @@ from problem import Problem
 job_header = """\
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -t 2:00:00
+#SBATCH -t 00:30:00
 
 module load 2019
 module load Python/3.6.6-intel-2019b
@@ -58,6 +59,8 @@ def cli_parser():
                         help="Task(s) for which to perform hold-one-out (default=all).")
     parser.add_argument('-a', type=str, default='mupluslambda', dest="algorithm",
                         help="Algorithm for optimization [mupluslambda*, random_search].")
+    parser.add_argument('-age', type=int, default=None, dest='age')
+    parser.add_argument('-s', type=float, default=None, dest='subset') 
     parser.add_argument('-ngen',
                         help="Maximum number of generations (default=300)",
                         dest='ngen', type=int, default=300)
@@ -84,7 +87,7 @@ if __name__ == '__main__':
         if args.tasks == 'all':
             tasks = list(problem_data.metadata.index)
         for task in tasks:
-            job_name = f"jobs/{problem}_{args.algorithm}_{task}.job"
+            job_name = f"jobs/{problem}_{args.algorithm}_{task}_{str(uuid.uuid4())}.job"
             outdir = f"results/{problem}_{args.algorithm}/"
             with open(job_name, 'a') as fh:
                 fh.write(job_header)
@@ -107,6 +110,10 @@ if __name__ == '__main__':
                     search += f' -ngen {args.ngen}'
                 if args.early_stop_n != 20:
                     search += f' -esn {args.early_stop_n}'
+                if args.subset is not None:
+                    search += f' -s {args.subset}'
+                if args.age is not None:
+                    search += f' -age {args.age}'
 
                 mkdir = f"mkdir -p ~/results"
                 move = f"cp -r $TMPDIR/{outdir} ~/results"
