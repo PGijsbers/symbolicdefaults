@@ -75,7 +75,7 @@ def cli_parser():
                         help="Evaluate individuals on a random [S]ubset of size [0, 1].",
                         dest='subset', type=float, default=1.)
     parser.add_argument('-ho',
-                        help="Hold out a fraction of tasks for picking from Pareto front",
+                        help="Fraction of tasks to hold out for the validation set",
                         dest='holdout', type=float, default=0.0)
     parser.add_argument('--seed',
                         # I am not sure why it does not fix other random decisions,
@@ -216,6 +216,8 @@ def main():
             validation_idx = validation_task_random.sample(list(train_tasks.index), int(args.holdout * len(train_tasks)))
             val_tasks = train_tasks[train_tasks.index.isin(validation_idx)]
             train_tasks = train_tasks[~train_tasks.index.isin(validation_idx)]
+        else:
+            validation_idx = []
 
         # Seed population with configurations from problem.benchmark // fully "Symc" config
         pop = []
@@ -351,17 +353,6 @@ def main():
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
             if ((i > 1 and i % 50 == 0) or stop or args.algorithm == "random_search"):
-                if args.algorithm == "mupluslambda" and args.holdout > 0.0 and stop:
-                    toolbox.register(
-                        "map",
-                        functools.partial(
-                            mass_eval_fun, pset=pset, metadataset=val_tasks,
-                            surrogates=problem.surrogates, subset=1.0,
-                            toolbox=toolbox, optimize_constants=args.optimize_constants,
-                            problem=problem
-                        )
-                    )
-
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
                     scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
@@ -375,16 +366,22 @@ def main():
                     with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
                         for final_ind in pop:
                             fh.write(f"{run_id};{test_str};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            for task in validation_idx:
+                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
+                                fh.write(f"{run_id};{test_str};{task};val;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
                             for task in test_tasks:
                                 score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                                fh.write(f"{run_id};{test_str};{task};test;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
                     with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
                         for final_ind in hof:
                             fh.write(f"{run_id};{test_str};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                            for task in validation_idx:
+                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
+                                fh.write(f"{run_id};{test_str};{task};val;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
                             for task in test_tasks:
                                 score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                                fh.write(f"{run_id};{test_str};{task};test;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
 
                 for task in test_tasks:
                     for ind in sorted(hof, key=n_primitives_in):
@@ -392,7 +389,13 @@ def main():
                         logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
                         if args.output:
                             with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{test_str};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                                fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                if args.output:
+                    for task in validation_idx:
+                        for ind in sorted(hof, key=n_primitives_in):
+                            score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                            with open(os.path.join(run_dir, "evaluations.csv"),  'a') as fh:
+                                fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
@@ -412,13 +415,20 @@ def main():
 
             logging.info("BENCHMARK:  Evaluating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
+                for task in validation_idx:
+                    ind = str_to_individual(check_individual, pset)
+                    score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
+                    logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
                 for task in test_tasks:
                     ind = str_to_individual(check_individual, pset)
                     score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
                     logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{test_str};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                            fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
                             
     if args.output:
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
