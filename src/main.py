@@ -363,25 +363,16 @@ def main():
 
                 logging.info("Evaluating out-of-sample:")
                 if args.output and stop:
-                    with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-                        for final_ind in pop:
-                            fh.write(f"{run_id};{test_str};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in validation_idx:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};val;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in test_tasks:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};test;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                    save_to_final_file(
+                        validation_idx, test_tasks, pop, problem, toolbox, pset,
+                        run_id,
+                        filename=os.path.join(run_dir, "finalpops.csv")
+                    )
 
-                    with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
-                        for final_ind in hof:
-                            fh.write(f"{run_id};{test_str};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in validation_idx:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};val;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in test_tasks:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{test_str};{task};test;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                    save_to_final_file(
+                        validation_idx, test_tasks, hof, problem, toolbox, pset, run_id,
+                        filename=os.path.join(run_dir, "final_pareto.csv")
+                    )
 
                 for task in test_tasks:
                     for ind in sorted(hof, key=n_primitives_in):
@@ -444,6 +435,18 @@ def main():
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
+
+
+def save_to_final_file(validation_tasks, test_tasks, individuals, problem, toolbox, pset, run_id, filename):
+    with open(filename, 'a') as fh:
+        test_str = ",".join(str(task) for task in test_tasks)
+        for ind in individuals:
+            fh.write(f"{run_id};{test_str};0;in;{ind.fitness.wvalues[0]:.4f};{n_primitives_in(ind)};{ind}\n")
+
+            for task in validation_tasks + test_tasks:
+                score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                eval_type = 'val' if task in validation_tasks else 'test'
+                fh.write(f"{run_id};{test_str};{task};{eval_type};{score:.4f};{n_primitives_in(ind)};{ind}\n")
 
 
 def str_to_individual(individual_str, pset):
