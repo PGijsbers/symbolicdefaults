@@ -67,6 +67,10 @@ class Problem:
             if len(counts[counts==1]):
                 experiments.drop(experiments[experiments.task_id == counts[counts==1].index.values[0]].index, axis=0, inplace=True)
 
+            tasks_to_ignore = self._json.get("exclude", [])
+            if len(tasks_to_ignore) > 1:
+                experiments.drop(experiments[experiments.task_id.isin(tasks_to_ignore)].index, axis=0, inplace=True)
+
             if self._json.get("how") == "minimize":
                 experiments.target = -experiments.target
             self._data = experiments

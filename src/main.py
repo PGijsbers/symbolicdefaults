@@ -404,19 +404,22 @@ def main():
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                         fh.write(f"{run_id};{test_str};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
-            logging.info("BENCHMARK:  Evaluating out-of-sample:")
+            logging.info("BENCHMARK:  Validating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
                 for task in validation_idx:
                     ind = str_to_individual(check_individual, pset)
                     score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
-                    logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
+                    logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                             fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+
+            logging.info("BENCHMARK:  Testing out-of-sample:")
+            for check_name, check_individual in problem.benchmarks.items():
                 for task in test_tasks:
                     ind = str_to_individual(check_individual, pset)
                     score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
-                    logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
+                    logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
                             fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
