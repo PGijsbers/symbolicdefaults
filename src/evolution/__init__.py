@@ -78,7 +78,7 @@ def setup_toolbox(problem, args):
 
     # More DEAP boilerplate...
     creator.create("FitnessMin", base.Fitness, weights=(1.0, -1.0))
-    creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin, birthyear=0, __hash__=lambda x: hash(str(x)), __eq__=lambda s, o: hash(s) == hash(o))
+    creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin, birthyear=None, __hash__=lambda x: hash(str(x)), __eq__=lambda s, o: hash(s) == hash(o))
 
     def initBenchmarkPopulation(pcls, ind_init, pset, problem):
         return pcls(ind_init(gp.PrimitiveTree.from_string(c, pset)) for c in problem.benchmarks.values())
