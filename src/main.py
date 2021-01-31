@@ -323,7 +323,7 @@ def main():
                     else:
                         fh.write(f"{i};{i - sum(birthyears)/ len(birthyears)};{max(i - b for b in birthyears)}\n")
 
-            if i % args.age_regularization == 0 and i > args.age_regularization:
+            if i > args.age_regularization:
                 # cull -all- individuals older than args.age_regularization
                 old_pop_size = len(pop)
                 pop_to_live = [ind for ind in pop if ind.birthyear is None or ind.birthyear >= (i - args.age_regularization)]
