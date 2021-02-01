@@ -1,10 +1,10 @@
  {
     "name": "mlr_knn",
     "experiment_data": "data/rbv2_mlr_classif.RcppHNSW.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/hnsw_surrogates.pkl",
+    "surrogates": "data/hnsw_surrogates_logloss.pkl",
     "hyperparameters": {
       "k": "int",
       "M": "int",
@@ -17,7 +17,6 @@
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [
-      "perf.logloss",
       "learner",
       "traintime",
       "predicttime",

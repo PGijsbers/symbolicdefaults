@@ -1,10 +1,10 @@
 {
     "name": "mlr_rpart",
     "experiment_data": "data/rbv2_mlr_classif.rpart.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/rpart_surrogates.pkl",
+    "surrogates": "data/rpart_surrogates_logloss.pkl",
     "hyperparameters": {
       "cp": "float",
       "maxdepth": "int",
@@ -12,9 +12,7 @@
       "minsplit": "int"
     },
     "operators": "default",
-    "performance_column": "perf.mmce",
     "ignore": [
-      "perf.logloss",
       "learner",
       "traintime",
       "predicttime",

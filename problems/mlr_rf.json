@@ -1,10 +1,10 @@
 {
     "name": "mlr_rf",
     "experiment_data": "data/rbv2_mlr_classif.ranger.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/ranger_surrogates.pkl",
+    "surrogates": "data/ranger_surrogates_logloss.pkl",
     "hyperparameters": {
       "num.trees": "int",
       "sample.fraction": "float",
@@ -21,7 +21,6 @@
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [
-      "perf.logloss",
       "learner",
       "traintime",
       "predicttime",
