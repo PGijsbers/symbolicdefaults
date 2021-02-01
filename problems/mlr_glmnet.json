@@ -5,6 +5,7 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/glmnet_surrogates_logloss.pkl",
+    "exclude": [3945, 9970],
     "hyperparameters": {
       "alpha": "float",
       "s": "float"

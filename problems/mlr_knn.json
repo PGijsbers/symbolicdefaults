@@ -5,6 +5,7 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/hnsw_surrogates_logloss.pkl",
+    "exclude": [15, 24, 168868],
     "hyperparameters": {
       "k": "int",
       "M": "int",
