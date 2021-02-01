@@ -273,7 +273,7 @@ def main():
                     mass_eval_fun, pset=pset, metadataset=train_tasks,
                     surrogates=problem.surrogates, subset=1.0,
                     toolbox=toolbox, optimize_constants=args.optimize_constants,
-                    problem=problem
+                    problem=problem, agg=args.aggregate
                 )
             )
             # Hacky way to integrate early stopping with DEAP.
@@ -288,7 +288,7 @@ def main():
                             mass_eval_fun, pset=pset, metadataset=train_tasks,
                             surrogates=problem.surrogates, subset=args.subset,
                             toolbox=toolbox, optimize_constants=args.optimize_constants,
-                            problem=problem
+                            problem=problem, agg=args.aggregate
                         )
                     )
 
