@@ -60,12 +60,16 @@ def cli_parser():
                             "Optimize Constants. Instead of evaluating an individual with specific constants"
                             "evaluate based it on 50 random instantiation of constants instead."),
                         dest='optimize_constants', type=bool, default=False)
+    parser.add_argument('-opt',
+                        help="What to optimize for, mean or median.",
+                        dest='aggregate', type=str, default='mean')
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
     parser.add_argument('-k', '--leave-k-out',
-                        help="Amount of tasks to use for out-of-sample evaluations",
-                        dest='leave_k_out', type=int, default=1)
+                        help="Amount of tasks to use for out-of-sample evaluations,"
+                             "if it is float 0<k<1 then that fraction will be left out.",
+                        dest='leave_k_out', type=float, default=1)
     parser.add_argument('-warm',
                         help=(
                             "Warm-start optimization by including the 'benchmark' solutions in the "
