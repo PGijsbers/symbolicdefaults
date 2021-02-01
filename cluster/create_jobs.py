@@ -61,6 +61,8 @@ def cli_parser():
                         help="As main.py")
     parser.add_argument('-a', type=str, default='mupluslambda', dest="algorithm",
                         help="Algorithm for optimization [mupluslambda*, random_search].")
+    parser.add_argument('-opt', type=str, default='mean', dest="aggregate",
+                        help="mean or median")
     parser.add_argument('-age', type=int, default=None, dest='age')
     parser.add_argument('-s', type=float, default=None, dest='subset') 
     parser.add_argument('-ngen',
@@ -83,7 +85,7 @@ if __name__ == '__main__':
         problems = args.problems.split(',')
     folds = args.folds.split(',')
 
-    start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} -a {alg} -f {fold}"
+    start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} -a {alg} -f {fold} -opt {opt}"
     for problem in problems:
         problem_data = Problem(f"mlr_{problem}")
         for fold in folds:
@@ -101,7 +103,7 @@ if __name__ == '__main__':
                delay = ''
 
             for i in range(n_jobs):
-                search = start_command.format(problem=problem, outdir=outdir, alg=args.algorithm, fold=fold)
+                search = start_command.format(problem=problem, outdir=outdir, alg=args.algorithm, fold=fold, opt=args.aggregate)
                 if args.algorithm == "random_search":
                     search += ' -mss 3'
                 if problem == "xgboost":
