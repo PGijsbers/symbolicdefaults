@@ -128,8 +128,7 @@ def main():
     if args.leave_k_out > 1 and args.task is not None:
         raise ValueError("It is not possible to use leave-k-out when specifically "
                          f"holding out a task (k={args.leave_k_out}, task={args.task})")
-    random.seed(args.seed)
-    np.random.seed(args.seed)
+
     test_task_random = random.Random(args.seed)
     validation_task_random = random.Random(args.seed)
 
