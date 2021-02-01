@@ -1,10 +1,11 @@
 {
     "name": "mlr_svm",
     "experiment_data": "data/rbv2_mlr_classif.svm.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/mlr_svm_surrogates.pkl",
+    "surrogates": "data/mlr_svm_surrogates_logloss.pkl",
+    "exclude": [14971, 3903, 3945, 3481, 190412, 168908],
     "hyperparameters": {
       "cost": "float",
       "gamma": "float"
