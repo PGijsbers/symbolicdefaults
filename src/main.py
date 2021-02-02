@@ -75,7 +75,7 @@ def cli_parser():
                         help="Evaluate individuals on a random [S]ubset of size [0, 1].",
                         dest='subset', type=float, default=1.)
     parser.add_argument('-ho',
-                        help="Hold out a fraction of tasks for picking from Pareto front",
+                        help="Fraction of tasks to hold out for the validation set",
                         dest='holdout', type=float, default=0.0)
     parser.add_argument('--seed',
                         # I am not sure why it does not fix other random decisions,
@@ -128,8 +128,9 @@ def main():
     if args.leave_k_out > 1 and args.task is not None:
         raise ValueError("It is not possible to use leave-k-out when specifically "
                          f"holding out a task (k={args.leave_k_out}, task={args.task})")
-    random.seed(args.seed)
-    np.random.seed(args.seed)
+
+    test_task_random = random.Random(args.seed)
+    validation_task_random = random.Random(args.seed)
 
     if args.output:
         run_dir = os.path.join(args.output, run_id)
@@ -200,19 +201,22 @@ def main():
     in_sample_mean = {}
 
     if args.leave_k_out > 1:
-        random.shuffle(tasks)
+        test_task_random.shuffle(tasks)
 
     for task_idx in range(0, len(tasks), args.leave_k_out):
-        holdout_tasks = tasks[task_idx:task_idx + args.leave_k_out]
-        task_group = holdout_tasks[0] if len(holdout_tasks) == 1 else ",".join(str(task) for task in holdout_tasks)
+        test_tasks = tasks[task_idx:task_idx + args.leave_k_out]
+        test_str = test_tasks[0] if len(test_tasks) == 1 else ",".join(str(task) for task in test_tasks)
 
-        logging.info(f"START_TASKS: {holdout_tasks}")
+        logging.info(f"START_TASKS: {test_tasks}")
         # 'tasks' experiment data is used as validation set, so we must not use
         # it during our symbolic regression search.
-        loo_metadataset = problem.metadata[~problem.metadata.index.isin(holdout_tasks)]
+        train_tasks = problem.metadata[~problem.metadata.index.isin(test_tasks)]
         if args.holdout > 0.0:
-            val_metadata = loo_metadataset.sample(int(args.holdout * len(loo_metadataset)))
-            loo_metadataset = loo_metadataset[~loo_metadataset.index.isin(val_metadata.index)]
+            validation_idx = validation_task_random.sample(list(train_tasks.index), int(args.holdout * len(train_tasks)))
+            val_tasks = train_tasks[train_tasks.index.isin(validation_idx)]
+            train_tasks = train_tasks[~train_tasks.index.isin(validation_idx)]
+        else:
+            validation_idx = []
 
         # Seed population with configurations from problem.benchmark // fully "Symc" config
         pop = []
@@ -248,7 +252,7 @@ def main():
             toolbox.register(
                 "map",
                 functools.partial(
-                    mass_eval_fun, pset=pset, metadataset=loo_metadataset,
+                    mass_eval_fun, pset=pset, metadataset=train_tasks,
                     surrogates=problem.surrogates, subset=1.0,
                     toolbox=toolbox, optimize_constants=args.optimize_constants,
                     problem=problem
@@ -263,7 +267,7 @@ def main():
                     toolbox.register(
                         "map",
                         functools.partial(
-                            mass_eval_fun, pset=pset, metadataset=loo_metadataset,
+                            mass_eval_fun, pset=pset, metadataset=train_tasks,
                             surrogates=problem.surrogates, subset=args.subset,
                             toolbox=toolbox, optimize_constants=args.optimize_constants,
                             problem=problem
@@ -318,7 +322,7 @@ def main():
                     else:
                         fh.write(f"{i};{i - sum(birthyears)/ len(birthyears)};{max(i - b for b in birthyears)}\n")
 
-            if i % args.age_regularization == 0 and i > args.age_regularization:
+            if i > args.age_regularization:
                 # cull -all- individuals older than args.age_regularization
                 old_pop_size = len(pop)
                 pop_to_live = [ind for ind in pop if ind.birthyear is None or ind.birthyear >= (i - args.age_regularization)]
@@ -331,7 +335,7 @@ def main():
 
             if args.output:
                 with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
-                    fh.write(f"{run_id};{task_group};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
+                    fh.write(f"{run_id};{test_str};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
             logging.info(generation_info_string)
 
             stop = (i == args.ngen - 1)
@@ -348,48 +352,40 @@ def main():
             # Evaluate in-sample and out-of-sample every N iterations OR
             # in the early stopping iteration
             if ((i > 1 and i % 50 == 0) or stop or args.algorithm == "random_search"):
-                if args.algorithm == "mupluslambda" and args.holdout > 0.0 and stop:
-                    toolbox.register(
-                        "map",
-                        functools.partial(
-                            mass_eval_fun, pset=pset, metadataset=val_metadata,
-                            surrogates=problem.surrogates, subset=1.0,
-                            toolbox=toolbox, optimize_constants=args.optimize_constants,
-                            problem=problem
-                        )
-                    )
-
                 logging.info("Evaluating in sample:")
                 for ind in sorted(hof, key=n_primitives_in):
                     scale_result, length = list(toolbox.map(toolbox.evaluate, [ind]))[0]
                     logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{task_group};0;{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
+                            fh.write(f"{run_id};{test_str};0;{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
 
                 logging.info("Evaluating out-of-sample:")
                 if args.output and stop:
-                    with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-                        for final_ind in pop:
-                            fh.write(f"{run_id};{task_group};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in holdout_tasks:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{task_group};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                    save_to_final_file(
+                        validation_idx, test_tasks, pop, problem, toolbox, pset,
+                        run_id,
+                        filename=os.path.join(run_dir, "finalpops.csv")
+                    )
 
-                    with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
-                        for final_ind in hof:
-                            fh.write(f"{run_id};{task_group};0;in;{final_ind.fitness.wvalues[0]:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
-                            for task in holdout_tasks:
-                                score = get_surrogate_score(problem, task, final_ind, pset, toolbox)
-                                fh.write(f"{run_id};{task_group};{task};out;{score:.4f};{n_primitives_in(final_ind)};{final_ind}\n")
+                    save_to_final_file(
+                        validation_idx, test_tasks, hof, problem, toolbox, pset, run_id,
+                        filename=os.path.join(run_dir, "final_pareto.csv")
+                    )
 
-                for task in holdout_tasks:
+                for task in test_tasks:
                     for ind in sorted(hof, key=n_primitives_in):
                         score = get_surrogate_score(problem, task, ind, pset, toolbox)
                         logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
                         if args.output:
                             with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{task_group};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                                fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                if args.output:
+                    for task in validation_idx:
+                        for ind in sorted(hof, key=n_primitives_in):
+                            score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                            with open(os.path.join(run_dir, "evaluations.csv"),  'a') as fh:
+                                fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
@@ -405,17 +401,27 @@ def main():
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{task_group};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                        fh.write(f"{run_id};{test_str};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
-            logging.info("BENCHMARK:  Evaluating out-of-sample:")
+            logging.info("BENCHMARK:  Validating out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
-                for task in holdout_tasks:
+                for task in validation_idx:
                     ind = str_to_individual(check_individual, pset)
                     score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
-                    logging.info(f"[GEN_{i}|{check_name}: {ind}|{score:.4f}]")
+                    logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{task_group};{task};{i};out;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                            fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+
+            logging.info("BENCHMARK:  Testing out-of-sample:")
+            for check_name, check_individual in problem.benchmarks.items():
+                for task in test_tasks:
+                    ind = str_to_individual(check_individual, pset)
+                    score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
+                    logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
+                    if args.output:
+                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
+                            fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
                             
     if args.output:
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
@@ -431,6 +437,18 @@ def main():
 
     time_end = time.time()
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
+
+
+def save_to_final_file(validation_tasks, test_tasks, individuals, problem, toolbox, pset, run_id, filename):
+    with open(filename, 'a') as fh:
+        test_str = ",".join(str(task) for task in test_tasks)
+        for ind in individuals:
+            fh.write(f"{run_id};{test_str};0;in;{ind.fitness.wvalues[0]:.4f};{n_primitives_in(ind)};{ind}\n")
+
+            for task in validation_tasks + test_tasks:
+                score = get_surrogate_score(problem, task, ind, pset, toolbox)
+                eval_type = 'val' if task in validation_tasks else 'test'
+                fh.write(f"{run_id};{test_str};{task};{eval_type};{score:.4f};{n_primitives_in(ind)};{ind}\n")
 
 
 def str_to_individual(individual_str, pset):
