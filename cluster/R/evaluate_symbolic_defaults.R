@@ -32,20 +32,12 @@ if (!file.exists(REG_DIR)) {
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
 
   # Each line in grd is a configuration
-  grd = fread("data/random_search_30k.csv")
-  grd = grd[, c("problem", "task", "expression")]
-  grd[problem == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
+  grd = fread("data/symbolic_defaults_rank.csv")
+  grd = grd[, c("algorithm", "task", "expression")]
+  grd[algorithm == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)]
   grd = unique(grd)
   addExperiments(algo.designs = list(run_algo = grd))
-
-  grd = fread("data/random_search_30k_xgb.csv")
-  grd = grd[, c("problem", "task", "expression")]
-  grd[problem == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
-  grd = unique(grd)
-  addExperiments(algo.designs = list(run_algo = grd))
-
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
 }
@@ -64,21 +56,7 @@ while (length(jobs)) {
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(3)
-}
 
-# Submit xgboost jobs ### ssh: compstat
-
-jobs = findNotDone()$job.id
-while (length(jobs)) {
-  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
-  if (length(jobs)) {
-    jt = getJobTable(jobs)
-    jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_rpart", "mlr_rf", "mlr_knn"), ]$job.id)
-    try({submitJobs(sample(jobs))})
-  }
-  Sys.sleep(3)
-}
 
 
 
