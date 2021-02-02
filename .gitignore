@@ -1,2 +1,6 @@
 *__pycache__*
 .idea
+runs
+.ipynb_checkpoints
+*/.ipynb_checkpoints
+data
