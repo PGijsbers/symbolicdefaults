@@ -15,7 +15,6 @@ library(lgr)
 
 
 REG_DIR = "cluster/registry_symbolics"
-RESAMPLE_PARALLEL_CPUS = 5
 
 source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw.R", "cluster/R/helpers.R", "cluster/R/config.R")
 sapply(source_files, source)
@@ -55,7 +54,7 @@ if (!file.exists(REG_DIR)) {
   # unlink(REG_DIR, TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(6)
+# reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 
 # Submit jobs

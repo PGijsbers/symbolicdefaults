@@ -175,7 +175,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = c(z$mlr.measures, list(mlr::logloss, mlr::mmce)))
 		})
     aggr = bmr$results[[1]][[1]]$aggr
-    measure = "mmce.test.mean"
+    measure = "mmce.test.logloss"
     lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
     bmr$results[[1]][[1]]
 }
