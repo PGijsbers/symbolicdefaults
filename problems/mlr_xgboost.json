@@ -1,10 +1,11 @@
 {
     "name": "mlr_xgboost",
     "experiment_data": "data/rbv2_mlr_classif.xgboost.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/xgboost_surrogates.pkl",
+    "surrogates": "data/xgboost_surrogates_logloss.pkl",
+    "exclude": [10090, 9970, 9956, 125920, 167120, 3560],
     "hyperparameters": {
       "nrounds": "int",
       "eta": "float",
@@ -17,19 +18,17 @@
       "colsample_bytree": "float",
       "colsample_bylevel": "float"
     },
-    "fixed": {"nrounds": 500.0},
     "filters": {"booster" : "gbtree"},
     "operators": "default",
     "performance_column": "perf.mmce",
     "ignore": [
-      "perf.logloss",
       "learner",
       "traintime",
       "predicttime",
       "dataset"
     ],
     "benchmark": {
-      "sklearn_default": "make_tuple(0.1, 1.0, 0.0, 0.0, 1.0, 3.0, 1.0,                  1.0,                                         1.0)",
-      "symbolic_best":   "make_tuple(mcp, 2.0, mkd, rc,  n,   5.0, add(expit(xvar), rc), if_gt(0.006719436963715575, xvar, rc, xvar), expit(0.20443125043321808))"
+      "sklearn_default": "make_tuple(10.0, 0.1, 1.0, 0.0, 0.0, 1.0, 3.0, 1.0, 1.0, 1.0)",
+      "symbolic_best":   "make_tuple(500.0, mcp, 2.0, mkd, rc,  n,   5.0, add(expit(xvar), rc), if_gt(0.006719436963715575, xvar, rc, xvar), expit(0.20443125043321808))"
     }
 }

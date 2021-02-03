@@ -55,10 +55,14 @@ def cli_parser():
     parser = argparse.ArgumentParser(description="Queue jobs for Symbolic Defaults experiments.")
     parser.add_argument('-p', type=str, default='all', dest="problems",
                         help="Problem(s) to optimize separated by a comma. (default=all)")
-    parser.add_argument('-t', type=str, default='all', dest="tasks",
-                        help="Task(s) for which to perform hold-one-out (default=all).")
+    parser.add_argument('-f', type=str, default='all', dest="folds",
+                        help="Fold(s) for which to optimize (default=all).")
+    parser.add_argument('-k', type=float, default=1, dest="leave_k_out",
+                        help="As main.py")
     parser.add_argument('-a', type=str, default='mupluslambda', dest="algorithm",
                         help="Algorithm for optimization [mupluslambda*, random_search].")
+    parser.add_argument('-opt', type=str, default='mean', dest="aggregate",
+                        help="mean or median")
     parser.add_argument('-age', type=int, default=None, dest='age')
     parser.add_argument('-s', type=float, default=None, dest='subset') 
     parser.add_argument('-ngen',
@@ -79,15 +83,13 @@ if __name__ == '__main__':
         problems = ['svm', 'knn', 'glmnet', 'rf', 'rpart']  # , 'xgboost']
     else:
         problems = args.problems.split(',')
-    tasks = args.tasks.split(',')
+    folds = args.folds.split(',')
 
-    start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} -a {alg} -t {task}"
+    start_command = "python src/main.py mlr_{problem} -o $TMPDIR/{outdir} -a {alg} -f {fold} -opt {opt}"
     for problem in problems:
         problem_data = Problem(f"mlr_{problem}")
-        if args.tasks == 'all':
-            tasks = list(problem_data.metadata.index)
-        for task in tasks:
-            job_name = f"jobs/{problem}_{args.algorithm}_{task}_{str(uuid.uuid4())}.job"
+        for fold in folds:
+            job_name = f"jobs/{problem}_{args.algorithm}_{fold}_{str(uuid.uuid4())}.job"
             outdir = f"results/{problem}_{args.algorithm}/"
             with open(job_name, 'a') as fh:
                 fh.write(job_header)
@@ -101,7 +103,7 @@ if __name__ == '__main__':
                delay = ''
 
             for i in range(n_jobs):
-                search = start_command.format(problem=problem, outdir=outdir, alg=args.algorithm, task=task)
+                search = start_command.format(problem=problem, outdir=outdir, alg=args.algorithm, fold=fold, opt=args.aggregate)
                 if args.algorithm == "random_search":
                     search += ' -mss 3'
                 if problem == "xgboost":
@@ -114,6 +116,8 @@ if __name__ == '__main__':
                     search += f' -s {args.subset}'
                 if args.age is not None:
                     search += f' -age {args.age}'
+                if args.leave_k_out is not None:
+                    search += f' -k {args.leave_k_out}'
 
                 mkdir = f"mkdir -p ~/results"
                 move = f"cp -r $TMPDIR/{outdir} ~/results"

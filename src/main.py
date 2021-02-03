@@ -2,6 +2,7 @@ import argparse
 import datetime
 import functools
 import logging
+import math
 import os
 import random
 import time
@@ -60,12 +61,19 @@ def cli_parser():
                             "Optimize Constants. Instead of evaluating an individual with specific constants"
                             "evaluate based it on 50 random instantiation of constants instead."),
                         dest='optimize_constants', type=bool, default=False)
+    parser.add_argument('-opt',
+                        help="What to optimize for, mean or median.",
+                        dest='aggregate', type=str, default='mean')
     parser.add_argument('-t',
                         help="Perform search and evaluation for this task only.",
                         dest='task', type=int, default=None)
     parser.add_argument('-k', '--leave-k-out',
-                        help="Amount of tasks to use for out-of-sample evaluations",
-                        dest='leave_k_out', type=int, default=1)
+                        help="Amount of tasks to use for out-of-sample evaluations,"
+                             "if it is float 0<k<1 then that fraction will be left out.",
+                        dest='leave_k_out', type=float, default=1)
+    parser.add_argument('-f', '--fold',
+                        help="The fold of k-fold validation to run, if None run all.",
+                        dest='fold', type=int, default=None)
     parser.add_argument('-warm',
                         help=(
                             "Warm-start optimization by including the 'benchmark' solutions in the "
@@ -74,9 +82,6 @@ def cli_parser():
     parser.add_argument('-s',
                         help="Evaluate individuals on a random [S]ubset of size [0, 1].",
                         dest='subset', type=float, default=1.)
-    parser.add_argument('-ho',
-                        help="Fraction of tasks to hold out for the validation set",
-                        dest='holdout', type=float, default=0.0)
     parser.add_argument('--seed',
                         # I am not sure why it does not fix other random decisions,
                         # but order for leave-k-out tasks is determined first so
@@ -84,7 +89,7 @@ def cli_parser():
                         # I suspect floating point precision to be the culprit,
                         # but I have not looked into it.
                         help=("Seed for random number generator. "
-                              "Currently only fixes samples for leave-k-out"),
+                              "Currently only fixes samples for cross-validation"),
                         dest='seed', type=int, default=0)
     parser.add_argument('-cst',
                     help=("Search only constant formulas?"),
@@ -120,17 +125,31 @@ def configure_logging(output_file: str = None):
         logging.getLogger().addHandler(log_file_handle)
 
 
+def calculate_folds(N, k):
+    if k >= 1:
+        n_folds = math.floor(N / k)
+    else:
+        n_folds = int(1 / k)
+
+    fold_size = math.floor(N / n_folds)
+    remainder = N % n_folds
+    # we distribute one remainder per fold, starting with the first
+    return [
+        (i * fold_size + min(j, remainder), (i + 1) * fold_size + min(j, remainder) + (1 if remainder - j > 0 else 0))
+        for j, i in enumerate(range(n_folds))
+    ]
+
+
 def main():
     run_id = str(uuid.uuid4())
     # Numpy must raise all warnings, otherwise overflows may go undetected.
     np.seterr(all='raise')
     args = cli_parser()
-    if args.leave_k_out > 1 and args.task is not None:
+    if args.leave_k_out != 1 and args.task is not None:
         raise ValueError("It is not possible to use leave-k-out when specifically "
                          f"holding out a task (k={args.leave_k_out}, task={args.task})")
 
     test_task_random = random.Random(args.seed)
-    validation_task_random = random.Random(args.seed)
 
     if args.output:
         run_dir = os.path.join(args.output, run_id)
@@ -138,13 +157,13 @@ def main():
         log_file = os.path.join(run_dir, 'output.log')
         configure_logging(log_file)
         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-            fh.write(f"run;k_tasks;task;gen;inout;score;length;endresult;expression\n")
+            fh.write(f"run;fold;task;gen;inout;score;length;endresult;expression\n")
         with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
             fh.write(f"run;task;generation;score_min;score_avg;score_max\n")
         with open(os.path.join(run_dir, "finalpops.csv"), 'a') as fh:
-            fh.write(f"run;k_tasks;task;sample;score;length;expression\n")
+            fh.write(f"run;fold;task;score;length;expression\n")
         with open(os.path.join(run_dir, "final_pareto.csv"), 'a') as fh:
-            fh.write(f"run;k_tasks;task;sample;score;length;expression\n")
+            fh.write(f"run;fold;task;score;length;expression\n")
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
             fh.write("field;value\n")
             for parameter, value in args._get_kwargs():
@@ -200,23 +219,22 @@ def main():
     # ================================================
     in_sample_mean = {}
 
-    if args.leave_k_out > 1:
-        test_task_random.shuffle(tasks)
+    test_task_random.shuffle(tasks)
+    if args.task:
+        task_idx = tasks.index(args.task)
+        folds = [(task_idx, task_idx + 1)]
+    else:
+        folds = calculate_folds(len(tasks), args.leave_k_out)
 
-    for task_idx in range(0, len(tasks), args.leave_k_out):
-        test_tasks = tasks[task_idx:task_idx + args.leave_k_out]
-        test_str = test_tasks[0] if len(test_tasks) == 1 else ",".join(str(task) for task in test_tasks)
+    for fold, (start, end) in enumerate(folds):
+        if args.fold is not None and args.fold != fold:
+            continue
+        test_tasks = tasks[start:end]
 
-        logging.info(f"START_TASKS: {test_tasks}")
+        logging.info(f"START_TASKS: {fold}")
         # 'tasks' experiment data is used as validation set, so we must not use
         # it during our symbolic regression search.
         train_tasks = problem.metadata[~problem.metadata.index.isin(test_tasks)]
-        if args.holdout > 0.0:
-            validation_idx = validation_task_random.sample(list(train_tasks.index), int(args.holdout * len(train_tasks)))
-            val_tasks = train_tasks[train_tasks.index.isin(validation_idx)]
-            train_tasks = train_tasks[~train_tasks.index.isin(validation_idx)]
-        else:
-            validation_idx = []
 
         # Seed population with configurations from problem.benchmark // fully "Symc" config
         pop = []
@@ -255,7 +273,7 @@ def main():
                     mass_eval_fun, pset=pset, metadataset=train_tasks,
                     surrogates=problem.surrogates, subset=1.0,
                     toolbox=toolbox, optimize_constants=args.optimize_constants,
-                    problem=problem
+                    problem=problem, agg=args.aggregate
                 )
             )
             # Hacky way to integrate early stopping with DEAP.
@@ -270,7 +288,7 @@ def main():
                             mass_eval_fun, pset=pset, metadataset=train_tasks,
                             surrogates=problem.surrogates, subset=args.subset,
                             toolbox=toolbox, optimize_constants=args.optimize_constants,
-                            problem=problem
+                            problem=problem, agg=args.aggregate
                         )
                     )
 
@@ -335,7 +353,7 @@ def main():
 
             if args.output:
                 with open(os.path.join(run_dir, "progress.csv"), 'a') as fh:
-                    fh.write(f"{run_id};{test_str};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
+                    fh.write(f"{run_id};{fold};{i};{record['fitness']['min']};{record['fitness']['avg']};{record['fitness']['max']}\n")
             logging.info(generation_info_string)
 
             stop = (i == args.ngen - 1)
@@ -358,18 +376,15 @@ def main():
                     logging.info(f"[GEN_{i}|{ind}|{scale_result:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{test_str};0;{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
+                            fh.write(f"{run_id};{fold};0;{i};in;{scale_result:.4f};{length};{stop};{ind}\n")
 
                 logging.info("Evaluating out-of-sample:")
                 if args.output and stop:
-                    save_to_final_file(
-                        validation_idx, test_tasks, pop, problem, toolbox, pset,
-                        run_id,
+                    save_to_final_file(test_tasks, pop, fold, problem, toolbox, pset, run_id,
                         filename=os.path.join(run_dir, "finalpops.csv")
                     )
 
-                    save_to_final_file(
-                        validation_idx, test_tasks, hof, problem, toolbox, pset, run_id,
+                    save_to_final_file(test_tasks, hof, fold, problem, toolbox, pset, run_id,
                         filename=os.path.join(run_dir, "final_pareto.csv")
                     )
 
@@ -379,13 +394,7 @@ def main():
                         logging.info(f"[GEN_{i}|{ind}|{score:.4f}]")
                         if args.output:
                             with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                                fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
-                if args.output:
-                    for task in validation_idx:
-                        for ind in sorted(hof, key=n_primitives_in):
-                            score = get_surrogate_score(problem, task, ind, pset, toolbox)
-                            with open(os.path.join(run_dir, "evaluations.csv"),  'a') as fh:
-                                fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
+                                fh.write(f"{run_id};{fold};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{stop};{ind}\n")
 
             if stop:
                 logging.info(f"Stopped early in iteration {early_stop_iter}, no improvement in {args.early_stop_n} gens.")
@@ -401,17 +410,7 @@ def main():
                 in_sample_mean[task][check_name] = scale_result
                 if args.output:
                     with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                        fh.write(f"{run_id};{test_str};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
-
-            logging.info("BENCHMARK:  Validating out-of-sample:")
-            for check_name, check_individual in problem.benchmarks.items():
-                for task in validation_idx:
-                    ind = str_to_individual(check_individual, pset)
-                    score = get_surrogate_score(problem, task, check_individual, pset, toolbox)
-                    logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
-                    if args.output:
-                        with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{test_str};{task};{i};val;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                        fh.write(f"{run_id};{fold};0;{i};in;{scale_result:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
 
             logging.info("BENCHMARK:  Testing out-of-sample:")
             for check_name, check_individual in problem.benchmarks.items():
@@ -421,7 +420,7 @@ def main():
                     logging.info(f"[GEN_{i}|{task}|{check_name}: {ind}|{score:.4f}]")
                     if args.output:
                         with open(os.path.join(run_dir, "evaluations.csv"), 'a') as fh:
-                            fh.write(f"{run_id};{test_str};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
+                            fh.write(f"{run_id};{fold};{task};{i};test;{score:.4f};{n_primitives_in(ind)};{True};{check_name}\n")
                             
     if args.output:
         with open(os.path.join(run_dir, "metadata.csv"), 'a') as fh:
@@ -439,16 +438,13 @@ def main():
     logging.info("Finished problem {} in {} seconds!".format(args.problem, round(time_end - time_start)))
 
 
-def save_to_final_file(validation_tasks, test_tasks, individuals, problem, toolbox, pset, run_id, filename):
+def save_to_final_file(test_tasks, individuals, fold, problem, toolbox, pset, run_id, filename):
     with open(filename, 'a') as fh:
-        test_str = ",".join(str(task) for task in test_tasks)
         for ind in individuals:
-            fh.write(f"{run_id};{test_str};0;in;{ind.fitness.wvalues[0]:.4f};{n_primitives_in(ind)};{ind}\n")
-
-            for task in validation_tasks + test_tasks:
+            fh.write(f"{run_id};{fold};0;{ind.fitness.wvalues[0]:.4f};{n_primitives_in(ind)};{ind}\n")
+            for task in test_tasks:
                 score = get_surrogate_score(problem, task, ind, pset, toolbox)
-                eval_type = 'val' if task in validation_tasks else 'test'
-                fh.write(f"{run_id};{test_str};{task};{eval_type};{score:.4f};{n_primitives_in(ind)};{ind}\n")
+                fh.write(f"{run_id};{fold};{task};{score:.4f};{n_primitives_in(ind)};{ind}\n")
 
 
 def str_to_individual(individual_str, pset):
