@@ -19,6 +19,14 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
 
+
+run_files = c(
+  "data/symbolic_defaults_rank.csv",
+  "data/symbolic_defaults_max_len.csv",
+  "glmnet_found_by_hp_based_max_length.csv",
+  "glmnet_found_by_rean_mean.csv"
+)
+
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
   reg = makeExperimentRegistry(
@@ -31,19 +39,15 @@ if (!file.exists(REG_DIR)) {
   addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = RESAMPLE_PARALLEL_CPUS)})
 
   # Each line in grd is a configuration
-  grd = fread("data/symbolic_defaults_rank.csv")
-  grd = grd[, c("algorithm", "task", "expression")]
-  grd[algorithm == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
-  grd = unique(grd)
-  addExperiments(algo.designs = list(run_algo = grd))
+  for (file in run_files) {
+    grd = fread(file)
+    grd = grd[, c("algorithm", "task", "expression")]
+    grd[algorithm == "random forest", ]$problem = "rf"
+    grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
+    grd = unique(grd)
+    addExperiments(algo.designs = list(run_algo = grd))
+  }
 
-  grd = fread("data/symbolic_defaults_max_len.csv")
-  grd = grd[, c("algorithm", "task", "expression")]
-  grd[algorithm == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
-  grd = unique(grd)
-  addExperiments(algo.designs = list(run_algo = grd))
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
   # unlink(REG_DIR, TRUE)
@@ -59,7 +63,6 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost", "mlr_knn", "mlr_rpart"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(500)
