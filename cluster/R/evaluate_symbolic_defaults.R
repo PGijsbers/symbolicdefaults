@@ -117,12 +117,73 @@ while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
   if (length(jobs)) {
     jt = getJobTable(jobs)
-    jt = cbind(jt, setnames(map_dtr(jt$algo.pars, function(x) x$task), "problem", "problem_name"))
+    jt$problem_name = map_chr(jt$algo.pars, function(x) x$problem)
     jt = jt[problem_name %in% ALGOS]
     try({submitJobs(sample(jt$job.id))})
   }
   Sys.sleep(500)
 }
+
+
+
+####################################################################################################
+### Implementation defaults
+
+run_files = c(
+  "data/mlr_rf_real_data_baselines_results.csv",
+  "data/mlr_svm_real_data_baselines_results.csv",
+  "data/mlr_glmnet_real_data_baselines_results.csv",
+  "data/mlr_xgboost_real_data_baselines_results.csv",
+  "data/mlr_rpart_real_data_baselines_results.csv",
+  "data/mlr_knn_real_data_baselines_results.csv"
+)
+
+# Create Job Registry
+if (!file.exists(REG_DIR)) {
+  reg = makeExperimentRegistry(
+    file.dir = REG_DIR,
+    seed = 1,
+    packages = source_packages,
+    source = source_files
+  )
+  addProblem("symbolic_best_best")
+  addAlgorithm("run_algo", fun = function(data, job, instance, ...) {run_algo(..., parallel = 1)})
+
+  # Each line in grd is a configuration
+  for (file in run_files) {
+    grd = fread(file)
+    grd = grd[, c("problem_name", "task", "str", "default")]
+    grd = unique(grd)
+    # Do not run excluded tasks
+    exclude = unlist(jsonlite::read_json(paste0("problems/", unique(grd$problem_name), ".json"))$exclude)
+    grd = grd[!(grd$task %in% exclude), ]
+
+    addExperiments(algo.designs = list(run_algo = grd))
+  }
+
+} else {
+  reg = loadRegistry(REG_DIR, writeable = TRUE)
+  # unlink(REG_DIR, TRUE)
+}
+
+
+reg$cluster.functions = makeClusterFunctionsSocket(16)
+# Submit jobs
+jobs = findNotDone()$job.id
+while (length(jobs)) {
+  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
+  if (length(jobs)) {
+    jt = getJobTable(jobs)
+    jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+    jt = jt[problem_name %in% ALGOS]
+
+    try({submitJobs(sample(jt$job.id))})
+  }
+  Sys.sleep(500)
+}
+
+
+
 
 # Collect results.
 # if (FALSE) {
