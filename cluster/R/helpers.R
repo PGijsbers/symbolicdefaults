@@ -1,3 +1,28 @@
+install_requirements = function() {
+  install.packages("mlr")
+  install.packages("OpenML")
+  install.packages("farff")
+  install.packages("data.table")
+  install.packages("OpenML")
+  install.packages("testthat")
+  install.packages("mlrCPO")
+  install.packages("jsonlite")
+  install.packages("parallelMap")
+  install.packages("reticulate")
+  install.packages("BBmisc")
+  install.packages("batchtools")
+  install.packages("mlr3misc")
+  install.packages("lgr")
+  install.packages("e1071")
+  install.packages("glmnet")
+  install.packages("rpart")
+  install.packages("xgboost")
+  install.packages("ranger")
+  install.packages("RcppHNSW")
+  install.packages("snow")
+}
+
+
 # Iterate over a list converting character "TRUE", "FALSE" to logical.
 parse_lgl = function(lst) {
   lst = lapply(lst, function(x) {
@@ -103,22 +128,24 @@ sanitize_algo = function(algo) {
 repairPoints2 = function(ps, hpars) {
   library(mlr3misc)
 
-  # browser()
+  hpars_num = keep(hpars, is.numeric)
   # Current invalid strategy: Replace with 10^-6
-  invalids = map_lgl(hpars, is.infinite) | map_lgl(hpars, is.nan) | map_lgl(hpars, function(x) if (is.numeric(x)) abs(x) >= 1.2676506e+30 else FALSE)
+  invalids = map_lgl(hpars_num, is.infinite) | map_lgl(hpars_num, is.nan) | map_lgl(hpars_num, function(x) if (is.numeric(x)) abs(x) >= 1.2676506e+30 else FALSE)
   if (any(invalids)) {
-    hpars[invalids] = 10^-6
+    hpars_num[invalids] = 10^-6
   }
-  too_big_int = map_lgl(hpars, function(x) if (is.numeric(x)) abs(x) >= .Machine$integer.max else FALSE)
+  too_big_int = map_lgl(hpars_num, function(x) if (is.numeric(x)) abs(x) >= .Machine$integer.max else FALSE)
   if (any(too_big_int)) {
-    hpars[too_big_int] = .Machine$integer.max - 1
+    hpars_num[too_big_int] = .Machine$integer.max - 1
   }
-
+  hpars = insert(hpars, hpars_num)
   hpars = repairPoint(ps, hpars)
   setNames(mlr3misc::pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
-    if(type == "integer") par = round(par)
+    if (type == "integer" && !is.null(par)) par = round(par)
+    # if (type == "integer" && is.null(par)) par = 10^6
     return(par)
   }), names(hpars))
+  keep(hpars, Negate(is.null))
 }
 
 # Get task ids for a given problem.
@@ -174,6 +201,60 @@ run_algo = function(problem, task, str, parallel = 10L) {
 	    lrn = setHyperPars(lrn)
 		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = c(z$mlr.measures, list(mlr::logloss, mlr::mmce)))
 		})
+    aggr = bmr$results[[1]][[1]]$aggr
+    measure = "logloss.test.mean"
+    lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
+    bmr$results[[1]][[1]]
+}
+
+# Run an algorithm
+# @param algo :: algorithm name, e.g. classif.svm
+# @param task :: task_id, e.g. 3
+# @param str  :: tuple string, e.g. "make_tuple(1,1)"
+# @example
+# run_algo("mlr_svm", 3, "make_tuple(1,1)")
+run_algo_2 = function(problem, task, cfg, parallel = 10L) {
+
+   if (set_parallel_by_task(parallel, task) && problem != "mlr_xgboost")
+          parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
+    on.exit(parallelMap::parallelStop())
+
+    lgr = get_logger("eval_logger")$set_threshold("info")
+    lgr$add_appender(lgr::AppenderFile$new("runs/mlr_evaluation_log.log"))
+
+    lgr$info(sprintf("Evaluating %s|%s|%s", problem, task, paste0(as.character(cfg), collapse=",")))
+
+    # Get learner and hyperpars
+    lrn = make_preproc_pipeline(problem)
+    hpars = cfg
+
+    # Repair hyperparams according to paramset before predicting
+    ps = filterParams(getParamSet(lrn), names(hpars))
+    hpars = parse_lgl(hpars)
+    hpars = repairPoints2(ps, hpars[names(ps$pars)])
+    lrn = setHyperPars(lrn, par.vals = hpars)
+    if (problem == "mlr_xgboost")
+      lrn = setHyperPars(lrn, nthread = 1L)
+    bmr = try({
+        # Some task have gotten different ids
+        task = fix_task(task)
+        omltsk = getOMLTask(task)
+        # Hack away bugs / missing stuff in OpenML, stratified does not matter as splits are fixed anyway
+        if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
+        if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
+        z = convertOMLTaskToMlr(omltsk, measures = mmce)
+        if (problem == "mlr_random forest") {
+          nfeats = sum(z$mlr.task$task.desc$n.feat)
+          if (task %in% c(3, 219, 15)) nfeats = 0.8*nfeats
+          lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], nfeats), 1))
+        }
+        if (problem == "mlr_knn") {
+          hpars[["M"]] = min(64, hpars[["M"]])
+          hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]])
+        }
+      lrn = setHyperPars(lrn)
+        benchmark(lrn, z$mlr.task, z$mlr.rin, measures = c(z$mlr.measures, list(mlr::logloss, mlr::mmce)))
+    })
     aggr = bmr$results[[1]][[1]]$aggr
     measure = "logloss.test.mean"
     lgr$info(sprintf("Result: %s: %s", measure, aggr[[measure]]))
