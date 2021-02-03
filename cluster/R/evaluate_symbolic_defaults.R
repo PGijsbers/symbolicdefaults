@@ -18,9 +18,10 @@ REG_DIR = "cluster/registry_symbolics"
 source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw.R", "cluster/R/helpers.R", "cluster/R/config.R")
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
-
-
 ALGOS = "mlr_svm"
+
+
+
 ####################################################################################################
 ### Results: unitmp
 run_files = c(
@@ -100,7 +101,7 @@ if (!file.exists(REG_DIR)) {
     grd = data.table(task = grd$V1, cfg = pmap(grd[, 2:ncol(grd)], list), algorithm = gsub("_nearest_neighbors.csv", "", gsub("data/", "", file)))
     grd = grd[, c("algorithm", "task", "cfg")]
     grd[, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
-    unique.data.frame(grd)
+    grd = unique.data.frame(grd)
     addExperiments(algo.designs = list(run_algo_2 = grd))
   }
 } else {
@@ -116,7 +117,7 @@ while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
   if (length(jobs)) {
     jt = getJobTable(jobs)
-    jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+    jt = cbind(jt, setnames(map_dtr(jt$algo.pars, function(x) x$task), "problem", "problem_name"))
     jt = jt[problem_name %in% ALGOS]
     try({submitJobs(sample(jt$job.id))})
   }

@@ -138,7 +138,7 @@ repairPoints2 = function(ps, hpars) {
   if (any(too_big_int)) {
     hpars_num[too_big_int] = .Machine$integer.max - 1
   }
-  hpars = insert(hpars, hpars_num)
+  hpars = BBmisc::insert(hpars, hpars_num)
   hpars = repairPoint(ps, hpars)
   setNames(mlr3misc::pmap(list(map(ps$pars, "type")[names(hpars)], hpars), function(type, par) {
     if (type == "integer" && !is.null(par)) par = round(par)
