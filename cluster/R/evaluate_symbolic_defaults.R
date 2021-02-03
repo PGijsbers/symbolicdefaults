@@ -17,7 +17,6 @@ source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
 
-
 REG_DIR = "cluster/registry_symbolics"
 
 # Create Job Registry
@@ -35,17 +34,25 @@ if (!file.exists(REG_DIR)) {
   grd = fread("data/symbolic_defaults_rank.csv")
   grd = grd[, c("algorithm", "task", "expression")]
   grd[algorithm == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)]
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
+  grd = unique(grd)
+  addExperiments(algo.designs = list(run_algo = grd))
+
+  grd = fread("data/symbolic_defaults_max_len.csv")
+  grd = grd[, c("algorithm", "task", "expression")]
+  grd[algorithm == "random forest", ]$problem = "rf"
+  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", algorithm)][, algorithm := NULL]
   grd = unique(grd)
   addExperiments(algo.designs = list(run_algo = grd))
 } else {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
+  # unlink(REG_DIR, TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(6)
+reg$cluster.functions = makeClusterFunctionsSocket(12)
 
 
-# Submit SVM jobs ### ssh: christoph
+# Submit jobs
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
@@ -55,7 +62,9 @@ while (length(jobs)) {
     jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
-  Sys.sleep(3)
+  Sys.sleep(500)
+}
+
 
 
 
@@ -81,9 +90,7 @@ if (FALSE) {
 
 }
 
-  jt = getJobTable()
-  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-  jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
-  try({submitJobs(sample(jobs))})
-
-
+jt = getJobTable()
+jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
+jobs = intersect(jobs, jt[problem_name %in% c("mlr_xgboost"), ]$job.id)
+try({submitJobs(sample(jobs))})
