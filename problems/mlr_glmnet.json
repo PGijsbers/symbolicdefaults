@@ -1,18 +1,17 @@
 {
     "name": "mlr_glmnet",
     "experiment_data": "data/rbv2_mlr_classif.glmnet.arff",
-    "metric": "perf.mmce",
+    "metric": "perf.logloss",
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
-    "surrogates": "data/glmnet_surrogates.pkl",
+    "surrogates": "data/glmnet_surrogates_logloss.pkl",
+    "exclude": [3945, 9970],
     "hyperparameters": {
       "alpha": "float",
       "s": "float"
     },
     "operators": "default",
-    "performance_column": "perf.mmce",
     "ignore": [
-      "perf.logloss",
       "learner",
       "traintime",
       "predicttime",
