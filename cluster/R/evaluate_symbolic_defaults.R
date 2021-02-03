@@ -11,6 +11,8 @@ library(reticulate)
 library(BBmisc)
 library(batchtools)
 library(mlr3misc)
+library(lgr)
+
 
 REG_DIR = "cluster/registry_symbolics"
 RESAMPLE_PARALLEL_CPUS = 5
@@ -23,8 +25,8 @@ source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parall
 run_files = c(
   "data/symbolic_defaults_rank.csv",
   "data/symbolic_defaults_max_len.csv",
-  "glmnet_found_by_hp_based_max_length.csv",
-  "glmnet_found_by_rean_mean.csv"
+  "data/glmnet_found_by_hp_based_max_length.csv",
+  "data/glmnet_found_by_rean_mean.csv"
 )
 
 # Create Job Registry
