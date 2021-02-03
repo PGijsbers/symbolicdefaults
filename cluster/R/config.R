@@ -1,5 +1,5 @@
 setOMLConfig(cachedir = "../oml_cache/")
-RESAMPLE_PARALLEL_CPUS = 5
+RESAMPLE_PARALLEL_CPUS = 1
 learner_packages = c("rpart", "glmnet" ,"xgboost", "e1071", "ranger", "RcppHNSW")
 
 # The following tasks should not be computed in parallel;
