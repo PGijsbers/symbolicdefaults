@@ -172,7 +172,7 @@ run_algo = function(problem, task, str, parallel = 10L) {
 		      hpars[["ef_construction"]] = min(4096, hpars[["ef_construction"]])
 	      }
 	    lrn = setHyperPars(lrn)
-		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = c(z$mlr.measures, logloss, mmce))
+		    benchmark(lrn, z$mlr.task, z$mlr.rin, measures = c(z$mlr.measures, mlr::logloss, mlr::mmce))
 		})
     aggr = bmr$results[[1]][[1]]$aggr
     measure = "mmce.test.mean"

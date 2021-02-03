@@ -12,12 +12,12 @@ library(BBmisc)
 library(batchtools)
 library(mlr3misc)
 
+REG_DIR = "cluster/registry_symbolics"
+RESAMPLE_PARALLEL_CPUS = 5
 
 source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw.R", "cluster/R/helpers.R", "cluster/R/config.R")
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
-
-REG_DIR = "cluster/registry_symbolics"
 
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
@@ -49,7 +49,7 @@ if (!file.exists(REG_DIR)) {
   # unlink(REG_DIR, TRUE)
 }
 
-reg$cluster.functions = makeClusterFunctionsSocket(12)
+reg$cluster.functions = makeClusterFunctionsSocket(6)
 
 
 # Submit jobs
@@ -59,7 +59,7 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost"), ]$job.id)
+    jobs = intersect(jobs, jt[problem_name %in% c("mlr_svm", "mlr_glmnet", "mlr_xgboost", "mlr_knn", "mlr_rpart"), ]$job.id)
     try({submitJobs(sample(jobs))})
   }
   Sys.sleep(500)
@@ -86,8 +86,6 @@ if (FALSE) {
   symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results")              # done
   symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results")         # missing: run on: ssh:compstat
   symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results")             # done
-}
-
 }
 
 jt = getJobTable()

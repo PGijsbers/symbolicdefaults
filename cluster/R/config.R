@@ -1,6 +1,4 @@
 setOMLConfig(cachedir = "../oml_cache/")
-REG_DIR = "cluster/registry_symbolics"
-RESAMPLE_PARALLEL_CPUS = 5
 
 learner_packages = c("rpart", "glmnet" ,"xgboost", "e1071", "ranger", "RcppHNSW")
 
@@ -16,4 +14,3 @@ set_parallel_by_task = function(parallel, task) {
 
 
 MTRY_FEATS=2
-
