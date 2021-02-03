@@ -18,6 +18,7 @@ REG_DIR = "cluster/registry_symbolics"
 source_files = c("cluster/R/CPO_maxfact.R", "cluster/R/RLearner_classif_rcpphnsw.R", "cluster/R/helpers.R", "cluster/R/config.R")
 sapply(source_files, source)
 source_packages = c("mlr", "mlrCPO", "OpenML", "jsonlite", "data.table", "parallelMap", "lgr", "mlr3misc")
+
 ALGOS = "mlr_svm"
 
 
@@ -25,10 +26,16 @@ ALGOS = "mlr_svm"
 ####################################################################################################
 ### Results: unitmp
 run_files = c(
-  "data/symbolic_defaults_rank.csv",
-  "data/symbolic_defaults_max_len.csv",
-  "data/glmnet_found_by_hp_based_max_length.csv",
-  "data/glmnet_found_by_rean_mean.csv"
+  "data/generated_defaults/constants/svm_cst_found_by_mean_rank.csv",
+  "data/generated_defaults/symbolic/glmnet_found_by_hp_based_max_length.csv",
+  "data/generated_defaults/symbolic/glmnet_found_by_mean_rank.csv",
+  "data/generated_defaults/symbolic/knn_found_by_hp_based_max_length.csv"
+  "data/generated_defaults/symbolic/knn_found_by_mean_rank.csv",
+  "data/generated_defaults/symbolic/svm_found_by_hp_based_max_length.csv",
+  "data/generated_defaults/symbolic/svm_found_by_mean_rank.csv",
+  "data/generated_defaults/symbolic/rpart_found_by_hp_based_max_length.csv"
+  "data/generated_defaults/symbolic/rpart_found_by_mean_rank.csv",
+
 )
 
 # Create Job Registry
@@ -108,10 +115,11 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
   # unlink(REG_DIR, TRUE)
 }
-reg$cluster.functions = makeClusterFunctionsSocket(16)
+reg$cluster.functions = makeClusterFunctionsSocket(24)
 
 
 # Submit jobs
+ALGOS = "mlr_rpart"
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
@@ -127,7 +135,7 @@ while (length(jobs)) {
 
 
 ####################################################################################################
-### Implementation defaults
+### Implementation defaults uni3
 
 run_files = c(
   "data/mlr_rf_real_data_baselines_results.csv",
@@ -165,9 +173,7 @@ if (!file.exists(REG_DIR)) {
   reg = loadRegistry(REG_DIR, writeable = TRUE)
   # unlink(REG_DIR, TRUE)
 }
-
-
-reg$cluster.functions = makeClusterFunctionsSocket(16)
+reg$cluster.functions = makeClusterFunctionsSocket(24)
 # Submit jobs
 jobs = findNotDone()$job.id
 while (length(jobs)) {

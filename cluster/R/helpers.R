@@ -162,8 +162,9 @@ get_task_ids = function(problem) {
 # run_algo("mlr_svm", 3, "make_tuple(1,1)")
 run_algo = function(problem, task, str, ..., parallel = 10L) {
 
-   if (set_parallel_by_task(parallel, task) && problem != "mlr_xgboost")
-		      parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
+   if (set_parallel_by_task(parallel, task) && problem != "mlr_xgboost") {
+		  parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
+    }
     on.exit(parallelMap::parallelStop())
 
     lgr = get_logger("eval_logger")$set_threshold("info")
@@ -179,8 +180,14 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
     hpars = parse_lgl(hpars)
     hpars = repairPoints2(ps, hpars[names(ps$pars)])
     lrn = setHyperPars(lrn, par.vals = hpars)
-    if (problem == "mlr_xgboost")
+
+    if (problem == "mlr_xgboost") {
       lrn = setHyperPars(lrn, nthread = 1L)
+      if (!("nrounds" %in% names(hpars))) {
+        lrn = setHyperPars(lrn, nrounds = 10L)
+      }
+    }
+
     bmr = try({
         # Some task have gotten different ids
         task = fix_task(task)
