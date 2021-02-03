@@ -5,6 +5,7 @@
     "how": "minimize",
     "metadata": "data/after_pipeline_metafeatures_v2.csv",
     "surrogates": "data/ranger_surrogates_logloss.pkl",
+    "exclude": [34539, 7592, 125920, 3561],
     "hyperparameters": {
       "num.trees": "int",
       "sample.fraction": "float",
