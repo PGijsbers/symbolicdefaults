@@ -154,10 +154,10 @@ if (!file.exists(REG_DIR)) {
     grd = fread(file)
     grd = grd[, c("problem_name", "task", "str", "default")]
     grd = unique(grd)
+    grd[, problem := grd$problem_name][, problem_name := NULL]
     # Do not run excluded tasks
-    exclude = unlist(jsonlite::read_json(paste0("problems/", unique(grd$problem_name), ".json"))$exclude)
+    exclude = unlist(jsonlite::read_json(paste0("problems/", unique(grd$problem), ".json"))$exclude)
     grd = grd[!(grd$task %in% exclude), ]
-
     addExperiments(algo.designs = list(run_algo = grd))
   }
 

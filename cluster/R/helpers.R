@@ -160,7 +160,7 @@ get_task_ids = function(problem) {
 # @param str  :: tuple string, e.g. "make_tuple(1,1)"
 # @example
 # run_algo("mlr_svm", 3, "make_tuple(1,1)")
-run_algo = function(problem, task, str, parallel = 10L) {
+run_algo = function(problem, task, str, ..., parallel = 10L) {
 
    if (set_parallel_by_task(parallel, task) && problem != "mlr_xgboost")
 		      parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
