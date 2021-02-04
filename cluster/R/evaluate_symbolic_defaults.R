@@ -77,7 +77,6 @@ jobs = filter_run_files(jobs, run_files)
 reg = loadRegistry(REG_DIR, writeable = FALSE)                                                      # STATUS / PLANNING
 #symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results_2")           # done
 symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results_2", jobs = jobs)             # running: ssh:christoph
-#symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_symbolic_results_2")          # done
 #symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results_2")              # done
 #symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results_2")         # missing: run on: ssh:compstat
 #symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results_2")             # done

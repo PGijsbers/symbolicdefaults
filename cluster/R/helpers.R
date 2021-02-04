@@ -285,7 +285,7 @@ problem_results_to_csv = function(pname, out_suffix) {
   )
   # Update column order
   jt = jt[, c(3, 4, 1, 6, 9, 7, 8, 2)]
-  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
+  fwrite(jt, file = paste0("data/results_gecco/", pname, "_", out_suffix, ".csv"))
 }
 
 symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_default", jobs = NULL) {
@@ -312,7 +312,7 @@ symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_d
   })
   # Update column order
   jt = jt[, c("problem_name","task","str","default", "logloss.test.mean", "mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
-  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
+  fwrite(jt, file = paste0("data/results_gecco/", pname, "_", out_suffix, ".csv"))
 }
 
 problem_nn_results_to_csv = function(pname, out_suffix) {
@@ -334,7 +334,7 @@ problem_nn_results_to_csv = function(pname, out_suffix) {
   jt$default = "nearest_neighbour"
   # Update column order
   jt = jt[, c("problem_name","task","str", "default", "logloss.test.mean", "mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
-  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
+  fwrite(jt, file = paste0("data/results_gecco/", pname, "_", out_suffix, ".csv"))
 }
 
 
