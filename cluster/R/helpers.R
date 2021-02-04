@@ -288,35 +288,64 @@ problem_results_to_csv = function(pname, out_suffix) {
   fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }
 
-symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_default") {
-  jt = getJobTable()[, success := !is.na(done) & is.na(error)]
+symbolic_results_to_csv = function(pname, out_suffix, default_name = "symbolic_default", jobs = NULL) {
+  jt = getJobTable(jobs)[, success := !is.na(done) & is.na(error)]
   jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
   jt = jt[problem_name == pname, c("job.id", "problem_name", "task", "str", "success")]
-  # Each line in grd is a configuration
-  grd = fread("data/random_search_30k.csv")
-  grd = grd[, c("problem", "task", "expression")]
-  grd[problem == "random forest", ]$problem = "rf"
-  grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
-  grd = unique(grd)[problem == pname, ]
-  if (pname == "mlr_xgboost") {
-    grd = fread("data/random_search_30k_xgb.csv")
-    grd = grd[, c("problem", "task", "expression")]
-    grd[, str := expression][, expression := NULL][, problem := paste0("mlr_", problem)]
-    grd2 = unique(grd)[problem == pname, ]
-    grd = rbind(grd, grd2)
-  }
-  jt = merge(jt, unique(grd), by = c("str", "task"))
   if (nrow(jt[(!success)]))
     message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
   jt = jt[(success)]
   jt = cbind(jt,
     map_dtr(reduceResultsList(jt$job.id, function(x)
-      t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "mmce.test.mean")])), data.table)
+      t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "logloss.test.mean", "mmce.test.mean")])), data.table)
   )
-  jt$default = default_name
+  files = c(
+    "constant" = paste0("data/generated_defaults/constants/",substr(pname, 5, 100),"_cst_found_by_mean_rank.csv"),
+    "short" = paste0("data/generated_defaults/symbolic/",substr(pname, 5, 100),"_found_by_hp_based_max_length.csv"),
+    "long" = paste0("data/generated_defaults/symbolic/",substr(pname, 5, 100),"_found_by_mean_rank.csv")
+  )
+  imap(files, function(x,n) {
+    if (file.exists(x)) {
+      df = fread(x)
+      jt[jt$str %in% df$expression, default := n]
+    }
+  })
   # Update column order
-  jt = jt[, c("problem_name","task","str","default","mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
+  jt = jt[, c("problem_name","task","str","default", "logloss.test.mean", "mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
   fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
 }
 
-pname = "mlr_rpart"
+problem_nn_results_to_csv = function(pname, out_suffix) {
+  jt = getJobTable()[, success := !is.na(done) & is.na(error)]
+  jt = cbind(jt, setnames(map_dtr(jt$algo.pars, function(x) {
+    y = as.data.table(x[c("task", "problem")])
+    y$str = stringify_list(x["cfg"])
+    return(y)
+    }), "problem", "problem_name"))
+  jt = jt[problem_name == pname, c("job.id", "problem_name", "task", "str", "success")]
+  # jt = merge(jt, imap_dtr(get_problem_json(pname)$benchmark, function(x, y) data.table("default" = y, "str" = x)), by = "str")
+  if (nrow(jt[(!success)]))
+    message("Unfinished jobs: ", paste0(jt[(!success)]$job.id, collapse = ","))
+  jt = jt[(success)]
+  jt = cbind(jt,
+    map_dtr(reduceResultsList(jt$job.id, function(x)
+      t(x$aggr[c("timetrain.test.sum", "timepredict.test.sum", "mmce.test.mean", "logloss.test.mean")])), data.table)
+  )
+  jt$default = "nearest_neighbour"
+  # Update column order
+  jt = jt[, c("problem_name","task","str", "default", "logloss.test.mean", "mmce.test.mean","timetrain.test.sum","timepredict.test.sum","job.id")]
+  fwrite(jt, file = paste0("data/", pname, "_", out_suffix, ".csv"))
+}
+
+
+stringify_list = function(x) {paste0(imap_chr(x$cfg, function(x,n) {paste0(x, ":", n)}), collapse=",")}
+
+filter_run_files = function(jobs, run_files) {
+  dd = rbindlist(map(run_files, fread))
+  names(dd) = c("problem", "task", "str")
+  dd$problem = paste0("mlr_", dd$problem)
+  jt = getJobTable(jobs)
+  d2 = map_dtr(jt$algo.pars, identity)
+  d2$job.id = jt$job.id
+  unique(d2[dd, on = names(dd), nomatch = 0]$job.id)
+}

@@ -25,18 +25,8 @@ ALGOS = "mlr_svm"
 
 ####################################################################################################
 ### Results: unitmp
-run_files = c(
-  "data/generated_defaults/constants/svm_cst_found_by_mean_rank.csv",
-  "data/generated_defaults/symbolic/glmnet_found_by_hp_based_max_length.csv",
-  "data/generated_defaults/symbolic/glmnet_found_by_mean_rank.csv",
-  "data/generated_defaults/symbolic/knn_found_by_hp_based_max_length.csv"
-  "data/generated_defaults/symbolic/knn_found_by_mean_rank.csv",
-  "data/generated_defaults/symbolic/svm_found_by_hp_based_max_length.csv",
-  "data/generated_defaults/symbolic/svm_found_by_mean_rank.csv",
-  "data/generated_defaults/symbolic/rpart_found_by_hp_based_max_length.csv"
-  "data/generated_defaults/symbolic/rpart_found_by_mean_rank.csv",
 
-)
+run_files = list.files("data/generated_defaults/symbolic", full.names=TRUE)
 
 # Create Job Registry
 if (!file.exists(REG_DIR)) {
@@ -65,11 +55,12 @@ if (!file.exists(REG_DIR)) {
 }
 
 
-reg$cluster.functions = makeClusterFunctionsSocket(16)
+reg$cluster.functions = makeClusterFunctionsSocket(24)
+
 # Submit jobs
-jobs = findNotDone()$job.id
+jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
+jobs = filter_run_files(jobs)
 while (length(jobs)) {
-  jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
@@ -78,6 +69,21 @@ while (length(jobs)) {
   }
   Sys.sleep(500)
 }
+
+
+
+jobs = findDone()
+jobs = filter_run_files(jobs, run_files)
+reg = loadRegistry(REG_DIR, writeable = FALSE)                                                      # STATUS / PLANNING
+#symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results_2")           # done
+symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results_2", jobs = jobs)             # running: ssh:christoph
+#symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_symbolic_results_2")          # done
+#symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results_2")              # done
+#symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results_2")         # missing: run on: ssh:compstat
+#symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results_2")             # done
+
+
+
 
 
 ####################################################################################################
@@ -119,7 +125,8 @@ reg$cluster.functions = makeClusterFunctionsSocket(24)
 
 
 # Submit jobs
-ALGOS = "mlr_rpart"
+ALGOS = c("mlr_svm", "mlr_rpart")
+
 jobs = findNotDone()$job.id
 while (length(jobs)) {
   jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
@@ -132,7 +139,13 @@ while (length(jobs)) {
   Sys.sleep(500)
 }
 
-
+reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
+#problem_nn_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_nn_results")
+problem_nn_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_nn_results")
+#problem_nn_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_nn_results")
+#problem_nn_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_nn_results")
+#problem_nn_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_nn_results")
+#problem_nn_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_nn_results")
 
 ####################################################################################################
 ### Implementation defaults uni3
@@ -181,7 +194,7 @@ while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
-    jt = jt[problem_name %in% ALGOS]
+    # jt = jt[problem_name %in% ALGOS]
 
     try({submitJobs(sample(jt$job.id))})
   }
