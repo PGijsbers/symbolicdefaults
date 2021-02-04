@@ -16,7 +16,8 @@ import numpy as np
 from deap import tools
 
 from evolution import setup_toolbox
-from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, insert_fixed, approx_eq
+from evolution.operations import mass_evaluate, mass_evaluate_2, n_primitives_in, \
+    insert_fixed, approx_eq, try_compile_individual
 from evolution.algorithms import one_plus_lambda, eaMuPlusLambda, random_search
 
 from deap import gp, creator
@@ -458,7 +459,7 @@ def get_surrogate_score(problem, task, individual, pset, toolbox) -> float:
     if isinstance(individual, str):
         individual = str_to_individual(individual, pset)
 
-    fn_ = gp.compile(individual, pset)
+    fn_ = try_compile_individual(individual, pset, problem)
     mf_values = problem.metadata.loc[task]
     hp_values = toolbox.evaluate(fn_, mf_values)
     return problem.surrogates[task].predict(np.asarray(hp_values).reshape(1, -1))[0]
