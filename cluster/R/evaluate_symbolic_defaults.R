@@ -57,29 +57,31 @@ if (!file.exists(REG_DIR)) {
 
 reg$cluster.functions = makeClusterFunctionsSocket(24)
 
+ALGOS = c("mlr_rpart", "mlr_svm")
+
+
 # Submit jobs
 jobs = setdiff(findNotDone()$job.id, findRunning()$job.id)
-jobs = filter_run_files(jobs)
+jobs = filter_run_files(jobs, run_files)
 while (length(jobs)) {
   if (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
     jt = jt[problem_name %in% ALGOS]
-    try({submitJobs(sample(jt$job.id))})
+    try({submitJobs(findNotSubmitted(sample(jt$job.id)))})
   }
   Sys.sleep(500)
 }
 
-
-
-jobs = findDone()
+# dir.create("data/results_gecco")
+reg = loadRegistry(REG_DIR, writeable = FALSE)
+jobs = getJobTable()$job.id
 jobs = filter_run_files(jobs, run_files)
-reg = loadRegistry(REG_DIR, writeable = FALSE)                                                      # STATUS / PLANNING
-#symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results_2")           # done
+symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results_2", jobs = jobs)           # done
 symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results_2", jobs = jobs)             # running: ssh:christoph
 #symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results_2")              # done
 #symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results_2")         # missing: run on: ssh:compstat
-#symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results_2")             # done
+symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results_2", jobs = jobs)             # done
 
 
 
@@ -139,9 +141,9 @@ while (length(jobs)) {
 }
 
 reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
-#problem_nn_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_nn_results")
+problem_nn_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_nn_results")
 problem_nn_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_nn_results")
-#problem_nn_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_nn_results")
+problem_nn_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_nn_results")
 #problem_nn_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_nn_results")
 #problem_nn_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_nn_results")
 #problem_nn_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_nn_results")
@@ -186,6 +188,7 @@ if (!file.exists(REG_DIR)) {
   # unlink(REG_DIR, TRUE)
 }
 reg$cluster.functions = makeClusterFunctionsSocket(24)
+
 # Submit jobs
 jobs = findNotDone()$job.id
 while (length(jobs)) {
@@ -194,33 +197,18 @@ while (length(jobs)) {
     jt = getJobTable(jobs)
     jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
     # jt = jt[problem_name %in% ALGOS]
-
     try({submitJobs(sample(jt$job.id))})
   }
   Sys.sleep(500)
 }
 
-
-
-
-# Collect results.
-# if (FALSE) {
-#   reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
-#   problem_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_baselines_results")           # done
-#   problem_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_baselines_results")             # running: ssh:christoph
-#   problem_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_baselines_results")          # done
-#   problem_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_baselines_results")              # done
-#   problem_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_baselines_results")         # missing: run on: ssh:compstat
-#   problem_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_baselines_results")             # done
-# } else if (REG_DIR == "registry_symbolics") {
-  reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
-  symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_symbolic_results_2")           # done
-  symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_symbolic_results_2")             # running: ssh:christoph
-  symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_symbolic_results_2")          # done
-  symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_symbolic_results_2")              # done
-  symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_symbolic_results_2")         # missing: run on: ssh:compstat
-  symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_symbolic_results_2")             # done
-}
+reg = loadRegistry(REG_DIR, writeable = FALSE)                                                    # STATUS / PLANNING
+symbolic_results_to_csv(pname = "mlr_rpart", out_suffix = "real_data_constant_results_2")           # done
+symbolic_results_to_csv(pname = "mlr_svm", out_suffix = "real_data_constant_results_2")             # running: ssh:christoph
+symbolic_results_to_csv(pname = "mlr_glmnet", out_suffix = "real_data_constant_results_2")          # done
+symbolic_results_to_csv(pname = "mlr_rf", out_suffix = "real_data_constant_results_2")              # done
+symbolic_results_to_csv(pname = "mlr_xgboost", out_suffix = "real_data_constant_results_2")         # missing: run on: ssh:compstat
+symbolic_results_to_csv(pname = "mlr_knn", out_suffix = "real_data_constant_results_2")             # done
 
 jt = getJobTable()
 jt = cbind(jt, setnames(map_dtr(jt$algo.pars, identity), "problem", "problem_name"))
