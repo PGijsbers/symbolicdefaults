@@ -1642,6 +1642,121 @@ task;learner;optimizer;constants;expression;surrogate_score
 18;knn;mupluslambda;True;make_tuple(add(0.025433569493785647, 35), 55, mul(423, 29), 289);0.9865
 125922;knn;mupluslambda;True;make_tuple(add(0.017493442704973848, 35), 55, mul(18, 676), 289);0.8048
 3493;knn;mupluslambda;True;make_tuple(add(35, 0.005206924280114213), 55, mul(13, 967), 289);0.9993
+146817;rf;mupluslambda;True;make_tuple(0.8687945876257968, 9, 141);0.9888
+9964;rf;mupluslambda;True;make_tuple(mul(542, 0.0016015276575481094), 9, 141);0.9706
+189924;rf;mupluslambda;True;make_tuple(889, 9, 145);0.8066
+14969;rf;mupluslambda;True;make_tuple(0.8690672921094214, 9, 141);0.9799
+167119;rf;mupluslambda;True;make_tuple(0.8685603285911616, 9, 141);0.9674
+189927;rf;mupluslambda;True;make_tuple(0.8685603285911616, 9, 141);0.8468
+168329;rf;mupluslambda;True;make_tuple(0.8690672921094214, 9, 141);0.9321
+3917;rf;mupluslambda;True;make_tuple(truediv(612, 705), 9, 141);0.9606
+2079;rf;mupluslambda;True;make_tuple(truediv(612, 705), 9, 141);0.9781
+29;rf;mupluslambda;True;make_tuple(493, 9, 145);0.9505
+189928;rf;mupluslambda;True;make_tuple(truediv(825, 945), 9, 141);0.9447
+146825;rf;mupluslambda;True;make_tuple(mul(542, 0.0016015276575481094), 9, 141);0.9943
+14;rf;mupluslambda;True;make_tuple(0.8687945876257968, 9, 141);0.9953
+146822;rf;mupluslambda;True;make_tuple(truediv(825, 945), 9, 141);0.9933
+146824;rf;mupluslambda;True;make_tuple(0.8690672921094214, 9, 141);0.9913
+43;rf;mupluslambda;True;make_tuple(0.8687384557888609, 9, 141);0.9123
+167141;rf;mupluslambda;True;make_tuple(9, 9, 145);0.9829
+146606;rf;mupluslambda;True;make_tuple(0.8687945876257968, 9, 141);0.9903
+168332;rf;mupluslambda;True;make_tuple(mul(542, 0.0016015276575481094), 9, 141);0.9992
+3903;rf;mupluslambda;True;make_tuple(0.8687945876257968, 9, 141);0.9735
+3;rf;mupluslambda;True;make_tuple(mul(542, 0.0016015276575481094), 9, 141);0.9940
+168910;rf;mupluslambda;True;make_tuple(889, 9, 145);0.9798
+2073;rf;mupluslambda;True;make_tuple(9, 9, 145);0.9827
+3945;rf;mupluslambda;True;make_tuple(expit(add(0.03384331631931395, 2)), 9, add(0.0011209764552457461, 147));0.5705
+168339;rf;mupluslambda;True;make_tuple(0.8842713438652302, 9, add(147, 0.0800275064224456));0.9580
+9956;rf;mupluslambda;True;make_tuple(0.8842713438652302, 9, add(147, 0.0800275064224456));0.9874
+168331;rf;mupluslambda;True;make_tuple(0.8842777063816226, 9, add(147, 0.021384239412731446));0.9462
+9977;rf;mupluslambda;True;make_tuple(expit(add(0.03384331631931395, 2)), 9, add(0.0011209764552457461, 147));0.9752
+168336;rf;mupluslambda;True;make_tuple(truediv(237, 268), 9, add(147, 0.00207311129129255));0.9523
+3021;rf;mupluslambda;True;make_tuple(add(expit(2), 0.003535767062927932), 9, add(147, 0.0010558028351175335));0.9810
+24;rf;mupluslambda;True;make_tuple(0.8843075494992094, 9, add(0.17886503704559573, 147));0.9988
+58;rf;mupluslambda;True;make_tuple(0.8842798720017082, 9, add(147, 0.06184271000448585));0.9963
+9960;rf;mupluslambda;True;make_tuple(sub(0.8874612211960058, 0.0031436578432460574), 9, add(0.28015111793212477, 147));0.9963
+3560;rf;mupluslambda;True;make_tuple(add(0.013858097837370131, 0.8704021798227548), 9, add(0.013746467192345367, 147));0.9147
+168868;rf;mupluslambda;True;make_tuple(0.8843075494992094, 9, add(0.17886503704559573, 147));0.9714
+28;rf;mupluslambda;True;make_tuple(0.8843052880183071, 9, add(0.1539260035028451, 147));0.9916
+9971;rf;mupluslambda;True;make_tuple(truediv(237, 268), 9, add(147, 0.00207311129129255));0.9850
+45;rf;mupluslambda;True;make_tuple(expit(add(0.03384331631931395, 2)), 9, add(0.0011209764552457461, 147));0.9870
+9950;rf;mupluslambda;True;make_tuple(0.8842777063816226, 9, add(147, 0.021384239412731446));0.9769
+168330;rf;mupluslambda;True;make_tuple(0.8843075494992094, 9, add(0.17886503704559573, 147));0.9792
+168337;rf;mupluslambda;True;make_tuple(add(expit(2), 0.003535767062927932), 9, add(147, 0.0010558028351175335));0.9884
+167120;rf;mupluslambda;True;make_tuple(add(expit(2), 0.003535767062927932), 9, add(147, 0.0010558028351175335));0.9050
+41;rf;mupluslambda;True;make_tuple(add(0.013858097837370131, 0.8704021798227548), 9, add(0.013746467192345367, 147));0.9922
+16;rf;mupluslambda;True;make_tuple(0.8843052880183071, 9, add(0.1539260035028451, 147));0.9869
+3573;rf;mupluslambda;True;make_tuple(sub(0.8874612211960058, 0.0031436578432460574), 9, add(0.28015111793212477, 147));0.9915
+3485;rf;mupluslambda;True;make_tuple(mul(0.002434875998966677, 357), 9, 147);0.9361
+168912;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.9928
+168909;rf;mupluslambda;True;make_tuple(mul(0.004834510633823542, 200), 9, 141);0.9826
+3510;rf;mupluslambda;True;make_tuple(mul(566, 0.0017081623004937556), 9, 141);0.9771
+12;rf;mupluslambda;True;make_tuple(0.9669553555519436, 9, 141);0.9918
+9957;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.9940
+145681;rf;mupluslambda;True;make_tuple(mul(0.004834510633823542, 200), 9, 141);0.9878
+146800;rf;mupluslambda;True;make_tuple(mul(0.004834510633823542, 200), 9, 141);0.9741
+49;rf;mupluslambda;True;make_tuple(mul(566, 0.0017081623004937556), 9, 141);0.9278
+14971;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.8076
+14952;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.9806
+3549;rf;mupluslambda;True;make_tuple(mul(0.004834510633823542, 200), 9, 141);0.9909
+3481;rf;mupluslambda;True;make_tuple(0.9658067600536392, 9, 141);0.9827
+53;rf;mupluslambda;True;make_tuple(truediv(228, 236), 9, 141);0.9919
+10101;rf;mupluslambda;True;make_tuple(21, 9, 145);0.9498
+146212;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.9952
+32;rf;mupluslambda;True;make_tuple(0.96691473634411, 9, 141);0.9939
+146195;rf;mupluslambda;True;make_tuple(mul(0.004834510633823542, 200), 9, 141);0.9242
+14970;rf;mupluslambda;True;make_tuple(truediv(228, 236), 9, 141);0.9882
+11;rf;mupluslambda;True;make_tuple(0.9663880674258113, 9, 141);0.9839
+9981;rf;mupluslambda;True;make_tuple(0.9664330342695588, 9, 141);0.9837
+22;rf;mupluslambda;True;make_tuple(0.9669553555519436, 9, 141);0.9974
+167124;rf;mupluslambda;True;make_tuple(truediv(167, 171), 9, 145);0.9993
+190412;rf;mupluslambda;True;make_tuple(4, 9, 145);0.9983
+6;rf;mupluslambda;True;make_tuple(0.9746792830489232, 9, 145);0.9764
+146818;rf;mupluslambda;True;make_tuple(0.976942936715212, 9, 145);0.9390
+18;rf;mupluslambda;True;make_tuple(0.9752010482664032, 9, 145);0.9341
+125922;rf;mupluslambda;True;make_tuple(0.9755305223269225, 9, 145);0.9882
+3913;rf;mupluslambda;True;make_tuple(0.9746974394675827, 9, 145);0.8200
+9986;rf;mupluslambda;True;make_tuple(282, 9, 145);0.9930
+168911;rf;mupluslambda;True;make_tuple(3, 9, 145);0.9796
+10090;rf;mupluslambda;True;make_tuple(0.976942936715212, 9, 145);0.9666
+14954;rf;mupluslambda;True;make_tuple(91, 9, 145);0.9867
+146820;rf;mupluslambda;True;make_tuple(0.9752010482664032, 9, 145);0.9813
+219;rf;mupluslambda;True;make_tuple(0.9746792830489232, 9, 145);0.9437
+9985;rf;mupluslambda;True;make_tuple(0.9746974394675827, 9, 145);0.9908
+3022;rf;mupluslambda;True;make_tuple(0.9752010482664032, 9, 145);0.9483
+168335;rf;mupluslambda;True;make_tuple(282, 9, 145);0.9810
+10093;rf;mupluslambda;True;make_tuple(282, 9, 145);0.9925
+167211;rf;mupluslambda;True;make_tuple(0.9752010482664032, 9, 145);0.7915
+9952;rf;mupluslambda;True;make_tuple(0.9752010482664032, 9, 145);0.9302
+23;rf;mupluslambda;True;make_tuple(0.9746974394675827, 9, 145);0.9853
+3493;rf;mupluslambda;True;make_tuple(0.9746974394675827, 9, 145);0.6931
+9946;rf;mupluslambda;True;make_tuple(282, 9, 145);0.9244
+37;rf;mupluslambda;True;make_tuple(0.9746792830489232, 9, 145);0.9919
+146819;rf;mupluslambda;True;make_tuple(0.9756035386173783, 9, 145);0.9895
+168338;rf;mupluslambda;True;make_tuple(3, 9, 145);0.6628
+3918;rf;mupluslambda;True;make_tuple(add(sub(expit(2), 0.002085536824825421), 0.005592455014815336), 9, 73);0.9360
+146607;rf;mupluslambda;True;make_tuple(add(0.0035236735358665917, expit(2)), 9, 73);0.9549
+146821;rf;mupluslambda;True;make_tuple(add(sub(expit(2), 0.002085536824825421), 0.005592455014815336), 9, 73);0.9522
+2074;rf;mupluslambda;True;make_tuple(add(sub(expit(2), 0.002085536824825421), 0.005592455014815336), 9, 73);0.9871
+190411;rf;mupluslambda;True;make_tuple(expit(add(0.04872553711401317, 2)), 9, 73);0.8654
+167121;rf;mupluslambda;True;make_tuple(expit(add(2, 0.0339972943394063)), 9, 73);0.9884
+31;rf;mupluslambda;True;make_tuple(expit(add(2, 0.03351751977929349)), 9, 73);0.9951
+3904;rf;mupluslambda;True;make_tuple(mul(130, 0.006816887081613484), 9, 73);0.9238
+14965;rf;mupluslambda;True;make_tuple(add(0.0035236735358665917, expit(2)), 9, 73);0.9376
+10106;rf;mupluslambda;True;make_tuple(expit(add(2, 0.03351751977929349)), 9, 73);0.6784
+167140;rf;mupluslambda;True;make_tuple(expit(add(0.04872553711401317, 2)), 9, 73);0.9901
+3893;rf;mupluslambda;True;make_tuple(add(expit(2), 0.003531326017637242), 9, 73);0.9938
+167125;rf;mupluslambda;True;make_tuple(expit(add(2, 0.0339972943394063)), 9, 73);0.9910
+168908;rf;mupluslambda;True;make_tuple(expit(add(0.033811254672572684, 2)), 9, 73);0.9844
+9976;rf;mupluslambda;True;make_tuple(expit(add(0.04872553711401317, 2)), 9, 73);0.8632
+3902;rf;mupluslambda;True;make_tuple(expit(add(0.04872553711401317, 2)), 9, 73);0.9408
+3907;rf;mupluslambda;True;make_tuple(add(expit(2), 0.003531326017637242), 9, 73);0.8705
+9910;rf;mupluslambda;True;make_tuple(expit(add(0.04872553711401317, 2)), 9, 73);0.9525
+15;rf;mupluslambda;True;make_tuple(truediv(258, add(0.7606023105676508, 291)), 9, 73);0.9872
+9978;rf;mupluslambda;True;make_tuple(expit(add(2, 0.0339972943394063)), 9, 73);0.9901
+3512;rf;mupluslambda;True;make_tuple(expit(add(2, 0.0339972943394063)), 9, 73);0.9921
+9970;rf;mupluslambda;True;make_tuple(add(sub(expit(2), 0.002085536824825421), 0.005592455014815336), 9, 73);0.9822
+125921;rf;mupluslambda;True;make_tuple(truediv(258, add(0.7606023105676508, 291)), 9, 73);0.7908
 14954;rpart;mupluslambda;True;make_tuple(0.0005145562225286562, 9, 25, 52);0.9802
 23;rpart;mupluslambda;True;make_tuple(mul(0.03833746764476885, 0.01337283762096464), add(0.03452195540975047, 9), 36, 62);0.9907
 2074;rpart;mupluslambda;True;make_tuple(0.0005145562225286562, 9, 25, 52);0.9846
