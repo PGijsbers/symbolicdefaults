@@ -95,8 +95,10 @@ eval_tuple = function(problem, task, str) {
   # Parse formula
   symb = as.list(read_metadata(problem)[task_id == fix_task(task),])
   opts = get_deap_operations()
-  browser()
   lst = eval(parse_tuple(str), envir = as.environment(c(symb, opts)))
+  if (problem == 'mlr_xgboost' & is.null(prob$fixed)) {
+    prob$fixed = c(nrounds = 10L)
+  }
   # Get names and append filters / fixed
   hpnames = setdiff(names(prob$hyperparameters), c(names(prob$fixed), names(prob$filter)))
   if (length(lst) != length(hpnames)) stop("Hyperparameter names not equal to symbol length")
