@@ -95,6 +95,7 @@ eval_tuple = function(problem, task, str) {
   # Parse formula
   symb = as.list(read_metadata(problem)[task_id == fix_task(task),])
   opts = get_deap_operations()
+  browser()
   lst = eval(parse_tuple(str), envir = as.environment(c(symb, opts)))
   # Get names and append filters / fixed
   hpnames = setdiff(names(prob$hyperparameters), c(names(prob$fixed), names(prob$filter)))
@@ -178,7 +179,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
     ps = filterParams(getParamSet(lrn), names(hpars))
     hpars = parse_lgl(hpars)
     hpars = repairPoints2(ps, hpars[names(ps$pars)])
-    if (problem == "mlr_rf") hpars[["mtry"]] = 1L # Fixed below
+    if (problem %in% c("mlr_rf", "mlr_random forest")) hpars[["mtry"]] = 1L # Fixed below
     lrn = setHyperPars(lrn, par.vals = hpars)
 
     if (problem == "mlr_xgboost") {
@@ -196,7 +197,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
 		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
-        if (problem == "mlr_rf") {
+        if (problem %in% c("mlr_rf", "mlr_random forest")) {
           nfeats = sum(z$mlr.task$task.desc$n.feat)
           if (task %in% c(3, 219, 15)) nfeats = round(0.8*nfeats)
           lrn = setHyperPars(lrn, mtry = max(min(round(hpars[["mtry"]]), nfeats), 1))
