@@ -196,7 +196,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         if (task %in% c(2073, 41, 145681)) omltsk$input$estimation.procedure$parameters$stratified_sampling = "false"
 		    if (task %in% c(146212, 168329, 168330, 168331, 168332, 168339, 145681, 168331)) omltsk$input$evaluation.measures = ""
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
-        if (problem == "mlr_random forest") {
+        if (problem == "mlr_rf") {
           nfeats = sum(z$mlr.task$task.desc$n.feat)
           if (task %in% c(3, 219, 15)) nfeats = 0.8*nfeats
           lrn = setHyperPars(lrn, mtry = max(min(round(hpars[["mtry"]]), nfeats), 1))
