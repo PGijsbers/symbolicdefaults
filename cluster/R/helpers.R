@@ -178,6 +178,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
     ps = filterParams(getParamSet(lrn), names(hpars))
     hpars = parse_lgl(hpars)
     hpars = repairPoints2(ps, hpars[names(ps$pars)])
+    if (problem == "mlr_rf") hpars[["mtry"]] = 1L # Fixed below
     lrn = setHyperPars(lrn, par.vals = hpars)
 
     if (problem == "mlr_xgboost") {
@@ -186,7 +187,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         lrn = setHyperPars(lrn, nrounds = 10L)
       }
     }
-    browser()
+
     bmr = try({
         # Some task have gotten different ids
         task = fix_task(task)
