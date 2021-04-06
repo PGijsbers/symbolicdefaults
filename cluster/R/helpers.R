@@ -199,7 +199,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         if (problem == "mlr_random forest") {
           nfeats = sum(z$mlr.task$task.desc$n.feat)
           if (task %in% c(3, 219, 15)) nfeats = 0.8*nfeats
-          lrn = setHyperPars(lrn, mtry = max(min(hpars[["mtry"]], nfeats), 1))
+          lrn = setHyperPars(lrn, mtry = max(min(round(hpars[["mtry"]]), nfeats), 1))
         }
         if (problem == "mlr_knn") {
 		      hpars[["M"]] = min(64, hpars[["M"]])
