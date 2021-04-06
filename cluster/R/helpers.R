@@ -161,7 +161,6 @@ get_task_ids = function(problem) {
 # @example
 # run_algo("mlr_svm", 3, "make_tuple(1,1)")
 run_algo = function(problem, task, str, ..., parallel = 10L) {
-
    if (set_parallel_by_task(parallel, task) && problem != "mlr_xgboost") {
 		  parallelMap::parallelStartMulticore(parallel, level = "mlr.resample")
     }
@@ -187,7 +186,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         lrn = setHyperPars(lrn, nrounds = 10L)
       }
     }
-
+    browser()
     bmr = try({
         # Some task have gotten different ids
         task = fix_task(task)
@@ -198,7 +197,7 @@ run_algo = function(problem, task, str, ..., parallel = 10L) {
         z = convertOMLTaskToMlr(omltsk, measures = mmce)
         if (problem == "mlr_rf") {
           nfeats = sum(z$mlr.task$task.desc$n.feat)
-          if (task %in% c(3, 219, 15)) nfeats = 0.8*nfeats
+          if (task %in% c(3, 219, 15)) nfeats = round(0.8*nfeats)
           lrn = setHyperPars(lrn, mtry = max(min(round(hpars[["mtry"]]), nfeats), 1))
         }
         if (problem == "mlr_knn") {
